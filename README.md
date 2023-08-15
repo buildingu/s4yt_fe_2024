@@ -1,2 +1,2 @@
-# S4YT_FE_2023
+# s4yt_fe_2023
 frontend React game repository
