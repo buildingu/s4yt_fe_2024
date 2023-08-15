@@ -1,0 +1,112 @@
+.logo {
+	max-width:400px;
+}
+
+.form {
+	position:relative;
+	display:inline-block;
+	width:100%;
+	text-align:left;
+}
+
+.form:before {
+	position:absolute;
+	bottom:0;
+	left:0;
+	width:100px;
+	height:100px;
+	background:url('../../static/coin.png') no-repeat center center/contain;
+	opacity:0.5;
+	content:'';
+}
+
+.form fieldset {
+	position:relative;
+	margin:10px 0;
+	padding:0;
+	width:100%;
+	border:0;
+	outline:none;
+}
+
+.form fieldset label {
+	display:inline-block;
+	margin:0 2% 0 0;
+	width:10%;
+	font-weight:bold;
+	text-transform:uppercase;
+	color:#895734;
+	line-height:34px;
+	float:left;
+}
+
+.form fieldset input, .form fieldset select {
+	display:inline-block;
+	width:33%;
+	padding:0 5px;
+	min-height:34px;
+	line-height:30px;
+	outline:none;
+	float:left;
+}
+
+.form fieldset:last-child {
+	float:right;
+}
+
+.form fieldset button {
+	position:relative;
+	display:inline-block;
+	width:120px;
+	height:120px;
+	background:url('../../static/ok-btn-normal.png') no-repeat center center/contain;
+	border-radius:60px 60px;
+	float:right;
+	cursor:pointer;
+}
+
+.error {
+	border:1px solid #F00;
+}
+
+.form fieldset:last-child:before {
+	position:absolute;
+	bottom:30px;
+	right:-220px;
+	width:200px;
+	height:341px;
+	background:url('../../static/feather.png') no-repeat center center/contain;
+	transform:rotate(10deg);
+	content:'';
+}
+
+.form fieldset button:hover {
+	background:url('../../static/ok-btn-hover.png') no-repeat center center/contain;
+}
+
+.form fieldset button:active {
+	background:url('../../static/ok-btn-press.png') no-repeat center center/contain;
+}
+
+.form fieldset button[disabled] {
+	opacity:0.35;
+}
+
+.form fieldset:nth-child(1) input, .form fieldset:nth-child(2) input {
+	width:88%;
+}
+
+.form fieldset:nth-child(3) label:nth-child(3), .form fieldset:nth-child(5) label:nth-child(3) {
+	width:20%;
+	text-align:right;
+}
+.form fieldset:nth-child(3) span {
+	position:absolute;
+	padding:10px;
+	top:30px;
+	right:0;
+	font-size:12px;
+	color:#FFF;
+	width:33%;
+	background:#F00;
+}
