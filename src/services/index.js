@@ -1,5 +1,4 @@
 import {Store} from '@root/store';
-import Qs from 'qs';
 
 export const Api = {
 	get: async (url,params) => {
@@ -12,6 +11,6 @@ export const Api = {
 		const _url = process.env.REACT_APP_API_BASE_URL + url;
 		const {token} = Store.getState().local;
 
-		return await fetch(_url,{method:'POST',headers:token ? {'Authorization':`Bearer ${token}`} : {},body: JSON.stringify(data)}).then(response => response.json());
+		return await fetch(_url,{method:'POST',headers:token ? {'Authorization':`Bearer ${token}`,'Accept':'application/json','Content-Type':'application/json'} : {'Accept':'application/json','Content-Type':'application/json'},body: JSON.stringify(data)}).then(response => response.json());
 	},
 }

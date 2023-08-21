@@ -11,9 +11,7 @@ const Home:React.FC<Props> = ({ }) => {
 
 	return (
 		<Layout>
-			<Header>
-				<img src="/static/s4yt.png" alt="s4yt" />
-			</Header>
+			<Header />
 			<Content>
 				
 			</Content>

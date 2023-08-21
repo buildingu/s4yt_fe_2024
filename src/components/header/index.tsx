@@ -9,6 +9,7 @@ const Header:React.FC<Props> = ({ children }) => {
 
 	return (
 		<div className={s.container}>
+			{!children && <img src="/assets/s4yt.png" alt="s4yt" className={s.logo} />}
 			{children}
 		</div>
 	)

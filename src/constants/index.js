@@ -1,6 +1,7 @@
 //options
 export const GET_COUNTRIES_SUCCESS = 'options.GET_COUNTRIES_SUCCESS';
 export const GET_GRADES_SUCCESS = 'options.GET_GRADES_SUCCESS';
+export const GET_EDUCATION_SUCCESS = 'options.GET_EDUCATION_SUCCESS';
 
 //notification
 export const SET_NOTIFICATION_DATA = 'notification.SET_NOTIFICATION_DATA';

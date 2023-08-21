@@ -5,21 +5,22 @@ import Header from '@components/header';
 import Content from '@components/content';
 import {registration} from '@actions/user';
 import {getCountries,getRegions,getCities} from '@actions/locations';
-import {getGrades} from '@actions/options';
+import {getGrades,getEducation} from '@actions/options';
 import s from './styles.module.css';
 
 interface RegisterForm {
 	name: string | null,
   	email: string | null,
-  	grade: string | null,
+  	grade_id: string | null,
+  	education_id: string | null,
   	password: string | null,
-  	confirm_password: string | null,
-  	country: string | null,
-  	city: string | null,
-  	region: string | null
+  	password_confirmation: string | null,
+  	country_iso: string | null,
+  	city_id: string | null,
+  	state_iso: string | null
 }
 
-const Register:React.FC<Props> = ({registration,options,getCountries,getRegions,getCities,getGrades} : {registerPost:Function,options:Array<String>,getCountries:Function,getRegions:Function,getCities:Function}) => {
+const Register:React.FC<Props> = ({registration,options,getCountries,getRegions,getCities,getGrades,getEducation} : {registerPost:Function,options:Array<String>,getCountries:Function,getRegions:Function,getCities:Function,getEducation:Function}) => {
 	const [form, setForm] = useState({
 		processing:false,
 		valid:false,
@@ -32,10 +33,12 @@ const Register:React.FC<Props> = ({registration,options,getCountries,getRegions,
 		name:null,
 	  	email:null,
 	  	password:null,
-	  	confirm_password:null,
-	  	country:null,
-	  	city:null,
-	  	region:null,
+	  	password_confirmation:null,
+	  	grade_id:null,
+	  	education_id:null,
+	  	country_iso:null,
+	  	city_id:null,
+	  	state_iso:null,
 	});
 
 	useEffect(() => {
@@ -46,11 +49,15 @@ const Register:React.FC<Props> = ({registration,options,getCountries,getRegions,
 		if(options.grades.length === 0){
 			getGrades();
 		}
-	},[]);
 
+		if(options.education.length === 0){
+			getEducation();
+		}
+	},[]);	
+	
 	useEffect(() => {
-		if(data.country){
-			getRegions(data.country,(data) => {
+		if(data.country_iso){
+			getRegions(data.country_iso,(data) => {
 				setStates(data);
 				setCities([]);
 			});
@@ -58,18 +65,18 @@ const Register:React.FC<Props> = ({registration,options,getCountries,getRegions,
 			setStates([]);
 			setCities([]);
 		}
-	},[data.country]);
+	},[data.country_iso]);
 
 	useEffect(() => {
-		if(data.region){
-			getCities(data.country,data.region,(data) => {
+		if(data.state_iso){
+			getCities(data.country_iso,data.state_iso,(data) => {
 				setCities(data);
 			});
 		}else{
 			setStates([]);
 			setCities([]);
 		}
-	},[data.region]);
+	},[data.state_iso]);
 
 	const submit = (event: FormEvent) => {
 		event.preventDefault();
@@ -81,9 +88,18 @@ const Register:React.FC<Props> = ({registration,options,getCountries,getRegions,
 				valid = false;
 			}
 		})
+		console.log(data);
+		if(valid && data.password === data.password_confirmation){
+			registration(data,(res) => {
+				if(!res.errors){
 
-		if(valid && data.password === data.confirm_password){
-
+				}else{
+					const key = Object.keys(res.errors)[0];
+					
+					alert(res.errors[key]);
+					setForm({...form,processing:false});
+				}
+			});
 		}
 
 		setForm({...form,valid:valid,submitted:true,processing:valid});
@@ -100,9 +116,7 @@ const Register:React.FC<Props> = ({registration,options,getCountries,getRegions,
 
 	return (
 		<Layout>
-			<Header>
-				<img src="/assets/s4yt.png" alt="s4yt" className={s.logo} />
-			</Header>
+			<Header />
 			<Content>
 				<form onSubmit={submit} className={s.form} autoComplete="off" noValidate>
 					<fieldset>
@@ -117,12 +131,21 @@ const Register:React.FC<Props> = ({registration,options,getCountries,getRegions,
 						<label>Pass</label>
 						<input name="password" type="password" className={form.submitted && (!data.password || data.password === '') ? s.error : null} readOnly={form.processing} onKeyUp={updateField} autoComplete="off" />
 						<label>Confirm Pass</label>
-						<input name="confirm_password" type="password" onKeyUp={updateField} className={form.submitted && (!data.confirm_password || data.confirm_password === '') ? s.error : null} onKeyUp={updateField} readOnly={form.processing} autoComplete="off" />
-						{form.submitted && data.confirm_password !== '' && data.password !== '' && data.confirm_password !== data.password && <span>Passwords do not match!</span>}
+						<input name="password_confirmation" type="password" onKeyUp={updateField} className={form.submitted && (!data.password_confirmation || data.password_confirmation === '') ? s.error : null} onKeyUp={updateField} readOnly={form.processing} autoComplete="off" />
+						{form.submitted && data.password_confirmation !== '' && data.password !== '' && data.password_confirmation !== data.password && <span>Passwords do not match!</span>}
+					</fieldset>
+					<fieldset>
+						<label>Education</label>
+						<select name="education_id" onChange={updateField} className={form.submitted && (!data.education_id || data.education_id === '') ? s.error : null} readOnly={form.processing}>
+							<option>- Select -</option>
+							{options.education && options.education.map((education,index) => {
+								return <option key={index} value={education.id}>{education.name}</option>
+							})}
+						</select>
 					</fieldset>
 					<fieldset>
 						<label>Grade</label>
-						<select name="grade" onChange={updateField} className={form.submitted && (!data.grade || data.grade === '') ? s.error : null} readOnly={form.processing}>
+						<select name="grade_id" onChange={updateField} className={form.submitted && (!data.grade_id || data.grade_id === '') ? s.error : null} readOnly={form.processing}>
 							<option>- Select -</option>
 							{options.grades && options.grades.map((grade,index) => {
 								return <option key={index} value={grade.id}>{grade.name}</option>
@@ -131,26 +154,25 @@ const Register:React.FC<Props> = ({registration,options,getCountries,getRegions,
 					</fieldset>
 					<fieldset>
 						<label>Country</label>
-						<select name="country" onChange={updateField} className={form.submitted && (!data.country || data.country === '') ? s.error : null} readOnly={form.processing}>
+						<select name="country_iso" onChange={updateField} className={form.submitted && (!data.country_iso || data.country_iso === '') ? s.error : null} readOnly={form.processing}>
 							<option value="">- Select -</option>
 							{options.countries && options.countries.map((country,index) => {
 								return <option key={index} value={country.iso2}>{country.name}</option>
 							})}
 						</select>
-						{(data.country && data.country !== '') && states.length > 0 && <><label>Region</label>
-						<select name="region" onChange={updateField} className={form.submitted && (!data.region || data.region === '') ? s.error : null} readOnly={form.processing}>
+						{(data.country_iso && data.country_iso !== '') && states.length > 0 && <><label>Region</label>
+						<select name="state_iso" onChange={updateField} className={form.submitted && (!data.state_iso || data.state_iso === '') ? s.error : null} readOnly={form.processing}>
 							<option value="">- Select -</option>
 							{states && states.map((state,index) => {
 								return <option key={index} value={state.iso2}>{state.name}</option>
 							})}</select></>}
 					</fieldset>
-					{data.country && data.region && <fieldset>
+					{data.country_iso && data.state_iso && <fieldset>
 						<label>City</label>
-						{cities.length === 0 && <input name="city" type="text" />}
-						{cities.length > 0 && <select name="city" onChange={updateField} className={form.submitted && (!data.city || data.city === '') ? s.error : null} readOnly={form.processing}>
+						{cities.length > 0 && <select name="city_id" onChange={updateField} className={form.submitted && (!data.city_id || data.city_id === '') ? s.error : null} readOnly={form.processing}>
 							<option value="">- Select -</option>
 							{cities && cities.map((city,index) => {
-								return <option key={index} value={city.name}>{city.name}</option>
+								return <option key={index} value={city.id}>{city.name}</option>
 							})}
 						</select>}
 					</fieldset>}
@@ -170,7 +192,8 @@ const mapDispatchToProps = (dispatch: Function) => ({
 	getCountries: () => dispatch(getCountries()),
 	getGrades: () => dispatch(getGrades()),
 	getRegions: (ciso,callback) => dispatch(getRegions(ciso,callback)),
-	getCities: (ciso,siso,callback) => dispatch(getCities(ciso,siso,callback))
+	getCities: (ciso,siso,callback) => dispatch(getCities(ciso,siso,callback)),
+	getEducation: () => dispatch(getEducation())
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Register);

@@ -7,7 +7,7 @@ interface Props {
 
 }
 
-const Login:React.FC<Props> = () => {
+const PasswordReset:React.FC<Props> = () => {
 
 	return (
 		<Layout>
@@ -19,4 +19,4 @@ const Login:React.FC<Props> = () => {
 	)
 }
 
-export default Login
+export default PasswordReset
