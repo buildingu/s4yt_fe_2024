@@ -13,7 +13,7 @@ const Profile:React.FC<Props> = () => {
 		<Layout>
 			<Header />
 			<Content>
-				
+				<strong>Profile</strong>
 			</Content>
 		</Layout>
 	)

@@ -6,40 +6,23 @@ import Content from '@components/content';
 import {registration} from '@actions/user';
 import {getCountries,getRegions,getCities} from '@actions/locations';
 import {getGrades,getEducation} from '@actions/options';
+import {setNotification} from '@actions/notifications';
 import s from './styles.module.css';
 
-interface RegisterForm {
-	name: string | null,
-  	email: string | null,
-  	grade_id: string | null,
-  	education_id: string | null,
-  	password: string | null,
-  	password_confirmation: string | null,
-  	country_iso: string | null,
-  	city_id: string | null,
-  	state_iso: string | null
+interface Props {
+	registerPost:Function,
+	options:Array<String>,
+	getCountries:Function,
+	getRegions:Function,
+	getCities:Function,
+	getEducation:Function
 }
 
-const Register:React.FC<Props> = ({registration,options,getCountries,getRegions,getCities,getGrades,getEducation} : {registerPost:Function,options:Array<String>,getCountries:Function,getRegions:Function,getCities:Function,getEducation:Function}) => {
-	const [form, setForm] = useState({
-		processing:false,
-		valid:false,
-		submitted:false,
-		error:null,
-	});
+const Register:React.FC<Props> = ({registration,options,getCountries,getRegions,getCities,getGrades,getEducation,setNotification}) => {
+	const [form, setForm] = useState({processing:false,valid:false,submitted:false,error:null});
 	const [states, setStates] = useState([]);
 	const [cities, setCities] = useState([]);
-	const [data, setData] = useState<RegisterForm>({
-		name:null,
-	  	email:null,
-	  	password:null,
-	  	password_confirmation:null,
-	  	grade_id:null,
-	  	education_id:null,
-	  	country_iso:null,
-	  	city_id:null,
-	  	state_iso:null,
-	});
+	const [data, setData] = useState({});
 
 	useEffect(() => {
 		if(options.countries.length === 0){
@@ -81,22 +64,25 @@ const Register:React.FC<Props> = ({registration,options,getCountries,getRegions,
 	const submit = (event: FormEvent) => {
 		event.preventDefault();
 
+		const fields = document.querySelectorAll('#registrationForm input,select');
 		let valid = true;
 
-		Object.entries(data).map((key) => {
-			if((!key[1] || key[1] === '') && valid){
+		for(let x=0;x<fields.length;x++){
+			fields[x].setAttribute('data-valid',fields[x].validity.valid ? 1 : 0);
+
+			if(!fields[x].validity.valid && valid){
 				valid = false;
 			}
-		})
-		console.log(data);
-		if(valid && data.password === data.password_confirmation){
+		}
+
+		if(valid){
 			registration(data,(res) => {
 				if(!res.errors){
-
+					setNotification({display:true,error:false,content:'You have been registered, please check your inbox to verify your email!',timed:false});
 				}else{
 					const key = Object.keys(res.errors)[0];
 					
-					alert(res.errors[key]);
+					setNotification({display:true,error:true,content:res.errors[key],timed:true});
 					setForm({...form,processing:false});
 				}
 			});
@@ -107,9 +93,13 @@ const Register:React.FC<Props> = ({registration,options,getCountries,getRegions,
 		return false;
 	}
 	
-	const updateField = (event: FormEvent) => {
-		const node = event.target as HTMLTextAreaElement;
-		const key = node.getAttribute('name') as keyof typeof data;
+	const updateField = (event) => {
+		const node = event.target;
+		const key = node.getAttribute('name');
+
+		if(form.submitted){
+			node.setAttribute('data-valid',node.validity.valid ? 1 : 0);
+		}
 		
 		setData({...data,[key]:node.value});
 	}
@@ -118,66 +108,64 @@ const Register:React.FC<Props> = ({registration,options,getCountries,getRegions,
 		<Layout>
 			<Header />
 			<Content>
-				<form onSubmit={submit} className={s.form} autoComplete="off" noValidate>
+				<form id="registrationForm" onSubmit={submit} className={s.form} autoComplete="off" noValidate>
 					<fieldset>
-						<label>Name</label>
-						<input name="name" type="text" onKeyUp={updateField} className={form.submitted && (!data.name || data.name === '') ? s.error : null} readOnly={form.processing} autoComplete="off" />
+						<label htmlFor="name">Name</label>
+						<input id="name" name="name" type="text" onKeyUp={updateField} readOnly={form.processing} autoComplete="off" required />
 					</fieldset>
 					<fieldset>
-						<label>Email</label>
-						<input name="email" type="email" onKeyUp={updateField} className={form.submitted && (!data.email || data.email === '') ? s.error : null} readOnly={form.processing} autoComplete="off" />
+						<label htmlFor="email">Email</label>
+						<input id="email" name="email" type="email" onKeyUp={updateField} readOnly={form.processing} autoComplete="off" required />
 					</fieldset>
 					<fieldset>
-						<label>Pass</label>
-						<input name="password" type="password" className={form.submitted && (!data.password || data.password === '') ? s.error : null} readOnly={form.processing} onKeyUp={updateField} autoComplete="off" />
-						<label>Confirm Pass</label>
-						<input name="password_confirmation" type="password" onKeyUp={updateField} className={form.submitted && (!data.password_confirmation || data.password_confirmation === '') ? s.error : null} onKeyUp={updateField} readOnly={form.processing} autoComplete="off" />
-						{form.submitted && data.password_confirmation !== '' && data.password !== '' && data.password_confirmation !== data.password && <span>Passwords do not match!</span>}
+						<label htmlFor="password">Pass</label>
+						<input id="password" name="password" type="password" readOnly={form.processing} onKeyUp={updateField} autoComplete="off" minLength="8" maxLength="24" required />
+						<label htmlFor="password_confirmation">Confirm Pass</label>
+						<input id="password_confirmation" name="password_confirmation" type="password" onKeyUp={updateField} onKeyUp={updateField} readOnly={form.processing} autoComplete="off" required />
 					</fieldset>
 					<fieldset>
-						<label>Education</label>
-						<select name="education_id" onChange={updateField} className={form.submitted && (!data.education_id || data.education_id === '') ? s.error : null} readOnly={form.processing}>
-							<option>- Select -</option>
+						<label htmlFor="education">Education</label>
+						<select id="education" name="education_id" onChange={updateField} disabled={form.processing} required>
+							<option value="">- Select -</option>
 							{options.education && options.education.map((education,index) => {
 								return <option key={index} value={education.id}>{education.name}</option>
 							})}
 						</select>
 					</fieldset>
 					<fieldset>
-						<label>Grade</label>
-						<select name="grade_id" onChange={updateField} className={form.submitted && (!data.grade_id || data.grade_id === '') ? s.error : null} readOnly={form.processing}>
-							<option>- Select -</option>
+						<label htmlFor="grade">Grade</label>
+						<select id="grade" name="grade_id" onChange={updateField} disabled={form.processing} required>
+							<option value="">- Select -</option>
 							{options.grades && options.grades.map((grade,index) => {
 								return <option key={index} value={grade.id}>{grade.name}</option>
 							})}
 						</select>
 					</fieldset>
 					<fieldset>
-						<label>Country</label>
-						<select name="country_iso" onChange={updateField} className={form.submitted && (!data.country_iso || data.country_iso === '') ? s.error : null} readOnly={form.processing}>
+						<label htmlFor="country">Country</label>
+						<select id="country" name="country_iso" onChange={updateField} disabled={form.processing} required>
 							<option value="">- Select -</option>
 							{options.countries && options.countries.map((country,index) => {
 								return <option key={index} value={country.iso2}>{country.name}</option>
 							})}
 						</select>
-						{(data.country_iso && data.country_iso !== '') && states.length > 0 && <><label>Region</label>
-						<select name="state_iso" onChange={updateField} className={form.submitted && (!data.state_iso || data.state_iso === '') ? s.error : null} readOnly={form.processing}>
+						<label htmlFor="region">Region</label>
+						<select id="region" name="state_iso" onChange={updateField} required disabled={!data.country_iso || data.country_iso === '' || states.length === 0 || form.processing}>
 							<option value="">- Select -</option>
 							{states && states.map((state,index) => {
 								return <option key={index} value={state.iso2}>{state.name}</option>
-							})}</select></>}
+							})}</select>
 					</fieldset>
-					{data.country_iso && data.state_iso && <fieldset>
-						<label>City</label>
-						{cities.length > 0 && <select name="city_id" onChange={updateField} className={form.submitted && (!data.city_id || data.city_id === '') ? s.error : null} readOnly={form.processing}>
+					<fieldset>
+						<label htmlFor="city">City</label>
+						<select id="city" name="city_id" onChange={updateField} required disabled={!(data.country_iso && data.state_iso) || form.processing}>
 							<option value="">- Select -</option>
 							{cities && cities.map((city,index) => {
 								return <option key={index} value={city.id}>{city.name}</option>
 							})}
-						</select>}
-					</fieldset>}
+						</select>
+					</fieldset>
 					<fieldset>
-						{form.processing}
 						<button disabled={form.processing}></button>
 					</fieldset>
 				</form>
@@ -186,14 +174,15 @@ const Register:React.FC<Props> = ({registration,options,getCountries,getRegions,
 	)
 }
 
-const mapStateToProps = ({ options }:{ options:Array<String> }) => ({ options });
-const mapDispatchToProps = (dispatch: Function) => ({
-	registration: (data: Array<String>, callback: Function) => dispatch(registration(data,callback)),
+const mapStateToProps = ({ options }) => ({ options });
+const mapDispatchToProps = (dispatch) => ({
+	registration: (data,callback) => dispatch(registration(data,callback)),
 	getCountries: () => dispatch(getCountries()),
 	getGrades: () => dispatch(getGrades()),
 	getRegions: (ciso,callback) => dispatch(getRegions(ciso,callback)),
 	getCities: (ciso,siso,callback) => dispatch(getCities(ciso,siso,callback)),
-	getEducation: () => dispatch(getEducation())
+	getEducation: () => dispatch(getEducation()),
+	setNotification: (data) => dispatch(setNotification(data))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Register);

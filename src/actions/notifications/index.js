@@ -1,6 +1,11 @@
-import {SET_NOTIFICATION_DATA} from '@constants';
+import {SET_NOTIFICATION_DATA,SET_LOCAL_TOKEN_SUCCESS} from '@constants';
+
+export const setToken = (data) => (dispatch,getState) => {
+	dispatch({type:SET_LOCAL_TOKEN_SUCCESS,data:data});
+}
 
 export const setNotification = (data) => (dispatch, getState) => {
 	const {notification} = getState();
-	console.log(notification);
+	
+	dispatch({type:SET_NOTIFICATION_DATA,data:data});
 }

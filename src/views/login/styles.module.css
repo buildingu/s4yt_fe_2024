@@ -2,18 +2,18 @@
 	position:relative;
 	display:inline-block;
 	width:100%;
+	max-width:750px;
 	text-align:left;
 }
 
-.form:before {
+.form + a {
 	position:absolute;
-	bottom:0;
-	left:0;
-	width:100px;
-	height:100px;
-	background:url('../../static/coin.png') no-repeat center center/contain;
-	opacity:0.5;
-	content:'';
+	display:block;
+	bottom:25px;
+	left:-50px;
+	width:200px;
+	height:128px;
+	background:url('../../static/bg-register-btn.png') no-repeat center center/contain;
 }
 
 .form fieldset {
@@ -28,7 +28,7 @@
 .form fieldset label {
 	display:inline-block;
 	margin:0 2% 0 0;
-	width:10%;
+	width:20%;
 	font-weight:bold;
 	text-transform:uppercase;
 	color:#895734;
@@ -38,23 +38,12 @@
 
 .form fieldset input, .form fieldset select {
 	display:inline-block;
-	width:33%;
+	width:78%;
 	padding:0 5px;
 	min-height:34px;
 	line-height:30px;
 	outline:none;
 	float:left;
-}
-
-.form fieldset input[readonly], .form fieldset select[disabled] {
-	color:#000;
-	opacity:0.75;
-	background:#FFF;
-	border:1px solid #ddd;
-}
-
-.form fieldset select[readonly] option {
-	color:#000;
 }
 
 .form fieldset:last-child {
@@ -97,23 +86,4 @@
 
 .form fieldset button[disabled] {
 	opacity:0.35;
-}
-
-.form fieldset:nth-child(1) input, .form fieldset:nth-child(2) input {
-	width:88%;
-}
-
-.form fieldset:nth-child(3) label:nth-child(3), .form fieldset:nth-child(6) label:nth-child(3) {
-	width:20%;
-	text-align:right;
-}
-.form fieldset:nth-child(3) span {
-	position:absolute;
-	padding:10px;
-	top:30px;
-	right:0;
-	font-size:12px;
-	color:#FFF;
-	width:33%;
-	background:#F00;
 }

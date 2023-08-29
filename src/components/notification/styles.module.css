@@ -2,7 +2,28 @@
 	position:fixed;
 	bottom:20px;
 	right:20px;
-	width:200px;
+	width:260px;
 	padding:20px;
-	background:#F00;
+	text-align:left;
+	background:#8fd7a5;
+	animation: fadeInAnimation ease 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.error {
+	color:#FFF;
+	background:#da4338;
+}
+
+
+@keyframes fadeInAnimation {
+    0% {
+    	right:0;
+        opacity: 0;
+    }
+    100% {
+    	right:20px;
+        opacity: 1;
+     }
 }

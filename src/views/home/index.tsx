@@ -13,7 +13,7 @@ const Home:React.FC<Props> = ({ }) => {
 		<Layout>
 			<Header />
 			<Content>
-				
+				<strong>Home</strong>
 			</Content>
 		</Layout>
 	)
