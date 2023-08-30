@@ -5,7 +5,7 @@ export const Api = {
 		const _url = params ? process.env.REACT_APP_API_BASE_URL + url + '?' + new URLSearchParams(params).toString() : process.env.REACT_APP_API_BASE_URL + url;
 		const {token} = Store.getState().local;
 		
-		return token ? await fetch(_url,{method:'GET',headers:token ? {'Authorization':`Bearer ${token}`} : {}}).then(response => response.json()) : await fetch(_url,{method:'GET'}).then(response => response.json());
+		return token ? await fetch(_url,{method:'GET',headers:token ? {'Accept':'application/json','Content-Type':'application/json','Authorization':`Bearer ${token}`} : {'Accept':'application/json','Content-Type':'application/json'}}).then(response => response.json()) : await fetch(_url,{method:'GET',headers:{'Accept':'application/json','Content-Type':'application/json'}}).then(response => response.json());
 	},
 	post: async (url,data) => {
 		const _url = process.env.REACT_APP_API_BASE_URL + url;

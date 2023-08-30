@@ -6,6 +6,12 @@ export const login = (data,callback) => (dispatch, getState) => {
 	});
 }
 
+export const getCurrentUser = (callback) => (dispatch, getState) => {
+	return Api.get('/user/current').then((response) => {
+		callback(response);
+	});
+}
+
 export const resetPassword = (data,callback) => (dispatch, getState) => {
 	return Api.post('/password-reset',data).then((response) => {
 		callback(response);

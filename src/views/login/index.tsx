@@ -38,7 +38,6 @@ const Login:React.FC<Props> = ({login,notification,setNotification,setToken}) =>
 			login(data,(res) => {
 				if(res.success){
 					setToken(res.data.token);
-					navigate('/profile');
 				}else{
 					setNotification({display:true,error:true,content:res.message});
 					setForm({...form,processing:false});
@@ -89,7 +88,6 @@ const Login:React.FC<Props> = ({login,notification,setNotification,setToken}) =>
 		</Layout>
 	)
 }
-
 
 const mapStateToProps = ({ notification }) => ({ notification });
 const mapDispatchToProps = (dispatch) => ({
