@@ -62,6 +62,10 @@ const Login:React.FC<Props> = ({login,notification,setNotification,setToken}) =>
 		setData({...data,[key]:node.value});
 	}
 
+	const redirect = () => {
+		navigate('/password-reset');
+	}
+
 	return (
 		<Layout>
 			<Header />
@@ -76,6 +80,7 @@ const Login:React.FC<Props> = ({login,notification,setNotification,setToken}) =>
 						<input id="password" name="password" type="password" onKeyUp={updateField} readOnly={form.processing} autoComplete="off" required />
 					</fieldset>
 					<fieldset>
+						<a onClick={redirect}>Forgot your password?</a>
 						<button disabled={form.processing}></button>
 					</fieldset>
 				</form>

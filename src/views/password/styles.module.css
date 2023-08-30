@@ -13,6 +13,7 @@
 	left:-50px;
 	width:200px;
 	height:128px;
+	cursor:pointer;
 	background:url('../../static/bg-register-btn.png') no-repeat center center/contain;
 }
 
@@ -36,6 +37,16 @@
 	float:left;
 }
 
+.form fieldset span {
+	margin:4px 0 0 22%;
+	padding:5px;
+	width:78%;
+	font-size:14px;
+	color:#FFF;
+	background:#F00;
+	float:left;
+}
+
 .form fieldset input, .form fieldset select {
 	display:inline-block;
 	width:78%;
@@ -50,11 +61,10 @@
 	float:right;
 }
 
-.form fieldset a {
+.form fieldset p {
 	margin:0 0 0 22%;
+	font-size:14px;
 	color:#895734;
-	text-decoration:underline;
-	cursor:pointer;
 }
 
 .form fieldset button {
