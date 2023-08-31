@@ -1,0 +1,205 @@
+.container {
+  text-align: left;
+}
+
+section {
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  padding-block: 1rem;
+}
+
+section:not(section:first-of-type) {
+  border-top: 1px solid rgb(0, 0, 0, 0.3);
+}
+
+p,
+h2,
+h3,
+h4 {
+  margin: 0;
+}
+
+h2,
+h3,
+h4 {
+  text-transform: uppercase;
+  color: #895734;
+}
+
+.form {
+  position: relative;
+}
+
+.form fieldset {
+  margin: 1rem 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+}
+
+.form fieldset label {
+  margin: 0 1rem 0 0;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #895734;
+}
+
+.form fieldset input,
+.form fieldset select {
+  width: 100%;
+  padding: 0 6px;
+  border: 0;
+  min-height: 34px;
+  border-radius: 6px;
+  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.35);
+  outline: none;
+  background-color: #f5f5f5;
+}
+
+.form fieldset select {
+  margin-right: 1rem;
+  padding: 8px 6px;
+}
+
+.form fieldset input[readonly],
+.form fieldset select[disabled] {
+  color: #000;
+  opacity: 0.75;
+  background: #fff;
+  border: 1px solid #ddd;
+}
+
+.form fieldset select[readonly] option {
+  color: #000;
+}
+
+.form fieldset button {
+  cursor: pointer;
+}
+
+.profileInfo .form fieldset:not(fieldset:last-child) {
+  display: flex;
+  align-items: center;
+}
+
+.profileInfo .form fieldset:nth-of-type(3) {
+  display: flex;
+}
+
+.form fieldset label:not(.profileInfo .form fieldset label) {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.profileInfo .form fieldset button {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  background: url("../../static/ok-btn-normal.png") no-repeat center
+    center/contain;
+  border-radius: 60px 60px;
+  float: right;
+  cursor: pointer;
+}
+
+.profileInfo .form fieldset button:hover {
+  background: url("../../static/ok-btn-hover.png") no-repeat center
+    center/contain;
+}
+
+.profileInfo .form fieldset button:active {
+  background: url("../../static/ok-btn-press.png") no-repeat center
+    center/contain;
+}
+
+.doblonStatus div .coins {
+  display: flex;
+  align-items: center;
+  position: relative;
+  bottom: 6px;
+}
+
+.doblonStatus div .coins img {
+  max-width: 100px;
+}
+
+.doblonStatus div .coins p {
+  line-height: 1.45;
+}
+
+.doblonStatus div .coins p span {
+  opacity: 0.7;
+}
+
+.doblonStatus div .statuses div {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.doblonStatus div .statuses div:first-of-type {
+  margin-top: 2px;
+  border-radius: 6px 6px 0 0;
+}
+
+.doblonStatus div .statuses div:nth-child(2) {
+  top: -1px;
+}
+
+.doblonStatus div .statuses div:nth-child(3) {
+  top: -2px;
+  border-radius: 0 0 6px 6px;
+}
+
+.doblonStatus div .statuses div h4 {
+  font-size: 16px;
+}
+
+.doblonStatus div .statuses div span {
+  font-size: 12px;
+  font-weight: 700;
+  background-color: #242424;
+  color: #f2f2f2;
+  padding: 4px;
+  border-radius: 50%;
+}
+
+.doblonStatus div .statuses div span:not(.statuses div:last-of-type span) {
+  padding: 4px 8px;
+}
+
+.referrals .form button,
+.updatePassword .form button {
+  font-size: 14px;
+  font-weight: 700;
+  background-color: #777;
+  color: #f2f2f2;
+  padding: 10px;
+  border: 0;
+  border-radius: 6px;
+  transition: 0.15s ease-in-out all;
+}
+
+.referrals .form button:hover,
+.updatePassword .form button:hover {
+  opacity: 0.8;
+}
+
+.referrals .form button:active,
+.updatePassword .form button:active {
+  opacity: 1;
+  background-color: #444;
+}
+
+.referrals h3 {
+  opacity: 0.75;
+}
+
+table {
+}
+
+table thead tr th {
+  text-transform: uppercase;
+}
