@@ -24,7 +24,7 @@ const Options = (state = initialState, action) => {
         case GET_EDUCATION_SUCCESS:
             return {...state,education:action.data};
         default:
-    		return {...state};
+    		return state;
   	}
 }
 

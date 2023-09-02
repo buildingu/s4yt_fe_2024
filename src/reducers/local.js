@@ -16,7 +16,7 @@ const Local = (state = initialState, action) => {
         case SET_LOCAL_TOKEN_SUCCESS:
             return {...state,token:action.data};
     	default:
-    		return {...state};
+    		return state;
   	}
 }
 
