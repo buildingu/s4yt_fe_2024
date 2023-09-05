@@ -264,6 +264,9 @@ table tbody tr td span {
     font-size: 0.875rem;
     max-width: 100%;
   }
+  .interactions table tbody tr td {
+    grid-template-columns: 12ch auto;
+  }
   table tbody tr td span {
     display: inline-block;
     font-weight: 600;
