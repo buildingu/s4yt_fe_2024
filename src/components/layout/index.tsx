@@ -4,7 +4,7 @@ import Notification from "@components/notification";
 import s from "./styles.module.css";
 
 interface Props {
-  children?: React.JSX.Element;
+  children?: React.ReactNode;
 }
 
 const Layout: React.FC<Props> = ({ children }) => {

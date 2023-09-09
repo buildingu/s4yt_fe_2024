@@ -2,7 +2,7 @@ import React from "react";
 import s from "./styles.module.css";
 
 interface Props {
-  children?: React.JSX.Element;
+  children?: React.ReactNode;
 }
 
 const Content: React.FC<Props> = ({ children }) => {
