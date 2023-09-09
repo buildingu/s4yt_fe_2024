@@ -2,11 +2,7 @@ import React from "react";
 import { useLocation, Link } from "react-router-dom";
 import s from "./styles.module.css";
 
-interface Props {
-  children?: React.JSX.Element;
-}
-
-const Header: React.FC<Props> = ({ children }) => {
+const Header: React.FC = () => {
   const location = useLocation();
 
   return (
@@ -17,21 +13,16 @@ const Header: React.FC<Props> = ({ children }) => {
           : s.container
       }
     >
-      {!children && (
+      <img src="/assets/s4yt.png" alt="s4yt" className={s.logo} />
+      {location.pathname === "/profile" && (
         <>
-          <img src="/assets/s4yt.png" alt="s4yt" className={s.logo} />
-          {location.pathname === "/profile" && (
-            <>
-              <div>
-                <h1>Profile</h1>
-                <Link to="" />
-                <button />
-              </div>
-            </>
-          )}
+          <div>
+            <h1>Profile</h1>
+            <Link to="" />
+            <button />
+          </div>
         </>
       )}
-      {children}
     </header>
   );
 };
