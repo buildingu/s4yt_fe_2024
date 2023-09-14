@@ -14,12 +14,18 @@ const Layout: React.FC<Props> = ({ children }) => {
     <>
       <div
         className={s.container}
-        {...(location.pathname === "/profile" && {
-          style: {
-            maxWidth: "1150px",
-            padding: "1rem", // I added padding here because why isn't there padding in general anyways?
-          },
-        })}
+        {...(location.pathname === "/"
+          ? {
+              style: {
+                maxWidth: "1030px",
+              },
+            }
+          : location.pathname === "/profile" && {
+              style: {
+                maxWidth: "1150px",
+                padding: "1rem", // I added padding here because why isn't there padding in general anyways?
+              },
+            })}
       >
         {children}
       </div>
