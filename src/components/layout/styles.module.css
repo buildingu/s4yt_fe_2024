@@ -3,3 +3,7 @@
 	max-width:900px;
 	width:100%;
 }
+
+.large {
+	max-width:1200px;
+}

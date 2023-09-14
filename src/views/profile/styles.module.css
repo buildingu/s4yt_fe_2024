@@ -203,3 +203,8 @@ table {
 table thead tr th {
   text-transform: uppercase;
 }
+
+.form fieldset input[data-valid="0"], .form fieldset select[data-valid="0"], .error {
+  border:1px solid #F00;
+}
+

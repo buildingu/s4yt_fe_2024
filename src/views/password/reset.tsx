@@ -66,8 +66,10 @@ const PasswordReset:React.FC<Props> = ({resetPassword,notification,setNotificati
 		setData({...data,[key]:node.value});
 	}
 
-	const redirect = () => {
-		navigate('/login');
+	const redirect = (e) => {
+		e.preventDefault();
+		
+		navigate(e.target.getAttribute('href'));
 	}
 
 	return (
@@ -99,7 +101,7 @@ const PasswordReset:React.FC<Props> = ({resetPassword,notification,setNotificati
 						<button disabled={form.processing}></button>
 					</fieldset>
 				</form>
-				<a onClick={redirect}></a>
+				<a href="/login" onClick={redirect}>Back to <br />Login</a>
 			</Content>
 		</Layout>
 	)

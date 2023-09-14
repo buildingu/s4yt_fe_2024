@@ -4,12 +4,12 @@ import s from './styles.module.css';
 
 interface Props {
 	children?: any
+	large?: Boolean
 }
 
-const Layout:React.FC<Props> = ({ children }) => {
-
+const Layout:React.FC<Props> = ({ children,large }) => {
 	return (<>
-		<div className={s.container}>
+		<div className={large ? s.container + ' ' + s.large : s.container}>
 			{children}
 		</div>
 		<Notification />

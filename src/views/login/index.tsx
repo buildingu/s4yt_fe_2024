@@ -61,8 +61,10 @@ const Login:React.FC<Props> = ({login,notification,setNotification,setToken}) =>
 		setData({...data,[key]:node.value});
 	}
 
-	const redirect = () => {
-		navigate('/password-reset');
+	const redirect = (e) => {
+		e.preventDefault();
+
+		navigate(e.target.getAttribute('href'));
 	}
 
 	return (
@@ -79,11 +81,11 @@ const Login:React.FC<Props> = ({login,notification,setNotification,setToken}) =>
 						<input id="password" name="password" type="password" onKeyUp={updateField} readOnly={form.processing} autoComplete="off" required />
 					</fieldset>
 					<fieldset>
-						<a onClick={redirect}>Forgot your password?</a>
+						<a href="/password-reset" onClick={redirect}>Forgot your password?</a>
 						<button disabled={form.processing}></button>
 					</fieldset>
 				</form>
-				<a href=""></a>
+				<a href="/register" onClick={redirect}>Don't have an account?<br />Register now!</a>
 			</Content>
 		</Layout>
 	)
