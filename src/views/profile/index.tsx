@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import Layout from "@components/layout";
 import Header from "@components/header";
-import Content from "@components/content";
+// import Content from "@components/content";
 
-import { getCurrentUser, registration } from "@actions/user";
+import { getCurrentUser } from "@actions/user";
 
 import s from "./styles.module.css";
-import coins from "@static/coins.png";
+import coins from "@static/coins_variant1.png";
 
 interface Props {
   getCurrentUser: Function;
