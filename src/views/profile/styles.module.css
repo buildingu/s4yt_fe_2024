@@ -236,7 +236,6 @@ table tbody tr td {
   border-top: 1px solid rgba(0, 0, 0, 0.15);
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   white-space: nowrap;
-  /* word-wrap: break-word; */
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -263,6 +262,8 @@ table tbody tr td span {
     grid-template-columns: 8ch auto;
     font-size: 0.875rem;
     max-width: 100%;
+    white-space: normal;
+    word-wrap: break-word;
   }
   .interactions table tbody tr td {
     grid-template-columns: 12ch auto;
