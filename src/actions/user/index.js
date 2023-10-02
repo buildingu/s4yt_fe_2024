@@ -12,14 +12,26 @@ export const getCurrentUser = (callback) => (dispatch, getState) => {
 	});
 }
 
+export const getReferrals = (callback) => (dispatch, getState) => {
+	return Api.get('/referral').then((response) => {
+		callback(response);
+	});
+}
+
+export const createReferral = (data,callback) => (dispatch, getState) => {
+	return Api.post('/referral',data).then((response) => {
+		callback(response);
+	});
+}
+
 export const resetPassword = (data,callback) => (dispatch, getState) => {
 	return Api.post('/password-reset',data).then((response) => {
 		callback(response);
 	});
 }
 
-export const registration = (data,callback) => (dispatch, getState) => {
-	return Api.post('/register',data).then((response) => {
+export const userProfile = (data,callback) => (dispatch, getState) => {
+	return Api.post(data.id ? '/user/'+data.id : '/user',data).then((response) => {
 		callback(response);
 	});
 }

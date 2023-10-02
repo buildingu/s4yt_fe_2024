@@ -19,7 +19,7 @@ const Options = (state = initialState, action) => {
         case SET_NOTIFICATION_DATA:
             return {...state,display:action.data.display,error:action.data.error,content:action.data.content,timed:action.data.timed};
     	default:
-    		return {...state};
+    		return state;
   	}
 }
 

@@ -273,3 +273,8 @@ table tbody tr td span {
     font-weight: 600;
   }
 }
+
+.form fieldset input[data-valid="0"], .form fieldset select[data-valid="0"], .error {
+  border:1px solid #F00;
+}
+

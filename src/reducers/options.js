@@ -1,7 +1,8 @@
 import {
     GET_COUNTRIES_SUCCESS,
     GET_GRADES_SUCCESS,
-    GET_EDUCATION_SUCCESS
+    GET_EDUCATION_SUCCESS,
+    GET_COIN_TYPES_SUCCESS
 } from '@constants';
 
 /*
@@ -12,7 +13,8 @@ import {
 const initialState = {
     countries:[],
     grades:[],
-    education:[]
+    education:[],
+    cointypes:[]
 }
 
 const Options = (state = initialState, action) => {
@@ -23,8 +25,10 @@ const Options = (state = initialState, action) => {
             return {...state,grades:action.data};
         case GET_EDUCATION_SUCCESS:
             return {...state,education:action.data};
+        case GET_COIN_TYPES_SUCCESS:
+            return {...state,cointypes:action.data};
         default:
-    		return {...state};
+    		return state;
   	}
 }
 
