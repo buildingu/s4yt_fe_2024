@@ -1,9 +1,30 @@
 .container {
-	margin:0 auto;
-	max-width:900px;
-	width:100%;
+  margin: 0 auto;
+  max-width: 900px;
+  width: 100%;
 }
 
 .large {
-	max-width:1200px;
+  max-width: 1200px;
+}
+
+.coins1,
+.coins2,
+.coins3 {
+  position: absolute;
+}
+.coins1 {
+  max-width: 250px;
+  top: 465px;
+  right: 200px;
+}
+.coins2 {
+  max-width: 230px;
+  top: 465px;
+  left: 170px;
+}
+.coins3 {
+  max-width: 230px;
+  top: 415px;
+  right: 200px;
 }
