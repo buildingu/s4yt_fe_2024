@@ -1,20 +1,22 @@
 html {
-	background: url('static/bg.jpg') no-repeat center center fixed; 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
+  background: url("static/bg.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  --pColor: #895734;
 }
 
 body {
-	margin:0;
-	padding:0;
-	font-family:Arial, Helvetica, sans-serif;
-	text-align:center;
-	overflow-x:hidden;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  overflow-x: hidden;
 }
 
 body * {
-	-webkit-box-sizing: border-box;
-    box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
