@@ -1,10 +1,11 @@
-p,
-h4 {
+/* FIXME: How? */
+.notViewed p,
+.viewed p .viewed h4 {
   text-transform: uppercase;
   color: #895734;
 }
 
-.coins {
+/* .coins {
   position: absolute;
 }
 .coins.notViewed {
@@ -16,17 +17,17 @@ h4 {
   max-width: 230px;
   top: 465px;
   left: 170px;
-}
+} */
 
-div.notViewed,
-div.viewed {
+.notViewed,
+.viewed {
   text-align: left;
 }
-div.notViewed {
+.notViewed {
   padding: 1.5rem 2rem 120px 2rem;
 }
 
-div.notViewed ul li::marker {
+.notViewed ul li::marker {
   content: "X";
   font-size: 36px;
   font-weight: 900;
@@ -34,19 +35,19 @@ div.notViewed ul li::marker {
   margin-right: 0.5rem;
 }
 
-div.notViewed ul li {
+.notViewed ul li {
   padding-left: 0.5rem;
 }
-div.notViewed ul li:first-of-type {
+.notViewed ul li:first-of-type {
   margin-bottom: 7.5rem;
 }
 
-div.notViewed ul li p {
+.notViewed ul li p {
   font-size: 32px;
   font-weight: 700;
 }
 
-div.notViewed button {
+.notViewed button {
   position: relative;
   width: 120px;
   height: 120px;
@@ -57,15 +58,15 @@ div.notViewed button {
   float: right;
   cursor: pointer;
 }
-div.notViewed button:hover {
+.notViewed button:hover {
   background: url("../../static/ok-btn-hover.png") no-repeat center
     center/contain;
 }
-div.notViewed button:active {
+.notViewed button:active {
   background: url("../../static/ok-btn-press.png") no-repeat center
     center/contain;
 }
-div.notViewed button:before {
+.notViewed button:before {
   content: "";
   position: absolute;
   bottom: 60px;
@@ -76,7 +77,7 @@ div.notViewed button:before {
   transform: rotate(260deg) scaleY(-1);
 }
 
-div.viewed {
+.viewed {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -89,7 +90,7 @@ div.viewed {
   }
 }
 
-.viewedBottom {
+/* .viewedBottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -141,12 +142,12 @@ div.viewed {
     center/contain;
 }
 .viewedBottom div .questions:hover {
-  /* background: url("../../static/btn_question_hover.png") no-repeat center
-    center/contain; */
+   background: url("../../static/btn_question_hover.png") no-repeat center
+    center/contain; 
 }
 .viewedBottom div .questions:active {
-  /* background: url("../../static/btn_question_pressed.png") no-repeat center
-    center/contain; */
+   background: url("../../static/btn_question_pressed.png") no-repeat center
+    center/contain;
 }
 
 .viewedBottom div .checkout {
@@ -171,4 +172,4 @@ div.viewed {
 .viewedBottom .timer span {
   font-size: 42px;
   margin-inline: 0.5rem;
-}
+} */

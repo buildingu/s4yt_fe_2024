@@ -8,7 +8,6 @@ import Password from "@components/forms/password";
 import { getCurrentUser } from "@actions/user";
 import { getCountries, getRegions, getCities } from "@actions/locations";
 import { getGrades, getEducation } from "@actions/options";
-import coins from "@static/coins.png";
 import Referrals from "./referrals";
 import Coins from "./coins";
 import Instagram from "./instagram";
