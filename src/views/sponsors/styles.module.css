@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1.5rem 2rem;
+  gap: 1.8rem 3rem;
   margin: 1rem 9rem 1rem 9rem;
   z-index: 1;
 }
@@ -30,6 +30,17 @@
   align-items: center;
   justify-content: space-between;
   margin-left: 7rem;
+}
+
+@media screen and (max-width: 850px) {
+  .options {
+    margin-left: 5rem;
+  }
+}
+@media screen and (max-width: 802px) {
+  .options {
+    margin-left: 2rem;
+  }
 }
 
 .options .backBtn,
@@ -65,6 +76,16 @@
     center/contain;
 }
 
+@media screen and (max-width: 670px) {
+  .options {
+    margin-left: 0;
+  }
+  .options .backBtn,
+  .options .moreBtn {
+    transform: scale(0.8);
+  }
+}
+
 .more .quiz button {
   position: relative;
   width: 110px;
@@ -83,5 +104,53 @@
 
 .more .quiz button:active {
   background: url("../../static/ok-btn-press.png") no-repeat center
+    center/contain;
+}
+
+.congrats {
+  display: grid;
+  place-items: center;
+  padding: 2rem 2rem 3rem 2rem;
+}
+
+.congrats h2 {
+  margin-bottom: 3.5rem;
+}
+
+.congrats div {
+  position: relative;
+}
+.congrats div::before {
+  content: attr(data-score);
+  font-size: 54px;
+  font-weight: 900;
+  color: #895734;
+  position: absolute;
+  left: -2.5rem;
+  top: -1.5rem;
+  transform: scaleY(2);
+  display: inline-block;
+}
+
+.congrats div p {
+  max-width: 420px;
+  line-height: 1;
+  margin-bottom: 3rem;
+}
+
+.congrats h2,
+.congrats div p {
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #895734;
+}
+
+.congrats a {
+  display: block;
+  width: 100%;
+  max-width: 371px;
+  height: 237px;
+  background: url("../../static/btn-takemebackraffle.png") no-repeat center
     center/contain;
 }

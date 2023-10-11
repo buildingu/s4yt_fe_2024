@@ -1,18 +1,15 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { connect } from "react-redux";
 import s from "./styles.module.css";
 
 interface Props {
-  clicked: {
-    more: boolean;
-    quizDone: boolean;
-  };
   setClicked: React.Dispatch<
     React.SetStateAction<{
       more: boolean;
       quizDone: boolean;
     }>
   >;
+  scoreRef: React.MutableRefObject<string>;
 }
 
 const questions = [
@@ -46,9 +43,8 @@ const questions = [
   },
 ];
 
-const More: React.FC<Props> = ({ clicked, setClicked }) => {
-  const formRef = useRef<HTMLFormElement>(null),
-    [score, setScore] = useState(0);
+const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,10 +52,11 @@ const More: React.FC<Props> = ({ clicked, setClicked }) => {
       error = false;
     const form = formRef.current;
 
+    // prettier-ignore
     if (form) {
       for (let i = 0; i < questions.length; i++) {
-        const selectedTrue = form.elements[`true${i}`] as HTMLInputElement,
-          selectedFalse = form.elements[`false${i}`] as HTMLInputElement;
+        const selectedTrue = form.elements[`true${i}` as any] as HTMLInputElement,
+          selectedFalse = form.elements[`false${i}` as any] as HTMLInputElement;
 
         if (!selectedTrue.checked && !selectedFalse.checked) {
           error = true;
@@ -74,9 +71,21 @@ const More: React.FC<Props> = ({ clicked, setClicked }) => {
       }
     }
 
-    setScore(finalScore);
-    console.log("score", score);
-    !error && setClicked({ ...clicked, quizDone: true });
+    scoreRef.current = finalScore.toString();
+    !error && setClicked({ more: false, quizDone: true });
+  };
+
+  const onRadioChange = (e: React.ChangeEvent<HTMLInputElement>, i: number) => {
+    if (e.target.checked) {
+      const isTrueRatio = e.target.name.startsWith("true");
+
+      const otherRadioName: any = isTrueRatio ? `false${i}` : `true${i}`,
+        otherInput = formRef.current?.elements[
+          otherRadioName
+        ] as HTMLInputElement;
+
+      if (otherInput && otherInput.checked) otherInput.checked = false;
+    }
   };
 
   return (
@@ -88,13 +97,27 @@ const More: React.FC<Props> = ({ clicked, setClicked }) => {
       <p aria-label="True">T</p> <p aria-label="False">F</p>
       <form className={s.quiz} ref={formRef} onSubmit={(e) => handleSubmit(e)}>
         <ol className={s.viewed}>
-          {questions.map((question, i) => (
-            <li key={i}>
-              <input type="radio" name={`true${i}`} className="true" />
-              <input type="radio" name={`false${i}`} className="false" />
-              <p>{question.txt}</p>
-            </li>
-          ))}
+          {questions.map((question, i) => {
+            const index = i;
+
+            return (
+              <li key={i}>
+                <input
+                  type="radio"
+                  name={`true${i}`}
+                  className="true"
+                  onChange={(e) => onRadioChange(e, index)}
+                />
+                <input
+                  type="radio"
+                  name={`false${i}`}
+                  className="false"
+                  onChange={(e) => onRadioChange(e, index)}
+                />
+                <p>{question.txt}</p>
+              </li>
+            );
+          })}
         </ol>
         <button type="submit" />
       </form>
