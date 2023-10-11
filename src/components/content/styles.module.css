@@ -1,5 +1,11 @@
 .container {
-	position:relative;
-	padding:30px;
-	background:rgba(255, 226, 176, 0.5);
+  position: relative;
+  padding: 30px;
+  background: rgba(255, 226, 176, 0.5);
+}
+
+@media screen and (max-width: 560px) {
+  .container {
+    padding: 16px;
+  }
 }
