@@ -3,7 +3,8 @@ import Home from "@views/home";
 import Login from "@views/login";
 import Register from "@views/register";
 import Profile from "@views/profile";
-import Sponsors from "@root/views/sponsors";
+import Raffle from "@views/raffle";
+import Sponsors from "@views/sponsors";
 import PasswordReset from "@views/password/reset";
 
 export default [
@@ -26,6 +27,10 @@ export default [
   {
     path: "/profile",
     element: <Gate view={<Profile />} restricted={1} />,
+  },
+  {
+    path: "/raffle",
+    element: <Gate view={<Raffle />} restricted={1} />,
   },
   {
     path: "/sponsors",

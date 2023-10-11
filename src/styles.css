@@ -20,3 +20,15 @@ body * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+
+/* Use for clickable elements that doesn't have hover and active states. */
+.fade {
+  position: relative;
+}
+.fade:hover,
+.fade:active {
+  opacity: 0.65;
+}
+.fade.move:active {
+  top: 3px;
+}
