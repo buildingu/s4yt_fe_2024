@@ -2,9 +2,8 @@ import { useNavigate } from "react-router-dom";
 import s from "./styles.module.css";
 import coins1 from "@static/coins_variant1.png";
 
-interface Props {}
-
-const Status: React.FC<Props> = ({}) => {
+// @jmartinez070484 Not sure about the name for this file.
+const Status: React.FC = () => {
   const navigate = useNavigate();
 
   return (
