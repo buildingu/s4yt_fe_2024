@@ -1,10 +1,75 @@
 .container {
-	display:inline-block;
-	margin:0 auto;
-	max-width:900px;
-	width:100%;
+  display: inline-block;
+  margin: 0 auto;
+  max-width: 900px;
+  width: 100%;
+}
+.container.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
-.logo {
-	max-width:400px;
+.container .logo {
+  max-width: 400px;
+}
+.container.profile .logo {
+  max-width: 235px;
+  border-right: 2px solid #895734;
+  padding-right: 1rem;
+}
+
+.container.profile div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.container.profile div h1 {
+  font-size: 64px;
+  font-weight: 700;
+  color: #895734;
+  margin: 0 0.5rem 0 1rem;
+}
+
+.container.profile div a {
+  position: relative;
+  text-decoration: none;
+  width: fit-content;
+  height: 64px;
+  background: url("../../static/btn_mainmap_normal.png") no-repeat center
+    center/contain;
+}
+
+.container.profile div a::after {
+  content: "MAIN MAP";
+  position: relative;
+  top: 64px;
+  font-weight: 700;
+  color: #895734;
+}
+.container.profile div a:hover {
+  background: url("../../static/btn_mainmap_hover.png") no-repeat center
+    center/contain;
+}
+.container.profile div a:active {
+  background: url("../../static/btn_mainmap_pressed.png") no-repeat center
+    center/contain;
+}
+
+.container.profile div button {
+  width: 64px;
+  height: 64px;
+  border: 0;
+  background: url("../../static/btn_logout_normal.png") no-repeat center
+    center/contain;
+}
+.container.profile div button:hover {
+  background: url("../../static/btn_logout_hover.png") no-repeat center
+    center/contain;
+}
+.container.profile div button:active {
+  background: url("../../static/btn_logout_pressed.png") no-repeat center
+    center/contain;
 }

@@ -1,0 +1,96 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+@media screen and (max-width: 776px) {
+  .wrapper {
+    justify-content: center;
+  }
+}
+
+.wrapper div {
+  display: flex;
+}
+
+.wrapper div img {
+  max-width: 82px;
+}
+
+.wrapper div p {
+  text-transform: uppercase;
+  color: #895734;
+  font-size: 14px;
+  font-weight: 700;
+  margin-right: 2.5rem;
+}
+
+.wrapper div p span {
+  font-size: 32px;
+}
+
+.wrapper div button {
+  width: 58px;
+  height: 58px;
+  border: 0;
+}
+.wrapper div button:not(button:last-of-type) {
+  margin-right: 1rem;
+}
+
+.wrapper div .chat {
+  background: url("../../static/btn_chat_normal.png") no-repeat center
+    center/contain;
+}
+.wrapper div .chat:hover {
+  background: url("../../static/btn_chat_hover.png") no-repeat center
+    center/contain;
+}
+.wrapper div .chat:active {
+  background: url("../../static/btn_chat_pressed.png") no-repeat center
+    center/contain;
+}
+
+/* TODO: Need images. */
+.wrapper div .questions {
+  background: url("../../static/btn_question_normal.png") no-repeat center
+    center/contain;
+}
+.wrapper div .questions:hover {
+  /* background: url("../../static/btn_question_hover.png") no-repeat center
+      center/contain; */
+}
+.wrapper div .questions:active {
+  /* background: url("../../static/btn_question_pressed.png") no-repeat center
+      center/contain; */
+}
+
+.wrapper div .checkout {
+  background: url("../../static/btn_checkout_normal.png") no-repeat center
+    center/contain;
+}
+.wrapper div .checkout:hover {
+  background: url("../../static/btn_checkout_hover.png") no-repeat center
+    center/contain;
+}
+.wrapper div .checkout:active {
+  background: url("../../static/btn_checkout_pressed.png") no-repeat center
+    center/contain;
+}
+
+.wrapper .timer {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #895734;
+}
+
+.wrapper .timer span {
+  font-size: 42px;
+  margin-inline: 0.5rem;
+}

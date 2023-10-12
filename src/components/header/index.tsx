@@ -1,18 +1,30 @@
-import React from 'react';
-import s from './styles.module.css';
+import React from "react";
+import { useLocation, Link } from "react-router-dom";
+import s from "./styles.module.css";
 
-interface Props {
-	children?: any
-}
+const Header: React.FC = () => {
+  const location = useLocation();
 
-const Header:React.FC<Props> = ({ children }) => {
+  return (
+    <header
+      className={
+        location.pathname === "/profile"
+          ? `${s.container} ${s.profile}`
+          : s.container
+      }
+    >
+      <img src="/assets/s4yt.png" alt="s4yt" className={s.logo} />
+      {location.pathname === "/profile" && (
+        <>
+          <div>
+            <h1>Profile</h1>
+            <Link to="" />
+            <button />
+          </div>
+        </>
+      )}
+    </header>
+  );
+};
 
-	return (
-		<div className={s.container}>
-			{!children && <img src="/assets/s4yt.png" alt="s4yt" className={s.logo} />}
-			{children}
-		</div>
-	)
-}
-
-export default Header
+export default Header;
