@@ -36,4 +36,12 @@ export default [
     path: "/sponsors",
     element: <Gate view={<Sponsors />} restricted={1} />,
   },
+  // {
+  //   path: "/businesses",
+  //   element: <Gate view={<Sponsors />} restricted={1} />,
+  // },
+  {
+    path: "/results",
+    element: <Gate view={<Sponsors />} restricted={1} />,
+  },
 ];

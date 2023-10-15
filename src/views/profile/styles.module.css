@@ -12,6 +12,7 @@ section:not(section:first-of-type) {
   border-top: 1px solid rgb(0, 0, 0, 0.3);
 }
 
+/* FIXME: Check css. */
 @media screen and (max-width: 800px) {
   section {
     display: flex;
@@ -90,6 +91,7 @@ h4 {
   align-items: center;
 }
 
+/* FIXME: Check css. */
 @media screen and (max-width: 526px) {
   .profileInfo .form fieldset:not(fieldset:last-child) {
     flex-wrap: wrap;
@@ -220,6 +222,7 @@ h4 {
   opacity: 0.75;
 }
 
+/* FIXME: Check css. */
 table {
   border-collapse: collapse;
   margin-bottom: 1rem;
@@ -274,7 +277,8 @@ table tbody tr td span {
   }
 }
 
-.form fieldset input[data-valid="0"], .form fieldset select[data-valid="0"], .error {
-  border:1px solid #F00;
+.form fieldset input[data-valid="0"],
+.form fieldset select[data-valid="0"],
+.error {
+  border: 1px solid #f00;
 }
-

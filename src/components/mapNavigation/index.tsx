@@ -5,16 +5,17 @@ interface Props {
   img: string;
   alt: string;
   txt: string;
+  to: string;
 }
 
-const MapNavigation: React.FC<Props> = ({ img, alt, txt }) => {
+const MapNavigation: React.FC<Props> = ({ img, alt, txt, to }) => {
   const navigate = useNavigate();
 
   return (
-    <div role="link" className={s.card} onClick={() => navigate("/sponsors")}>
+    <a href={to} className={s.card} onClick={() => navigate(to)}>
       <img src={img} alt={alt} />
       <h4>{txt}</h4>
-    </div>
+    </a>
   );
 };
 

@@ -1,101 +1,140 @@
-import React, {useState} from 'react';
-import {connect} from 'react-redux';
-import {useNavigate} from "react-router-dom";
-import Layout from '@components/layout';
-import Header from '@components/header';
-import Content from '@components/content';
-import {login} from '@actions/user';
-import {setNotification,setToken} from '@actions/notifications';
-import s from './styles.module.css';
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Layout from "@components/layout";
+import Header from "@components/header";
+import Content from "@components/content";
+import { login } from "@actions/user";
+import { setNotification, setToken } from "@actions/notifications";
+import s from "./styles.module.css";
 
 interface Props {
-	login: Function,
-	notification:Array<String>,
-	setNotification: Function,
-	setToken: Function
+  login: Function;
+  notification: Array<String>;
+  setNotification: Function;
+  setToken: Function;
 }
 
-const Login:React.FC<Props> = ({login,notification,setNotification,setToken}) => {
-	const [form, setForm] = useState({processing:false,valid:false,submitted:false,error:null});
-	const [data, setData] = useState({});
-	const navigate = useNavigate();
-	
-	const submit = (event) => {
-		event.preventDefault();
+const Login: React.FC<Props> = ({
+  login,
+  notification,
+  setNotification,
+  setToken,
+}) => {
+  const [form, setForm] = useState({
+    processing: false,
+    valid: false,
+    submitted: false,
+    error: null,
+  });
+  const [data, setData] = useState({});
+  const navigate = useNavigate();
 
-		const fields = document.querySelectorAll('#loginForm input,select');
-		let valid = true;
+  // TODO: Check if it redirects to the home page on login.
+  const submit = (event) => {
+    event.preventDefault();
 
-		for(let x=0;x<fields.length;x++){
-			fields[x].setAttribute('data-valid',fields[x].validity.valid ? 1 : 0);
+    const fields = document.querySelectorAll("#loginForm input,select");
+    let valid = true;
 
-			if(!fields[x].validity.valid && valid){
-				valid = false;
-			}
-		}
+    for (let x = 0; x < fields.length; x++) {
+      fields[x].setAttribute("data-valid", fields[x].validity.valid ? 1 : 0);
 
-		if(valid){
-			login(data,(res) => {
-				if(res.success){
-					setToken(res.data.token);
-				}else{
-					setNotification({display:true,error:true,content:res.message});
-					setForm({...form,processing:false});
-				}
-			})
-		}
+      if (!fields[x].validity.valid && valid) {
+        valid = false;
+      }
+    }
 
-		setForm({...form,valid:valid,submitted:true,processing:valid});
-		
-		return false;
-	}
-	
-	const updateField = (event) => {
-		const node = event.target;
-		const key = node.getAttribute('name');
+    if (valid) {
+      login(data, (res) => {
+        if (res.success) {
+          setToken(res.data.token);
+        } else {
+          setNotification({ display: true, error: true, content: res.message });
+          setForm({ ...form, processing: false });
+        }
+      });
+    }
 
-		if(form.submitted){
-			node.setAttribute('data-valid',node.validity.valid ? 1 : 0);
-		}
-		
-		setData({...data,[key]:node.value});
-	}
+    setForm({ ...form, valid: valid, submitted: true, processing: valid });
 
-	const redirect = (e) => {
-		e.preventDefault();
+    return false;
+  };
 
-		navigate(e.target.getAttribute('href'));
-	}
+  const updateField = (event) => {
+    const node = event.target;
+    const key = node.getAttribute("name");
 
-	return (
-		<Layout>
-			<Header />
-			<Content>
-				<form id="loginForm" onSubmit={submit} className={s.form} autoComplete="off" noValidate>
-					<fieldset>
-						<label htmlFor="email">Email</label>
-						<input id="email" name="email" type="email" onKeyUp={updateField} readOnly={form.processing} autoComplete="off" required />
-					</fieldset>
-					<fieldset>
-						<label htmlFor="password">Password</label>
-						<input id="password" name="password" type="password" onKeyUp={updateField} readOnly={form.processing} autoComplete="off" required />
-					</fieldset>
-					<fieldset>
-						<a href="/password-reset" onClick={redirect}>Forgot your password?</a>
-						<button disabled={form.processing}></button>
-					</fieldset>
-				</form>
-				<a href="/register" onClick={redirect}>Don't have an account?<br />Register now!</a>
-			</Content>
-		</Layout>
-	)
-}
+    if (form.submitted) {
+      node.setAttribute("data-valid", node.validity.valid ? 1 : 0);
+    }
+
+    setData({ ...data, [key]: node.value });
+  };
+
+  const redirect = (e) => {
+    e.preventDefault();
+
+    navigate(e.target.getAttribute("href"));
+  };
+
+  return (
+    <Layout>
+      <Header />
+      <Content>
+        <form
+          id="loginForm"
+          onSubmit={submit}
+          className={s.form}
+          autoComplete="off"
+          noValidate
+        >
+          <fieldset>
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              onKeyUp={updateField}
+              readOnly={form.processing}
+              autoComplete="off"
+              required
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              onKeyUp={updateField}
+              readOnly={form.processing}
+              autoComplete="off"
+              required
+            />
+          </fieldset>
+          <fieldset>
+            <a href="/password-reset" onClick={redirect}>
+              Forgot your password?
+            </a>
+            <button disabled={form.processing}></button>
+          </fieldset>
+        </form>
+        <a href="/register" onClick={redirect}>
+          Don't have an account?
+          <br />
+          Register now!
+        </a>
+      </Content>
+    </Layout>
+  );
+};
 
 const mapStateToProps = ({ notification }) => ({ notification });
 const mapDispatchToProps = (dispatch) => ({
-	login: (data,callback) => dispatch(login(data,callback)),
-	setToken: (data,callback) => dispatch(setToken(data)),
-	setNotification: (data) => dispatch(setNotification(data))
+  login: (data, callback) => dispatch(login(data, callback)),
+  setToken: (data, callback) => dispatch(setToken(data)),
+  setNotification: (data) => dispatch(setNotification(data)),
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
