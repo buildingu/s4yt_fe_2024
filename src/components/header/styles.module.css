@@ -1,75 +1,115 @@
 .container {
-  display: inline-block;
-  margin: 0 auto;
-  max-width: 900px;
-  width: 100%;
-}
-.container.profile {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-block: 1.5rem 3rem;
+  max-width: 900px;
+  width: 100%;
 }
 
 .container .logo {
-  max-width: 400px;
+  max-width: 320px;
 }
-.container.profile .logo {
+.container.full .logo {
   max-width: 235px;
-  border-right: 2px solid #895734;
-  padding-right: 1rem;
 }
 
-.container.profile div {
+.container hr {
+  border: 2px solid #895734;
+  height: 152px;
+  margin: 0 1rem 0 1rem;
+}
+.container.full hr {
+  height: 118px;
+}
+
+.container.full div {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
 }
 
-.container.profile div h1 {
+.container h1 {
   font-size: 64px;
-  font-weight: 700;
+  text-align: left;
   color: #895734;
-  margin: 0 0.5rem 0 1rem;
+  margin: 0;
+}
+.container.full div h1 {
+  font-size: 42px;
+  margin: 0 0.5rem 0 0;
 }
 
-.container.profile div a {
+.container.full div .mainMap,
+.container.full div .busMap {
   position: relative;
   text-decoration: none;
+}
+
+.container.full div .mainMap {
   width: fit-content;
-  height: 64px;
+  height: 76px;
   background: url("../../static/btn_mainmap_normal.png") no-repeat center
     center/contain;
 }
-
-.container.profile div a::after {
+.container.full div .mainMap::after {
   content: "MAIN MAP";
+  display: inline-block;
   position: relative;
-  top: 64px;
-  font-weight: 700;
+  min-width: max-content;
+  top: 76px;
+  right: 0.5rem;
+  font-size: 24px;
   color: #895734;
 }
-.container.profile div a:hover {
+.container.full div .mainMap:hover {
   background: url("../../static/btn_mainmap_hover.png") no-repeat center
     center/contain;
 }
-.container.profile div a:active {
+.container.full div .mainMap:active {
   background: url("../../static/btn_mainmap_pressed.png") no-repeat center
     center/contain;
 }
 
-.container.profile div button {
+.container.full div .busMap {
+  width: 76px;
+  height: 76px;
+  border: 0;
+  background: url("../../static/btn_busi_normal.png") no-repeat center
+    center/contain;
+}
+.container.full div .busMap::after {
+  content: "BUSINESS MAP";
+  display: inline-block;
+  position: relative;
+  min-width: max-content;
+  top: 76px;
+  right: 0.5rem;
+  font-size: 24px;
+  color: #895734;
+}
+.container.full div .busMap:hover {
+  background: url("../../static/btn_busi_hover.png") no-repeat center
+    center/contain;
+}
+.container.full div .busMap:active {
+  background: url("../../static/btn_busi_pressed.png") no-repeat center
+    center/contain;
+}
+
+.container.full div button {
   width: 64px;
   height: 64px;
   border: 0;
   background: url("../../static/btn_logout_normal.png") no-repeat center
     center/contain;
 }
-.container.profile div button:hover {
+.container.full div button:hover {
   background: url("../../static/btn_logout_hover.png") no-repeat center
     center/contain;
 }
-.container.profile div button:active {
+.container.full div button:active {
   background: url("../../static/btn_logout_pressed.png") no-repeat center
     center/contain;
 }

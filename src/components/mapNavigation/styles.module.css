@@ -5,6 +5,7 @@
   padding: 1rem;
   text-align: center;
   cursor: pointer;
+  text-decoration: none;
   transition: 0.2s ease opacity;
 }
 .card:hover,

@@ -1,7 +1,10 @@
 .container {
+  /* display: grid;
+  grid-template-rows: auto 1fr auto; */
   margin: 0 auto;
   max-width: 900px;
   width: 100%;
+  /* height: 100vh; */
 }
 
 .large {
@@ -11,7 +14,7 @@
 .coins1,
 .coins2,
 .coins3 {
-  position: absolute;
+  position: fixed;
 }
 .coins1 {
   max-width: 250px;
@@ -27,4 +30,5 @@
   max-width: 230px;
   top: 415px;
   right: 200px;
+  /* left: 1457px; */
 }
