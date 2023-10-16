@@ -4,12 +4,21 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 1.5rem;
-  margin-top: 1.5rem;
+  margin-block: 1.5rem;
 }
-
-@media screen and (max-width: 776px) {
+@media screen and (max-width: 914px) {
+  .wrapper {
+    padding-inline: 0.5rem;
+  }
+}
+@media screen and (max-width: 734px) {
   .wrapper {
     justify-content: center;
+  }
+}
+@media screen and (max-width: 344px) {
+  .wrapper {
+    transform: scale(0.9);
   }
 }
 
@@ -24,22 +33,33 @@
 .wrapper div p {
   text-transform: uppercase;
   color: #895734;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 16px;
+  /* font-weight: 700; */
   margin-right: 2.5rem;
+  line-height: 0.7;
 }
 
 .wrapper div p span {
-  font-size: 32px;
+  font-size: 48px;
+  line-height: 0.9;
 }
 
 .wrapper div button {
-  width: 58px;
-  height: 58px;
+  width: 60px;
+  height: 60px;
   border: 0;
 }
 .wrapper div button:not(button:last-of-type) {
   margin-right: 1rem;
+}
+@media screen and (max-width: 390px) {
+  .wrapper div p {
+    margin-right: 1rem;
+  }
+
+  .wrapper div button:not(button:last-of-type) {
+    margin-right: 5px;
+  }
 }
 
 .wrapper div .chat {
@@ -85,12 +105,12 @@
 .wrapper .timer {
   display: flex;
   align-items: center;
-  font-weight: 700;
+  font-size: 22px;
   text-transform: uppercase;
   color: #895734;
 }
 
 .wrapper .timer span {
-  font-size: 42px;
+  font-size: 60px;
   margin-inline: 0.5rem;
 }
