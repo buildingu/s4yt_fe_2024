@@ -11,9 +11,12 @@ const Congrats: React.FC<Props> = ({ finalScore }) => {
     <div className={s.congrats}>
       <h2>Congratulations</h2>
       <div data-score={finalScore}>
-        <p>Doblons have been added to your account</p>
+        <p>
+          Doblons have been added <br />
+          to your account
+        </p>
       </div>
-      <Link to="/raffle" className={`${s.moreBtn} ${"fade"} ${"move"}`} />
+      <Link to="/raffle" className={`${s.moreBtn} fade move`} />
     </div>
   );
 };

@@ -41,6 +41,18 @@ const questions = [
     txt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pulvinar felis sit amet libero pulvinar, id hendrerit quam efficitur.",
     answer: false,
   },
+  {
+    txt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pulvinar felis sit amet libero pulvinar, id hendrerit quam efficitur.",
+    answer: false,
+  },
+  {
+    txt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pulvinar felis sit amet libero pulvinar, id hendrerit quam efficitur.",
+    answer: false,
+  },
+  {
+    txt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pulvinar felis sit amet libero pulvinar, id hendrerit quam efficitur.",
+    answer: false,
+  },
 ];
 
 const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
@@ -63,8 +75,8 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
           alert("Please complete the quiz.");
           break;
         } else if (
-          (questions[i] && selectedTrue.checked) ||
-          (!questions[i] && selectedFalse.checked)
+          (questions[i].answer === true && selectedTrue.checked) ||
+          (questions[i].answer === false && selectedFalse.checked)
         ) {
           finalScore++;
         }
@@ -91,35 +103,41 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
   return (
     <div className={s.more}>
       <div className={s.title}>
-        <h2>Update Profile Info</h2>
+        <h2>The More You Know</h2>
         <p aria-label="Help">Answer all 10 quests for more doblons</p>
       </div>
-      <p aria-label="True">T</p> <p aria-label="False">F</p>
+      <div className={s.trueFalse}>
+        <p aria-label="True">T</p> <p aria-label="False">F</p>
+      </div>
       <form className={s.quiz} ref={formRef} onSubmit={(e) => handleSubmit(e)}>
-        <ol className={s.viewed}>
+        <ol>
           {questions.map((question, i) => {
             const index = i;
 
             return (
               <li key={i}>
-                <input
-                  type="radio"
-                  name={`true${i}`}
-                  className="true"
-                  onChange={(e) => onRadioChange(e, index)}
-                />
-                <input
-                  type="radio"
-                  name={`false${i}`}
-                  className="false"
-                  onChange={(e) => onRadioChange(e, index)}
-                />
+                <div className={s.inputs}>
+                  <input
+                    type="radio"
+                    name={`true${i}`}
+                    className="true"
+                    onChange={(e) => onRadioChange(e, index)}
+                  />
+                  <input
+                    type="radio"
+                    name={`false${i}`}
+                    className="false"
+                    onChange={(e) => onRadioChange(e, index)}
+                  />
+                </div>
                 <p>{question.txt}</p>
               </li>
             );
           })}
         </ol>
-        <button type="submit" />
+        <div>
+          <button type="submit" />
+        </div>
       </form>
     </div>
   );
