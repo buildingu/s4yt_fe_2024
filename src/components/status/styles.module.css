@@ -1,4 +1,4 @@
-.wrapper {
+.container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7,30 +7,30 @@
   margin-block: 1.5rem;
 }
 @media screen and (max-width: 914px) {
-  .wrapper {
+  .container {
     padding-inline: 0.5rem;
   }
 }
 @media screen and (max-width: 734px) {
-  .wrapper {
+  .container {
     justify-content: center;
   }
 }
 @media screen and (max-width: 344px) {
-  .wrapper {
+  .container {
     transform: scale(0.9);
   }
 }
 
-.wrapper div {
+.container div {
   display: flex;
 }
 
-.wrapper div img {
+.container div img {
   max-width: 82px;
 }
 
-.wrapper div p {
+.container div p {
   text-transform: uppercase;
   color: #895734;
   font-size: 16px;
@@ -39,70 +39,71 @@
   line-height: 0.7;
 }
 
-.wrapper div p span {
+.container div p span {
   font-size: 48px;
   line-height: 0.9;
 }
 
-.wrapper div button {
+.container div button {
   width: 60px;
   height: 60px;
   border: 0;
+  cursor: pointer;
 }
-.wrapper div button:not(button:last-of-type) {
+.container div button:not(button:last-of-type) {
   margin-right: 1rem;
 }
 @media screen and (max-width: 390px) {
-  .wrapper div p {
+  .container div p {
     margin-right: 1rem;
   }
 
-  .wrapper div button:not(button:last-of-type) {
+  .container div button:not(button:last-of-type) {
     margin-right: 5px;
   }
 }
 
-.wrapper div .chat {
+.container div .chat {
   background: url("../../static/btn_chat_normal.png") no-repeat center
     center/contain;
 }
-.wrapper div .chat:hover {
+.container div .chat:hover {
   background: url("../../static/btn_chat_hover.png") no-repeat center
     center/contain;
 }
-.wrapper div .chat:active {
+.container div .chat:active {
   background: url("../../static/btn_chat_pressed.png") no-repeat center
     center/contain;
 }
 
 /* TODO: Need images. */
-.wrapper div .questions {
+.container div .questions {
   background: url("../../static/btn_question_normal.png") no-repeat center
     center/contain;
 }
-.wrapper div .questions:hover {
+.container div .questions:hover {
   /* background: url("../../static/btn_question_hover.png") no-repeat center
       center/contain; */
 }
-.wrapper div .questions:active {
+.container div .questions:active {
   /* background: url("../../static/btn_question_pressed.png") no-repeat center
       center/contain; */
 }
 
-.wrapper div .checkout {
+.container div .checkout {
   background: url("../../static/btn_checkout_normal.png") no-repeat center
     center/contain;
 }
-.wrapper div .checkout:hover {
+.container div .checkout:hover {
   background: url("../../static/btn_checkout_hover.png") no-repeat center
     center/contain;
 }
-.wrapper div .checkout:active {
+.container div .checkout:active {
   background: url("../../static/btn_checkout_pressed.png") no-repeat center
     center/contain;
 }
 
-.wrapper .timer {
+.container .timer {
   display: flex;
   align-items: center;
   font-size: 22px;
@@ -110,7 +111,7 @@
   color: #895734;
 }
 
-.wrapper .timer span {
+.container .timer span {
   font-size: 60px;
   margin-inline: 0.5rem;
 }

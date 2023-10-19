@@ -24,7 +24,7 @@
   height: 118px;
 }
 
-.container.full div {
+.container.full nav {
   display: flex;
   align-items: center;
   gap: 2rem;
@@ -36,24 +36,24 @@
   color: #895734;
   margin: 0;
 }
-.container.full div h1 {
+.container.full nav h1 {
   font-size: 42px;
   margin: 0 0.5rem 0 0;
 }
 
-.container.full div .mainMap,
-.container.full div .busMap {
+.container.full nav .mainMap,
+.container.full nav .busMap {
   position: relative;
   text-decoration: none;
 }
 
-.container.full div .mainMap {
+.container.full nav .mainMap {
   width: fit-content;
   height: 76px;
   background: url("../../static/btn_mainmap_normal.png") no-repeat center
     center/contain;
 }
-.container.full div .mainMap::after {
+.container.full nav .mainMap::after {
   content: "MAIN MAP";
   display: inline-block;
   position: relative;
@@ -63,23 +63,23 @@
   font-size: 24px;
   color: #895734;
 }
-.container.full div .mainMap:hover {
+.container.full nav .mainMap:hover {
   background: url("../../static/btn_mainmap_hover.png") no-repeat center
     center/contain;
 }
-.container.full div .mainMap:active {
+.container.full nav .mainMap:active {
   background: url("../../static/btn_mainmap_pressed.png") no-repeat center
     center/contain;
 }
 
-.container.full div .busMap {
+.container.full nav .busMap {
   width: 76px;
   height: 76px;
   border: 0;
   background: url("../../static/btn_busi_normal.png") no-repeat center
     center/contain;
 }
-.container.full div .busMap::after {
+.container.full nav .busMap::after {
   content: "BUSINESS MAP";
   display: inline-block;
   position: relative;
@@ -89,27 +89,28 @@
   font-size: 24px;
   color: #895734;
 }
-.container.full div .busMap:hover {
+.container.full nav .busMap:hover {
   background: url("../../static/btn_busi_hover.png") no-repeat center
     center/contain;
 }
-.container.full div .busMap:active {
+.container.full nav .busMap:active {
   background: url("../../static/btn_busi_pressed.png") no-repeat center
     center/contain;
 }
 
-.container.full div button {
+/* TODO: Need actual image. */
+.container.full nav button {
   width: 64px;
   height: 64px;
   border: 0;
   background: url("../../static/btn_logout_normal.png") no-repeat center
     center/contain;
 }
-.container.full div button:hover {
+.container.full nav button:hover {
   background: url("../../static/btn_logout_hover.png") no-repeat center
     center/contain;
 }
-.container.full div button:active {
+.container.full nav button:active {
   background: url("../../static/btn_logout_pressed.png") no-repeat center
     center/contain;
 }

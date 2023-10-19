@@ -2,12 +2,19 @@ import { useNavigate } from "react-router-dom";
 import s from "./styles.module.css";
 import coins1 from "@static/coins_variant1.png";
 
-// @jmartinez070484 Not sure about the name for this file.
-const Status: React.FC = () => {
+interface Props {
+  style?: React.CSSProperties;
+}
+
+const Status: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
+  style,
+  ...options
+}) => {
   const navigate = useNavigate();
 
+  // TODO: I don't know if this is going to be the actual footer or not, and don't know what to name the file.
   return (
-    <div className={s.wrapper}>
+    <div className={s.container} style={style} {...options}>
       <div>
         <img src={coins1} alt="Doblons" />
         <p>
