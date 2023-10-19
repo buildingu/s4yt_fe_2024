@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import Layout from "@components/layout";
@@ -13,8 +13,11 @@ interface Props {}
 
 const Sponsors: React.FC<Props> = ({}) => {
   const [clicked, setClicked] = useState({ more: false, quizDone: false }),
-    scoreRef = useRef("0"),
-    navigate = useNavigate();
+    scoreRef = useRef("0");
+
+  const [isSmallerThen500, setIsSmallerThen500] = useState(false);
+
+  const navigate = useNavigate();
 
   const sponsors = [];
   for (let i = 0; i < 6; i++) {
@@ -25,12 +28,28 @@ const Sponsors: React.FC<Props> = ({}) => {
     );
   }
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 500) {
+        setIsSmallerThen500(true);
+      } else {
+        setIsSmallerThen500(false);
+      }
+      console.log(isSmallerThen500);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <Layout
     // addCoins={clicked.more || clicked.quizDone ? "coins2" : "coins3"}
     // addFeather={clicked.more || clicked.quizDone ? "right1" : "left"}
     >
-      <Header />
+      <Header title="Sponsors" />
       <Content>
         {clicked.more ? (
           <More setClicked={setClicked} scoreRef={scoreRef} />
@@ -53,7 +72,11 @@ const Sponsors: React.FC<Props> = ({}) => {
           </>
         )}
       </Content>
-      <Status />
+      <Status
+        style={
+          isSmallerThen500 && clicked.quizDone ? { marginTop: "6rem" } : {}
+        }
+      />
     </Layout>
   );
 };
