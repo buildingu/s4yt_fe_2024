@@ -1,12 +1,7 @@
 {
   "compilerOptions": {
-    "allowJs": true,
     "target": "es7",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -21,9 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "typings",
-    "src"
-  ],
+  "include": ["typings", "src"],
   "extends": "./tsconfig.paths.json"
 }
