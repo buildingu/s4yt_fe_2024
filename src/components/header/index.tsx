@@ -1,12 +1,16 @@
-import React from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, NavLink } from "react-router-dom";
 import s from "./styles.module.css";
 
 interface Props {
   title?: string;
+  style?: React.CSSProperties;
 }
 
-const Header: React.FC<Props> = ({ title }) => {
+const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
+  title,
+  style,
+  ...options
+}) => {
   const location = useLocation();
 
   const hasSpace = (title: string) => {
@@ -35,6 +39,8 @@ const Header: React.FC<Props> = ({ title }) => {
           ? `${s.container} ${s.full}`
           : s.container
       }
+      style={style}
+      {...options}
     >
       <img src="/assets/s4yt.png" alt="s4yt" className={s.logo} />
       {/* {location.pathname === "/profile" && (
@@ -49,15 +55,16 @@ const Header: React.FC<Props> = ({ title }) => {
       {title && (
         <>
           <hr />
+          {/* TODO: if doesn't include space? */}
           {title === "Instructions" ? (
             <h1>{title}</h1>
           ) : (
-            <div>
+            <nav>
               <h1>{hasSpace(title)}</h1>
-              <Link to="/" className={s.mainMap} />
-              <Link to="/businesses" className={s.busMap} />
+              <NavLink to="/" className={s.mainMap} />
+              <NavLink to="/businesses" className={s.busMap} />
               <button />
-            </div>
+            </nav>
           )}
         </>
       )}

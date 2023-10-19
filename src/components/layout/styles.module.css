@@ -14,7 +14,7 @@
 .coins1,
 .coins2,
 .coins3 {
-  position: fixed;
+  position: absolute;
 }
 .coins1 {
   max-width: 250px;
