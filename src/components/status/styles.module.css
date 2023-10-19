@@ -1,96 +1,117 @@
-.wrapper {
+.container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 1.5rem;
-  margin-top: 1.5rem;
+  margin-block: 1.5rem;
 }
-
-@media screen and (max-width: 776px) {
-  .wrapper {
+@media screen and (max-width: 914px) {
+  .container {
+    padding-inline: 0.5rem;
+  }
+}
+@media screen and (max-width: 734px) {
+  .container {
     justify-content: center;
   }
 }
+@media screen and (max-width: 344px) {
+  .container {
+    transform: scale(0.9);
+  }
+}
 
-.wrapper div {
+.container div {
   display: flex;
 }
 
-.wrapper div img {
+.container div img {
   max-width: 82px;
 }
 
-.wrapper div p {
+.container div p {
   text-transform: uppercase;
   color: #895734;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 16px;
+  /* font-weight: 700; */
   margin-right: 2.5rem;
+  line-height: 0.7;
 }
 
-.wrapper div p span {
-  font-size: 32px;
+.container div p span {
+  font-size: 48px;
+  line-height: 0.9;
 }
 
-.wrapper div button {
-  width: 58px;
-  height: 58px;
+.container div button {
+  width: 60px;
+  height: 60px;
   border: 0;
+  cursor: pointer;
 }
-.wrapper div button:not(button:last-of-type) {
+.container div button:not(button:last-of-type) {
   margin-right: 1rem;
 }
+@media screen and (max-width: 390px) {
+  .container div p {
+    margin-right: 1rem;
+  }
 
-.wrapper div .chat {
+  .container div button:not(button:last-of-type) {
+    margin-right: 5px;
+  }
+}
+
+.container div .chat {
   background: url("../../static/btn_chat_normal.png") no-repeat center
     center/contain;
 }
-.wrapper div .chat:hover {
+.container div .chat:hover {
   background: url("../../static/btn_chat_hover.png") no-repeat center
     center/contain;
 }
-.wrapper div .chat:active {
+.container div .chat:active {
   background: url("../../static/btn_chat_pressed.png") no-repeat center
     center/contain;
 }
 
 /* TODO: Need images. */
-.wrapper div .questions {
+.container div .questions {
   background: url("../../static/btn_question_normal.png") no-repeat center
     center/contain;
 }
-.wrapper div .questions:hover {
+.container div .questions:hover {
   /* background: url("../../static/btn_question_hover.png") no-repeat center
       center/contain; */
 }
-.wrapper div .questions:active {
+.container div .questions:active {
   /* background: url("../../static/btn_question_pressed.png") no-repeat center
       center/contain; */
 }
 
-.wrapper div .checkout {
+.container div .checkout {
   background: url("../../static/btn_checkout_normal.png") no-repeat center
     center/contain;
 }
-.wrapper div .checkout:hover {
+.container div .checkout:hover {
   background: url("../../static/btn_checkout_hover.png") no-repeat center
     center/contain;
 }
-.wrapper div .checkout:active {
+.container div .checkout:active {
   background: url("../../static/btn_checkout_pressed.png") no-repeat center
     center/contain;
 }
 
-.wrapper .timer {
+.container .timer {
   display: flex;
   align-items: center;
-  font-weight: 700;
+  font-size: 22px;
   text-transform: uppercase;
   color: #895734;
 }
 
-.wrapper .timer span {
-  font-size: 42px;
+.container .timer span {
+  font-size: 60px;
   margin-inline: 0.5rem;
 }

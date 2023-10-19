@@ -5,20 +5,6 @@
   color: #895734;
 }
 
-/* .coins {
-  position: absolute;
-}
-.coins.notViewed {
-  max-width: 250px;
-  top: 465px;
-  right: 200px;
-}
-.coins.viewed {
-  max-width: 230px;
-  top: 465px;
-  left: 170px;
-} */
-
 .notViewed,
 .viewed {
   text-align: left;
@@ -29,22 +15,23 @@
 
 .notViewed ul li::marker {
   content: "X";
-  font-size: 36px;
+  font-family: Arial, sans-serif;
+  font-size: 48px;
   font-weight: 900;
   color: #cba26b;
   margin-right: 0.5rem;
 }
 
 .notViewed ul li {
-  padding-left: 0.5rem;
+  padding-left: 1rem;
 }
 .notViewed ul li:first-of-type {
   margin-bottom: 7.5rem;
 }
 
 .notViewed ul li p {
-  font-size: 32px;
-  font-weight: 700;
+  font-size: 42px;
+  /* font-weight: 700; */
 }
 
 .notViewed button {
@@ -89,87 +76,3 @@
     padding-block: 3rem;
   }
 }
-
-/* .viewedBottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1.5rem;
-}
-
-.viewedBottom div {
-  display: flex;
-}
-
-.viewedBottom div img {
-  max-width: 82px;
-}
-
-.viewedBottom div p {
-  font-size: 14px;
-  font-weight: 700;
-  margin-right: 2.5rem;
-}
-
-.viewedBottom div p span {
-  font-size: 32px;
-}
-
-.viewedBottom div button {
-  width: 58px;
-  height: 58px;
-  border: 0;
-}
-.viewedBottom div button:not(button:last-of-type) {
-  margin-right: 1rem;
-}
-
-.viewedBottom div .chat {
-  background: url("../../static/btn_chat_normal.png") no-repeat center
-    center/contain;
-}
-.viewedBottom div .chat:hover {
-  background: url("../../static/btn_chat_hover.png") no-repeat center
-    center/contain;
-}
-.viewedBottom div .chat:active {
-  background: url("../../static/btn_chat_pressed.png") no-repeat center
-    center/contain;
-}
-
-.viewedBottom div .questions {
-  background: url("../../static/btn_question_normal.png") no-repeat center
-    center/contain;
-}
-.viewedBottom div .questions:hover {
-   background: url("../../static/btn_question_hover.png") no-repeat center
-    center/contain; 
-}
-.viewedBottom div .questions:active {
-   background: url("../../static/btn_question_pressed.png") no-repeat center
-    center/contain;
-}
-
-.viewedBottom div .checkout {
-  background: url("../../static/btn_checkout_normal.png") no-repeat center
-    center/contain;
-}
-.viewedBottom div .checkout:hover {
-  background: url("../../static/btn_checkout_hover.png") no-repeat center
-    center/contain;
-}
-.viewedBottom div .checkout:active {
-  background: url("../../static/btn_checkout_pressed.png") no-repeat center
-    center/contain;
-}
-
-.viewedBottom .timer {
-  display: flex;
-  align-items: center;
-  font-weight: 700;
-}
-
-.viewedBottom .timer span {
-  font-size: 42px;
-  margin-inline: 0.5rem;
-} */

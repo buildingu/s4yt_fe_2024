@@ -15,36 +15,43 @@ const treasureMapNavContent = [
     img: require("@static/welcome.png"),
     alt: "Welcome",
     txt: "Welcome aboard!",
+    to: "",
   },
   {
     img: require("@static/free_dublons.png"),
     alt: "Free Raffle",
     txt: "3 free dubl-u-nes already!",
+    to: "",
   },
   {
     img: require("@static/profile_page.png"),
     alt: "Profile",
     txt: "Profile page",
+    to: "/profile",
   },
   {
     img: require("@static/see_businesses.png"),
     alt: "Businesses",
     txt: "See businesses",
+    to: "/businesses",
   },
   {
     img: require("@static/sponsors.png"),
     alt: "Sponsors",
     txt: "Sponsors",
+    to: "/sponsors",
   },
   {
     img: require("@static/raffle_page.png"),
     alt: "Raffle",
     txt: "Raffle page",
+    to: "/raffle",
   },
   {
     img: require("@static/event_results.png"),
     alt: "Results",
     txt: "Event Results",
+    to: "/results",
   },
 ];
 
@@ -53,7 +60,7 @@ const Home: React.FC = ({}) => {
 
   return (
     <Layout addCoins={!viewed ? "coins1" : "coins2"}>
-      <Header />
+      <Header title={!viewed ? "Instructions" : "Treasure Map"} />
       {/* <img
         src={!viewed ? coins1 : coins2}
         alt="Doblons"
@@ -86,6 +93,7 @@ const Home: React.FC = ({}) => {
                   img={content.img}
                   alt={content.alt}
                   txt={content.txt}
+                  to={content.to}
                 />
               ))}
             </div>
