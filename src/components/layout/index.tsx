@@ -1,4 +1,5 @@
-import React from "react";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Notification from "@components/notification";
 import s from "./styles.module.css";
 import coins1 from "@static/coins_variant1.png";
@@ -14,6 +15,43 @@ interface Props {
 }
 
 const Layout: React.FC<Props> = ({ children, large, addCoins, addFeather }) => {
+  // const [imageSrc, setImageSrc] = useState("");
+
+  const location = useLocation(),
+    titlePrefix = "$4YT @building-u.com";
+
+  useEffect(() => {
+    document.title = `${
+      location.pathname === "/"
+        ? "Treasure Map"
+        : location.pathname.charAt(1).toUpperCase() +
+          location.pathname
+            .slice(2)
+            .replace(/-/g, " ")
+            .replace(/ \w/g, (x) => x.toUpperCase())
+    } | ${titlePrefix}`;
+  }, [location.pathname]);
+
+  // FIXME: wtf.
+  // useEffect(() => {
+  //   if (addCoins) {
+  //     const imageMap = {
+  //       coins1: "../../static/coins_variant1.png",
+  //       coins2: "../../static/coins_variant2.png",
+  //       coins3: "../../static/coins_variant3.png",
+  //     };
+
+  //     import(imageMap[addCoins])
+  //       .then((img) => {
+  //         setImageSrc(img.default);
+  //       })
+  //       .catch((err) => {
+  //         console.error(err);
+  //       });
+  //   }
+  //   console.log("imageSrc", imageSrc);
+  // }, [addCoins]);
+
   return (
     <>
       {addFeather && (
@@ -38,6 +76,7 @@ const Layout: React.FC<Props> = ({ children, large, addCoins, addFeather }) => {
                 : addCoins === "coins2"
                 ? coins2
                 : coins3
+              // imageSrc
             }
             alt="Doblons"
             className={
