@@ -1,0 +1,49 @@
+footer .doblons {
+  display: flex;
+  margin-right: 2.5rem;
+}
+header .doblons {
+  position: relative;
+  bottom: 2px;
+  display: none;
+}
+
+footer .doblons img {
+  position: relative;
+  bottom: 0.5rem;
+  max-width: 50px;
+  margin-right: 4px;
+}
+header .doblons img {
+  width: 64px;
+  margin-right: 4px;
+}
+
+.doblons p {
+  color: #895734;
+  line-height: 0.7;
+}
+footer .doblons p {
+  font-size: 16px;
+}
+
+.doblons p span {
+  line-height: 0.9;
+}
+footer .doblons p span {
+  font-size: 48px;
+}
+
+@media screen and (max-width: 710px) {
+  header .doblons.headerFull {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  header .doblons.headerFull p {
+    font-size: 24px;
+  }
+  header .doblons.headerFull p span {
+    font-size: 56px;
+  }
+}

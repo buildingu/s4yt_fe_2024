@@ -35,7 +35,6 @@ const Sponsors: React.FC<Props> = ({}) => {
       } else {
         setIsSmallerThen500(false);
       }
-      console.log(isSmallerThen500);
     };
 
     window.addEventListener("resize", handleResize);
@@ -46,11 +45,15 @@ const Sponsors: React.FC<Props> = ({}) => {
 
   return (
     <Layout
+    // TODO:
     // addCoins={clicked.more || clicked.quizDone ? "coins2" : "coins3"}
     // addFeather={clicked.more || clicked.quizDone ? "right1" : "left"}
     >
       <Header title="Sponsors" />
-      <Content>
+      <Content
+        {...(!clicked.more &&
+          !clicked.quizDone && { style: { paddingBottom: "4px" } })}
+      >
         {clicked.more ? (
           <More setClicked={setClicked} scoreRef={scoreRef} />
         ) : clicked.quizDone ? (

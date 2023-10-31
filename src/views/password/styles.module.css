@@ -1,111 +1,137 @@
 .form {
-	position:relative;
-	display:inline-block;
-	width:100%;
-	max-width:750px;
-	text-align:left;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 420px;
+
+  text-align: left;
 }
 
 .form + a {
-	position:absolute;
-	display:block;
-	bottom:25px;
-	left:-50px;
-	width:200px;
-	height:128px;
-	padding-top:44px;
-	font-weight:bold;
-	text-transform:uppercase;
-	color:#895734;
-	text-decoration:none;
-	transform:rotate(-10deg);
-	background:url('../../static/bg-register-btn.png') no-repeat center center/contain;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: -3rem;
+  left: -50px;
+  width: 100%;
+  max-width: 231px;
+  height: 145px;
+  font-size: 32px;
+  line-height: 0.9;
+  color: var(--pbrown);
+  text-decoration: none;
+  transform: rotate(-10deg);
+  background: url("../../static/bg-register-btn.png") no-repeat center
+    center/contain;
+}
+@media screen and (max-width: 644px) {
+  .form + a {
+    left: -15px;
+  }
 }
 
-.form fieldset {
-	position:relative;
-	margin:10px 0;
-	padding:0;
-	width:100%;
-	border:0;
-	outline:none;
+.form div {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+.form > div:last-child {
+  justify-content: flex-end;
+}
+.form div .passError {
+  align-items: flex-start;
+  flex-direction: column;
 }
 
-.form fieldset label {
-	display:inline-block;
-	margin:0 2% 0 0;
-	width:20%;
-	font-weight:bold;
-	text-transform:uppercase;
-	color:#895734;
-	line-height:34px;
-	float:left;
+.form div label {
+  margin-right: 0.5rem;
+}
+.form div:nth-of-type(2) label {
+  margin-right: calc(0.5rem + 1.4ch);
 }
 
-.form fieldset span {
-	margin:4px 0 0 22%;
-	padding:5px;
-	width:78%;
-	font-size:14px;
-	color:#FFF;
-	background:#F00;
-	float:left;
+.form div input,
+.form div select {
+  width: 100%;
 }
 
-.form fieldset input, .form fieldset select {
-	display:inline-block;
-	width:78%;
-	padding:0 5px;
-	min-height:34px;
-	line-height:30px;
-	outline:none;
-	float:left;
+.form p {
+  margin: -0.5rem 0 0 56px;
+  font-size: 14px;
+  color: var(--pbrown);
 }
 
-.form fieldset:last-child {
-	float:right;
+.form div input[data-valid="0"],
+.form div select[data-valid="0"],
+.error {
+  border: 1px solid #f00;
 }
 
-.form fieldset p {
-	margin:0 0 0 22%;
-	font-size:14px;
-	color:#895734;
+.form div small {
+  margin: 8px 0 0 3px;
+  padding: 5px;
+
+  font-family: Arial;
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  background: #f00;
 }
 
-.form fieldset button {
-	position:relative;
-	display:inline-block;
-	width:120px;
-	height:120px;
-	background:url('../../static/ok-btn-normal.png') no-repeat center center/contain;
-	border-radius:60px 60px;
-	float:right;
-	cursor:pointer;
+.form div button {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  background: url("../../static/ok-btn-normal.png") no-repeat center
+    center/contain;
+  border-radius: 60px 60px;
+  cursor: pointer;
 }
 
-.form fieldset input[data-valid="0"], .form fieldset select[data-valid="0"], .error {
-	border:1px solid #F00;
+.form button:before {
+  position: absolute;
+  bottom: 30px;
+  right: -220px;
+  width: 200px;
+  height: 341px;
+  background: url("../../static/feather.png") no-repeat center center/contain;
+  transform: rotate(10deg);
+  content: "";
 }
 
-.form fieldset:last-child:before {
-	position:absolute;
-	bottom:30px;
-	right:-220px;
-	width:200px;
-	height:341px;
-	background:url('../../static/feather.png') no-repeat center center/contain;
-	transform:rotate(10deg);
-	content:'';
+.form div button:hover {
+  background: url("../../static/ok-btn-hover.png") no-repeat center
+    center/contain;
 }
 
-.form fieldset button:hover {
-	background:url('../../static/ok-btn-hover.png') no-repeat center center/contain;
+.form div button:active {
+  background: url("../../static/ok-btn-press.png") no-repeat center
+    center/contain;
 }
 
-.form fieldset button:active {
-	background:url('../../static/ok-btn-press.png') no-repeat center center/contain;
+.form div button[disabled] {
+  opacity: 0.35;
 }
 
-.form fieldset button[disabled] {
-	opacity:0.35;
+@media screen and (max-width: 454px) {
+  .form {
+    margin-bottom: 64px;
+  }
+  .form + a {
+    bottom: -10rem;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0);
+  }
+
+  .form div {
+    flex-wrap: wrap;
+  }
+
+  .form p {
+    margin: -0.5rem 0 0 4px;
+  }
 }

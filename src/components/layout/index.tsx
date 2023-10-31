@@ -12,9 +12,17 @@ interface Props {
   large?: Boolean;
   addCoins?: "coins1" | "coins2" | "coins3";
   addFeather?: "left" | "right1" | "right2";
+  style?: React.CSSProperties;
 }
 
-const Layout: React.FC<Props> = ({ children, large, addCoins, addFeather }) => {
+const Layout: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
+  children,
+  large,
+  addCoins,
+  addFeather,
+  style,
+  ...options
+}) => {
   // const [imageSrc, setImageSrc] = useState("");
 
   const location = useLocation(),
@@ -67,7 +75,11 @@ const Layout: React.FC<Props> = ({ children, large, addCoins, addFeather }) => {
           }`}
         />
       )}
-      <div className={large ? s.container + " " + s.large : s.container}>
+      <div
+        className={large ? s.container + " " + s.large : s.container}
+        style={style}
+        {...options}
+      >
         {addCoins && (
           <img
             src={

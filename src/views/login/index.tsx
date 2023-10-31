@@ -1,23 +1,25 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Layout from "@components/layout";
 import Header from "@components/header";
 import Content from "@components/content";
 import { login } from "@actions/user";
 import { setNotification, setToken } from "@actions/notifications";
 import s from "./styles.module.css";
+import coins1 from "@static/coins_variant1.png";
 
+// TODO: Types...
 interface Props {
   login: Function;
-  notification: Array<String>;
+  // notification: Array<String>;
   setNotification: Function;
   setToken: Function;
 }
 
 const Login: React.FC<Props> = ({
   login,
-  notification,
+  // notification,
   setNotification,
   setToken,
 }) => {
@@ -28,10 +30,26 @@ const Login: React.FC<Props> = ({
     error: null,
   });
   const [data, setData] = useState({});
+  const [isSmallerThen464, setIsSmallerThen464] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 464) {
+        setIsSmallerThen464(true);
+      } else {
+        setIsSmallerThen464(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   // TODO: Check if it redirects to the home page on login.
-  const submit = (event) => {
+  const submit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const fields = document.querySelectorAll("#loginForm input,select");
@@ -72,69 +90,68 @@ const Login: React.FC<Props> = ({
     setData({ ...data, [key]: node.value });
   };
 
-  const redirect = (e) => {
-    e.preventDefault();
+  // const redirect = (e) => {
+  //   e.preventDefault();
 
-    navigate(e.target.getAttribute("href"));
-  };
+  //   navigate(e.target.getAttribute("href"));
+  // };
 
   return (
-    <Layout>
-      <Header />
-      <Content>
+    <Layout style={{ maxWidth: "600px" }}>
+      <img src={coins1} alt="Doblons" className={s.coins} />
+      <Header title="Login" />
+      <Content
+        style={{
+          paddingLeft: isSmallerThen464 ? "1rem" : "4rem",
+          paddingTop: "3.5rem",
+        }}
+      >
         <form
           id="loginForm"
-          onSubmit={submit}
+          onSubmit={(e) => submit(e)}
           className={s.form}
           autoComplete="off"
           noValidate
         >
-          <fieldset>
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              onKeyUp={updateField}
-              readOnly={form.processing}
-              autoComplete="off"
-              required
-            />
-          </fieldset>
-          <fieldset>
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              onKeyUp={updateField}
-              readOnly={form.processing}
-              autoComplete="off"
-              required
-            />
-          </fieldset>
-          <fieldset>
-            <a href="/password-reset" onClick={redirect}>
-              Forgot your password?
-            </a>
-            <button disabled={form.processing}></button>
-          </fieldset>
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            onKeyUp={updateField}
+            readOnly={form.processing}
+            autoComplete="off"
+            required
+          />
+
+          <label htmlFor="password">Pass</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            onKeyUp={updateField}
+            readOnly={form.processing}
+            autoComplete="off"
+            required
+          />
+          <Link to="/password-reset" className={s.forgot}>
+            Forgot pass?
+          </Link>
+
+          <button disabled={form.processing}></button>
         </form>
-        <a href="/register" onClick={redirect}>
-          Don't have an account?
-          <br />
-          Register now!
-        </a>
+        <Link to="/register" />
       </Content>
     </Layout>
   );
 };
 
-const mapStateToProps = ({ notification }) => ({ notification });
-const mapDispatchToProps = (dispatch) => ({
-  login: (data, callback) => dispatch(login(data, callback)),
-  setToken: (data, callback) => dispatch(setToken(data)),
-  setNotification: (data) => dispatch(setNotification(data)),
+// const mapStateToProps = ({ notification }: any) => ({ notification });
+const mapStateToProps = ({}) => ({});
+const mapDispatchToProps = (dispatch: Function) => ({
+  login: (data: any, callback: () => void) => dispatch(login(data, callback)),
+  setToken: (data: any, callback: () => void) => dispatch(setToken(data)),
+  setNotification: (data: any) => dispatch(setNotification(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
