@@ -15,6 +15,11 @@
 .card:active {
   top: 2px;
 }
+@media screen and (max-width: 470px) {
+  .card {
+    transform: scale(0.9);
+  }
+}
 
 .card img {
   position: absolute;
@@ -31,7 +36,6 @@
   font-size: 24px;
   line-height: 0.8;
   font-weight: 400;
-  text-transform: uppercase;
 }
 
 .card:nth-child(1) h4,

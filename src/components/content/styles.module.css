@@ -2,6 +2,7 @@
   position: relative;
   padding: 30px;
   background: rgba(255, 226, 176, 0.5);
+  border: 1px solid rgba(213, 213, 213, 0.5);
 }
 
 @media screen and (max-width: 560px) {

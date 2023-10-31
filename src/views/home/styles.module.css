@@ -1,8 +1,6 @@
-/* FIXME: How? */
 .notViewed p,
 .viewed p .viewed h4 {
-  text-transform: uppercase;
-  color: #895734;
+  color: var(--pbrown);
 }
 
 .notViewed,
@@ -11,6 +9,11 @@
 }
 .notViewed {
   padding: 1.5rem 2rem 120px 2rem;
+}
+@media screen and (max-width: 766px) {
+  .notViewed {
+    padding: 3rem 0 120px 0;
+  }
 }
 
 .notViewed ul li::marker {
@@ -31,7 +34,6 @@
 
 .notViewed ul li p {
   font-size: 42px;
-  /* font-weight: 700; */
 }
 
 .notViewed button {
@@ -74,5 +76,11 @@
 @media screen and (max-width: 907px) {
   .viewed {
     padding-block: 3rem;
+  }
+}
+@media screen and (max-width: 470px) {
+  .viewed {
+    gap: 0.5rem 0;
+    padding-block: 2rem;
   }
 }
