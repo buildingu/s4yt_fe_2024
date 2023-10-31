@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { Store, Persistor } from "@root/store";

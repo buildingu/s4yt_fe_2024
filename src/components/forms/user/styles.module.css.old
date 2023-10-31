@@ -1,0 +1,182 @@
+.form {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  text-align: left;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.form + a {
+  position: absolute;
+  display: block;
+  bottom: 25px;
+  left: -50px;
+  width: 200px;
+  height: 128px;
+  background: url("../../../static/bg-register-btn.png") no-repeat center
+    center/contain;
+}
+
+.form fieldset {
+  position: relative;
+  margin: 6px 0;
+  padding: 0;
+  flex: 0 0 100%;
+  border: 0;
+  outline: none;
+}
+
+.form fieldset small {
+  display: none;
+  position: absolute;
+  bottom: -24px;
+  left: 0;
+  padding: 5px;
+  color: #fff;
+  font-family: Arial;
+  font-size: 10px;
+  font-weight: 700;
+  background: #f00;
+}
+
+.form fieldset:nth-child(3),
+.form fieldset:nth-child(4),
+.form fieldset:nth-child(5),
+.form fieldset:nth-child(6),
+.form fieldset:nth-child(7),
+.form fieldset:nth-child(8) {
+  position: relative;
+  margin: 10px 0;
+  padding: 0;
+  flex: 0 0 33.33%;
+  border: 0;
+  outline: none;
+}
+.form fieldset:nth-child(3),
+.form fieldset:nth-child(6) {
+  padding-right: 10px;
+}
+.form fieldset:nth-child(5),
+.form fieldset:nth-child(8) {
+  padding-left: 10px;
+}
+.form fieldset:nth-child(4) {
+  padding: 0 5px;
+}
+
+.form fieldset label {
+  display: inline-block;
+  margin: 0 0 0 0;
+  width: 100%;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #895734;
+  line-height: 34px;
+  float: left;
+}
+
+.form fieldset input,
+.form fieldset select {
+  display: inline-block;
+  width: 100%;
+  padding: 0 5px;
+  min-height: 34px;
+  line-height: 30px;
+  outline: none;
+  float: left;
+}
+
+.form fieldset:last-child {
+  float: right;
+}
+
+.form fieldset a {
+  margin: 0 0 0 22%;
+  color: #895734;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.form fieldset button {
+  position: relative;
+  display: inline-block;
+  width: 120px;
+  height: 120px;
+  background: url("../../../static/ok-btn-normal.png") no-repeat center
+    center/contain;
+  border-radius: 60px 60px;
+  float: right;
+  cursor: pointer;
+}
+
+.form fieldset input[data-valid="0"],
+.form fieldset select[data-valid="0"],
+.error {
+  border: 1px solid #f00;
+}
+
+.form fieldset input[data-valid="0"] + small {
+  display: inline-block;
+}
+
+.form fieldset:last-child:before {
+  position: absolute;
+  bottom: 30px;
+  right: -220px;
+  width: 200px;
+  height: 341px;
+  background: url("../../../static/feather.png") no-repeat center center/contain;
+  transform: rotate(10deg);
+  content: "";
+}
+
+.form fieldset button:hover {
+  background: url("../../../static/ok-btn-hover.png") no-repeat center
+    center/contain;
+}
+
+.form fieldset button:active {
+  background: url("../../../static/ok-btn-press.png") no-repeat center
+    center/contain;
+}
+
+.form fieldset button[disabled] {
+  opacity: 0.35;
+}
+
+.form[id="registrationForm"] fieldset:nth-child(3),
+.form[id="registrationForm"] fieldset:nth-child(4),
+.form[id="registrationForm"] fieldset:nth-child(5),
+.form[id="registrationForm"] fieldset:nth-child(6) {
+  flex: 0 0 50%;
+}
+
+.form[id="registrationForm"] fieldset:nth-child(4) {
+  padding-left: 5px;
+}
+
+.form[id="registrationForm"] fieldset:nth-child(5),
+.form[id="registrationForm"] fieldset:nth-child(8) {
+  padding-right: 10px;
+  padding-left: 0;
+  margin: 6px 0;
+}
+
+.form[id="registrationForm"] fieldset:nth-child(5),
+.form[id="registrationForm"] fieldset:nth-child(6),
+.form[id="registrationForm"] fieldset:nth-child(7),
+.form[id="registrationForm"] fieldset:nth-child(9),
+.form[id="registrationForm"] fieldset:nth-child(10) {
+  flex: 0 0 33.33%;
+  margin: 6px 0;
+}
+
+.form[id="registrationForm"] fieldset:nth-child(9) {
+  padding-right: 10px;
+}
+
+.form[id="registrationForm"] fieldset:nth-child(4) small {
+  left: 5px;
+}

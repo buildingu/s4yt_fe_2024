@@ -35,6 +35,7 @@ h4 {
   color: #895734;
 }
 
+/* FIXME: Check css. */
 .form {
   position: relative;
 }
@@ -49,7 +50,7 @@ h4 {
 .form fieldset label {
   margin: 0 1rem 0 0;
   font-weight: bold;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   color: #895734;
 }
 

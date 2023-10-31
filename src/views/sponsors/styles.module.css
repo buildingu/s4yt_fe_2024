@@ -219,7 +219,7 @@
   content: attr(data-score);
   font-size: 54px;
   font-weight: 700;
-  color: #895734;
+  color: var(--pbrown);
   display: inline-block;
   position: absolute;
   left: -2.8rem;
@@ -235,8 +235,7 @@
 .congrats h2,
 .congrats div p {
   font-size: 38px;
-  text-transform: uppercase;
-  color: #895734;
+  color: var(--pbrown);
 }
 
 .congrats a {
