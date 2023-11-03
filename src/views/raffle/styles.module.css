@@ -1,0 +1,141 @@
+.container {
+  max-width: 625px;
+}
+
+.container h2,
+.container h4 {
+  color: var(--pbrown);
+}
+.container h4 {
+  font-weight: 400;
+}
+
+.container .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+@media screen and (max-width: 414px) {
+  .container .top {
+    justify-content: center;
+  }
+}
+
+.container .top h2 {
+  font-size: 42px;
+  line-height: 1;
+  margin-left: 3.5rem;
+}
+.container .top h4 {
+  font-size: 24px;
+}
+.container .top h4 span {
+  color: #242424;
+}
+
+.container .products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  place-items: center;
+  gap: 1rem 2rem;
+}
+@media screen and (max-width: 650px) {
+  .container .top h2 {
+    margin-left: 0;
+  }
+
+  .container .products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.container .products > div {
+  display: grid;
+  place-items: center;
+}
+@media screen and (max-width: 465px) {
+  .container .top {
+    margin-bottom: 2rem;
+  }
+
+  .container .products {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1rem;
+  }
+  .container .products > div {
+    transform: scale(1.1);
+  }
+}
+@media screen and (max-width: 360px) {
+  .container .products {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 5.5rem 1rem;
+  }
+  .container .products > div {
+    transform: scale(1.3);
+  }
+}
+
+.container .products div .name,
+.container .products div .controls h4,
+.container .products div .controls button {
+  font-size: 24px;
+}
+.container .products div .name {
+  margin-top: 4px;
+}
+
+.container .products div .imgBox {
+  width: 121px;
+  height: 113px;
+  border: 10px solid var(--pbrown-fade);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+.container .products div .imgBox img {
+  object-fit: contain;
+  width: 100%;
+  /* height: 100%; */
+}
+
+.container .products div .controls {
+  display: flex;
+}
+.container .products div .controls h4,
+.container .products div .controls button {
+  border: 1px solid #797979;
+  padding: 0 5px;
+  background-color: #f5f5f5;
+}
+.container .products div .controls h4 {
+  font-family: "Corbel";
+  color: #242424;
+  border-left: 0;
+  border-right: 0;
+  line-height: 0.98;
+}
+.container .products div .controls button {
+  position: relative;
+  font-family: Arial;
+  font-size: 24px;
+  color: #797979;
+  cursor: pointer;
+  transition: 0.2s ease opacity;
+}
+.container .products div .controls button:first-of-type {
+  border-radius: 8px 0 0 8px;
+}
+.container .products div .controls button:last-of-type {
+  border-radius: 0 8px 8px 0;
+}
+.container .products div .controls button:hover,
+.container .products div .controls button:active {
+  opacity: 0.87;
+}
+.container .products div .controls button:active {
+  top: 1.5px;
+}
