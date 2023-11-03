@@ -1,11 +1,17 @@
+import { Navigate } from "react-router-dom";
 import Gate from "@components/gate";
-import Home from "@views/home";
+
 import Login from "@views/login";
 import Register from "@views/register";
+import PasswordReset from "@views/password/reset";
+
+import Home from "@views/home";
 import Profile from "@views/profile";
 import Raffle from "@views/raffle";
 import Sponsors from "@views/sponsors";
-import PasswordReset from "@views/password/reset";
+
+import Error404 from "@views/errors/Error404";
+import Error500 from "@views/errors/Error500";
 
 export default [
   {
@@ -44,4 +50,16 @@ export default [
   //   path: "/results",
   //   element: <Gate view={<Sponsors />} restricted={1} />,
   // },
+  {
+    path: "/error-404",
+    element: <Gate view={<Error404 />} restricted={0} />,
+  },
+  {
+    path: "/error-500",
+    element: <Gate view={<Error500 />} restricted={0} />,
+  },
+  {
+    path: "*",
+    element: <Navigate to="/error-404" />,
+  },
 ];
