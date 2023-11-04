@@ -39,7 +39,11 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
       {...options}
     >
       <div>
-        <img src="/assets/s4yt.png" alt="s4yt" className={s.logo} />
+        <img
+          src="/assets/s4yt.png"
+          alt="s4yt"
+          className={`${s.logo} ${!title ? s.noTitle : ""}`}
+        />
         {title && (
           <>
             <CurrentDoblons type="header" addFullHeader={addFullHeader} />
@@ -70,7 +74,9 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
                   </nav>
                 </>
               ) : (
-                <h1 className={s.mainTitle}>{title}</h1>
+                <h1 className={`${s.mainTitle} ${!title ? s.noTitle : ""}`}>
+                  {title}
+                </h1>
               )}
               <Hamburger />
             </div>

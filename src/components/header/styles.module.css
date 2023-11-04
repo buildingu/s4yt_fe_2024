@@ -39,7 +39,7 @@
     margin: 3rem 0.5rem 3rem 0.5rem;
   }
 
-  .container:not(.container.full) .logo {
+  .container:not(.container.full) .logo:not(.logo.noTitle) {
     display: none;
   }
 
@@ -53,7 +53,7 @@
     margin: 3rem 0.5rem 3rem 0.5rem;
   } */
 
-  .container .logo {
+  .container .logo:not(.logo.noTitle) {
     display: none;
   }
 
@@ -199,14 +199,14 @@
     padding: 0;
     background: url("../../static/btn_logout_normal.png") no-repeat center
       center/contain;
+    cursor: pointer;
   }
   .container.full .right nav button:hover {
     background: url("../../static/btn_logout_hover.png") no-repeat center
       center/contain;
   }
   .container.full .right nav button:active {
-    background: url("../../static/btn_logout_pressed.png") no-repeat center
-      center/contain;
+    opacity: 0.7;
   }
 
   /* From Login and Register Header. */
@@ -411,8 +411,7 @@
       center/contain;
   }
   .container.full nav div .logout:active {
-    background: url("../../static/btn_logout_pressed.png") no-repeat center
-      center/contain;
+    opacity: 0.7;
   }
 
   .container.full nav ul {

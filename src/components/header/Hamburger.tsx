@@ -50,19 +50,29 @@ const Hamburger: React.FC = () => {
               </div>
               <ul aria-label="Links">
                 <li>
-                  <NavLink to="/profile">Profile Page</NavLink>
+                  <NavLink to="/profile" onClick={() => toggleMenu(false)}>
+                    Profile Page
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/sponsors">Sponsors</NavLink>
+                  <NavLink to="/sponsors" onClick={() => toggleMenu(false)}>
+                    Sponsors
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/businesses">See Businesses</NavLink>
+                  <NavLink to="/businesses" onClick={() => toggleMenu(false)}>
+                    See Businesses
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/results">Event Results</NavLink>
+                  <NavLink to="/results" onClick={() => toggleMenu(false)}>
+                    Event Results
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/raffle">Raffle Page</NavLink>
+                  <NavLink to="/raffle" onClick={() => toggleMenu(false)}>
+                    Raffle Page
+                  </NavLink>
                 </li>
               </ul>
             </nav>
