@@ -129,7 +129,7 @@ const UserForm: React.FC<Props> = ({
               error: false,
               content: data.id
                 ? "Updated!"
-                : "You have been registered, please check your inbox to verify your email!",
+                : "Thank you for registering! To complete the process, please check your inbox to verify your email. In case you don't find it there, please check your spam folder.",
               timed: data.id ? true : false,
             });
 
@@ -232,7 +232,7 @@ const UserForm: React.FC<Props> = ({
         <small>Not a valid email address</small>
       </div>
 
-      {/* This id for profile. */}
+      {/* This id is for profile. */}
       {!user.id && (
         <span>
           <div role="presentation">

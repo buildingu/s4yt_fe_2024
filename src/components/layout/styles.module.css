@@ -13,9 +13,11 @@
 
 .coins1,
 .coins2,
-.coins3 {
+.coins3,
+.feather {
   position: absolute;
 }
+
 .coins1 {
   max-width: 250px;
   top: 465px;
@@ -31,4 +33,19 @@
   top: 415px;
   right: 200px;
   /* left: 1457px; */
+}
+
+.feather.right1 {
+  max-width: 245px;
+  top: 280px;
+  right: 200px;
+  transform: rotate(255deg) scaleY(-1);
+  z-index: 1;
+}
+.feather.right2 {
+  max-width: 245px;
+  top: 235px;
+  right: 335px;
+  transform: rotate(230deg) scaleY(-1);
+  z-index: 1;
 }

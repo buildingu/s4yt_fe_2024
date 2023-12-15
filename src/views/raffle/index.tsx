@@ -62,6 +62,7 @@ const Raffle: React.FC<Props> = ({}) => {
               Tokens for
               <br /> Treasure
             </h2>
+            {/* TODO: The total is their current doblons. */}
             <h4>
               Your Total: <span>1</span>
             </h4>
