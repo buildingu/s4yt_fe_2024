@@ -52,6 +52,7 @@ const treasureMapNavContent = [
     alt: "Results",
     txt: "Event Results",
     to: "/results",
+    disabled: true, // Locked during the game time.
   },
 ];
 
@@ -94,6 +95,7 @@ const Home: React.FC = ({}) => {
                   alt={content.alt}
                   txt={content.txt}
                   to={content.to}
+                  disabled={content.disabled}
                 />
               ))}
             </div>
