@@ -6,8 +6,6 @@ import s from "./styles.module.css";
 import errorLogo from "@static/error-logo.png";
 
 const Error500: React.FC = () => {
-  //   const navigate = useNavigate();
-
   return (
     <Layout
     // addCoins="coins2"

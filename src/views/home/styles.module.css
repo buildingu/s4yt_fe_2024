@@ -1,5 +1,5 @@
 .notViewed p,
-.viewed p .viewed h4 {
+.viewed p {
   color: var(--pbrown);
 }
 
