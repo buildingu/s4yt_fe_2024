@@ -38,10 +38,13 @@ const Businesses: React.FC = () => {
           ))}
         </div>
         <a
+          href="#"
           aria-label="Previous Page"
           className={s.backBtn}
           onClick={() => navigate(-1)}
-        />
+        >
+          Back
+        </a>
       </Content>
       <Status />
     </Layout>
