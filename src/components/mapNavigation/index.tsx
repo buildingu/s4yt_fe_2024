@@ -6,13 +6,19 @@ interface Props {
   alt: string;
   txt: string;
   to: string;
+  disabled?: boolean;
 }
 
-const MapNavigation: React.FC<Props> = ({ img, alt, txt, to }) => {
+const MapNavigation: React.FC<Props> = ({ img, alt, txt, to, disabled }) => {
   const navigate = useNavigate();
 
   return (
-    <a href={to} className={s.card} onClick={() => navigate(to)}>
+    <a
+      href={to}
+      className={s.card}
+      onClick={(e) => (to ? navigate(to) : e.preventDefault())}
+      {...((!to || disabled) && { "aria-disabled": true })}
+    >
       <img src={img} alt={alt} />
       <h4>{txt}</h4>
     </a>
