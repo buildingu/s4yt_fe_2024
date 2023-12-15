@@ -1,0 +1,33 @@
+Misc:
+  - The coins and the feather pictures that are just placed in the background for pretty much all pages
+    doesn't position properly. It should just stay in place, no letting the screen on resize push it, just
+    fixed in place.
+
+Header:
+  -
+
+Footer (Status):
+  - How are we going to get the clock to count down in real time.
+  - The current dublons, how are we going to get that? It might be in the configuration action, but I don't know
+    because Jose did that (We show the dublons on the header for small screens).
+  - Chat and help buttons haven't been discussed, so we need to see whats going on there.
+
+Login:
+  - Fix types.
+
+Register:
+  - Fix types.
+
+Password Reset:
+  - Fix types.
+  - There is two Password reset form components, one for the regular password reset page and one for
+    the profile. We can keep it like this or we can just have one component for both.
+
+Sponsors:
+  - Waiting on the endpoints for getting the sponsors (I think they're just static now) and the POST for the winnings of
+    the quiz.
+
+---------------------------------------------------------------------------------------------------------------------------
+
+Deployment:
+  - Need to figure out what the exact domain is, I think it's building-u.com.
