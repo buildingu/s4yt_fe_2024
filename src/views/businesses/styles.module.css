@@ -1,0 +1,40 @@
+.viewed {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem 1rem;
+  padding-block: 5rem;
+}
+@media screen and (max-width: 907px) {
+  .viewed {
+    padding-block: 3rem;
+  }
+}
+@media screen and (max-width: 470px) {
+  .viewed {
+    gap: 0.5rem 0;
+    padding-block: 2rem;
+  }
+}
+
+.options .backBtn,
+.options .moreBtn {
+  position: relative;
+  cursor: pointer;
+  transition: 0.2s ease opacity;
+}
+.options .backBtn:hover,
+.options .backBtn:active,
+.options .moreBtn:hover,
+.options .moreBtn:active {
+  opacity: 0.65;
+}
+.options .backBtn:active {
+  top: 3px;
+}
+
+.options .backBtn {
+  width: 150px;
+  height: 120px;
+  background: url("../../static/btn_back.png") no-repeat center center/contain;
+}

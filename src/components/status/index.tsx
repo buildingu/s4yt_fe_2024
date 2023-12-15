@@ -27,8 +27,9 @@ const Status: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
           className={s.checkout}
         />
       </div>
+      {/* TODO: Get the time of how long the game is remaining from back-end? */}
       <p className={s.timer}>
-        You still have <span aria-label="Time Remaining">24:00:00</span> left
+        You still have <span aria-label="Time Remaining">48:00:00</span> left
       </p>
     </footer>
   );

@@ -21,17 +21,18 @@ section:not(section:first-of-type) {
   }
 }
 
-p,
+/* FIXME: This is conflicting. */
+/* p,
 h2,
 h3,
 h4 {
   margin: 0;
-}
+} */
 
-h2,
-h3,
-h4 {
-  text-transform: uppercase;
+.container h2,
+.container h3,
+.container h4 {
+  /* text-transform: uppercase; */
   color: #895734;
 }
 

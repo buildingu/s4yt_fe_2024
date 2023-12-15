@@ -15,6 +15,8 @@ interface Props {
   style?: React.CSSProperties;
 }
 
+// right1 is the one that is tilted more.
+
 const Layout: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
   children,
   large,
