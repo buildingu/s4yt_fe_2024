@@ -82,6 +82,17 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
         }
       }
     }
+    if (finalScore !== 0) {
+      if (finalScore <= 4) {
+        finalScore = 2;
+      } else if (finalScore <= 7) {
+        finalScore = 5;
+      } else if (finalScore <= 9) {
+        finalScore = 9;
+      } else {
+        finalScore = 15;
+      }
+    }
 
     scoreRef.current = finalScore.toString();
     !error && setClicked({ more: false, quizDone: true });
