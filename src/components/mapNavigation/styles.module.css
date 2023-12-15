@@ -15,6 +15,11 @@
 .card:active {
   top: 2px;
 }
+.card[aria-disabled="true"] {
+  opacity: 0.65;
+  filter: grayscale(35%);
+  cursor: not-allowed;
+}
 @media screen and (max-width: 470px) {
   .card {
     transform: scale(0.9);
