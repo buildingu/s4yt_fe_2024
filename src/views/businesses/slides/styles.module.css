@@ -1,0 +1,23 @@
+.viewed {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem 1rem;
+  padding-block: 5rem;
+}
+@media screen and (max-width: 907px) {
+  .viewed {
+    padding-block: 3rem;
+  }
+}
+@media screen and (max-width: 470px) {
+  .viewed {
+    gap: 0.5rem 0;
+    padding-block: 2rem;
+  }
+}
+
+.optionsView {
+  height: 500px;
+  width: 500px;
+}

@@ -33,7 +33,8 @@ const Businesses: React.FC = () => {
         <div className={s.businesses}>
           {businesses.map((business, i) => (
             <div key={i}>
-              <img src={business} alt="" />
+              {/* change onClick */}
+              <img onClick={() => navigate("/businesses/details")} src={business} alt="" />
             </div>
           ))}
         </div>

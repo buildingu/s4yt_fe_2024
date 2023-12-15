@@ -32,9 +32,46 @@
 .options .backBtn:active {
   top: 3px;
 }
-
+.business {
+  display: flex;
+}
 .options .backBtn {
   width: 150px;
   height: 120px;
   background: url("../../static/btn_back.png") no-repeat center center/contain;
+}
+
+.detailsHeader {
+  display: flex;
+  justify-content: center;
+}
+.businessTitle {
+  text-align: left;
+}
+.detailsHeader img {
+  height: 150px;
+  width: 150px;
+}
+
+.detailsContent {
+  display: flex;
+  justify-content: center;
+}
+.detailsOptions {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+.detailsOptions input[type="radio"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.detailsOptions label:has(> input[type="radio"]:checked) {
+  color: white;
 }
