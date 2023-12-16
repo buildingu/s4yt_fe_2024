@@ -1,4 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+// temporary
+import {useParams} from "react-router-dom";
 import Gate from "@components/gate";
 
 import Login from "@views/login";
@@ -67,6 +69,9 @@ import Error500 from "@views/errors/Error500";
 // ];
 
 const RoutesProvider = () => {
+  // temporary useParams for business details
+  const { details} = useParams()
+
   return (
     <Routes>
       <Route path="/login" element={<Gate view={<Login />} restricted={0} />} />
@@ -96,7 +101,7 @@ const RoutesProvider = () => {
         element={<Gate view={<Businesses />} restricted={1} />}
       />
       <Route
-        path="/businesses/details"
+        path="/businesses/:details"
         element={<Gate view={<Details />} restricted={1} />}
       />
       {/* <Route path="/results" element={<Gate view={<Sponsors />} restricted={1} />} /> */}
