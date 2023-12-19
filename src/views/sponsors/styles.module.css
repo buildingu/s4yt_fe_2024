@@ -108,6 +108,12 @@
   color: var(--pbrown);
 }
 
+.hideContent .title,
+.hideContent .trueFalse,
+.hideContent form {
+  display: none;
+}
+
 .more .trueFalse {
   position: relative;
 }
@@ -180,6 +186,15 @@
 .more .quiz > div {
   display: flex;
   justify-content: flex-end;
+}
+
+.explanationWrong {
+  color: red;
+  margin-bottom: 10px;
+}
+.explanationRight {
+  color: green;
+  margin-bottom: 10px;
 }
 
 .more .quiz button {
