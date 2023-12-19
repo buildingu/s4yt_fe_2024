@@ -4,7 +4,6 @@
   cursor: pointer;
   transition: 0.2s ease opacity;
   align-self: flex-start;
-
 }
 .backBtn:hover,
 .backBtn:active,
@@ -21,7 +20,6 @@
   height: 120px;
   background: url("../../static/btn_back.png") no-repeat center center/contain;
 }
-
 
 .businessContainer {
   position: relative;
@@ -66,7 +64,7 @@
   padding-block: 5rem;
 }
 .details {
-  width: 70%;
+  width: 80%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -96,7 +94,7 @@
 
 .detailsContent {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
   width: 100%;
 }
@@ -104,12 +102,12 @@
   display: flex;
   justify-content: center;
   width: 70%;
-  border: 1px solid black;
+  background-color: var(--pbrown-fade);
 }
 .detailsOptions {
   display: flex;
   flex-direction: column;
-  width: 30%;
+  min-width: 150px;
 }
 .detailsOptions label {
   width: 150px;
