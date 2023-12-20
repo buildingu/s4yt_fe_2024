@@ -52,7 +52,7 @@ const businessDetails: BusinessDetailsType = {
 const Details: React.FC = () => {
   const { details } = useParams<{ details: string }>();
 
-  const [selectedOption, setSelectedOption] = useState<string | null>("Video");
+  const [selectedOption, setSelectedOption] = useState<string>("Video");
   const selectedBusiness = businessDetails[details ? details : ""];
 
   const contentView: { [key: string]: React.ReactNode } = {
@@ -92,17 +92,38 @@ const Details: React.FC = () => {
           </div>
           <div className={s.detailsContent}>
             <div className={s.detailsOptions}>
-              {Object.entries(contentView).map(([key, value]) => (
-                <label key={key}>
-                  <input
-                    type="radio"
-                    value={key}
-                    checked={selectedOption === key}
-                    onChange={handleRadioChange}
-                  />
-                  {key}
-                </label>
-              ))}
+              <input
+                type="radio"
+                id="videoRadio"
+                name="radioGroup"
+                value="Video"
+                onChange={handleRadioChange}
+                checked={selectedOption === "Video"}
+              />
+              <label htmlFor="videoRadio" className={s.videoLabel}></label>
+
+              <input
+                type="radio"
+                id="questionRadio"
+                name="radioGroup"
+                value="Question"
+                onChange={handleRadioChange}
+                checked={selectedOption === "Question"}
+              />
+              <label
+                htmlFor="questionRadio"
+                className={s.questionLabel}
+              ></label>
+
+              <input
+                type="radio"
+                id="meetupRadio"
+                name="radioGroup"
+                value="MeetUp"
+                onChange={handleRadioChange}
+                checked={selectedOption === "MeetUp"}
+              />
+              <label htmlFor="meetupRadio" className={s.meetupLabel}></label>
               <a
                 href="#"
                 aria-label="Previous Page"

@@ -9,6 +9,12 @@ const Questions: React.FC = () => {
     setAnswer(e.target.value);
   };
 
+  const handleDelete = () => {
+    setAnswer("");
+  };
+  const handleSave = () => {
+    console.log("saved")
+  }
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -16,15 +22,19 @@ const Questions: React.FC = () => {
     <div className={s.optionsView}>
       <form onSubmit={handleSubmit}>
         <label>
-          Question: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, sint!"
-
+          Question: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Eveniet, sint!"
         </label>
         <textarea
           value={answer}
           onChange={handleInputChange}
           placeholder="Type your answer here"
         />
-        <button type="submit">Submit</button>
+        <div className={s.formButtons}>
+          <button className={s.questionSave} onClick={handleSave}>Save</button>
+          <button className={s.questionDelete} onClick={handleDelete}>Delete</button>
+          <button className={s.questionSubmit} type="submit"></button>
+        </div>
       </form>
     </div>
   );

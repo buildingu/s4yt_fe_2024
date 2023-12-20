@@ -1,5 +1,5 @@
 .optionsView {
-  min-height: 300px;
+  min-height: 350px;
   width: 100%;
 }
 
@@ -9,20 +9,90 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 1.5rem;
-  
 }
 
 .optionsView textarea {
-  margin: 0.5rem 0;
+  margin: 0.7rem 0;
   width: 100%;
-  height: 70%;
-  min-height: 100px;
+  height: 60%;
+  min-height: 150px;
   resize: none;
   border: none;
+  border-radius: 10px;
   padding: 0.5rem;
   font-size: 1.2rem;
+  -webkit-box-shadow: 2px 3px 7px 1px rgba(80, 80, 80, 0.7);
+  box-shadow: 2px 3px 7px 1px rgba(80, 80, 80, 0.7);
 }
 
 .optionsView form button {
   align-self: flex-end;
+}
+.formButtons {
+  display: flex;
+  justify-content: flex-end;
+}
+.meetUp {
+  height: 100%;
+  color: var(--pbrown);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.meetUp h2 {
+  font-family: "Corbel", Arial;
+  font-size: 2rem;
+}
+.meetUp p {
+  font-family: "Corbel", Arial;
+  font-size: 2rem;
+}
+.meetOptions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.meetOptions input {
+  margin-right: 10px;
+  cursor: pointer;
+}
+.meetOptions label {
+  cursor: pointer;
+}
+
+.meetSubmit {
+  align-self: flex-end;
+}
+
+.questionSubmit,
+.meetSubmit {
+  border: none;
+  width: 150px;
+  height: 50px;
+  background: url("../../../static/businessSlidesBtns/btn-submit-normal.png")
+    no-repeat right center/contain;
+  cursor: pointer;
+}
+.questionSubmit:hover,
+.meetSubmit:hover {
+  background: url("../../../static/businessSlidesBtns/btn-submit-hover.png")
+    no-repeat right center/contain;
+}
+.questionSubmit:active,
+.meetSubmit:active {
+  background: url("../../../static/businessSlidesBtns/btn-submit-pressed.png")
+    no-repeat right center/contain;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }

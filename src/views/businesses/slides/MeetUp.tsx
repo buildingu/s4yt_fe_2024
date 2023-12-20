@@ -2,10 +2,50 @@ import { connect } from "react-redux";
 import React, { useState } from "react";
 import s from "./styles.module.css";
 
+interface Data {
+  date: string;
+  time: string;
+  method: string;
+}
+
 const MeetUp: React.FC = () => {
+  const placeholderData: Data = {
+    date: "Jan 7 2024",
+    time: "13:00",
+    method: "Google Meet",
+  };
+
   return (
     <div className={s.optionsView}>
-      <h2>MEET UP</h2>
+      <div className={s.meetUp}>
+        <h2>I'm setting up a {placeholderData.method}</h2>
+        <p>
+          On {placeholderData.date} at {placeholderData.time}
+        </p>
+        <div className={s.meetOptions}>
+          <div>
+            <input
+              type="radio"
+              id="confirmRadio"
+              name="meetupGroup"
+              value="No"
+            />
+            <label htmlFor="confirmRadio">
+              I'd love to, but I can't make that time
+            </label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="rejectRadio"
+              name="meetupGroup"
+              value="Yes"
+            />
+            <label htmlFor="rejectRadio">I'm in</label>
+          </div>
+        </div>
+        <button className={s.meetSubmit}></button>
+      </div>
     </div>
   );
 };

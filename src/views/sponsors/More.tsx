@@ -184,6 +184,7 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
                     className="true"
                     onChange={(e) => onRadioChange(e, index)}
                     value={"true"}
+                    disabled={quizComplete.complete}
                   />
                   <input
                     type="radio"
@@ -191,6 +192,7 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
                     className="false"
                     onChange={(e) => onRadioChange(e, index)}
                     value={"false"}
+                    disabled={quizComplete.complete}
                   />
                 </div>
                 <p>{question.question}</p>
