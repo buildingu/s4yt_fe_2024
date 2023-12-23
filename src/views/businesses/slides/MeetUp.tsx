@@ -10,8 +10,8 @@ interface Data {
 
 const MeetUp: React.FC = () => {
   const placeholderData: Data = {
-    date: "Jan 7 2024",
-    time: "13:00",
+    date: "january 1 2024",
+    time: "13:00 EST",
     method: "Google Meet",
   };
 

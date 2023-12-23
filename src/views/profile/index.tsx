@@ -23,6 +23,7 @@ const Profile: React.FC<Props> = ({ local, getCurrentUser }) => {
 
   useEffect(() => {
     getCurrentUser((res) => {
+      console.log(res)
       setData(res.data);
     });
   }, []);
@@ -38,7 +39,7 @@ const Profile: React.FC<Props> = ({ local, getCurrentUser }) => {
               <UserForm user={data} handler={setData} />
             </section>
 
-            <Coins data={data.player ? data.player.coins : []} />
+            {/* <Coins data={data.player ? data.player.coins : []} /> */}
             <Referrals />
             <Instagram
               data={

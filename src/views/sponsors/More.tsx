@@ -82,11 +82,13 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
     results: true,
   });
 
+  const [correctAnswers, setCorrectAnswers] = useState(0);
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!quizComplete.complete) {
+      let correctCount = 0;
       let finalScore = 0,
         error = false;
       const form = formRef.current;
@@ -106,6 +108,7 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
             (questions[i].answer === false && selectedFalse.checked)
           ) {
             finalScore++;
+            correctCount++
           }
         }
       }
@@ -122,6 +125,7 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
       }
 
       scoreRef.current = finalScore.toString();
+      setCorrectAnswers(correctCount);
       !error && setQuizComplete({ complete: true, results: false });
       !error && setClicked({ more: true, quizDone: true });
     }
@@ -147,6 +151,7 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
           finalScore={scoreRef.current}
           setClicked={setClicked}
           setQuizComplete={setQuizComplete}
+          correctAnswers={correctAnswers}
         />
       )}
       <div className={s.title}>
@@ -218,12 +223,12 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
           </div>
         )}
       </form>
-      <button
-        className={s.backBtn}
-        onClick={() => setClicked({ more: false, quizDone: false })}
-      >
-        BACK button
-      </button>
+      {quizComplete.results === true && quizComplete.complete === true && (
+        <button
+          className={s.backBtn}
+          onClick={() => setClicked({ more: false, quizDone: false })}
+        ></button>
+      )}
     </div>
   );
 };

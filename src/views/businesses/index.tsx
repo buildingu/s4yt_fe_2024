@@ -39,14 +39,14 @@ const Businesses: React.FC = () => {
     >
       <Header title="See Business" />
       <Content
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          paddingTop: "3.5rem",
-          paddingBottom: "3rem",
-        }}
+        // style={{
+        //   display: "flex",
+        //   justifyContent: "center",
+        //   alignItems: "center",
+        //   flexDirection: "column",
+        //   paddingTop: "3.5rem",
+        //   paddingBottom: "3rem",
+        // }}
       >
         <div className={s.businesses}>
           {businesses.map((business, i) => (

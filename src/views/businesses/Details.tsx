@@ -92,38 +92,40 @@ const Details: React.FC = () => {
           </div>
           <div className={s.detailsContent}>
             <div className={s.detailsOptions}>
-              <input
-                type="radio"
-                id="videoRadio"
-                name="radioGroup"
-                value="Video"
-                onChange={handleRadioChange}
-                checked={selectedOption === "Video"}
-              />
-              <label htmlFor="videoRadio" className={s.videoLabel}></label>
+              <div>
+                <input
+                  type="radio"
+                  id="videoRadio"
+                  name="radioGroup"
+                  value="Video"
+                  onChange={handleRadioChange}
+                  checked={selectedOption === "Video"}
+                />
+                <label htmlFor="videoRadio" className={s.videoLabel}></label>
 
-              <input
-                type="radio"
-                id="questionRadio"
-                name="radioGroup"
-                value="Question"
-                onChange={handleRadioChange}
-                checked={selectedOption === "Question"}
-              />
-              <label
-                htmlFor="questionRadio"
-                className={s.questionLabel}
-              ></label>
+                <input
+                  type="radio"
+                  id="questionRadio"
+                  name="radioGroup"
+                  value="Question"
+                  onChange={handleRadioChange}
+                  checked={selectedOption === "Question"}
+                />
+                <label
+                  htmlFor="questionRadio"
+                  className={s.questionLabel}
+                ></label>
 
-              <input
-                type="radio"
-                id="meetupRadio"
-                name="radioGroup"
-                value="MeetUp"
-                onChange={handleRadioChange}
-                checked={selectedOption === "MeetUp"}
-              />
-              <label htmlFor="meetupRadio" className={s.meetupLabel}></label>
+                <input
+                  type="radio"
+                  id="meetupRadio"
+                  name="radioGroup"
+                  value="MeetUp"
+                  onChange={handleRadioChange}
+                  checked={selectedOption === "MeetUp"}
+                />
+                <label htmlFor="meetupRadio" className={s.meetupLabel}></label>
+              </div>
               <a
                 href="#"
                 aria-label="Previous Page"
