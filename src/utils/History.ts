@@ -1,23 +1,17 @@
-// import { useNavigate } from "react-router-dom";
-
-// const history = {
-//   navigate: useNavigate(),
-//   push: (page: string, ...rest: any) => history.navigate(page, ...rest),
-// };
-
-// export default history;
-
 import { useNavigate, NavigateFunction } from "react-router-dom";
 
-export let navigate: NavigateFunction;
+// Allows the use of useNavigate outside react components.
+const history: {
+  navigate: NavigateFunction | null;
+  push: (page: string | -1, ...rest: any[]) => void;
+} = {
+  navigate: null,
+  push: (page, ...rest) => history.navigate!(page as string, ...rest),
+};
+export default history;
 
-// This is just something I am trying.
-const History = () => {
-  // setTimeout(() => {
-  navigate = useNavigate();
+export const HistoryProvider = () => {
+  history.navigate = useNavigate();
 
   return null;
-  // }, 1000);
 };
-
-export default History;
