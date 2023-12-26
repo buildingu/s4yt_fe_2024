@@ -14,20 +14,19 @@ const Gate:React.FC<Props> = ({local,configuration,view,restricted,getConfigurat
 	const allow = (restricted && local.token || !restricted && !local.token) ? true : false;
 	const redirect = !restricted ? '/profile' : '/login';
 
-	// useEffect(() => {
-	// 	if(!configuration.loaded){
-	// 		getConfiguration();
-	// 	}
-	// },[]);
-	
-	// return (configuration.loaded ? (allow ? <>
-	// 	{view}
-	// </> : <Navigate to={redirect} />) : null)
-  return (
-    <>
-    {view}
-    </>
-  )
+	useEffect(() => {
+    if (!configuration.loaded) {
+      getConfiguration();
+    }
+  }, []);
+
+  return configuration.loaded ? (
+    allow ? (
+      <>{view}</>
+    ) : (
+      <Navigate to={redirect} />
+    )
+  ) : null;
 }
 
 const mapStateToProps = ({ local,configuration }) => ({ local,configuration });
