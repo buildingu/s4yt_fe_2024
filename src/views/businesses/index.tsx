@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import history from "@utils/history";
+import history from "@utils/History";
 import Layout from "@components/layout";
 import Header from "@components/header";
 import Content from "@components/content";

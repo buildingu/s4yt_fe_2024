@@ -1,5 +1,5 @@
 import { Store } from "@root/store";
-import history from "@utils/history";
+import history from "@utils/History";
 
 // export const Api = {
 //   get: async (url, params) => {
