@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import {
+  //  useNavigate,
+  Link,
+} from "react-router-dom";
 import Layout from "@components/layout";
 import Header from "@components/header";
 import Content from "@components/content";
@@ -31,7 +34,7 @@ const Login: React.FC<Props> = ({
   });
   const [data, setData] = useState({});
   const [isSmallerThen464, setIsSmallerThen464] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {

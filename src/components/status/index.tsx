@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import s from "./styles.module.css";
 import CurrentDoblons from "../currentDoblons";
 
@@ -10,8 +9,6 @@ const Status: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
   style,
   ...options
 }) => {
-  const navigate = useNavigate();
-
   return (
     <footer className={s.container} style={style} {...options}>
       <div>
