@@ -1,10 +1,10 @@
 Misc:
   - The coins and the feather pictures that are just placed in the background for pretty much all pages
     doesn't position properly. It should just stay in place, no letting the screen on resize push it, just
-    fixed in place.
+    fixed in place (in Layout component).
 
 Header:
-  -
+  - Log out button will just clear the token?
 
 Footer (Status):
   - How are we going to get the clock to count down in real time.
@@ -26,6 +26,9 @@ Password Reset:
 Sponsors:
   - Waiting on the endpoints for getting the sponsors (I think they're just static now) and the POST for the winnings of
     the quiz.
+
+Raffle:
+  - Need to figure out if the current coins the user has is in the configuration action. So, we can store the coins in redux.
 
 ---------------------------------------------------------------------------------------------------------------------------
 
