@@ -56,9 +56,12 @@ const Sponsors: React.FC<Props> = ({}) => {
       >
         {clicked.more ? (
           <More setClicked={setClicked} scoreRef={scoreRef} />
-        ) : clicked.quizDone ? (
-          <Congrats finalScore={scoreRef.current} />
-        ) : (
+        ) 
+        // : 
+        // clicked.quizDone ? (
+        //   <Congrats finalScore={scoreRef.current} setClicked={setClicked} />
+        // ) 
+        : (
           <>
             <div className={s.sponsors}>{sponsors}</div>
             <div className={s.options}>

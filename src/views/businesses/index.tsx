@@ -7,15 +7,31 @@ import Status from "@components/status";
 import s from "./styles.module.css";
 
 const businesses = [
-  require("@static/error-logo.png"),
-  require("@static/error-logo.png"),
-  require("@static/error-logo.png"),
-  require("@static/error-logo.png"),
-  require("@static/error-logo.png"),
-  require("@static/error-logo.png"),
-  require("@static/error-logo.png"),
+  {
+    name: "HOP Group",
+    img: require("@static/businessLogos/HOPGroup.jpg"),
+  },
+  {
+    name: "KnowledgeFlow",
+    img: require("@static/businessLogos/KnowledgeFlow.png"),
+  },
+  {
+    name: "Matrix",
+    img: require("@static/businessLogos/matrix.png"),
+  },
+  {
+    name: "Meridian Stories",
+    img: require("@static/businessLogos/meridianstories.png"),
+  },
+  {
+    name: "Porter",
+    img: require("@static/businessLogos/Porter.jpg"),
+  },
+  {
+    name: "Robotics For All",
+    img: require("@static/businessLogos/roboticsforall.png"),
+  },
 ];
-
 const Businesses: React.FC = () => {
   return (
     <Layout
@@ -23,25 +39,36 @@ const Businesses: React.FC = () => {
     >
       <Header title="See Business" />
       <Content
-      //   style={{
-      //     display: "grid",
-      //     placeItems: "center",
-      //     paddingTop: "3.5rem",
-      //     paddingBottom: "3rem",
-      //   }}
+        // style={{
+        //   display: "flex",
+        //   justifyContent: "center",
+        //   alignItems: "center",
+        //   flexDirection: "column",
+        //   paddingTop: "3.5rem",
+        //   paddingBottom: "3rem",
+        // }}
       >
         <div className={s.businesses}>
           {businesses.map((business, i) => (
-            <div key={i}>
-              <img src={business} alt="" />
-            </div>
+            <a
+              href={`/businesses/${business.name}`}
+              className={s.businessContainer}
+              key={i}
+            >
+              <img
+                className={s.logos}
+                src={business.img}
+                alt=""
+              />
+            </a>
           ))}
         </div>
         <a
+          href="#"
           aria-label="Previous Page"
           className={s.backBtn}
           onClick={() => navigate(-1)}
-        />
+        ></a>
       </Content>
       <Status />
     </Layout>
