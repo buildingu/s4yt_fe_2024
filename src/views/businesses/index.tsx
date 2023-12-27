@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { navigate } from "../../utils/History";
+import history from "@utils/history";
 import Layout from "@components/layout";
 import Header from "@components/header";
 import Content from "@components/content";
@@ -39,14 +39,14 @@ const Businesses: React.FC = () => {
     >
       <Header title="See Business" />
       <Content
-        // style={{
-        //   display: "flex",
-        //   justifyContent: "center",
-        //   alignItems: "center",
-        //   flexDirection: "column",
-        //   paddingTop: "3.5rem",
-        //   paddingBottom: "3rem",
-        // }}
+      // style={{
+      //   display: "flex",
+      //   justifyContent: "center",
+      //   alignItems: "center",
+      //   flexDirection: "column",
+      //   paddingTop: "3.5rem",
+      //   paddingBottom: "3rem",
+      // }}
       >
         <div className={s.businesses}>
           {businesses.map((business, i) => (
@@ -55,11 +55,7 @@ const Businesses: React.FC = () => {
               className={s.businessContainer}
               key={i}
             >
-              <img
-                className={s.logos}
-                src={business.img}
-                alt=""
-              />
+              <img className={s.logos} src={business.img} alt="" />
             </a>
           ))}
         </div>
@@ -67,7 +63,7 @@ const Businesses: React.FC = () => {
           href="#"
           aria-label="Previous Page"
           className={s.backBtn}
-          onClick={() => navigate(-1)}
+          onClick={() => history.push(-1)}
         ></a>
       </Content>
       <Status />
