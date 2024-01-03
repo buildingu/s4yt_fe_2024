@@ -35,7 +35,7 @@ const Profile: React.FC<Props> = ({ local, getCurrentUser }) => {
           <div className={s.container}>
             <section className={s.profileInfo}>
               <h2>Update Profile Info</h2>
-              <UserForm user={data} handler={setData} />
+              <UserForm user={data} setProfileData={setData} />
             </section>
 
             <Coins data={data.player ? data.player.coins : []} />
