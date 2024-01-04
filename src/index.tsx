@@ -5,7 +5,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { Store, Persistor } from "@root/store";
 
-import { HistoryProvider } from "./utils/history";
+import { HistoryProvider } from "./utils/History";
 import RoutesProvider from "@root/routes";
 
 import "./index.css";

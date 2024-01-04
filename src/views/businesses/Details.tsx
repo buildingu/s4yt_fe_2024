@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { navigate } from "../../utils/History";
+import history from "../../utils/History";
 import Layout from "@components/layout";
 import Header from "@components/header";
 import Content from "@components/content";
@@ -130,7 +130,7 @@ const Details: React.FC = () => {
                 href="#"
                 aria-label="Previous Page"
                 className={s.backBtn}
-                onClick={() => navigate(-1)}
+                onClick={() => history.push(-1)}
               ></a>
             </div>
             <div className={s.detailsContentView}>

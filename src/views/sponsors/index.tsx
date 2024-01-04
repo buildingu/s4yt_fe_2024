@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
+import history from "@utils/History";
 import Layout from "@components/layout";
 import Header from "@components/header";
 import Content from "@components/content";
 import Status from "@components/status";
 import More from "./More";
-import Congrats from "./Congrats";
+// import Congrats from "./Congrats";
 import s from "./styles.module.css";
 
 interface Props {}
@@ -16,8 +16,6 @@ const Sponsors: React.FC<Props> = ({}) => {
     scoreRef = useRef("0");
 
   const [isSmallerThen500, setIsSmallerThen500] = useState(false);
-
-  const navigate = useNavigate();
 
   const sponsors = [];
   for (let i = 0; i < 6; i++) {
@@ -56,19 +54,18 @@ const Sponsors: React.FC<Props> = ({}) => {
       >
         {clicked.more ? (
           <More setClicked={setClicked} scoreRef={scoreRef} />
-        ) 
-        // : 
-        // clicked.quizDone ? (
-        //   <Congrats finalScore={scoreRef.current} setClicked={setClicked} />
-        // ) 
-        : (
+        ) : (
+          // :
+          // clicked.quizDone ? (
+          //   <Congrats finalScore={scoreRef.current} setClicked={setClicked} />
+          // )
           <>
             <div className={s.sponsors}>{sponsors}</div>
             <div className={s.options}>
               <a
                 aria-label="Previous Page"
                 className={s.backBtn}
-                onClick={() => navigate(-1)}
+                onClick={() => history.push(-1)}
               />
               <button
                 className={s.moreBtn}

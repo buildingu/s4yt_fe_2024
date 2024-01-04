@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import {
+  //  useNavigate,
+  Link,
+} from "react-router-dom";
 import Layout from "@components/layout";
 import Header from "@components/header";
 import Content from "@components/content";
-import { login } from "@actions/user";
+import { loginPlayer } from "@actions/user";
 import { setNotification, setToken } from "@actions/notifications";
 import s from "./styles.module.css";
 import coins1 from "@static/coins_variant1.png";
@@ -31,7 +34,7 @@ const Login: React.FC<Props> = ({
   });
   const [data, setData] = useState({});
   const [isSmallerThen464, setIsSmallerThen464] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {

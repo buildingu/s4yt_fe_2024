@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import history from "@utils/History";
 import s from "./styles.module.css";
 
 interface Props {
@@ -10,13 +10,14 @@ interface Props {
 }
 
 const MapNavigation: React.FC<Props> = ({ img, alt, txt, to, disabled }) => {
-  const navigate = useNavigate();
-
   return (
     <a
       href={to}
       className={s.card}
-      onClick={(e) => (to ? navigate(to) : e.preventDefault())}
+      onClick={(e) => {
+        e.preventDefault();
+        if (to && !disabled) history.push(to);
+      }}
       {...((!to || disabled) && { "aria-disabled": true })}
     >
       <img src={img} alt={alt} />

@@ -1,10 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-<<<<<<< HEAD
-// temporary
-import {useParams} from "react-router-dom";
-=======
-
->>>>>>> a31a550060fe9e829bc3a92e1bff4a9c93fc8ea4
+import { Routes, Route, Navigate, useParams} from "react-router-dom";
 import Gate from "@components/gate";
 
 import Login from "@views/login";
