@@ -90,11 +90,23 @@
 }
 
 .container .products div .imgBox {
+  position: relative;
   width: 121px;
   height: 113px;
   border: 10px solid var(--pbrown-fade);
   border-radius: 0.5rem;
   padding: 0.5rem;
+}
+/* Coin */
+.container .products div .imgBox::before {
+  content: "";
+  position: absolute;
+  right: 0;
+}
+/* Magnifiying Glass */
+.container .products div .imgBox button {
+  position: absolute;
+  right: 0;
 }
 .container .products div .imgBox img {
   object-fit: contain;
