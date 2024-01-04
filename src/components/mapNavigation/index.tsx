@@ -16,7 +16,7 @@ const MapNavigation: React.FC<Props> = ({ img, alt, txt, to, disabled }) => {
       className={s.card}
       onClick={(e) => {
         e.preventDefault();
-        if (to) history.push(to);
+        if (to && !disabled) history.push(to);
       }}
       {...((!to || disabled) && { "aria-disabled": true })}
     >
