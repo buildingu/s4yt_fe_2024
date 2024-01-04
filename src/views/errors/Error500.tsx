@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
 import Layout from "@components/layout";
 import Header from "@components/header";
 import Content from "@components/content";
+import history from "@utils/history";
 import s from "./styles.module.css";
 import errorLogo from "@static/error-logo.png";
 
@@ -30,11 +30,15 @@ const Error500: React.FC = () => {
             <br /> 500
           </h1>
           <h4>Internal server error</h4>
-          <Link aria-label="Back to Main Map" to="/" className="fade move" />
+          <a
+            aria-label="Back to Main Map"
+            onClick={() => history.push(-1)}
+            className="fade move"
+          />
         </div>
-        <Link
+        <a
           aria-label="Back to Main Map"
-          to="/"
+          onClick={() => history.push(-1)}
           className={s.responsiveBack}
         />
       </Content>
