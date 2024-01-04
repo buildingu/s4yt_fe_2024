@@ -1,5 +1,9 @@
 .container {
   max-width: 625px;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .container h2,
@@ -104,10 +108,10 @@
   right: 0;
 }
 /* Magnifiying Glass */
-.container .products div .imgBox button {
+/* .container .products div .imgBox button {
   position: absolute;
   right: 0;
-}
+} */
 .container .products div .imgBox img {
   object-fit: contain;
   width: 100%;
