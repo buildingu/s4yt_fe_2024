@@ -1,15 +1,11 @@
 import { SET_NOTIFICATION_DATA } from "@selectors";
 
-/*
-
-	Initial Local state
-
-*/
 const initialState = {
   display: false,
   error: null,
   content: null,
-  timed: true,
+  close: false,
+  duration: 0,
 };
 
 const Options = (state = initialState, action) => {
@@ -17,10 +13,7 @@ const Options = (state = initialState, action) => {
     case SET_NOTIFICATION_DATA:
       return {
         ...state,
-        display: action.data.display,
-        error: action.data.error,
-        content: action.data.content,
-        timed: action.data.timed,
+        ...action.data,
       };
     default:
       return state;

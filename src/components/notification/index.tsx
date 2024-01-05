@@ -1,32 +1,74 @@
-import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
-import {setNotification} from '@actions/notifications';
-import s from './styles.module.css';
+import { useEffect } from "react";
+import { Dispatch } from "redux";
+import { connect } from "react-redux";
+import { setNotification } from "@actions/notifications";
+import delay from "@utils/delay";
+import s from "./styles.module.css";
 
+export interface NotificationValues {
+  display: boolean;
+  error: boolean;
+  content: string;
+  close: boolean;
+  duration: number;
+}
 interface Props {
-	notification:Array<String>,
-	setNotification: Function
+  notification: NotificationValues;
+  setNotification: (data: any) => void;
 }
 
-const Notification:React.FC<Props> = ({ notification,setNotification }) => {
-	useEffect(() => {
-		if(notification.display && notification.timed){
-			setTimeout(() => {
-				setNotification({...notification,display:false})
-			},2500);
-		}
-	},[notification.display]);
+const Notification: React.FC<Props> = ({ notification, setNotification }) => {
+  const ANIMATION_DURATION = 500,
+    closeNotification = () =>
+      setNotification({ ...notification, display: false });
 
-	return (<>
-		{notification.display && <div className={notification.error ? s.container + ' ' + s.error : s.container}>
-			{ notification.content }
-		</div>}
-	</>)
-}
+  const close = () => {
+    if (notification.duration) {
+      delay(notification.duration).then(() =>
+        delay(ANIMATION_DURATION, () => closeNotification)
+      );
+    } else {
+      delay(ANIMATION_DURATION, () => closeNotification);
+    }
+  };
 
-const mapStateToProps = ({ notification }) => ({ notification });
-const mapDispatchToProps = (dispatch) => ({
-	setNotification: (data) => dispatch(setNotification(data))
+  useEffect(() => {
+    if (notification.display && notification.close) {
+      close();
+    }
+  }, [notification.close]);
+
+  useEffect(() => {
+    if (notification) {
+      console.log("notification", notification);
+    }
+  }, [notification]);
+
+  return (
+    <>
+      {notification.display && (
+        <div
+          role="dialog"
+          className={`${s.container} ${notification.error ? s.error : ""} ${
+            notification.close ? s.fadeOut : ""
+          }`}
+        >
+          <button
+            aria-label="Close"
+            onClick={() => setNotification({ ...notification, close: true })}
+            disabled={notification.close}
+          />
+
+          {notification.content}
+        </div>
+      )}
+    </>
+  );
+};
+
+const mapStateToProps = ({ notification }: Props) => ({ notification });
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+  setNotification: (data: any) => dispatch(setNotification(data)),
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(Notification);
+export default connect(mapStateToProps, mapDispatchToProps)(Notification);
