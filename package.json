@@ -1,7 +1,22 @@
 {
   "name": "s4yt_fe_2023",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "author": "David Bishop",
+  "contributors": [
+    "David Bishop",
+    "Koki Vasileski",
+    "Jose Martinez"
+  ],
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/buildingu/s4yt_fe_2023"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=8.19.4"
+  },
   "scripts": {
     "start": "cross-env BROWSER=none craco start",
     "build": "craco build",
@@ -9,7 +24,6 @@
     "eject": "craco eject"
   },
   "dependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -20,17 +34,17 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
-    "redux-thunk": "^2.4.2",
-    "web-vitals": "^2.1.0"
+    "redux-thunk": "^2.4.2"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@craco/craco": "^7.1.0",
     "@types/jest": "^29.5.5",
     "@types/node": "^20.8.6",
     "@types/react": "^18.2.28",
     "@types/react-dom": "^18.2.13",
     "cross-env": "^7.0.3",
-    "typescript": "^5.2.2"
+    "typescript": "4.9.5"
   },
   "eslintConfig": {
     "extends": [
