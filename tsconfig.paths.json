@@ -9,6 +9,7 @@
       "@services/*": ["./src/services/*"],
       "@constants/*": ["./src/constants/*"],
       "@utils/*": ["./src/utils/*"],
+      "@typings/*": ["./src/typings/*"],
 
       "@selectors/*": ["./src/redux/selectors/*"],
       "@actions/*": ["./src/redux/actions/*"],

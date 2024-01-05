@@ -1,5 +1,10 @@
-import { useState } from "react";
+import NotificationValues from "@typings/NotificationValues";
+
+import { useRef, useState } from "react";
+import { Dispatch } from "redux";
 import { connect } from "react-redux";
+
+import { setNotification } from "@actions/notifications";
 
 import Layout from "@components/layout";
 import Header from "@components/header";
@@ -56,8 +61,15 @@ const treasureMapNavContent = [
   },
 ];
 
-const Home: React.FC = ({}) => {
-  const [viewed, setViewed] = useState(false);
+interface Props {
+  setNotification: (data: NotificationValues) => void;
+}
+
+const Home: React.FC<Props> = ({ setNotification }) => {
+  const blockBtnRef = useRef<HTMLButtonElement>(null),
+    [viewed, setViewed] = useState(
+      localStorage.getItem("block-instructions") ? true : false
+    );
 
   return (
     <Layout addCoins={!viewed ? "coins1" : "coins2"}>
@@ -69,7 +81,11 @@ const Home: React.FC = ({}) => {
           !viewed ? `${s.coins} ${s.notViewed}` : `${s.coins} ${s.viewed}`
         }
       /> */}
-      <Content>
+      <Content
+        {...(!viewed && {
+          style: { padding: "30px 30px 14px 30px" },
+        })}
+      >
         {!viewed ? (
           <>
             <div className={s.notViewed}>
@@ -78,11 +94,36 @@ const Home: React.FC = ({}) => {
                   <p>Visit each island to answer the questions</p>
                 </li>
                 <li>
-                  <p>Click on raffle page, to use your free registration tix</p>
+                  <p>
+                    Click on raffle page, to use your free registration
+                    dubl-u-nes
+                  </p>
                 </li>
               </ul>
 
-              <button onClick={() => setViewed(true)} />
+              <div>
+                <button
+                  className={`${s.blockBtn} fade move`}
+                  ref={blockBtnRef}
+                  onClick={() => {
+                    const blockBtn = blockBtnRef.current!;
+
+                    localStorage.setItem("block-instructions", "true");
+                    setNotification({
+                      display: true,
+                      error: false,
+                      content: "Instructions are now blocked. ✔",
+                      close: false,
+                      duration: 4000,
+                    });
+                    blockBtn.disabled = true;
+                    blockBtn.setAttribute("aria-disabled", "true");
+                  }}
+                >
+                  Don't show this again
+                </button>
+                <button className={s.nextBtn} onClick={() => setViewed(true)} />
+              </div>
             </div>
           </>
         ) : (
@@ -108,6 +149,9 @@ const Home: React.FC = ({}) => {
 };
 
 const mapStateToProps = ({}) => ({});
-const mapDispatchToProps = (dispatch: Function) => ({});
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+  setNotification: (data: NotificationValues) =>
+    dispatch(setNotification(data)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

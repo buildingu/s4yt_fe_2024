@@ -8,12 +8,7 @@
   text-align: left;
 }
 .notViewed {
-  padding: 1.5rem 2rem 120px 2rem;
-}
-@media screen and (max-width: 766px) {
-  .notViewed {
-    padding: 3rem 0 120px 0;
-  }
+  padding: 1.5rem 2rem 0 2rem;
 }
 
 .notViewed ul li::marker {
@@ -36,7 +31,31 @@
   font-size: 42px;
 }
 
-.notViewed button {
+.notViewed div {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap-reverse;
+}
+
+.notViewed div .blockBtn {
+  font-family: "BebasNeue", Arial;
+  font-size: 18px;
+  color: var(--pbrown);
+  text-decoration: underline;
+  height: fit-content;
+  margin-right: 1rem;
+  margin-bottom: 0.75rem;
+}
+@media screen and (max-width: 391px) {
+  .notViewed div {
+    justify-content: flex-end;
+  }
+  .notViewed div .blockBtn {
+    margin-top: 1.5rem;
+  }
+}
+
+.notViewed div .nextBtn {
   position: relative;
   width: 120px;
   height: 120px;
@@ -47,15 +66,15 @@
   float: right;
   cursor: pointer;
 }
-.notViewed button:hover {
+.notViewed div .nextBtn:hover {
   background: url("../../static/ok-btn-hover.png") no-repeat center
     center/contain;
 }
-.notViewed button:active {
+.notViewed div .nextBtn:active {
   background: url("../../static/ok-btn-press.png") no-repeat center
     center/contain;
 }
-.notViewed button:before {
+.notViewed div .nextBtn:before {
   content: "";
   position: absolute;
   bottom: 60px;
