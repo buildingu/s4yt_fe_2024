@@ -8,6 +8,7 @@ interface Props {
     img: any;
     name: string;
     sponsor: string;
+    sponsorLogo: any;
     availability: number;
     description: string;
   };
@@ -25,13 +26,13 @@ const RaffleItemModal: React.FC<Props> = ({ products }) => {
         onClick={() => setShow(true)}
         className={s.lensButton}
       >
-        Open Modal
+        🔍
       </button>
       <ModalTemplate show={show} setShow={setShow} label="Raffle Item Details">
         <div className={s.modalContainer}>
           <div className={s.modalLeft}>
             {/* temporary button */}
-            {/* <button onClick={() => setShow(false)}>back</button> */}
+            <button className={s.backBtn} onClick={() => setShow(false)} />
             <img src={products.img} alt={products.name} />
           </div>
           <div className={s.modalRight}>
@@ -43,7 +44,7 @@ const RaffleItemModal: React.FC<Props> = ({ products }) => {
               </p>
               <div>
                 <p>sponsored by:</p>
-                <img src="" alt={products.sponsor} />
+                <img className={s.sponsorLogo} src={products.sponsorLogo} alt={products.sponsor} />
               </div>
             </div>
           </div>
