@@ -1,29 +1,68 @@
 .container {
-	position:fixed;
-	bottom:20px;
-	right:20px;
-	width:260px;
-	padding:20px;
-	text-align:left;
-	background:#8fd7a5;
-	animation: fadeInAnimation ease 0.5s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 260px;
+  padding: 1rem;
+  text-align: left;
+  background-color: #8fd7a5;
+  font-family: "Corbel", Arial;
+  font-weight: 700;
+  color: var(--black);
+  opacity: 0;
+  animation: fadeIn ease 0.5s forwards;
+}
+.container.error {
+  background-color: #da4338;
+  color: var(--white);
+}
+.container.fadeOut {
+  animation: fadeOut ease-out 0.5s backwards;
 }
 
-.error {
-	color:#FFF;
-	background:#da4338;
+.container button {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  padding: 1.25px 5px;
+  border: 1px solid var(--black);
+  border-radius: 4px;
+  background-color: var(--white);
+  color: var(--black);
+  transition: 0.2s ease background-color;
+}
+.container button::before {
+  content: "\2715";
+  color: var(--black);
+}
+.container button:hover {
+  background-color: #e1e1e1;
+}
+.container button:active {
+  top: -3.75px;
 }
 
+@keyframes fadeIn {
+  0% {
+    right: -150px;
+    opacity: 0;
+  }
+  100% {
+    right: 20px;
+    opacity: 1;
+  }
+}
 
-@keyframes fadeInAnimation {
-    0% {
-    	right:0;
-        opacity: 0;
-    }
-    100% {
-    	right:20px;
-        opacity: 1;
-     }
+@keyframes fadeOut {
+  0% {
+    bottom: 20px;
+    opacity: 1;
+  }
+  20% {
+    bottom: 30px;
+  }
+  100% {
+    bottom: -100px;
+    opacity: 0;
+  }
 }
