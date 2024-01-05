@@ -46,6 +46,7 @@
   grid-template-columns: repeat(4, 1fr);
   place-items: center;
   gap: 1rem 2rem;
+  min-height: 370px;
 }
 @media screen and (max-width: 650px) {
   .container .top h2 {
@@ -154,4 +155,19 @@
 }
 .container .products div .controls button:active {
   top: 1.5px;
+}
+.paginationButtons {
+  width: 100%;
+  margin-top: 3rem;
+  position: relative;
+}
+.prevButton {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.nextButton {
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }

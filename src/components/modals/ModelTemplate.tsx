@@ -61,7 +61,6 @@ const ModalTemplate: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
             // ref={modalRef}
             id="modal"
             style={{
-              all: "unset",
               padding: "1.5rem",
               backgroundColor: "var(--sBeige)",
               borderWidth: "1px",

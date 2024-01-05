@@ -4,7 +4,6 @@ import s from "./styles.module.css";
 import ModalTemplate from "../ModelTemplate";
 
 interface Props {
-  setShow: React.Dispatch<React.SetStateAction<boolean>>;
   products: {
     img: any;
     name: string;

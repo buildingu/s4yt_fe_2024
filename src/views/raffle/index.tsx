@@ -6,6 +6,7 @@ import Header from "@components/header";
 import Content from "@components/content";
 import Status from "@components/status";
 import RaffleItemModal from "@components/modals/raffleItemModal/RaffleItemModal";
+import feather from "@static/feather.png";
 
 import s from "./styles.module.css";
 
@@ -17,77 +18,119 @@ const products = [
     name: "T-Shirt",
     sponsor: "sponsor name",
     availability: 3,
-    description: "here we will write a description of this item"
+    description: "here we will write a description of this item",
   },
   {
     img: require("@static/error-logo.png"),
     name: "Bag & Key Chain",
     sponsor: "sponsor name",
     availability: 3,
-    description: "here we will write a description of this item"
+    description: "here we will write a description of this item",
   },
   {
     img: require("@static/error-logo.png"),
     name: "Lanyard",
     sponsor: "sponsor name",
     availability: 3,
-    description: "here we will write a description of this item"
+    description: "here we will write a description of this item",
   },
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
     sponsor: "sponsor name",
     availability: 3,
-    description: "here we will write a description of this item"
+    description: "here we will write a description of this item",
   },
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
     sponsor: "sponsor name",
     availability: 3,
-    description: "here we will write a description of this item"
+    description: "here we will write a description of this item",
   },
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
     sponsor: "sponsor name",
     availability: 3,
-    description: "here we will write a description of this item"
+    description: "here we will write a description of this item",
   },
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
     sponsor: "sponsor name",
     availability: 3,
-    description: "here we will write a description of this item"
+    description: "here we will write a description of this item",
   },
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
     sponsor: "sponsor name",
     availability: 3,
-    description: "here we will write a description of this item"
+    description: "here we will write a description of this item",
   },
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
     sponsor: "sponsor name",
     availability: 3,
-    description: "here we will write a description of this item"
+    description: "here we will write a description of this item",
   },
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
     sponsor: "sponsor name",
     availability: 3,
-    description: "here we will write a description of this item"
+    description: "here we will write a description of this item",
   },
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
     sponsor: "sponsor name",
     availability: 3,
-    description: "here we will write a description of this item"
+    description: "here we will write a description of this item",
+  },
+  {
+    img: require("@static/error-logo.png"),
+    name: "T-Shirt",
+    sponsor: "sponsor name",
+    availability: 3,
+    description: "here we will write a description of this item",
+  },
+  {
+    img: require("@static/error-logo.png"),
+    name: "T-Shirt",
+    sponsor: "sponsor name",
+    availability: 3,
+    description: "here we will write a description of this item",
+  },
+  {
+    img: require("@static/error-logo.png"),
+    name: "T-Shirt",
+    sponsor: "sponsor name",
+    availability: 3,
+    description: "here we will write a description of this item",
+  },
+  {
+    img: require("@static/error-logo.png"),
+    name: "T-Shirt",
+    sponsor: "sponsor name",
+    availability: 3,
+    description: "here we will write a description of this item",
+  },
+  {
+    img: require("@static/error-logo.png"),
+    name: "T-Shirt",
+    sponsor: "sponsor name",
+    availability: 3,
+    description: "here we will write a description of this item",
+  },
+  {
+    img: require("@static/error-logo.png"),
+    name: "T-Shirt",
+    sponsor: "sponsor name",
+    availability: 3,
+    description: "here we will write a description of this item",
   },
 ];
 
@@ -130,6 +173,18 @@ const Raffle: React.FC<Props> = ({}) => {
         }}
       >
         <div className={s.container}>
+          {/* visual only */}
+          <img
+            style={{
+              position: "absolute",
+              right: "-220px",
+              height: "500px",
+              transform: "scaleX(-1) rotate(-50deg)",
+            }}
+            src={feather}
+            alt="feather"
+            aria-hidden
+          />
           <div className={s.top}>
             <h2>
               Tokens for
@@ -158,7 +213,10 @@ const Raffle: React.FC<Props> = ({}) => {
                   <img src={item.img} alt={item.name} />
                   {/* <button />
                   <button className={s.lensButton} aria-label={`More information for ${item.name}`}>more</button> */}
-                  <RaffleItemModal setShow={setIsOpened} products={products[i + startIndex]}/>
+                  <RaffleItemModal
+                    setShow={setIsOpened}
+                    products={products[i + startIndex]}
+                  />
                 </div>
                 <h4 className={s.name}>{item.name}</h4>
                 <div className={s.controls}>
@@ -181,26 +239,29 @@ const Raffle: React.FC<Props> = ({}) => {
               </div>
             ))}
           </div>
-          {/* Don't show prev button if at start of slide */}
-          {startIndex !== 0 && (
-            <button
-              className={s.prevButton}
-              aria-label="Previous page"
-              onClick={() => setSlideIndex((prev) => prev - 1)}
-            >
-              Prev
-            </button>
-          )}
-          {/* Don't show next button if no items on next slide */}
-          {startIndex + 8 < products.length && (
-            <button
-              className={s.nextButton}
-              aria-label="Next page"
-              onClick={() => setSlideIndex((prev) => prev + 1)}
-            >
-              Next
-            </button>
-          )}
+          <div className={s.paginationButtons}>
+            {/* Don't show prev button if at start of slide */}
+            {startIndex !== 0 && (
+              <button
+                className={s.prevButton}
+                aria-label="Previous page"
+                onClick={() => setSlideIndex((prev) => prev - 1)}
+              >
+                Prev
+              </button>
+            )}
+            {/* Don't show next button if no items on next slide */}
+
+            {startIndex + 8 < products.length && (
+              <button
+                className={s.nextButton}
+                aria-label="Next page"
+                onClick={() => setSlideIndex((prev) => prev + 1)}
+              >
+                Next
+              </button>
+            )}
+          </div>
         </div>
       </Content>
       <Status />
