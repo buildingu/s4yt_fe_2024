@@ -1,0 +1,78 @@
+.lensButton {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.backBtn:hover,
+.backBtn:active {
+  opacity: 0.65;
+}
+.backBtn:active {
+  top: 3px;
+}
+.backBtn {
+  width: 150px;
+  height: 120px;
+  background: url("../../../static/btn_back.png") no-repeat center center/contain;
+}
+.modalContainer {
+  height: 600px;
+  max-width: 700px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h2, h3 {
+  color: var(--pbrown);
+}
+
+h2 {
+  font-size: 42px;
+}
+.modalLeft {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-right: 5rem;
+}
+.modalLeft img {
+  height: 100%;
+  width: 300px;
+  height: 300px;
+}
+.modalRight {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.productExtras {
+  display: flex;
+}
+.productExtras > :first-child {
+  margin-right: 2rem;
+  color: var(--pbrown);
+  font-size: 26px;
+}
+.productExtras > :first-child span {
+  display: block;
+  font-size: 56px;
+  font-weight: bold;
+}
+.sponsorLogo {
+  width: 150px;
+  height: 150px;
+}
+.modalSlide {
+  animation: slideUp 1s linear;
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

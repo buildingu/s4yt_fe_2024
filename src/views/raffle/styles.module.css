@@ -1,5 +1,9 @@
 .container {
   max-width: 625px;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .container h2,
@@ -42,6 +46,7 @@
   grid-template-columns: repeat(4, 1fr);
   place-items: center;
   gap: 1rem 2rem;
+  min-height: 370px;
 }
 @media screen and (max-width: 650px) {
   .container .top h2 {
@@ -104,10 +109,10 @@
   right: 0;
 }
 /* Magnifiying Glass */
-.container .products div .imgBox button {
+/* .container .products div .imgBox button {
   position: absolute;
   right: 0;
-}
+} */
 .container .products div .imgBox img {
   object-fit: contain;
   width: 100%;
@@ -150,4 +155,19 @@
 }
 .container .products div .controls button:active {
   top: 1.5px;
+}
+.paginationButtons {
+  width: 100%;
+  margin-top: 3rem;
+  position: relative;
+}
+.prevButton {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.nextButton {
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }

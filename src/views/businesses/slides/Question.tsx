@@ -31,8 +31,8 @@ const Questions: React.FC = () => {
           placeholder="Type your answer here"
         />
         <div className={s.formButtons}>
-          <button className={s.questionSave} onClick={handleSave}>Save</button>
-          <button className={s.questionDelete} onClick={handleDelete}>Delete</button>
+          <button className={s.questionSave} onClick={handleSave}></button>
+          <button className={s.questionDelete} onClick={handleDelete}></button>
           <button className={s.questionSubmit} type="submit"></button>
         </div>
       </form>

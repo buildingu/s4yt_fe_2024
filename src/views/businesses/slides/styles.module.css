@@ -83,6 +83,38 @@
   background: url("../../../static/businessSlidesBtns/btn-submit-pressed.png")
     no-repeat right center/contain;
 }
+.questionDelete {
+  border: none;
+  width: 150px;
+  height: 50px;
+  background: url("../../../static/businessSlidesBtns/btn-delete-normal.png")
+    no-repeat right center/contain;
+  cursor: pointer;
+}
+.questionDelete:hover {
+  background: url("../../../static/businessSlidesBtns/btn-delete-hover.png")
+    no-repeat right center/contain;
+}
+.questionDelete:active {
+  background: url("../../../static/businessSlidesBtns/btn-delete-pressed.png")
+    no-repeat right center/contain;
+}
+.questionSave {
+    border: none;
+  width: 150px;
+  height: 50px;
+  background: url("../../../static/businessSlidesBtns/btn-save-normal.png")
+    no-repeat right center/contain;
+  cursor: pointer;
+}
+.questionSave:hover {
+  background: url("../../../static/businessSlidesBtns/btn-save-hover.png")
+    no-repeat right center/contain;
+}
+.questionSave:active {
+  background: url("../../../static/businessSlidesBtns/btn-save-pressed.png")
+    no-repeat right center/contain;
+}
 .srOnly {
   position: absolute;
   width: 1px;

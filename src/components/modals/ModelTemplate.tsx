@@ -54,13 +54,13 @@ const ModalTemplate: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
         >
           {/* Modal */}
           <div
+            onClick={(e) => e.stopPropagation()}
             role="dialog"
             tabIndex={-1}
             aria-label={label ? label : "Popup"}
             // ref={modalRef}
             id="modal"
             style={{
-              all: "unset",
               padding: "1.5rem",
               backgroundColor: "var(--sBeige)",
               borderWidth: "1px",
