@@ -10,6 +10,7 @@ module.exports = {
       "@services": path.resolve(__dirname, "src/services"),
       "@constants": path.resolve(__dirname, "src/constants"),
       "@utils": path.resolve(__dirname, "src/utils"),
+      "@typings": path.resolve(__dirname, "src/typings"),
 
       "@selectors": path.resolve(__dirname, "src/redux/selectors"),
       "@actions": path.resolve(__dirname, "src/redux/actions"),
