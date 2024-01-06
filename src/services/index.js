@@ -76,7 +76,7 @@ export const Api = {
             params
           ).toString()}`
         : `${process.env.REACT_APP_API_BASE_URL}${url}`,
-      token = Store.getState().local.token;
+      token = Store.getState().user.token;
 
     try {
       const response = await fetch(apiUrl, {
@@ -90,15 +90,16 @@ export const Api = {
       history.push("/error-500");
     }
   },
-  post: async (url, data) => {
+  post: async (url, body) => {
+    console.log("POST body ", body);
     try {
       const apiUrl = `${process.env.REACT_APP_API_BASE_URL}${url}`;
-      const token = Store.getState().local.token;
+      const token = Store.getState().user.token;
 
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: headers(token),
-        body: JSON.stringify(data),
+        body: JSON.stringify(body),
       });
 
       return await response.json();

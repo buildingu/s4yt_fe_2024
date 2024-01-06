@@ -8,20 +8,21 @@ import Layout from "@components/layout";
 import Header from "@components/header";
 import Content from "@components/content";
 import { loginPlayer } from "@actions/user";
-import { setNotification, setToken } from "@actions/notifications";
+import { setToken } from "@actions/user";
+import { setNotification } from "@actions/notification";
 import s from "./styles.module.css";
 import coins1 from "@static/coins_variant1.png";
 
 // TODO: Types...
 interface Props {
-  login: Function;
+  loginPlayer: Function;
   // notification: Array<String>;
   setNotification: Function;
   setToken: Function;
 }
 
 const Login: React.FC<Props> = ({
-  login,
+  loginPlayer,
   // notification,
   setNotification,
   setToken,
@@ -152,7 +153,8 @@ const Login: React.FC<Props> = ({
 // const mapStateToProps = ({ notification }: any) => ({ notification });
 const mapStateToProps = ({}) => ({});
 const mapDispatchToProps = (dispatch: Function) => ({
-  login: (data: any, callback: () => void) => dispatch(login(data, callback)),
+  login: (data: any, callback: () => void) =>
+    dispatch(loginPlayer(data, callback)),
   setToken: (data: any, callback: () => void) => dispatch(setToken(data)),
   setNotification: (data: any) => dispatch(setNotification(data)),
 });

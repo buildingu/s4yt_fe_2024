@@ -1,17 +1,14 @@
+import NotificationValues from "@typings/NotificationValues";
+
 import { useEffect } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import { setNotification } from "@actions/notifications";
-import delay from "@utils/delay";
-import s from "./styles.module.css";
 
-export interface NotificationValues {
-  display: boolean;
-  error: boolean;
-  content: string;
-  close: boolean;
-  duration: number;
-}
+import { setNotification } from "@actions/notification";
+
+import delay from "@utils/delay";
+
+import s from "./styles.module.css";
 interface Props {
   notification: NotificationValues;
   setNotification: (data: any) => void;

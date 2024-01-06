@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useParams} from "react-router-dom";
+import { Routes, Route, Navigate, useParams } from "react-router-dom";
 import Gate from "@components/gate";
 
 import Login from "@views/login";
@@ -10,14 +10,14 @@ import Profile from "@views/profile";
 import Raffle from "@views/raffle";
 import Sponsors from "@views/sponsors";
 import Businesses from "@views/businesses";
-import Details from "@root/views/businesses/Details";
+import Details from "@views/businesses/Details";
 
 import Error404 from "@views/errors/Error404";
 import Error500 from "@views/errors/Error500";
 
 const RoutesProvider = () => {
   // temporary useParams for business details
-  const { details} = useParams()
+  const { details } = useParams();
 
   return (
     <Routes>

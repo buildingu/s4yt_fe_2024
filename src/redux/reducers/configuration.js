@@ -1,10 +1,6 @@
-import { SET_CONFIGURATION } from "@selectors";
+import { SET_CONFIGURATION } from "@actions";
 
-/*
-
-	Initial Local state
-
-*/
+// TODO: this will change and the name probably.
 const initialState = {
   loaded: false,
   register_coins: null,
@@ -15,13 +11,13 @@ const initialState = {
   referral_coins: null,
 };
 
-const Configuration = (state = initialState, action) => {
+const configuration = (state = initialState, action) => {
   switch (action.type) {
     case SET_CONFIGURATION:
-      return { ...state, ...action.data };
+      return { ...state, ...action.payload };
     default:
       return state;
   }
 };
 
-export default Configuration;
+export default configuration;

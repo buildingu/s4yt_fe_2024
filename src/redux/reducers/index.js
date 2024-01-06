@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
-import Local from "./local";
-import Notification from "./notification";
-import Options from "./options";
-import Configuration from "./configuration";
+import user from "./user";
+import notification from "./notification";
+import formOptions from "./formOptions";
+import configuration from "./configuration";
 
 export default combineReducers({
-  local: Local,
-  options: Options,
-  notification: Notification,
-  configuration: Configuration,
+  user,
+  formOptions,
+  notification,
+  configuration,
 });

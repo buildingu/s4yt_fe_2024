@@ -14,11 +14,11 @@ import Instagram from "./instagram";
 import s from "./styles.module.css";
 
 interface Props {
-  local: Array<String>;
+  user: Array<String>;
   getCurrentUser: Function;
 }
 
-const Profile: React.FC<Props> = ({ local, getCurrentUser }) => {
+const Profile: React.FC<Props> = ({ user, getCurrentUser }) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const Profile: React.FC<Props> = ({ local, getCurrentUser }) => {
   );
 };
 
-const mapStateToProps = ({ local }) => ({ local });
+const mapStateToProps = ({ user }) => ({ user });
 const mapDispatchToProps = (dispatch: Function) => ({
   getCurrentUser: (callback) => dispatch(getCurrentUser(callback)),
 });
