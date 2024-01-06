@@ -135,7 +135,8 @@ const UserForm: React.FC<Props> = ({
       getGrades();
     }
 
-    if (!formOptions.education.length) {
+    if (!formOptions.education) {
+      console.log("NMACHUCA", formOptions)
       getEducation();
     }
 
