@@ -66,6 +66,9 @@
 .form span:nth-of-type(2) div:last-child label {
   margin-right: calc(0.5rem + 0.5ch);
 }
+.form span:nth-of-type(3) div:last-child label {
+  margin-right: calc(0.5rem + 0.9ch);
+}
 
 .form div input,
 .form div select {
