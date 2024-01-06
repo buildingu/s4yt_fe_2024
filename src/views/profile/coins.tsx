@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { getCoinTypes } from "@actions/options";
+// import { getCoinTypes } from "@actions/options";
 import coins from "@static/coins_variant1.png";
 import s from "./styles.module.css";
 
@@ -11,11 +11,11 @@ interface Props {
 }
 
 const Coins: React.FC<Props> = ({ data, options, getCoinTypes }) => {
-  useEffect(() => {
-    if (options.cointypes.length === 0) {
-      getCoinTypes();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (options.cointypes.length === 0) {
+  //     getCoinTypes();
+  //   }
+  // }, []);
 
   return (
     <section className={s.doblonStatus}>
@@ -29,7 +29,7 @@ const Coins: React.FC<Props> = ({ data, options, getCoinTypes }) => {
           </p>
         </div>
         <div className={s.statuses}>
-          {options.cointypes.map((type, index) => {
+          {/* {options.cointypes.map((type, index) => {
             const total = data.filter(
               (ele) => ele.coin_type_id === type.id
             ).length;
@@ -40,16 +40,20 @@ const Coins: React.FC<Props> = ({ data, options, getCoinTypes }) => {
                 <span>{total}</span>
               </div>
             );
-          })}
+          })} */}
         </div>
       </div>
     </section>
   );
 };
 
-const mapStateToProps = ({ options }) => ({ options });
+const mapStateToProps = () =>
+  // { options }
+  ({
+    // options
+  });
 const mapDispatchToProps = (dispatch: Function) => ({
-  getCoinTypes: () => dispatch(getCoinTypes()),
+  // getCoinTypes: () => dispatch(getCoinTypes()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Coins);

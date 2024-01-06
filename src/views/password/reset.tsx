@@ -5,7 +5,7 @@ import Layout from "@components/layout";
 import Header from "@components/header";
 import Content from "@components/content";
 import { resetPassword } from "@actions/user";
-import { setNotification, setToken } from "@actions/notifications";
+import { setNotification, setToken } from "@actions/notification";
 import s from "./styles.module.css";
 
 // TODO: Fix types.

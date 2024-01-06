@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
-import { setNotification } from "@actions/notifications";
+import { setNotification } from "@actions/notification";
 
 import Layout from "@components/layout";
 import Header from "@components/header";

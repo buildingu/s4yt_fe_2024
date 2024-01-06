@@ -1,3 +1,4 @@
+import { SET_TOKEN_SUCCESS } from "@actions";
 import { Api } from "@services";
 
 export const registerPlayer = (userData, callback) => (dispatch, getState) => {
@@ -10,6 +11,10 @@ export const loginPlayer = (userData, callback) => (dispatch, getState) => {
   return Api.post("/login", userData).then((response) => {
     callback(response);
   });
+};
+
+export const setToken = (data) => (dispatch, getState) => {
+  dispatch({ type: SET_TOKEN_SUCCESS, payload: data });
 };
 
 export const resetPassword = (data, callback) => (dispatch, getState) => {

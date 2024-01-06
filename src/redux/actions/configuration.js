@@ -1,4 +1,4 @@
-import { SET_CONFIGURATION } from "@selectors";
+import { SET_CONFIGURATION } from "@actions";
 import { Api } from "@services";
 
 export const getConfiguration = (callback) => (dispatch, getState) => {
@@ -13,6 +13,6 @@ export const getConfiguration = (callback) => (dispatch, getState) => {
         : null;
     });
 
-    dispatch({ type: SET_CONFIGURATION, data: data });
+    dispatch({ type: SET_CONFIGURATION, payload: data });
   });
 };

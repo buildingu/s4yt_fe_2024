@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { userProfile } from "@actions/user";
-import { setNotification } from "@actions/notifications";
+import { setNotification } from "@actions/notification";
 import s from "./styles.module.css";
 
 interface Props {

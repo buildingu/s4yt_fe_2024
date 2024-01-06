@@ -1,4 +1,4 @@
-import { SET_NOTIFICATION_DATA } from "@selectors";
+import { SET_NOTIFICATION_DATA } from "@actions";
 
 const initialState = {
   display: false,
@@ -8,16 +8,16 @@ const initialState = {
   duration: 0,
 };
 
-const Options = (state = initialState, action) => {
+const notification = (state = initialState, action) => {
   switch (action.type) {
     case SET_NOTIFICATION_DATA:
       return {
         ...state,
-        ...action.data,
+        ...action.payload,
       };
     default:
       return state;
   }
 };
 
-export default Options;
+export default notification;

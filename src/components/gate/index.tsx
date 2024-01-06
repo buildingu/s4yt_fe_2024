@@ -1,37 +1,47 @@
-import React, {useState,useEffect} from 'react';
-import {connect} from 'react-redux';
-import {Navigate} from 'react-router-dom';
-import {getConfiguration} from '@actions/configuration';
+import { useState, useEffect } from "react";
+import { Dispatch } from "redux";
+import { connect } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { getConfiguration } from "@actions/configuration";
 
 interface Props {
-	local:Array<String>,
-	view:Object,
-	restricted:Boolean,
-	getConfiguration:Function
+  user: any;
+  configuration: any;
+  view: object;
+  restricted: Boolean;
+  getConfiguration: any;
 }
 
-const Gate:React.FC<Props> = ({local,configuration,view,restricted,getConfiguration}) => {
-	const allow = (restricted && local.token || !restricted && !local.token) ? true : false;
-	const redirect = !restricted ? '/profile' : '/login';
+// TODO:
+const Gate: React.FC<Props> = ({
+  user,
+  configuration,
+  view,
+  restricted,
+  getConfiguration,
+}) => {
+  const allow =
+    (restricted && user.token) || (!restricted && !user.token) ? true : false;
+  const redirect = !restricted ? "/profile" : "/login";
 
-	useEffect(() => {
-    if (!configuration.loaded) {
-      getConfiguration();
-    }
-  }, []);
+  // useEffect(() => {
+  // 	if(!configuration.loaded){
+  // 		getConfiguration();
+  // 	}
+  // },[]);
 
-  return configuration.loaded ? (
-    allow ? (
-      <>{view}</>
-    ) : (
-      <Navigate to={redirect} />
-    )
-  ) : null;
-}
+  // return (configuration.loaded ? (allow ? <>
+  // 	{view}
+  // </> : <Navigate to={redirect} />) : null)
+  return <>{view}</>;
+};
 
-const mapStateToProps = ({ local,configuration }) => ({ local,configuration });
-const mapDispatchToProps = (dispatch) => ({
-	getConfiguration: () => dispatch(getConfiguration())
+const mapStateToProps = ({ user, configuration }: any) => ({
+  user,
+  configuration,
+});
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+  getConfiguration: () => dispatch(getConfiguration()),
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(Gate);
+export default connect(mapStateToProps, mapDispatchToProps)(Gate);
