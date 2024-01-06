@@ -1,8 +1,9 @@
 import { Routes, Route, Navigate, useParams } from "react-router-dom";
 import Gate from "@components/gate";
 
-import Login from "@views/login";
 import Register from "@views/register";
+import VerifyEmail from "@views/register/verifyEmail";
+import Login from "@views/login";
 import PasswordReset from "@views/password/reset";
 
 import Home from "@views/home";
@@ -21,11 +22,15 @@ const RoutesProvider = () => {
 
   return (
     <Routes>
-      <Route path="/login" element={<Gate view={<Login />} restricted={0} />} />
       <Route
         path="/register"
         element={<Gate view={<Register />} restricted={0} />}
       />
+      <Route
+        path="/verify-email"
+        element={<Gate view={<VerifyEmail />} restricted={0} />}
+      />
+      <Route path="/login" element={<Gate view={<Login />} restricted={0} />} />
       <Route
         path="/password-reset"
         element={<Gate view={<PasswordReset />} restricted={0} />}
@@ -51,7 +56,7 @@ const RoutesProvider = () => {
         path="/businesses/:details"
         element={<Gate view={<Details />} restricted={1} />}
       />
-      {/* <Route path="/results" element={<Gate view={<Sponsors />} restricted={1} />} /> */}
+      {/* <Route path="/results" element={<Gate view={< />} restricted={1} />} /> */}
       <Route
         path="/error-500"
         element={<Gate view={<Error500 />} restricted={0} />}
