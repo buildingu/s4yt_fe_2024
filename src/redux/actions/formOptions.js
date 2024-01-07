@@ -31,7 +31,10 @@ export const getRegions = (countryId) => (dispatch, getState) => {
   dispatch({ type: SET_REGIONS, payload: [] });
 
   return Api.post("/regions", { country_id: countryId }).then((response) => {
-    dispatch({ type: SET_REGIONS, payload: response.data.regions });
+    // 404 message.
+    response.message && response.message === "No regions found"
+      ? dispatch({ type: SET_REGIONS, payload: "Not Found" })
+      : dispatch({ type: SET_REGIONS, payload: response.data.regions });
   });
 };
 
