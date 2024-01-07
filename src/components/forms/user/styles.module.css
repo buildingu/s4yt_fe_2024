@@ -84,16 +84,30 @@
 }
 
 .form div small {
+  position: absolute;
+  font-family: Arial;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.form div small:not(.notFoundMsg) {
   display: none;
   position: absolute;
   bottom: -6px;
   padding: 5px;
-  color: #f5f5f5;
-  font-family: Arial;
   font-size: 10px;
-  font-weight: 700;
+  color: var(--white);
   background: var(--_error);
-  white-space: nowrap;
+}
+.form div small.notFoundMsg {
+  bottom: -19px;
+  font-size: 11px;
+  color: var(--black);
+}
+.form span:nth-of-type(3) div small.notFoundMsg {
+  left: 70px;
+}
+.form div:nth-of-type(4) small.notFoundMsg {
+  left: 97px;
 }
 .form div input[data-valid="false"],
 .form div select[data-valid="false"]
