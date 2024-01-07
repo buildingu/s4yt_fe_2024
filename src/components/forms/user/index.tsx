@@ -3,7 +3,7 @@ import NotificationValues from "@typings/NotificationValues";
 import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Dispatch } from "redux";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 
 import { registerPlayer, userProfile } from "@actions/user";
 import {
@@ -13,15 +13,18 @@ import {
   getRegions,
   getCities,
 } from "@actions/formOptions";
-import { SET_REGIONS } from "@actions/index";
 import { setNotification } from "@actions/notification";
+import { SET_REGIONS } from "@actions/index";
+
+import updateField from "@utils/forms/updateField";
+import checkValidity from "@utils/forms/checkValidity";
+import checkMatchingPasswords from "@utils/forms/checkMatchingPasswords";
 
 import Spinner from "@components/loaders/spinner/Spinner";
 
 import s from "./styles.module.css";
 
 interface Props {
-  //   options: Array<String>;
   formOptions: {
     education: Array<{ id: number; name: string }>;
     grades: Array<{ id: number; name: string }>;
@@ -33,6 +36,7 @@ interface Props {
   getGrades: () => void;
   getCountries: () => void;
   getRegions: (countryId: number) => void;
+  resetRegions: () => void;
   getCities: (regionId: number) => void;
   // TODO: Find what the actual user object is.
   user: any;
@@ -51,6 +55,7 @@ interface FromData {
   password_confirmation: string;
   // instagram: string;
   education_id: null | number;
+  school: "";
   grade_id: null | number;
   country_id: null | number;
   region_id: null | number;
@@ -63,6 +68,7 @@ const UserForm: React.FC<Props> = ({
   getGrades,
   getCountries,
   getRegions,
+  resetRegions,
   getCities,
   setNotification,
   // This will not be passed in at profile anymore, it will be in the redux.
@@ -111,39 +117,37 @@ const UserForm: React.FC<Props> = ({
       password_confirmation: "",
       // instagram: "",
       education_id: null,
+      school: "",
       grade_id: null,
       country_id: null,
       region_id: null,
       city_id: null,
       // TODO:
       //  ...(user.id && { ...user }),
-    }),
-    dispatch = useDispatch();
+    });
 
-  useEffect(() => {
-    console.log("currentData", currentData);
-  }, [currentData]);
+  // useEffect(() => {
+  //   console.log("currentData", currentData);
+  // }, [currentData]);
 
-  useEffect(() => {
-    console.log("formOptions", formOptions);
-  }, [formOptions]);
+  // useEffect(() => {
+  //   console.log("formOptions", formOptions);
+  // }, [formOptions]);
+
+  // useEffect(() => {
+  //   console.log("form", form);
+  // }, [form]);
 
   // useEffect(() => {
   //   console.log("user", user);
   // }, [user]);
 
   useEffect(() => {
-    if (!formOptions.grades.length) {
-      getGrades();
-    }
+    if (!formOptions.grades.length) getGrades();
 
-    if (!formOptions.education.length) {
-      getEducation();
-    }
+    if (!formOptions.education.length) getEducation();
 
-    if (!formOptions.countries.length) {
-      getCountries();
-    }
+    if (!formOptions.countries.length) getCountries();
 
     // if (referral && user.email) {
     //   setData({ ...data, referral: parseInt(referral), email: user.email });
@@ -161,11 +165,8 @@ const UserForm: React.FC<Props> = ({
     //   setCities([]);
     // }
     // Just for a reset if refresh or something.
-    if (typeof formOptions.regions === "string")
-      dispatch({ type: SET_REGIONS, payload: [] });
-    if (currentData.country_id) {
-      getRegions(currentData.country_id);
-    }
+    if (typeof formOptions.regions === "string") resetRegions();
+    if (currentData.country_id) getRegions(currentData.country_id);
   }, [currentData.country_id]);
 
   useEffect(() => {
@@ -180,33 +181,17 @@ const UserForm: React.FC<Props> = ({
     if (currentData.region_id) getCities(currentData.region_id);
   }, [currentData.region_id]);
 
-  const checkValidity = (field: HTMLInputElement | HTMLSelectElement) => {
-    field.setAttribute("data-valid", field.validity.valid ? "true" : "false");
-    field.setAttribute("aria-invalid", field.validity.valid ? "true" : "false");
-  };
-  const checkMatchingPasswords = (
-    conPassField: HTMLInputElement,
-    passwordValue: string
-  ) => {
-    if (conPassField.value && passwordValue! !== conPassField.value) {
-      conPassField.setAttribute("matching-passwords", "false");
-      conPassField.setAttribute("aria-invalid", "false");
-    } else {
-      checkValidity(conPassField);
-    }
-  };
-
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const fields = document.querySelectorAll(
-      "#userForm input,select, #registrationForm input,select"
-    );
+    const fields = document.querySelectorAll<
+      HTMLInputElement | HTMLSelectElement
+    >("#userForm input,select, #registrationForm input,select");
     let valid = true,
       passwordValue: string;
 
     for (let i = 0; i < fields.length; i++) {
-      const field = fields[i] as HTMLInputElement | HTMLSelectElement;
+      const field = fields[i];
       if (!user.id) {
         if (field.name === "password") passwordValue = field.value;
 
@@ -268,11 +253,11 @@ const UserForm: React.FC<Props> = ({
       } else {
         const relevantData = {
           password_confirmation: currentData.password_confirmation,
-          country_id: currentData.country_id,
-          // region_id: currentData.region_id,
-          // city_id: currentData.city_id,
+          region_id: currentData.region_id,
+          city_id: currentData.city_id,
           ...currentData,
         };
+        // FIXME: This doesn't even do processing properly lol.
         registerPlayer(relevantData, (res) => {
           setForm({ ...form, processing: true });
 
@@ -304,50 +289,6 @@ const UserForm: React.FC<Props> = ({
     }
 
     // setForm({ ...form, valid: valid, submitted: true, processing: valid });
-
-    return false;
-  };
-
-  const updateField = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const target = e.target;
-    const name = target.getAttribute("name");
-    // const isPlayerData =
-    //   [
-    //     "education_id",
-    //     "grade_id",
-    //     "country_iso",
-    //     "state_iso",
-    //     "city_id",
-    //     "instagram",
-    //   ].indexOf(key) === -1
-    //     ? false
-    //     : true;
-
-    target.removeAttribute("data-valid");
-    target.removeAttribute("matching-passwords");
-
-    setCurrentData((prev) => ({
-      ...prev,
-      [name!]:
-        name!.split("_")[1] === "id" ? parseInt(target.value) : target.value,
-    }));
-
-    // setData(
-    //   isPlayerData
-    //     ? {
-    //         ...data,
-    //         player: {
-    //           ...data.player,
-    //           [key]: !isNaN(node.value) ? parseInt(node.value) : node.value,
-    //         },
-    //       }
-    //     : {
-    //         ...data,
-    //         [key]: !isNaN(node.value) ? parseInt(node.value) : node.value,
-    //       }
-    // );
   };
 
   return (
@@ -373,7 +314,7 @@ const UserForm: React.FC<Props> = ({
             id="name"
             name="name"
             type="text"
-            onChange={(e) => updateField(e)}
+            onChange={(e) => updateField<FromData>(e, setCurrentData)}
             disabled={form.processing}
             aria-disabled={form.processing}
             // defaultValue={data.name ? data.name : ""}
@@ -390,7 +331,7 @@ const UserForm: React.FC<Props> = ({
             id="email"
             name="email"
             type="email"
-            onChange={(e) => updateField(e)}
+            onChange={(e) => updateField<FromData>(e, setCurrentData)}
             disabled={form.processing}
             aria-disabled={form.processing}
             // defaultValue={data.email ? data.email : ""}
@@ -411,7 +352,7 @@ const UserForm: React.FC<Props> = ({
                 id="password"
                 name="password"
                 type="password"
-                onChange={(e) => updateField(e)}
+                onChange={(e) => updateField<FromData>(e, setCurrentData)}
                 disabled={form.processing}
                 aria-disabled={form.processing}
                 autoComplete="off"
@@ -429,7 +370,7 @@ const UserForm: React.FC<Props> = ({
                 id="password_confirmation"
                 name="password_confirmation"
                 type="password"
-                onChange={(e) => updateField(e)}
+                onChange={(e) => updateField<FromData>(e, setCurrentData)}
                 disabled={form.processing}
                 aria-disabled={form.processing}
                 autoComplete="off"
@@ -471,7 +412,7 @@ const UserForm: React.FC<Props> = ({
             <select
               id="education"
               name="education_id"
-              onChange={(e) => updateField(e)}
+              onChange={(e) => updateField<FromData>(e, setCurrentData)}
               disabled={form.processing}
               aria-disabled={form.processing}
               // defaultValue={data.player ? data.player.education_id : ""}
@@ -488,6 +429,20 @@ const UserForm: React.FC<Props> = ({
                 })}
             </select>
           </div>
+          {/* TODO: */}
+          <div role="presentation" style={{ display: "none" }}>
+            <label htmlFor="school">school</label>
+            <input
+              id="school"
+              name="school"
+              type="text"
+              onChange={(e) => updateField<FromData>(e, setCurrentData)}
+              disabled={form.processing}
+              aria-disabled={form.processing}
+              // defaultValue={data.name ? data.name : ""}
+              autoComplete="off"
+            />
+          </div>
           <div role="presentation">
             <label htmlFor="grade">
               Grade<span className={s.required}>*</span>
@@ -495,7 +450,7 @@ const UserForm: React.FC<Props> = ({
             <select
               id="grade"
               name="grade_id"
-              onChange={(e) => updateField(e)}
+              onChange={(e) => updateField<FromData>(e, setCurrentData)}
               disabled={form.processing}
               aria-disabled={form.processing}
               // defaultValue={data.player ? data.player.grade_id : ""}
@@ -522,7 +477,7 @@ const UserForm: React.FC<Props> = ({
             <select
               id="country"
               name="country_id"
-              onChange={(e) => updateField(e)}
+              onChange={(e) => updateField<FromData>(e, setCurrentData)}
               disabled={form.processing}
               aria-disabled={form.processing}
               // value={data.player ? data.player.country_iso : ""}
@@ -547,7 +502,7 @@ const UserForm: React.FC<Props> = ({
               aria-busy={formOptions.regions.length === 0}
               id="region"
               name="region_id"
-              onChange={(e) => updateField(e)}
+              onChange={(e) => updateField<FromData>(e, setCurrentData)}
               // disabled={
               //   !data.player ||
               //   !data.player.country_iso ||
@@ -596,7 +551,7 @@ const UserForm: React.FC<Props> = ({
             aria-busy={formOptions.cities.length === 0}
             id="city"
             name="city_id"
-            onChange={(e) => updateField(e)}
+            onChange={(e) => updateField<FromData>(e, setCurrentData)}
             // disabled={
             //   !(
             //     data.player &&
@@ -640,7 +595,7 @@ const UserForm: React.FC<Props> = ({
           <Link to="/login" className="fade move">
             Already have a account?
           </Link>
-          <button disabled={form.processing} />
+          <button type="submit" disabled={form.processing} />
         </div>
       </form>
     </>
@@ -654,12 +609,14 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   getCountries: () => dispatch(getCountries()),
   getRegions: (regionId: number) => dispatch(getRegions(regionId)),
   getCities: (regionId: number) => dispatch(getCities(regionId)),
-  registerPlayer: (userData: any, callback: (res: any) => void) =>
+  registerPlayer: (userData: FormData, callback: (res: any) => void) =>
     dispatch(registerPlayer(userData, callback)),
   userProfile: (data: any, callback: () => void) =>
     dispatch(userProfile(data, callback)),
   setNotification: (data: NotificationValues) =>
     dispatch(setNotification(data)),
+
+  resetRegions: () => dispatch({ type: SET_REGIONS, payload: [] }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserForm);
