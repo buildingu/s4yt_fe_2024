@@ -110,11 +110,11 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, setNotification }) => {
   );
 };
 
-const mapStateToProps = ({}) => ({});
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  sendVerifyEmail: (email: string) => dispatch(sendVerifyEmail(email)),
+  sendVerifyEmail: (email: string) =>
+    dispatch(sendVerifyEmail(email) as unknown) as Promise<any>,
   setNotification: (data: NotificationValues) =>
     dispatch(setNotification(data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(VerifyEmail);
+export default connect(null, mapDispatchToProps)(VerifyEmail);
