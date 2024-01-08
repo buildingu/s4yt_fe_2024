@@ -94,6 +94,13 @@ button.backBtn {
   display: flex;
 }
 
+.resultsBtn {
+  width: 100%;
+  height: 237px;
+  background: url("../../static/btn-seemyresults.png") no-repeat center
+    center/contain;
+}
+
 @media screen and (max-width: 670px) {
   .options {
     margin-left: 0;
@@ -238,7 +245,7 @@ button.backBtn {
 
 .congrats div {
   position: relative;
-  max-width: 400px;
+  max-width: 500px;
 }
 .congrats div::before {
   content: attr(data-score);
@@ -277,6 +284,20 @@ button.backBtn {
     padding: 0;
   }
 
+  .congratsBtns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .congratsBtns .moreBtn {
+    top: auto;
+  }
+
+  .resultsBtn {
+    transform: rotate(7.5deg);
+  }
+
   .congrats div::before {
     content: attr(data-score);
     font-size: 102px;
@@ -289,15 +310,17 @@ button.backBtn {
   .congrats h2 {
     margin-bottom: 10rem;
   }
+
   .congrats h2,
   .congrats div p {
     font-size: 50px;
   }
+
   .congrats h2,
   .congrats div,
   .congrats a {
     position: relative;
-    top: 5.5rem;
+    /* top: 5.5rem; */
   }
 
   .congrats a {

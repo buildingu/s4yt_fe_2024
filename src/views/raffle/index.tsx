@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import {
+  spendCoins,
+  retrieveCoins,
+  initializeCoins,
+} from "@root/redux/actions/coinTracker";
+import { Store } from "@root/store";
 
 import Layout from "@components/layout";
 import Header from "@components/header";
@@ -7,6 +13,8 @@ import Content from "@components/content";
 import Status from "@components/status";
 import RaffleItemModal from "@components/modals/raffleItemModal/RaffleItemModal";
 import feather from "@static/feather.png";
+import goldCoin from "@static/coin-smallgolden.png";
+import silverCoin from "@static/coin-smallsilver.png";
 
 import s from "./styles.module.css";
 
@@ -16,6 +24,7 @@ const products = [
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
+    id: 1,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
     availability: 3,
@@ -24,6 +33,7 @@ const products = [
   {
     img: require("@static/error-logo.png"),
     name: "Bag & Key Chain",
+    id: 2,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
     availability: 3,
@@ -32,6 +42,7 @@ const products = [
   {
     img: require("@static/error-logo.png"),
     name: "Lanyard",
+    id: 3,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
     availability: 3,
@@ -40,6 +51,7 @@ const products = [
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
+    id: 4,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
     availability: 3,
@@ -48,6 +60,7 @@ const products = [
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
+    id: 5,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
     availability: 3,
@@ -56,6 +69,7 @@ const products = [
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
+    id: 6,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
     availability: 3,
@@ -64,6 +78,7 @@ const products = [
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
+    id: 7,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
     availability: 3,
@@ -72,6 +87,7 @@ const products = [
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
+    id: 8,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
     availability: 3,
@@ -80,6 +96,7 @@ const products = [
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
+    id: 9,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
     availability: 3,
@@ -88,6 +105,7 @@ const products = [
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
+    id: 10,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
     availability: 3,
@@ -96,6 +114,7 @@ const products = [
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
+    id: 11,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
     availability: 3,
@@ -104,6 +123,7 @@ const products = [
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
+    id: 12,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
     availability: 3,
@@ -112,6 +132,7 @@ const products = [
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
+    id: 13,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
     availability: 3,
@@ -120,6 +141,7 @@ const products = [
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
+    id: 14,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
     availability: 3,
@@ -128,6 +150,7 @@ const products = [
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
+    id: 15,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
     availability: 3,
@@ -136,6 +159,7 @@ const products = [
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
+    id: 16,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
     availability: 3,
@@ -144,6 +168,7 @@ const products = [
   {
     img: require("@static/error-logo.png"),
     name: "T-Shirt",
+    id: 17,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
     availability: 3,
@@ -152,14 +177,23 @@ const products = [
 ];
 
 const Raffle: React.FC<Props> = ({}) => {
+  const dispatch = useDispatch();
+  const storeEntries = Store.getState().coinTracker.items;
+  const storeCoins = Store.getState().coinTracker.remainingCoins;
   const [slideIndex, setSlideIndex] = useState(0),
     [isOpened, setIsOpened] = useState(false);
 
   // Track product entries all have a default value of 0 at their respective index
   const [entries, setEntries] = useState(Array(products.length).fill(0));
+  const [totaleDublunes, setTotalDublunes] = useState(storeCoins ? storeCoins : 0);
 
-  // Default value to be replaced with user data
-  const [totaleDublunes, setTotalDublunes] = useState(24);
+  // For testing persistenece between pages
+  useEffect(() => {
+    if (storeEntries.length === 0) {
+      dispatch(initializeCoins({ products, remainingCoins: storeCoins }));
+      setTotalDublunes(storeCoins);
+    }
+  }, []);
 
   // Variables to create 'slides' of products showing 8 at a time for any given page (slideIndex)
   const maxItems = 8;
@@ -168,6 +202,11 @@ const Raffle: React.FC<Props> = ({}) => {
 
   // Adds/Subtracts entries that correspond with product index and adjust total Dubulunes
   const handleProductEntries = (index: number, value: number) => {
+    const item = products[index + startIndex];
+    dispatch(
+      value > 0 ? spendCoins(item, value) : retrieveCoins(item, Math.abs(value))
+    );
+
     setEntries((prev) => {
       const change = [...prev];
       change[startIndex + index] += value;
@@ -208,18 +247,21 @@ const Raffle: React.FC<Props> = ({}) => {
               <br /> Treasure
             </h2>
             {/* TODO: The total is their current doblons. */}
-            <h4>
+            <h4 className={s.dublunesCount}>
               Your Total Dubl-u-nes: <span>{totaleDublunes}</span>
             </h4>
             <div className={s.legend}>
               <h4>Legend</h4>
               <div>
-                <img src="" alt="" />
-                <p></p>
+                <img src={goldCoin} alt="golden coin" />
+                <p>
+                  At least one player has assigned at least 1 dubl-u-ne to that
+                  item
+                </p>
               </div>
               <div>
-                <img src="" alt="" />
-                <p></p>
+                <img src={silverCoin} alt="silver coin" />
+                <p>No one has yet assigned any dubl-u-nes to the item</p>
               </div>
             </div>
           </div>
@@ -234,17 +276,22 @@ const Raffle: React.FC<Props> = ({}) => {
                     setShow={setIsOpened}
                     products={products[i + startIndex]}
                   />
+                  <img className={s.entryNotification} src={storeEntries[i + startIndex].entries > 0 ? goldCoin : silverCoin} alt="coin" />
                 </div>
                 <h4 className={s.name}>{item.name}</h4>
                 <div className={s.controls}>
                   <button
-                    disabled={entries[i + startIndex] === 0}
+                    disabled={storeEntries[i + startIndex]?.entries === 0}
                     onClick={() => handleProductEntries(i, -1)}
                     aria-label="Subtract"
                   >
                     -
                   </button>
-                  <h4>{entries[i + startIndex]}</h4>
+                  <h4>
+                    {storeEntries.length !== 0
+                      ? storeEntries[i + startIndex].entries
+                      : entries[i + startIndex]}
+                  </h4>
                   <button
                     disabled={totaleDublunes === 0}
                     onClick={() => handleProductEntries(i, +1)}
@@ -260,12 +307,10 @@ const Raffle: React.FC<Props> = ({}) => {
             {/* Don't show prev button if at start of slide */}
             {startIndex !== 0 && (
               <button
-                className={s.prevButton}
+                className={`${s.prevButton}`}
                 aria-label="Previous page"
                 onClick={() => setSlideIndex((prev) => prev - 1)}
-              >
-                Prev
-              </button>
+              />
             )}
             {/* Don't show next button if no items on next slide */}
 
@@ -274,9 +319,7 @@ const Raffle: React.FC<Props> = ({}) => {
                 className={s.nextButton}
                 aria-label="Next page"
                 onClick={() => setSlideIndex((prev) => prev + 1)}
-              >
-                Next
-              </button>
+              />
             )}
           </div>
         </div>

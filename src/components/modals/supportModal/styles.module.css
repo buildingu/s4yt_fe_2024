@@ -1,0 +1,37 @@
+.questions {
+  background: url("../../../static/btn_question_normal.png") no-repeat center
+    center/contain;
+  transition: all 0.1s linear;
+}
+.questions:hover {
+  opacity: 0.5;
+}
+.modalContainer {
+  display: flex;
+  flex-direction: column;
+  color: var(--pbrown);
+  text-align: center;
+}
+.modalContainer div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.modalContainer h2 {
+  margin-bottom: 30px;
+}
+.modalContainer p {
+  font-size: 24px;
+  max-width: 80%;
+}
+.modalContainer span {
+  display: block;
+  width: fit-content;
+  font-size: 26px;
+  font-weight: bold;
+  margin: 10px auto 20px auto;
+  cursor: pointer;
+}
+.modalContainer span:hover {
+  opacity: 0.5;
+}

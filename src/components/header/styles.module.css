@@ -291,7 +291,7 @@
   }
 
   .container.full .right .menu > div:first-of-type .secLogo {
-    background-color: var(--pbrown);
+    background: url("../../static/LOGO.png") no-repeat;
     width: 200px;
     height: 100px;
   }
