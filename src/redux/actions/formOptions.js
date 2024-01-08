@@ -5,8 +5,8 @@ import {
   SET_REGIONS,
   SET_CITIES,
   // GET_COIN_TYPES_SUCCESS
-} from "@actions";
-import { Api } from "@services";
+} from "@actions/index";
+import { Api } from "@services/index";
 
 export const getGrades = () => (dispatch, getState) => {
   return Api.get("/grades").then((response) => {
