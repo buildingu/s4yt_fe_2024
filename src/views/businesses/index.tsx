@@ -52,6 +52,10 @@ const Businesses: React.FC = () => {
           {businesses.map((business, i) => (
             <a
               href={`/businesses/${business.name}`}
+              onClick={(e) => {
+                e.preventDefault();
+                history.push(`/businesses/${business.name}`);
+              }}
               className={s.businessContainer}
               key={i}
             >
