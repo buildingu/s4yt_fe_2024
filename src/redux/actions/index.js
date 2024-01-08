@@ -14,3 +14,8 @@ export const SET_NOTIFICATION_DATA = "notification.SET_NOTIFICATION_DATA";
 
 // user
 export const SET_TOKEN_SUCCESS = "user.SET_TOKEN_SUCCESS";
+
+// coinTracker
+export const SPEND_COINS = "SPEND_COINS";
+export const RETRIEVE_COINS = "RETRIEVE_COINS";
+export const INITIALIZE_COINS = "INITIALIZE_COINS";
