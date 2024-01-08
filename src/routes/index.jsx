@@ -3,7 +3,7 @@ import Gate from "@components/gate";
 
 import Register from "@views/register";
 import VerifyEmail from "@views/register/verifyEmail";
-import VerifyMessage from "@views/register/verifyEmail/verifyMessage";
+import VerifySuccess from "@views/register/verifyEmail/VerifySuccess";
 import Login from "@views/login";
 import PasswordReset from "@views/password/reset";
 
@@ -33,33 +33,7 @@ const RoutesProvider = () => {
       />
       <Route
         path="/register/verify-email/success"
-        element={
-          <Gate
-            view={
-              <VerifyMessage
-                title="Email Verified"
-                heading="Thanks!"
-                text="Your email has been verified. You are ready to play!"
-              />
-            }
-            restricted={0}
-          />
-        }
-      />
-      <Route
-        path="/register/verify-email/bad-request"
-        element={
-          <Gate
-            view={
-              <VerifyMessage
-                title="Email Verified"
-                heading="Thanks again!"
-                text="Whoops! Your email has been already verified. Go play!"
-              />
-            }
-            restricted={0}
-          />
-        }
+        element={<Gate view={<VerifySuccess />} restricted={0} />}
       />
       <Route path="/login" element={<Gate view={<Login />} restricted={0} />} />
       <Route
