@@ -1,7 +1,7 @@
 .lensButton {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: -15px;
+  right: -15px;
   height: 25px;
   width: 25px;
   background: url("../../../static/magnifier.png") no-repeat center center/contain;

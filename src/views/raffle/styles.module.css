@@ -50,6 +50,13 @@
 .legend img {
   margin-right: 10px;
 }
+.container .products div .imgBox .entryNotification {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  height: 30px;
+  width: 30px;
+}
 @media screen and (max-width: 414px) {
   .container .top {
     justify-content: center;
