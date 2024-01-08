@@ -1,7 +1,7 @@
 import { SPEND_COINS, RETRIEVE_COINS, INITIALIZE_COINS } from "@actions/index";
 
 const initialState = {
-  remainingCoins: 24,
+  remainingCoins: 5,
   items: [],
 };
 
