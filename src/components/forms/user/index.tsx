@@ -98,13 +98,13 @@ const UserForm: React.FC<Props> = ({
       //  ...(user.id && { ...user }),
     });
 
-  useEffect(() => {
-    console.log("currentData", currentData);
-  }, [currentData]);
+  // useEffect(() => {
+  //   console.log("currentData", currentData);
+  // }, [currentData]);
 
-  useEffect(() => {
-    console.log("formOptions", formOptions);
-  }, [formOptions]);
+  // useEffect(() => {
+  //   console.log("formOptions", formOptions);
+  // }, [formOptions]);
 
   // useEffect(() => {
   //   console.log("form", form);
@@ -251,7 +251,7 @@ const UserForm: React.FC<Props> = ({
             autoComplete="off"
             required
           />
-          <small>Not a valid email address</small>
+          <small className="formError">Not a valid email address</small>
         </div>
 
         {/* This is for the register. */}
@@ -273,7 +273,9 @@ const UserForm: React.FC<Props> = ({
                 maxLength={24}
                 required
               />
-              <small>Must be between 8 and 24 characters</small>
+              <small className="formError">
+                Must be between 8 and 24 characters
+              </small>
             </div>
             <div role="presentation">
               <label htmlFor="password_confirmation">
@@ -291,7 +293,7 @@ const UserForm: React.FC<Props> = ({
                 maxLength={24}
                 required
               />
-              <small>Passwords do not match</small>
+              <small className="formError">Passwords do not match</small>
             </div>
           </span>
         )}
@@ -496,7 +498,7 @@ const UserForm: React.FC<Props> = ({
           <Link to="/login" className="fade move">
             Already have a account?
           </Link>
-          <button type="submit" disabled={form.processing} />
+          <button type="submit" className="okBtn" disabled={form.processing} />
         </div>
       </form>
     </>
