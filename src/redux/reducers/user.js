@@ -1,4 +1,4 @@
-import { SET_TOKEN_SUCCESS } from "@actions";
+import { SET_TOKEN_SUCCESS } from "@actions/index";
 
 // TODO: if the user logs out then we can delete both token and user.
 const initialState = {

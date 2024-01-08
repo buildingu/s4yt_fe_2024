@@ -1,5 +1,5 @@
-import { SET_CONFIGURATION } from "@actions";
-import { Api } from "@services";
+import { SET_CONFIGURATION } from "@actions/index";
+import { Api } from "@services/index";
 
 export const getConfiguration = (callback) => (dispatch, getState) => {
   return Api.get("/configuration").then((response) => {

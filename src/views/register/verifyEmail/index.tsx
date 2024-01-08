@@ -50,7 +50,6 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, setNotification }) => {
           display: true,
           error: false,
           content:
-            // TODO: Message for the register should be different
             "Lastly, to complete the registration process, please check your inbox to verify your email. In case you don't find it there, please check your spam folder.",
           close: false,
           duration: 0,
@@ -70,9 +69,10 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, setNotification }) => {
   };
 
   return (
+    // TODO: coins1
     <Layout addCoins="coins1" style={{ maxWidth: "600px" }}>
       <Header title="Verify Email" />
-      <Content style={{ paddingTop: "3rem" }}>
+      <Content>
         <form
           id="verifyEmailForm"
           onSubmit={(e) => submit(e)}
@@ -96,14 +96,20 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, setNotification }) => {
               autoComplete="off"
               required
             />
-            <small>Not a valid email address</small>
+            <small className="formError">Not a valid email address</small>
           </div>
 
-          <button
-            style={{ width: "20px", height: "20px", backgroundColor: "black" }}
-            type="submit"
-            disabled={form.processing}
-          />
+          <div>
+            <p>
+              Enter your email address to resend the variation email. If your
+              account exists, the message will be resent.
+            </p>
+            <button
+              type="submit"
+              className="okBtn"
+              disabled={form.processing}
+            />
+          </div>
         </form>
       </Content>
     </Layout>
