@@ -10,7 +10,7 @@ const Spinner: React.FC<Props> = ({ size, style }) => {
     <span
       role="status"
       aria-label="Loading"
-      className={s.spinner}
+      className={`spinner ${s.loader}`}
       style={{ ...(size && { width: size, height: size }), ...style }}
     />
   );

@@ -1,4 +1,4 @@
-import { SET_NOTIFICATION_DATA } from "@actions";
+import { SET_NOTIFICATION_DATA } from "@actions/index";
 
 const initialState = {
   display: false,

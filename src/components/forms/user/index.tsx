@@ -40,7 +40,7 @@ interface Props {
   getCities: (regionId: number) => void;
   // TODO: Find what the actual user object is.
   user: any;
-  registerPlayer: (userData: any, callback: (res: any) => void) => void;
+  registerPlayer: (userData: any) => Promise<any>;
   userProfile: (data: any, callback: () => void) => void;
   setNotification: (data: NotificationValues) => void;
   referral: number;
@@ -79,37 +79,9 @@ const UserForm: React.FC<Props> = ({
   setProfileData,
 }) => {
   const formRef = useRef<HTMLFormElement>(null),
-    [form, setForm] = useState<{
-      processing: boolean;
-      // valid: boolean;
-      // submitted: boolean;
-      // error: any;
-    }>({
+    [form, setForm] = useState({
       processing: false,
-      // valid: false,
-      // submitted: false,
-      // ???
-      // error: null,
     }),
-    // const [states, setStates] = useState([]);
-    // const [cities, setCities] = useState([]);
-    // const [data, setData] = useState(
-    //   user.id
-    //     ? {
-    //         ...user,
-    //         player: user.player
-    //           ? {
-    //               grade_id: user.player.grade_id,
-    //               education_id: user.player.education_id,
-    //               instagram: user.player.instagram,
-    //               country_iso: user.player.country_iso,
-    //               state_iso: user.player.state_iso,
-    //               city_id: user.player.city_id,
-    //             }
-    //           : {},
-    //       }
-    //     : { player: { country_id: "", state_id: "" } }
-    // );
     [currentData, setCurrentData] = useState<FromData>({
       name: "",
       email: "",
@@ -155,33 +127,16 @@ const UserForm: React.FC<Props> = ({
   }, []);
 
   useEffect(() => {
-    // if (data.player && data.player.country_iso) {
-    //   getRegions(data.player.country_iso, (data) => {
-    //     setStates(data);
-    //     setCities([]);
-    //   });
-    // } else {
-    //   setStates([]);
-    //   setCities([]);
-    // }
     // Just for a reset if refresh or something.
     if (typeof formOptions.regions === "string") resetRegions();
     if (currentData.country_id) getRegions(currentData.country_id);
   }, [currentData.country_id]);
 
   useEffect(() => {
-    // if (data.player && data.player.state_iso) {
-    //   getCities(data.player.country_iso, data.player.state_iso, (data) => {
-    //     setCities(data);
-    //   });
-    // } else {
-    //   setStates([]);
-    //   setCities([]);
-    // }
     if (currentData.region_id) getCities(currentData.region_id);
   }, [currentData.region_id]);
 
-  const submit = (e: React.FormEvent<HTMLFormElement>) => {
+  const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const fields = document.querySelectorAll<
@@ -210,85 +165,42 @@ const UserForm: React.FC<Props> = ({
     }
 
     if (valid) {
-      // userProfile(
-      //   currentData.id
-      //     ? { ...currentData, _method: "PUT" }
-      //     : { ...currentData },
-      //   (res: any) => {
-      //     if (!res.errors) {
-      //       setNotification({
-      //         display: true,
-      //         error: false,
-      //         content: currentData.id
-      //           ? "Updated!"
-      //           : "Thank you for registering! To complete the process, please check your inbox to verify your email. In case you don't find it there, please check your spam folder.",
-      //         timed: currentData.id ? true : false,
-      //       });
-
-      //       if (currentData.id) {
-      //         if (setProfileData) {
-      //           setProfileData(res.data);
-      //         }
-
-      //         // setForm({ data: { ...res.data }, ...form, processing: false });
-      //         setForm({...form, processing: false });
-      //         // ??
-      //         setCurrentData({...currentData, ...res.data})
-      //       }
-      //     } else {
-      //       const key = Object.keys(res.errors)[0];
-
-      //       setNotification({
-      //         display: true,
-      //         error: true,
-      //         content: res.errors[key],
-      //         timed: true,
-      //       });
-      //       setForm({ ...form, processing: false });
-      //     }
-      //   }
-      // );
       if (user.id) {
         // userProfile
       } else {
+        setForm((prev) => ({ ...prev, processing: true }));
         const relevantData = {
           password_confirmation: currentData.password_confirmation,
           region_id: currentData.region_id,
           city_id: currentData.city_id,
           ...currentData,
         };
-        // FIXME: This doesn't even do processing properly lol.
-        registerPlayer(relevantData, (res) => {
-          setForm({ ...form, processing: true });
 
-          if (!res.errors) {
-            formRef.current!.reset();
-            setNotification({
-              display: true,
-              error: false,
-              content:
-                "Thank you for registering! To complete the process, please check your inbox to verify your email. In case you don't find it there, please check your spam folder.",
-              close: false,
-              duration: 0,
-            });
-          } else {
-            const key = Object.keys(res.errors)[0];
+        const res = await registerPlayer(relevantData);
+        if (!res.errors) {
+          formRef.current!.reset();
+          setNotification({
+            display: true,
+            error: false,
+            content:
+              "Thank you for registering! To complete the process, please check your inbox to verify your email. In case you don't find it there, please check your spam folder.",
+            close: false,
+            duration: 0,
+          });
+        } else {
+          const key = Object.keys(res.errors)[0];
 
-            setNotification({
-              display: true,
-              error: true,
-              content: res.errors[key],
-              close: false,
-              duration: 0,
-            });
-          }
-
-          setForm({ ...form, processing: false });
-        });
+          setNotification({
+            display: true,
+            error: true,
+            content: res.errors[key],
+            close: false,
+            duration: 0,
+          });
+        }
+        setForm((prev) => ({ ...prev, processing: false }));
       }
     }
-
-    // setForm({ ...form, valid: valid, submitted: true, processing: valid });
   };
 
   return (
@@ -320,6 +232,7 @@ const UserForm: React.FC<Props> = ({
             // defaultValue={data.name ? data.name : ""}
             autoComplete="off"
             required
+            minLength={2}
           />
         </div>
 
@@ -338,7 +251,7 @@ const UserForm: React.FC<Props> = ({
             autoComplete="off"
             required
           />
-          <small>Not a valid email address</small>
+          <small className="formError">Not a valid email address</small>
         </div>
 
         {/* This is for the register. */}
@@ -360,7 +273,9 @@ const UserForm: React.FC<Props> = ({
                 maxLength={24}
                 required
               />
-              <small>Must be between 8 and 24 characters</small>
+              <small className="formError">
+                Must be between 8 and 24 characters
+              </small>
             </div>
             <div role="presentation">
               <label htmlFor="password_confirmation">
@@ -378,7 +293,7 @@ const UserForm: React.FC<Props> = ({
                 maxLength={24}
                 required
               />
-              <small>Passwords do not match</small>
+              <small className="formError">Passwords do not match</small>
             </div>
           </span>
         )}
@@ -390,8 +305,6 @@ const UserForm: React.FC<Props> = ({
           <input
             id="instagram"
             name="instagram"
-            // ???
-            // type="ext"
             // onChange={(e) => updateField(e)}
             // disabled={form.processing}
             // aria-disabled={form.processing}
@@ -429,20 +342,7 @@ const UserForm: React.FC<Props> = ({
                 })}
             </select>
           </div>
-          {/* TODO: */}
-          <div role="presentation" style={{ display: "none" }}>
-            <label htmlFor="school">school</label>
-            <input
-              id="school"
-              name="school"
-              type="text"
-              onChange={(e) => updateField<FromData>(e, setCurrentData)}
-              disabled={form.processing}
-              aria-disabled={form.processing}
-              // defaultValue={data.name ? data.name : ""}
-              autoComplete="off"
-            />
-          </div>
+
           <div role="presentation">
             <label htmlFor="grade">
               Grade<span className={s.required}>*</span>
@@ -469,6 +369,24 @@ const UserForm: React.FC<Props> = ({
           </div>
         </span>
 
+        {/* Hidden */}
+        <div
+          role="presentation"
+          style={{ display: currentData.education_id !== 1 ? "none" : "" }}
+        >
+          <label htmlFor="school">school</label>
+          <input
+            id="school"
+            name="school"
+            type="text"
+            onChange={(e) => updateField<FromData>(e, setCurrentData)}
+            disabled={form.processing}
+            aria-disabled={form.processing}
+            // defaultValue={data.name ? data.name : ""}
+            autoComplete="off"
+          />
+        </div>
+
         <span>
           <div role="presentation">
             <label htmlFor="country">
@@ -494,7 +412,6 @@ const UserForm: React.FC<Props> = ({
                 })}
             </select>
           </div>
-          {/* TODO: Waiting for the message in the response for countries with no region/cities. */}
           <div role="presentation">
             <label htmlFor="region">Region</label>
             <select
@@ -503,13 +420,6 @@ const UserForm: React.FC<Props> = ({
               id="region"
               name="region_id"
               onChange={(e) => updateField<FromData>(e, setCurrentData)}
-              // disabled={
-              //   !data.player ||
-              //   !data.player.country_iso ||
-              //   data.player.country_iso === "" ||
-              //   states.length === 0 ||
-              //   form.processing
-              // }
               disabled={
                 !currentData.country_id ||
                 formOptions.regions.length === 0 ||
@@ -552,13 +462,6 @@ const UserForm: React.FC<Props> = ({
             id="city"
             name="city_id"
             onChange={(e) => updateField<FromData>(e, setCurrentData)}
-            // disabled={
-            //   !(
-            //     data.player &&
-            //     data.player.country_iso &&
-            //     data.player.state_iso
-            //   ) || form.processing
-            // }
             disabled={
               !currentData.region_id ||
               formOptions.cities.length === 0 ||
@@ -595,7 +498,7 @@ const UserForm: React.FC<Props> = ({
           <Link to="/login" className="fade move">
             Already have a account?
           </Link>
-          <button type="submit" disabled={form.processing} />
+          <button type="submit" className="okBtn" disabled={form.processing} />
         </div>
       </form>
     </>
@@ -609,8 +512,8 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   getCountries: () => dispatch(getCountries()),
   getRegions: (regionId: number) => dispatch(getRegions(regionId)),
   getCities: (regionId: number) => dispatch(getCities(regionId)),
-  registerPlayer: (userData: FormData, callback: (res: any) => void) =>
-    dispatch(registerPlayer(userData, callback)),
+  registerPlayer: (userData: FormData) =>
+    dispatch(registerPlayer(userData) as unknown) as Promise<any>,
   userProfile: (data: any, callback: () => void) =>
     dispatch(userProfile(data, callback)),
   setNotification: (data: NotificationValues) =>

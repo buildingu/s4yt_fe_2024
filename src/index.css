@@ -33,6 +33,11 @@ html {
   --sBeige: #ffe2b0;
   --black: #2c2c2c;
   --white: #f5f5f5;
+  --form-red: #ff3939;
+
+  /* TODO: Use everywhere. */
+  --heading-42: 42px;
+  --heading-38: 38px;
 }
 
 body {
@@ -62,6 +67,14 @@ h4 {
   margin: 0;
 }
 
+a {
+  color: inherit;
+}
+
+:disabled {
+  cursor: not-allowed;
+}
+
 label {
   font-size: 1.5rem;
   color: var(--pbrown);
@@ -76,17 +89,40 @@ select {
   box-shadow: 6px 4px 4px rgba(8, 7, 7, 0.2);
   outline: none;
   font-size: 15px;
-  background: #f5f5f5;
+  background: var(--white);
 }
 select {
   appearance: none;
-  background: #f5f5f5 url("./static/caret-down.svg") no-repeat calc(100% - 6px);
+  background: var(--white) url("./static/caret-down.svg") no-repeat
+    calc(100% - 6px);
 }
+/* FIXME: Should be focus, but focus works like blur and doesn't work right. */
 select:active:not(select:disabled) {
-  background: #f5f5f5 url("./static/caret-up.svg") no-repeat calc(100% - 6px);
+  background: var(--white) url("./static/caret-up.svg") no-repeat
+    calc(100% - 6px);
 }
-:disabled {
-  cursor: not-allowed;
+input:disabled,
+select:disabled {
+  opacity: 0.9;
+}
+small.formError {
+  display: none;
+  font-family: Arial;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+  padding: 5px;
+  color: var(--white);
+  background-color: var(--form-red);
+}
+input[data-valid="false"],
+select[data-valid="false"]
+/* .error  */ {
+  border: 1px solid var(--form-red) !important;
+}
+input[data-valid="false"] + small.formError,
+input[matching-passwords="false"] + small.formError {
+  display: block;
 }
 
 /* TODO: Find all button usages and take out the syles that were overriding the dafualt */
@@ -95,6 +131,34 @@ button {
   padding: 0;
   background-color: inherit;
   cursor: pointer;
+}
+/* TODO: Use everywhere. */
+button.okBtn {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  background: url("./static/ok-btn-normal.png") no-repeat center/contain;
+  border-radius: 60px 60px;
+  cursor: pointer;
+}
+button.okBtn:before {
+  content: "";
+  position: absolute;
+  bottom: 30px;
+  right: -220px;
+  width: 200px;
+  height: 341px;
+  background: url("./static/feather.png") no-repeat center/contain;
+  transform: rotate(10deg);
+}
+button.okBtn:hover {
+  background: url("./static/ok-btn-hover.png") no-repeat center/contain;
+}
+button.okBtn:active {
+  background: url("./static/ok-btn-press.png") no-repeat center/contain;
+}
+button.okBtn[disabled] {
+  opacity: 0.35;
 }
 
 /* Use for clickable elements that doesn't have hover and active states. */
