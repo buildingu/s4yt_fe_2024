@@ -7,6 +7,8 @@ import Content from "@components/content";
 import Status from "@components/status";
 import RaffleItemModal from "@components/modals/raffleItemModal/RaffleItemModal";
 import feather from "@static/feather.png";
+import goldCoin from "@static/coin-smallgolden.png";
+import silverCoin from "@static/coin-smallsilver.png";
 
 import s from "./styles.module.css";
 
@@ -208,18 +210,21 @@ const Raffle: React.FC<Props> = ({}) => {
               <br /> Treasure
             </h2>
             {/* TODO: The total is their current doblons. */}
-            <h4>
+            <h4 className={s.dublunesCount}>
               Your Total Dubl-u-nes: <span>{totaleDublunes}</span>
             </h4>
             <div className={s.legend}>
               <h4>Legend</h4>
               <div>
-                <img src="" alt="" />
-                <p></p>
+                <img src={goldCoin} alt="golden coin" />
+                <p>
+                  At least one player has assigned at least 1 dubl-u-ne to that
+                  item
+                </p>
               </div>
               <div>
-                <img src="" alt="" />
-                <p></p>
+                <img src={silverCoin} alt="silver coin" />
+                <p>No one has yet assigned any dubl-u-nes to the item</p>
               </div>
             </div>
           </div>
@@ -260,12 +265,10 @@ const Raffle: React.FC<Props> = ({}) => {
             {/* Don't show prev button if at start of slide */}
             {startIndex !== 0 && (
               <button
-                className={s.prevButton}
+                className={`${s.prevButton}`}
                 aria-label="Previous page"
                 onClick={() => setSlideIndex((prev) => prev - 1)}
-              >
-                Prev
-              </button>
+              />
             )}
             {/* Don't show next button if no items on next slide */}
 
@@ -274,9 +277,7 @@ const Raffle: React.FC<Props> = ({}) => {
                 className={s.nextButton}
                 aria-label="Next page"
                 onClick={() => setSlideIndex((prev) => prev + 1)}
-              >
-                Next
-              </button>
+              />
             )}
           </div>
         </div>

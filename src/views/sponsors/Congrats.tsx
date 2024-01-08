@@ -64,10 +64,9 @@ const Congrats: React.FC<Props> = ({
       {/* button test to show results */}
       <div className={s.congratsBtns}>
         <button
+          className={`${s.resultsBtn} fade move`}
           onClick={() => setQuizComplete({ complete: true, results: true })}
-        >
-          see results
-        </button>
+        />
         <Link to="/raffle" className={`${s.moreBtn} fade move`} />
       </div>
     </div>
