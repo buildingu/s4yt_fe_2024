@@ -173,3 +173,21 @@ button.okBtn[disabled] {
 .fade.move:active {
   top: 3px;
 }
+
+/* Global modal animation/style */
+.modal {
+  position: fixed;
+  transform: translateX(-50%);
+  top: 100%;
+  animation: slideUp 0.2s ease-out forwards;
+}
+@keyframes slideUp {
+  from {
+    top: 100%;
+    transform: translateY(0);
+  }
+  to {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
