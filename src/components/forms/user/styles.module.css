@@ -2,6 +2,7 @@
 :root {
   --_error: #ff3939;
 }
+/* TODO: Make better default styles...? */
 
 .detail {
   font-size: 20px;
@@ -79,7 +80,7 @@
 .form div select:disabled {
   opacity: 0.9;
 }
-.form > div:nth-of-type(4) select {
+.form > div:nth-of-type(5) select {
   max-width: 35.8%;
 }
 
@@ -106,7 +107,7 @@
 .form span:nth-of-type(3) div small.notFoundMsg {
   left: 70px;
 }
-.form div:nth-of-type(4) small.notFoundMsg {
+.form div:nth-of-type(5) small.notFoundMsg {
   left: 97px;
 }
 .form div input[data-valid="false"],
@@ -185,7 +186,7 @@
     margin-right: unset;
     top: unset;
   }
-  .form > div:nth-of-type(4) select {
+  .form > div:nth-of-type(5) select {
     max-width: 100%;
   }
 
