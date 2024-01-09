@@ -1,112 +1,108 @@
-import { useState, useEffect } from "react";
+import NotificationValues from "@typings/NotificationValues";
+
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import {
-  //  useNavigate,
-  Link,
-} from "react-router-dom";
-import Layout from "@components/layout";
-import Header from "@components/header";
-import Content from "@components/content";
+
+import updateField from "@utils/forms/updateField";
+import checkValidity from "@utils/forms/checkValidity";
+
 import { loginPlayer } from "@actions/user";
 import { setToken } from "@actions/user";
 import { setNotification } from "@actions/notification";
-import s from "./styles.module.css";
-import coins1 from "@static/coins_variant1.png";
 
-// TODO: Types...
+import Layout from "@components/layout";
+import Header from "@components/header";
+import Content from "@components/content";
+
+import s from "./styles.module.css";
+
+// import coins1 from "@static/coins_variant1.png";
+
 interface Props {
-  loginPlayer: Function;
-  // notification: Array<String>;
-  setNotification: Function;
-  setToken: Function;
+  loginPlayer: (userData: any) => Promise<any>;
+  setNotification: (data: NotificationValues) => void;
+  setToken: (token: string) => void;
 }
 
-const Login: React.FC<Props> = ({
-  loginPlayer,
-  // notification,
-  setNotification,
-  setToken,
-}) => {
+interface FromData {
+  email: string;
+  password: string;
+}
+
+const Login: React.FC<Props> = ({ loginPlayer, setNotification, setToken }) => {
   const [form, setForm] = useState({
-    processing: false,
-    valid: false,
-    submitted: false,
-    error: null,
-  });
-  const [data, setData] = useState({});
-  const [isSmallerThen464, setIsSmallerThen464] = useState(false);
+      processing: false,
+      // valid: false,
+      // submitted: false,
+      // error: null,
+    }),
+    [currentData, setCurrentData] = useState<FromData>({
+      email: "",
+      password: "",
+    });
+  // const [isSmallerThen464, setIsSmallerThen464] = useState(false);
   // const navigate = useNavigate();
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 464) {
-        setIsSmallerThen464(true);
-      } else {
-        setIsSmallerThen464(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     if (window.innerWidth <= 464) {
+  //       setIsSmallerThen464(true);
+  //     } else {
+  //       setIsSmallerThen464(false);
+  //     }
+  //   };
 
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  //   window.addEventListener("resize", handleResize);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
-  // TODO: Check if it redirects to the home page on login.
-  const submit = (event: React.FormEvent<HTMLFormElement>) => {
+  const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const fields = document.querySelectorAll("#loginForm input,select");
+    const fields =
+      document.querySelectorAll<HTMLInputElement>("#loginForm input");
     let valid = true;
 
-    for (let x = 0; x < fields.length; x++) {
-      fields[x].setAttribute("data-valid", fields[x].validity.valid ? 1 : 0);
+    for (let i = 0; i < fields.length; i++) {
+      const field = fields[i];
 
-      if (!fields[x].validity.valid && valid) {
+      checkValidity(field);
+      if (!field.validity.valid && valid) {
         valid = false;
       }
     }
 
     if (valid) {
-      login(data, (res) => {
-        if (res.success) {
-          setToken(res.data.token);
-        } else {
-          setNotification({ display: true, error: true, content: res.message });
-          setForm({ ...form, processing: false });
-        }
-      });
+      setForm({ processing: true });
+      const res = await loginPlayer(currentData);
+
+      if (res.success) {
+        setToken(res.data.token);
+      } else {
+        setNotification({
+          display: true,
+          error: false,
+          content: res.message,
+          close: false,
+          duration: 0,
+        });
+      }
+      setForm({ processing: false });
     }
-
-    setForm({ ...form, valid: valid, submitted: true, processing: valid });
-
-    return false;
   };
-
-  const updateField = (event) => {
-    const node = event.target;
-    const key = node.getAttribute("name");
-
-    if (form.submitted) {
-      node.setAttribute("data-valid", node.validity.valid ? 1 : 0);
-    }
-
-    setData({ ...data, [key]: node.value });
-  };
-
-  // const redirect = (e) => {
-  //   e.preventDefault();
-
-  //   navigate(e.target.getAttribute("href"));
-  // };
 
   return (
     <Layout style={{ maxWidth: "600px" }}>
-      <img src={coins1} alt="Doblons" className={s.coins} />
+      {/* <img src={coins1} alt="Doblons" className={s.coins} /> */}
       <Header title="Login" />
       <Content
         style={{
-          paddingLeft: isSmallerThen464 ? "1rem" : "4rem",
+          // paddingLeft: isSmallerThen464 ? "1rem" : "4rem",
+          paddingLeft: "4rem",
           paddingTop: "3.5rem",
         }}
       >
@@ -117,27 +113,42 @@ const Login: React.FC<Props> = ({
           autoComplete="off"
           noValidate
         >
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            onKeyUp={updateField}
-            readOnly={form.processing}
-            autoComplete="off"
-            required
-          />
+          {/* TODO: This may be changed. */}
+          <div role="presentation">
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              onChange={(e) => updateField<FromData>(e, setCurrentData)}
+              disabled={form.processing}
+              aria-disabled={form.processing}
+              autoComplete="off"
+              required
+            />
+            <small className="formError">Not a valid email address</small>
+          </div>
 
-          <label htmlFor="password">Pass</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            onKeyUp={updateField}
-            readOnly={form.processing}
-            autoComplete="off"
-            required
-          />
+          <div role="presentation">
+            <label htmlFor="password">Pass</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              onChange={(e) => updateField<FromData>(e, setCurrentData)}
+              disabled={form.processing}
+              aria-disabled={form.processing}
+              autoComplete="off"
+              minLength={8}
+              maxLength={24}
+              required
+            />
+            <small className="formError">
+              Must be between 8 and 24 characters
+            </small>
+          </div>
+          {/* TODO: May add a confirm password. */}
+
           <Link to="/password-reset" className={s.forgot}>
             Forgot pass?
           </Link>
@@ -150,13 +161,11 @@ const Login: React.FC<Props> = ({
   );
 };
 
-// const mapStateToProps = ({ notification }: any) => ({ notification });
-const mapStateToProps = ({}) => ({});
-const mapDispatchToProps = (dispatch: Function) => ({
-  login: (data: any, callback: () => void) =>
-    dispatch(loginPlayer(data, callback)),
-  setToken: (data: any, callback: () => void) => dispatch(setToken(data)),
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+  loginPlayer: (userData: any) =>
+    dispatch(loginPlayer(userData) as unknown) as Promise<any>,
+  setToken: (token: string) => dispatch(setToken(token)),
   setNotification: (data: any) => dispatch(setNotification(data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);
