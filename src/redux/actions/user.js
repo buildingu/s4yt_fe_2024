@@ -18,10 +18,6 @@ export const sendVerifyEmail = (email) => (dispatch, getState) => {
   return Api.post("/email/verify", { email });
 };
 
-export const sendVerifyEmail = (email) => (dispatch, getState) => {
-  return Api.post("/email/verify", { email });
-};
-
 export const resetPassword = (data, callback) => (dispatch, getState) => {
   return Api.post("/password-reset", data).then((response) => {
     callback(response);
