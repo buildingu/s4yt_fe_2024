@@ -18,6 +18,7 @@ import { SET_REGIONS } from "@actions/index";
 
 import updateField from "@utils/forms/updateField";
 import checkValidity from "@utils/forms/checkValidity";
+import checkValidEmail from "@utils/forms/checkValidEmail";
 import checkMatchingPasswords from "@utils/forms/checkMatchingPasswords";
 
 import Spinner from "@components/loaders/spinner/Spinner";
@@ -148,8 +149,9 @@ const UserForm: React.FC<Props> = ({
     for (let i = 0; i < fields.length; i++) {
       const field = fields[i];
       if (!user.id) {
-        if (field.name === "password") passwordValue = field.value;
+        if (field.name === "email") checkValidEmail(field as HTMLInputElement);
 
+        if (field.name === "password") passwordValue = field.value;
         if (field.name === "password_confirmation") {
           checkMatchingPasswords(field as HTMLInputElement, passwordValue!);
         } else {

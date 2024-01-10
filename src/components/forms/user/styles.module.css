@@ -92,16 +92,16 @@
 .form div:nth-of-type(5) small.notFoundMsg {
   left: 97px;
 }
-.form > div:nth-of-type(2) input[data-valid="false"] + small,
-.form span:first-of-type div:first-of-type input[data-valid="false"] + small {
+.form > div:nth-of-type(2) input[aria-invalid="true"] + small,
+.form span:first-of-type div:first-of-type input[aria-invalid="true"] + small {
   left: 6.03rem;
 }
-.form span:first-of-type div:last-of-type input[data-valid="false"] + small,
-.form span:first-of-type div input[matching-passwords="false"] + small {
+.form span:first-of-type div:last-of-type input[aria-invalid="true"] + small,
+.form span:first-of-type div input[matching-passwords="true"] + small {
   left: 7.6rem;
 }
-.form > div:nth-of-type(2) input[data-valid="false"],
-.form span:first-of-type div input[data-valid="false"],
+.form > div:nth-of-type(2) input[aria-invalid="true"],
+.form span:first-of-type div input[aria-invalid="true"],
 .form span:first-of-type div input[matching-passwords="false"] {
   margin-bottom: 22px;
 }

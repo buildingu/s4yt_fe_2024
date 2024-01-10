@@ -115,12 +115,12 @@ small.formError {
   color: var(--white);
   background-color: var(--form-red);
 }
-input[data-valid="false"],
-select[data-valid="false"]
+input[aria-invalid="true"],
+select[aria-invalid="true"]
 /* .error  */ {
   border: 1px solid var(--form-red) !important;
 }
-input[data-valid="false"] + small.formError,
+input[aria-invalid="true"] + small.formError,
 input[matching-passwords="false"] + small.formError {
   display: block;
 }
