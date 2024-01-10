@@ -276,7 +276,7 @@ const Raffle: React.FC<Props> = ({}) => {
                     setShow={setIsOpened}
                     products={products[i + startIndex]}
                   />
-                  <img className={s.entryNotification} src={storeEntries[i + startIndex].entries > 0 ? goldCoin : silverCoin} alt="coin" />
+                  <img className={s.entryNotification} src={storeEntries[i + startIndex]?.entries > 0 ? goldCoin : silverCoin} alt="coin" />
                 </div>
                 <h4 className={s.name}>{item.name}</h4>
                 <div className={s.controls}>
