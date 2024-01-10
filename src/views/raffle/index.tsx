@@ -5,7 +5,6 @@ import {
   retrieveCoins,
   initializeCoins,
 } from "@root/redux/actions/coinTracker";
-import { Store } from "@root/store";
 
 import Layout from "@components/layout";
 import Header from "@components/header";
@@ -18,7 +17,13 @@ import silverCoin from "@static/coin-smallsilver.png";
 
 import s from "./styles.module.css";
 
-interface Props {}
+interface Props {
+  spendCoins: any;
+  retrieveCoins: any;
+  initializeCoins: any;
+  storeCoins: any;
+  storeEntries: any;
+}
 
 const products = [
   {
@@ -176,21 +181,25 @@ const products = [
   },
 ];
 
-const Raffle: React.FC<Props> = ({}) => {
-  const dispatch = useDispatch();
-  const storeEntries = Store.getState().coinTracker.items;
-  const storeCoins = Store.getState().coinTracker.remainingCoins;
+const Raffle: React.FC<Props> = ({
+  spendCoins,
+  retrieveCoins,
+  initializeCoins,
+  storeCoins,
+  storeEntries,
+}) => {
   const [slideIndex, setSlideIndex] = useState(0),
     [isOpened, setIsOpened] = useState(false);
 
   // Track product entries all have a default value of 0 at their respective index
-  const [entries, setEntries] = useState(Array(products.length).fill(0));
-  const [totaleDublunes, setTotalDublunes] = useState(storeCoins ? storeCoins : 0);
+  const [totaleDublunes, setTotalDublunes] = useState(
+    storeCoins ? storeCoins : 0
+  );
 
   // For testing persistenece between pages
   useEffect(() => {
     if (storeEntries.length === 0) {
-      dispatch(initializeCoins({ products, remainingCoins: storeCoins }));
+      initializeCoins({ products, remainingCoins: storeCoins });
       setTotalDublunes(storeCoins);
     }
   }, []);
@@ -203,15 +212,12 @@ const Raffle: React.FC<Props> = ({}) => {
   // Adds/Subtracts entries that correspond with product index and adjust total Dubulunes
   const handleProductEntries = (index: number, value: number) => {
     const item = products[index + startIndex];
-    dispatch(
-      value > 0 ? spendCoins(item, value) : retrieveCoins(item, Math.abs(value))
-    );
 
-    setEntries((prev) => {
-      const change = [...prev];
-      change[startIndex + index] += value;
-      return change;
-    });
+    if (value > 0) {
+      spendCoins(item, value);
+    } else {
+      retrieveCoins(item, Math.abs(value));
+    }
     setTotalDublunes((prev) => prev - value);
   };
 
@@ -270,13 +276,19 @@ const Raffle: React.FC<Props> = ({}) => {
               <div aria-label={item.name} key={i}>
                 <div className={s.imgBox}>
                   <img src={item.img} alt={item.name} />
-                  {/* <button />
-                  <button className={s.lensButton} aria-label={`More information for ${item.name}`}>more</button> */}
                   <RaffleItemModal
                     setShow={setIsOpened}
                     products={products[i + startIndex]}
                   />
-                  <img className={s.entryNotification} src={storeEntries[i + startIndex].entries > 0 ? goldCoin : silverCoin} alt="coin" />
+                  <img
+                    className={s.entryNotification}
+                    src={
+                      storeEntries[i + startIndex]?.entries > 0
+                        ? goldCoin
+                        : silverCoin
+                    }
+                    alt="coin"
+                  />
                 </div>
                 <h4 className={s.name}>{item.name}</h4>
                 <div className={s.controls}>
@@ -288,9 +300,8 @@ const Raffle: React.FC<Props> = ({}) => {
                     -
                   </button>
                   <h4>
-                    {storeEntries.length !== 0
-                      ? storeEntries[i + startIndex].entries
-                      : entries[i + startIndex]}
+                    {storeEntries.length !== 0 &&
+                      storeEntries[i + startIndex].entries}
                   </h4>
                   <button
                     disabled={totaleDublunes === 0}
@@ -329,7 +340,16 @@ const Raffle: React.FC<Props> = ({}) => {
   );
 };
 
-const mapStateToProps = ({}) => ({});
-const mapDispatchToProps = (dispatch: Function) => ({});
+const mapStateToProps = (state) => ({
+  storeCoins: state.coinTracker.remainingCoins,
+  storeEntries: state.coinTracker.items,
+});
+const mapDispatchToProps = (dispatch: Function) => ({
+  spendCoins: (item, numEntries) => dispatch(spendCoins(item, numEntries)),
+  retrieveCoins: (item, numEntries) =>
+    dispatch(retrieveCoins(item, numEntries)),
+  initializeCoins: ({ products, remainingCoins }) =>
+    dispatch(initializeCoins({ products, remainingCoins })),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Raffle);

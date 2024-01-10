@@ -25,9 +25,9 @@ const ModalTemplate: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
     }
   }, [show]);
 
-  useEffect(() => {
-    console.log("setShow", setShow);
-  }, [setShow]);
+  // useEffect(() => {
+  //   console.log("setShow", setShow);
+  // }, [setShow]);
 
   // TODO: You can make a slide up animation CSS keyframes animation if you want
   return (
