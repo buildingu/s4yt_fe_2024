@@ -1,9 +1,11 @@
 .container {
-  max-width: 625px;
+  /* max-width: 625px; */
+  width: 100%;
   min-height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
 }
 
 .container h2,
@@ -12,16 +14,48 @@
 }
 .container h4 {
   font-weight: 400;
+  text-align: center;
+}
+
+.container .dublunesCount {
+  max-width: 100px;
 }
 
 .container .top {
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
+  align-items: flex-start;
+  /* flex-wrap: wrap; */
   gap: 1rem;
   text-align: left;
   margin-bottom: 1.5rem;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-width: 255px;
+}
+.legend h4 {
+  text-align: left;
+}
+
+.legend div {
+  display: flex;
+  align-items: center;
+  color: var(--pbrown);
+}
+.legend img {
+  margin-right: 10px;
+}
+.container .products div .imgBox .entryNotification {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  height: 30px;
+  width: 30px;
 }
 @media screen and (max-width: 414px) {
   .container .top {
@@ -32,13 +66,14 @@
 .container .top h2 {
   font-size: 42px;
   line-height: 1;
-  margin-left: 3.5rem;
+  margin-left: 4.5rem;
 }
 .container .top h4 {
   font-size: 24px;
 }
 .container .top h4 span {
-  color: #242424;
+  color: var(--pbrown);
+  font-size: 4rem;
 }
 
 .container .products {
@@ -47,12 +82,16 @@
   place-items: center;
   gap: 1rem 2rem;
   min-height: 370px;
+  max-width: 625px;
 }
 @media screen and (max-width: 650px) {
   .container .top h2 {
     margin-left: 0;
   }
-
+  .container .top {
+    flex-direction: column;
+    align-items: center;
+  }
   .container .products {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -158,16 +197,32 @@
 }
 .paginationButtons {
   width: 100%;
-  margin-top: 3rem;
+  height: 100px;
+  margin-top: 2rem;
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .prevButton {
+  background: url("../../static/arrow.png") no-repeat center center/contain;
   position: absolute;
+  height: 80px;
+  width: 120px;
   left: 0;
   bottom: 0;
 }
 .nextButton {
+  background: url("../../static/arrow.png") no-repeat center center/contain;
   position: absolute;
+  transform: rotate(180deg);
+  height: 80px;
+  width: 120px;
   right: 0;
   bottom: 0;
+}
+.prevButton:hover,
+.nextButton:hover {
+  transition: all 0.1s linear;
+  opacity: 0.5;
 }
