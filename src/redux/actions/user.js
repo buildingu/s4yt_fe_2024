@@ -2,18 +2,16 @@ import { SET_TOKEN_SUCCESS } from "@actions/index";
 import { Api } from "@services/index";
 
 // TODO: There is no need to use a callback...
-export const registerPlayer = (userData, callback) => (dispatch, getState) => {
+export const registerPlayer = (userData) => (dispatch, getState) => {
   return Api.post("/register", userData);
 };
 
-export const loginPlayer = (userData, callback) => (dispatch, getState) => {
-  return Api.post("/login", userData).then((response) => {
-    callback(response);
-  });
+export const loginPlayer = (userData) => (dispatch, getState) => {
+  return Api.post("/login", userData);
 };
 
-export const setToken = (data) => (dispatch, getState) => {
-  dispatch({ type: SET_TOKEN_SUCCESS, payload: data });
+export const setToken = (token) => (dispatch, getState) => {
+  dispatch({ type: SET_TOKEN_SUCCESS, payload: token });
 };
 
 export const sendVerifyEmail = (email) => (dispatch, getState) => {

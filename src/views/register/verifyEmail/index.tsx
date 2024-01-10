@@ -32,7 +32,6 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, setNotification }) => {
     const field = document.querySelector<HTMLInputElement>(
       "#verifyEmailForm input"
     )!;
-    console.log("field", field);
     let valid = true;
 
     checkValidity(field);
@@ -82,7 +81,7 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, setNotification }) => {
           noValidate
         >
           <div role="presentation">
-            {form.success}
+            {form.success && <span>This is when a timer will appear.</span>}
             <label htmlFor="email">Email</label>
             <input
               id="email"
