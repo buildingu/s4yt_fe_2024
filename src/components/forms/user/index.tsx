@@ -423,11 +423,13 @@ const UserForm: React.FC<Props> = ({
               disabled={
                 !currentData.country_id ||
                 formOptions.regions.length === 0 ||
+                typeof formOptions.regions === "string" ||
                 form.processing
               }
               aria-disabled={
                 !currentData.country_id ||
                 formOptions.regions.length === 0 ||
+                typeof formOptions.regions === "string" ||
                 form.processing
               }
               // value={data.player ? data.player.state_iso : ""}
@@ -465,11 +467,13 @@ const UserForm: React.FC<Props> = ({
             disabled={
               !currentData.region_id ||
               formOptions.cities.length === 0 ||
+              typeof formOptions.cities === "string" ||
               form.processing
             }
             aria-disabled={
               !currentData.region_id ||
               formOptions.cities.length === 0 ||
+              typeof formOptions.cities === "string" ||
               form.processing
             }
             // value={data.player ? data.player.city_id : ""}
