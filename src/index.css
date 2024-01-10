@@ -150,6 +150,7 @@ button.okBtn:before {
   height: 341px;
   background: url("./static/feather.png") no-repeat center/contain;
   transform: rotate(10deg);
+  pointer-events: none;
 }
 button.okBtn:hover {
   background: url("./static/ok-btn-hover.png") no-repeat center/contain;
