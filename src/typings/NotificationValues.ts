@@ -1,5 +1,5 @@
 export default interface NotificationValues {
-  display: boolean;
+  id: string;
   error: boolean;
   content: string;
   close: boolean;
