@@ -10,7 +10,9 @@ export const SET_CITIES = "formOptions.SET_CITIES";
 // export const GET_COIN_TYPES_SUCCESS = "options.GET_COIN_TYPES_SUCCESS";
 
 // notification
-export const SET_NOTIFICATION_DATA = "notification.SET_NOTIFICATION_DATA";
+export const ADD_NOTIFICATION = "notification.ADD_NOTIFICATION";
+export const UPDATE_NOTIFICATION = "notification.UPDATE_NOTIFICATION";
+export const REMOVE_NOTIFICATION = "notification.REMOVE_NOTIFICATION";
 
 // user
 export const SET_TOKEN_SUCCESS = "user.SET_TOKEN_SUCCESS";

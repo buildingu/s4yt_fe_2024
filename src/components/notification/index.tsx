@@ -4,68 +4,81 @@ import { useEffect } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
-import { setNotification } from "@actions/notification";
+import { updateNotification, removeNotification } from "@actions/notifications";
 
 import delay from "@utils/delay";
 
 import s from "./styles.module.css";
+
 interface Props {
-  notification: NotificationValues;
-  setNotification: (data: any) => void;
+  notifications: NotificationValues[];
+  updateNotification: (notification: NotificationValues) => void;
+  removeNotification: (id: string) => void;
 }
 
-const Notification: React.FC<Props> = ({ notification, setNotification }) => {
-  const ANIMATION_DURATION = 500,
-    closeNotification = () =>
-      setNotification({ ...notification, display: false });
+const Notification: React.FC<Props> = ({
+  notifications,
+  updateNotification,
+  removeNotification,
+}) => {
+  const ANIMATION_DURATION = 500;
 
-  const close = () => {
+  const close = (notification: NotificationValues) => {
     if (notification.duration) {
-      delay(notification.duration).then(() =>
-        delay(ANIMATION_DURATION, () => closeNotification)
-      );
+      delay(notification.duration).then(() => {
+        updateNotification({ ...notification, close: true });
+        // fadeOut duration.
+        delay(ANIMATION_DURATION, () => removeNotification(notification.id));
+      });
     } else {
-      delay(ANIMATION_DURATION, () => closeNotification);
+      updateNotification({ ...notification, close: true });
+      delay(ANIMATION_DURATION, () => removeNotification(notification.id));
     }
   };
 
   useEffect(() => {
-    if (notification.display && notification.close) {
-      close();
+    if (notifications.length > 0) {
+      const durationNotifications = notifications.filter(
+        (notification) => notification.duration
+      );
+      // fadeIn duration.
+      delay(ANIMATION_DURATION, () =>
+        durationNotifications.forEach((notification) => {
+          close(notification);
+        })
+      );
     }
-  }, [notification.close]);
-
-  useEffect(() => {
-    if (notification) {
-      console.log("notification", notification);
-    }
-  }, [notification]);
+  }, [notifications]);
 
   return (
-    <>
-      {notification.display && (
-        <div
-          role="dialog"
-          className={`${s.container} ${notification.error ? s.error : ""} ${
-            notification.close ? s.fadeOut : ""
-          }`}
-        >
-          <button
-            aria-label="Close"
-            onClick={() => setNotification({ ...notification, close: true })}
-            disabled={notification.close}
-          />
+    <div role="presentation" className={s.container}>
+      {notifications.length > 0 &&
+        notifications.map((notification) => (
+          <div
+            role="dialog"
+            key={notification.id}
+            className={`${s.notification} ${
+              notification.error ? s.error : ""
+            } ${notification.close ? s.fadeOut : s.fadeIn}`}
+          >
+            <button
+              aria-label="Close"
+              onClick={() => close(notification)}
+              disabled={notification.close}
+            />
 
-          {notification.content}
-        </div>
-      )}
-    </>
+            {notification.content}
+          </div>
+        ))}
+    </div>
   );
 };
 
-const mapStateToProps = ({ notification }: Props) => ({ notification });
+const mapStateToProps = ({ notifications }: Props) => ({ notifications });
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  setNotification: (data: any) => dispatch(setNotification(data)),
+  updateNotification: (notification: NotificationValues) =>
+    dispatch(updateNotification(notification)),
+  removeNotification: (id: string) => dispatch(removeNotification(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notification);

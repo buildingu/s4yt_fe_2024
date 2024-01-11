@@ -5,22 +5,25 @@ import Layout from "@components/layout";
 import Header from "@components/header";
 import Content from "@components/content";
 import { resetPassword } from "@actions/user";
-import { setNotification, setToken } from "@actions/notification";
+import {
+  addNotification,
+  // setToken
+} from "@actions/notifications";
 import s from "./styles.module.css";
 
 // TODO: Fix types.
 interface Props {
   resetPassword: Function;
   notification: Array<String>;
-  setNotification: Function;
-  setToken: Function;
+  addNotification: Function;
+  // setToken: Function;
 }
 
 const PasswordReset: React.FC<Props> = ({
   resetPassword,
   notification,
-  setNotification,
-  setToken,
+  addNotification,
+  // setToken,
 }) => {
   const [form, setForm] = useState({
     processing: false,
@@ -58,7 +61,7 @@ const PasswordReset: React.FC<Props> = ({
 
     if (valid) {
       resetPassword(data, (res) => {
-        setNotification({
+        addNotification({
           display: true,
           error: res.success ? false : true,
           content: res.message,
@@ -93,6 +96,7 @@ const PasswordReset: React.FC<Props> = ({
   // 	navigate(e.target.getAttribute('href'));
   // }
 
+  // TODO: If there is a user show current_pass, new_pass and new_pass_confirmation. Then for forgot password use just new_password and new_password_confirmation.
   return (
     <Layout style={{ maxWidth: "600px" }}>
       <Header title="Reset" />
@@ -191,7 +195,8 @@ const mapStateToProps = ({}) => ({});
 const mapDispatchToProps = (dispatch: Function) => ({
   resetPassword: (data: any, callback: () => void) =>
     dispatch(resetPassword(data, callback)),
-  setNotification: (data: any) => dispatch(setNotification(data)),
+  addNotification: (notification: any) =>
+    dispatch(addNotification(notification)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PasswordReset);
