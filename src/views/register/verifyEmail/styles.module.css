@@ -3,13 +3,25 @@
   padding: 26px 0 0 34px;
 }
 
-.form div:first-child {
+.form > div:first-child {
   display: flex;
   flex-direction: column;
   text-align: left;
   position: relative;
   width: 100%;
   max-width: 335px;
+}
+
+.form > div:first-child div {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.form > div:first-child div time {
+  color: var(--pbrown);
+}
+.form > div:first-child div time span {
+  color: #f47216;
 }
 
 .form div input {
@@ -21,15 +33,15 @@
   margin-top: 6px;
 }
 
-.form div:last-child {
+.form > div:last-child {
   display: grid;
   grid-template-columns: 50% auto;
   max-width: 437px;
 }
-.form div:last-child button {
+.form > div:last-child button {
   justify-self: flex-end;
 }
-.form div:last-child p {
+.form > div:last-child p {
   font-family: "Corbel", Arial;
   color: var(--pbrown);
   text-align: left;
@@ -38,7 +50,7 @@
 }
 
 @media screen and (max-width: 494px) {
-  .form div:last-child button {
+  .form > div:last-child button {
     margin-top: 1rem;
   }
 }
