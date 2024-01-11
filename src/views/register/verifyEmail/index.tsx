@@ -8,7 +8,7 @@ import updateField from "@utils/forms/updateField";
 import checkValidity from "@utils/forms/checkValidity";
 
 import { sendVerifyEmail } from "@actions/user";
-import { setNotification } from "@actions/notification";
+import { addNotification } from "@actions/notifications";
 
 import Layout from "@components/layout";
 import Header from "@components/header";
@@ -18,10 +18,10 @@ import s from "./styles.module.css";
 
 interface Props {
   sendVerifyEmail: (email: string) => Promise<any>;
-  setNotification: (data: NotificationValues) => void;
+  addNotification: (data: Omit<NotificationValues, "id">) => void;
 }
 
-const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, setNotification }) => {
+const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
   const formRef = useRef<HTMLFormElement>(null),
     [form, setForm] = useState({ processing: false, success: false }),
     [currentData, setCurrentData] = useState({ email: "" });
@@ -45,8 +45,7 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, setNotification }) => {
       // console.log("res", res);
       if (res.success) {
         formRef.current!.reset();
-        setNotification({
-          display: true,
+        addNotification({
           error: false,
           content:
             "Lastly, to complete the registration process, please check your inbox to verify your email. In case you don't find it there, please check your spam folder.",
@@ -55,8 +54,7 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, setNotification }) => {
         });
       } else {
         setForm((prev) => ({ ...prev, success: true }));
-        setNotification({
-          display: true,
+        addNotification({
           error: true,
           content: res.message,
           close: false,
@@ -118,8 +116,8 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, setNotification }) => {
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   sendVerifyEmail: (email: string) =>
     dispatch(sendVerifyEmail(email) as unknown) as Promise<any>,
-  setNotification: (data: NotificationValues) =>
-    dispatch(setNotification(data)),
+  addNotification: (notification: Omit<NotificationValues, "id">) =>
+    dispatch(addNotification(notification)),
 });
 
 export default connect(null, mapDispatchToProps)(VerifyEmail);

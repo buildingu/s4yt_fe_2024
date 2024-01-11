@@ -10,7 +10,7 @@ import checkValidity from "@utils/forms/checkValidity";
 
 import { loginPlayer } from "@actions/user";
 import { setToken } from "@actions/user";
-import { setNotification } from "@actions/notification";
+import { addNotification } from "@actions/notifications";
 
 import Layout from "@components/layout";
 import Header from "@components/header";
@@ -22,7 +22,7 @@ import s from "./styles.module.css";
 
 interface Props {
   loginPlayer: (userData: any) => Promise<any>;
-  setNotification: (data: NotificationValues) => void;
+  addNotification: (data: Omit<NotificationValues, "id">) => void;
   setToken: (token: string) => void;
 }
 
@@ -31,7 +31,7 @@ interface FromData {
   password: string;
 }
 
-const Login: React.FC<Props> = ({ loginPlayer, setNotification, setToken }) => {
+const Login: React.FC<Props> = ({ loginPlayer, addNotification, setToken }) => {
   const [form, setForm] = useState({
       processing: false,
       // valid: false,
@@ -83,8 +83,7 @@ const Login: React.FC<Props> = ({ loginPlayer, setNotification, setToken }) => {
       if (res.success) {
         setToken(res.data.token);
       } else {
-        setNotification({
-          display: true,
+        addNotification({
           error: false,
           content: res.message,
           close: false,
@@ -165,7 +164,8 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   loginPlayer: (userData: any) =>
     dispatch(loginPlayer(userData) as unknown) as Promise<any>,
   setToken: (token: string) => dispatch(setToken(token)),
-  setNotification: (data: any) => dispatch(setNotification(data)),
+  addNotification: (notification: Omit<NotificationValues, "id">) =>
+    dispatch(addNotification(notification)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

@@ -13,7 +13,7 @@ import {
   getRegions,
   getCities,
 } from "@actions/formOptions";
-import { setNotification } from "@actions/notification";
+import { addNotification } from "@actions/notifications";
 import { SET_REGIONS } from "@actions/index";
 
 import updateField from "@utils/forms/updateField";
@@ -43,7 +43,7 @@ interface Props {
   user: any;
   registerPlayer: (userData: any) => Promise<any>;
   userProfile: (data: any, callback: () => void) => void;
-  setNotification: (data: NotificationValues) => void;
+  addNotification: (data: Omit<NotificationValues, "id">) => void;
   referral: number;
   // TODO:
   setProfileData: React.Dispatch<React.SetStateAction<any>>;
@@ -71,7 +71,7 @@ const UserForm: React.FC<Props> = ({
   getRegions,
   resetRegions,
   getCities,
-  setNotification,
+  addNotification,
   // This will not be passed in at profile anymore, it will be in the redux.
   user,
   registerPlayer,
@@ -181,8 +181,7 @@ const UserForm: React.FC<Props> = ({
         const res = await registerPlayer(relevantData);
         if (!res.errors) {
           formRef.current!.reset();
-          setNotification({
-            display: true,
+          addNotification({
             error: false,
             content:
               "Thank you for registering! To complete the process, please check your inbox to verify your email. In case you don't find it there, please check your spam folder.",
@@ -192,8 +191,7 @@ const UserForm: React.FC<Props> = ({
         } else {
           const key = Object.keys(res.errors)[0];
 
-          setNotification({
-            display: true,
+          addNotification({
             error: true,
             content: res.errors[key],
             close: false,
@@ -522,8 +520,8 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     dispatch(registerPlayer(userData) as unknown) as Promise<any>,
   userProfile: (data: any, callback: () => void) =>
     dispatch(userProfile(data, callback)),
-  setNotification: (data: NotificationValues) =>
-    dispatch(setNotification(data)),
+  addNotification: (notification: Omit<NotificationValues, "id">) =>
+    dispatch(addNotification(notification)),
 
   resetRegions: () => dispatch({ type: SET_REGIONS, payload: [] }),
 });

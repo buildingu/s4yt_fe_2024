@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { userProfile } from "@actions/user";
-import { setNotification } from "@actions/notification";
+import { addNotification } from "@actions/notifications";
 import s from "./styles.module.css";
 
 interface Props {
   data: Array<String>;
   userProfile: Function;
-  setNotification: Function;
+  addNotification: Function;
 }
 
 // FIXME: This one is in profile...
-const Password: React.FC<Props> = ({ user, userProfile, setNotification }) => {
+const Password: React.FC<Props> = ({ user, userProfile, addNotification }) => {
   const [form, setForm] = useState({
     processing: false,
     valid: false,
@@ -52,7 +52,7 @@ const Password: React.FC<Props> = ({ user, userProfile, setNotification }) => {
           fields[0].value = "";
           fields[0].value = "";
 
-          setNotification({
+          addNotification({
             display: true,
             error: false,
             content: "Password updated!",
@@ -73,7 +73,7 @@ const Password: React.FC<Props> = ({ user, userProfile, setNotification }) => {
         } else {
           const key = Object.keys(res.errors)[0];
 
-          setNotification({
+          addNotification({
             display: true,
             error: true,
             content: res.errors[key],
@@ -148,7 +148,7 @@ const Password: React.FC<Props> = ({ user, userProfile, setNotification }) => {
 const mapStateToProps = ({}) => ({});
 const mapDispatchToProps = (dispatch: Function) => ({
   userProfile: (data, callback) => dispatch(userProfile(data, callback)),
-  setNotification: (data) => dispatch(setNotification(data)),
+  addNotification: (notification) => dispatch(addNotification(notification)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Password);
