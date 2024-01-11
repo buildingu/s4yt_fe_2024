@@ -1,6 +1,6 @@
 import NotificationValues from "@typings/NotificationValues";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
@@ -23,6 +23,7 @@ interface Props {
 
 const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
   const formRef = useRef<HTMLFormElement>(null),
+    timeRef = useRef<HTMLTimeElement>(null),
     [form, setForm] = useState({ processing: false, success: false }),
     [currentData, setCurrentData] = useState({ email: "" });
 
@@ -65,6 +66,35 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
     }
   };
 
+  useEffect(() => {
+    const expiredTimer = () => {
+      let time = 600; // 10 minutes in seconds
+
+      setForm((prev) => ({ ...prev, processing: true }));
+      const timerInterval = setInterval(() => {
+        const minutes = Math.floor(time / 60),
+          seconds = time % 60,
+          formattedTime = `Expires in: <span>${String(minutes).padStart(
+            2,
+            "0"
+          )}:${String(seconds).padStart(2, "0")}<span>`;
+
+        if (time <= 0) {
+          clearInterval(timerInterval);
+          timeRef.current!.innerHTML = "Expired";
+
+          setForm((prev) => ({ ...prev, processing: false }));
+        } else {
+          timeRef.current!.innerHTML = formattedTime;
+        }
+
+        time -= 1;
+      }, 1000);
+    };
+
+    if (form.success) expiredTimer();
+  }, [form.success]);
+
   return (
     // TODO: coins1
     <Layout addCoins="coins1" style={{ maxWidth: "600px" }}>
@@ -79,8 +109,12 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
           noValidate
         >
           <div role="presentation">
-            {form.success && <span>This is when a timer will appear.</span>}
-            <label htmlFor="email">Email</label>
+            <div role="presentation">
+              <label htmlFor="email">Email</label>
+              <time ref={timeRef}>
+                Expires in: <span>00:00</span>
+              </time>
+            </div>
             <input
               id="email"
               name="email"
