@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import SupportModal from "../modals/supportModal/SupportModal";
 import s from "./styles.module.css";
 
 const Hamburger: React.FC = () => {
-  const [menu, toggleMenu] = useState(false);
+  const [menu, toggleMenu] = useState(false),
+    [showSupportModal, setShowSupportModal] = useState(false);
+
+  const student = { name: "Admin", email: "admin@mail.com" };
 
   useEffect(() => {
     menu
@@ -44,7 +48,12 @@ const Hamburger: React.FC = () => {
             <nav>
               <div>
                 <NavLink to="/" className={s.mainMap} />
-                <button aria-label="Support" className={s.questions} />
+                {/* <button aria-label="Support" className={s.questions} /> */}
+                <SupportModal
+                  show={showSupportModal}
+                  setShow={setShowSupportModal}
+                  student={student}
+                />
                 <button aria-label="Chat" className={s.chat} />
                 <button aria-label="Logout" className={s.logout} />
               </div>
