@@ -97,7 +97,7 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
       if (form) {
         for (let i = 0; i < questions.length; i++) {
           const selectedTrue = form.elements[`true${i}` as any] as HTMLInputElement;
-          const  selectedFalse = form.elements[`false${i}` as any] as HTMLInputElement;
+          const selectedFalse = form.elements[`false${i}` as any] as HTMLInputElement;
   
           if (!selectedTrue.checked && !selectedFalse.checked) {
             error = true;
@@ -144,6 +144,8 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
     }
   };
 
+  // FIXME: The quiz results doesn't work right, if they press the button without completing the full quiz, it shows the results.
+  // And I don't know why you did everything in the map when you could of got it from handleSubmit.
   return (
     <div className={`${s.more} ${!quizComplete.results ? s.hideContent : ""}`}>
       {quizComplete.complete && !quizComplete.results && (
@@ -219,13 +221,13 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
         </ol>
         {!quizComplete.complete && (
           <div>
-            <button type="submit" />
+            <button className="okBtn" type="submit" />
           </div>
         )}
       </form>
       {quizComplete.results === true && quizComplete.complete === true && (
         <button
-          className={s.backBtn}
+          className={`${s.backBtn} fade move`}
           onClick={() => setClicked({ more: false, quizDone: false })}
         ></button>
       )}

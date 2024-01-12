@@ -64,11 +64,11 @@ const Sponsors: React.FC<Props> = ({}) => {
             <div className={s.options}>
               <a
                 aria-label="Previous Page"
-                className={s.backBtn}
+                className={`${s.backBtn} fade move`}
                 onClick={() => history.push(-1)}
               />
               <button
-                className={s.moreBtn}
+                className={`${s.moreBtn} fade`}
                 onClick={() => setClicked({ ...clicked, more: true })}
               />
             </div>

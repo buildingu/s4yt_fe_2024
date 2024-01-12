@@ -54,25 +54,10 @@
   }
 }
 
-.options .backBtn,
-button.backBtn,
-.options .moreBtn {
-  position: relative;
+.options a.backBtn {
   cursor: pointer;
-  transition: 0.2s ease opacity;
-  border: none;
 }
-.backBtn:hover,
-.backBtn:active,
-.moreBtn:hover,
-.moreBtn:active {
-  opacity: 0.65;
-}
-.backBtn:active {
-  top: 3px;
-}
-
-.options .backBtn,
+.options a.backBtn,
 button.backBtn {
   width: 150px;
   height: 120px;
@@ -93,8 +78,7 @@ button.backBtn {
   width: 100%;
   display: flex;
 }
-
-.resultsBtn {
+.congratsBtns .resultsBtn {
   width: 100%;
   height: 237px;
   background: url("../../static/btn-seemyresults.png") no-repeat center
@@ -213,21 +197,13 @@ button.backBtn {
 }
 
 .more .quiz button {
-  position: relative;
   width: 110px;
   height: 110px;
-  background: url("../../static/ok-btn-normal.png") no-repeat center
-    center/contain;
-  border-radius: 60px 60px;
-  cursor: pointer;
 }
-.more .quiz button:hover {
-  background: url("../../static/ok-btn-hover.png") no-repeat center
-    center/contain;
-}
-.more .quiz button:active {
-  background: url("../../static/ok-btn-press.png") no-repeat center
-    center/contain;
+.more .quiz button::before {
+  transform: scale(0.9) rotate(10deg);
+  right: -208px;
+  bottom: 10px;
 }
 
 .congrats {
