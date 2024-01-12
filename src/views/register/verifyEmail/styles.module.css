@@ -51,7 +51,7 @@
 
 @media screen and (max-width: 494px) {
   .form > div:last-child button {
-    margin-top: 1rem;
+    margin-top: 0.75rem;
   }
 }
 
