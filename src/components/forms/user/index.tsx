@@ -206,7 +206,7 @@ const UserForm: React.FC<Props> = ({
   return (
     <>
       {!user.id && (
-        <div className={s.detail}>
+        <div className={s.detail} aria-label="* Means the Field is Required">
           Required: <span className={s.required}>*</span>
         </div>
       )}
@@ -220,7 +220,10 @@ const UserForm: React.FC<Props> = ({
       >
         <div role="presentation">
           <label htmlFor="name">
-            Name<span className={s.required}>*</span>
+            Name
+            <span aria-hidden="true" className={s.required}>
+              *
+            </span>
           </label>
           <input
             id="name"
@@ -238,9 +241,13 @@ const UserForm: React.FC<Props> = ({
 
         <div role="presentation">
           <label htmlFor="email">
-            Email<span className={s.required}>*</span>
+            Email
+            <span aria-hidden="true" className={s.required}>
+              *
+            </span>
           </label>
           <input
+            aria-describedby="formError"
             id="email"
             name="email"
             type="email"
@@ -251,17 +258,23 @@ const UserForm: React.FC<Props> = ({
             autoComplete="off"
             required
           />
-          <small className="formError">Not a valid email address</small>
+          <small aria-live="assertive" id="formError" className="formError">
+            Not a valid email address
+          </small>
         </div>
 
         {/* This is for the register. */}
         {!user.id && (
           <span>
             <div role="presentation">
-              <label htmlFor="password">
-                Pass<span className={s.required}>*</span>
+              <label aria-label="Password" htmlFor="password">
+                Pass
+                <span aria-hidden="true" className={s.required}>
+                  *
+                </span>
               </label>
               <input
+                aria-describedby="formError"
                 id="password"
                 name="password"
                 type="password"
@@ -273,15 +286,22 @@ const UserForm: React.FC<Props> = ({
                 maxLength={24}
                 required
               />
-              <small className="formError">
+              <small aria-live="assertive" id="formError" className="formError">
                 Must be between 8 and 24 characters
               </small>
             </div>
             <div role="presentation">
-              <label htmlFor="password_confirmation">
-                Confirm Pass<span className={s.required}>*</span>
+              <label
+                aria-label="Confirm Password"
+                htmlFor="password_confirmation"
+              >
+                Confirm Pass
+                <span aria-hidden="true" className={s.required}>
+                  *
+                </span>
               </label>
               <input
+                aria-describedby="formError"
                 id="password_confirmation"
                 name="password_confirmation"
                 type="password"
@@ -293,7 +313,9 @@ const UserForm: React.FC<Props> = ({
                 maxLength={24}
                 required
               />
-              <small className="formError">Passwords do not match</small>
+              <small aria-live="assertive" id="formError" className="formError">
+                Passwords do not match
+              </small>
             </div>
           </span>
         )}
@@ -320,7 +342,10 @@ const UserForm: React.FC<Props> = ({
         <span>
           <div role="presentation">
             <label htmlFor="education">
-              Education<span className={s.required}>*</span>
+              Education
+              <span aria-hidden="true" className={s.required}>
+                *
+              </span>
             </label>
             <select
               id="education"
@@ -345,7 +370,10 @@ const UserForm: React.FC<Props> = ({
 
           <div role="presentation">
             <label htmlFor="grade">
-              Grade<span className={s.required}>*</span>
+              Grade
+              <span aria-hidden="true" className={s.required}>
+                *
+              </span>
             </label>
             <select
               id="grade"
@@ -390,7 +418,10 @@ const UserForm: React.FC<Props> = ({
         <span>
           <div role="presentation">
             <label htmlFor="country">
-              Country<span className={s.required}>*</span>
+              Country
+              <span aria-hidden="true" className={s.required}>
+                *
+              </span>
             </label>
             <select
               id="country"

@@ -27,6 +27,8 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
     [form, setForm] = useState({ processing: false, success: false }),
     [currentData, setCurrentData] = useState({ email: "" });
 
+  const [breakCenter, setBreakCenter] = useState(false);
+
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -95,11 +97,32 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
     if (form.success) expiredTimer();
   }, [form.success]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 764) {
+        setBreakCenter(true);
+      } else {
+        setBreakCenter(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     // TODO: coins1
-    <Layout addCoins="coins1" style={{ maxWidth: "600px" }}>
-      <Header title="Verify Email" />
-      <Content>
+    <Layout addCoins="coins1">
+      <Header
+        title="Verify Email"
+        style={{
+          maxWidth: "700px",
+          ...(!breakCenter && { marginInline: "auto" }),
+        }}
+      />
+      <Content style={{ maxWidth: "600px", marginInline: "auto" }}>
         <form
           id="verifyEmailForm"
           onSubmit={(e) => submit(e)}
@@ -116,6 +139,7 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
               </time>
             </div>
             <input
+              aria-describedby="explanation"
               id="email"
               name="email"
               type="email"
@@ -130,8 +154,8 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
             <small className="formError">Not a valid email address</small>
           </div>
 
-          <div>
-            <p>
+          <div role="presentation">
+            <p id="explanation">
               Enter your email address to resend the variation email. If your
               account exists, the message will be resent.
             </p>
