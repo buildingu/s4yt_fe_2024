@@ -5,7 +5,7 @@ import {
   SET_REGIONS,
   SET_CITIES,
   // GET_COIN_TYPES_SUCCESS,
-} from "@actions";
+} from "@actions/index";
 
 const initialState = {
   grades: [],

@@ -3,6 +3,7 @@ import Gate from "@components/gate";
 
 import Register from "@views/register";
 import VerifyEmail from "@views/register/verifyEmail";
+import VerifySuccess from "@views/register/verifyEmail/VerifySuccess";
 import Login from "@views/login";
 import PasswordReset from "@views/password/reset";
 
@@ -27,8 +28,12 @@ const RoutesProvider = () => {
         element={<Gate view={<Register />} restricted={0} />}
       />
       <Route
-        path="/verify-email"
+        path="/register/verify-email"
         element={<Gate view={<VerifyEmail />} restricted={0} />}
+      />
+      <Route
+        path="/register/verify-email/success"
+        element={<Gate view={<VerifySuccess />} restricted={0} />}
       />
       <Route path="/login" element={<Gate view={<Login />} restricted={0} />} />
       <Route

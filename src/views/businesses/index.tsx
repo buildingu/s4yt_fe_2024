@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import history from "@utils/History";
 import Layout from "@components/layout";
 import Header from "@components/header";
@@ -38,33 +39,24 @@ const Businesses: React.FC = () => {
     // addFeather="right1"
     >
       <Header title="See Business" />
-      <Content
-      // style={{
-      //   display: "flex",
-      //   justifyContent: "center",
-      //   alignItems: "center",
-      //   flexDirection: "column",
-      //   paddingTop: "3.5rem",
-      //   paddingBottom: "3rem",
-      // }}
-      >
+      <Content>
         <div className={s.businesses}>
           {businesses.map((business, i) => (
-            <a
-              href={`/businesses/${business.name}`}
-              className={s.businessContainer}
+            <Link
+              aria-label={`${business.name}'s details`}
               key={i}
+              to={`/businesses/${business.name}`}
+              className={s.businessContainer}
             >
               <img className={s.logos} src={business.img} alt="" />
-            </a>
+            </Link>
           ))}
         </div>
-        <a
-          href="#"
+        <button
           aria-label="Previous Page"
           className={s.backBtn}
           onClick={() => history.push(-1)}
-        ></a>
+        ></button>
       </Content>
       <Status />
     </Layout>

@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
-import { setNotification } from "@actions/notification";
+import { addNotification } from "@actions/notifications";
 
 import Layout from "@components/layout";
 import Header from "@components/header";
@@ -62,10 +62,10 @@ const treasureMapNavContent = [
 ];
 
 interface Props {
-  setNotification: (data: NotificationValues) => void;
+  addNotification: (notification: Omit<NotificationValues, "id">) => void;
 }
 
-const Home: React.FC<Props> = ({ setNotification }) => {
+const Home: React.FC<Props> = ({ addNotification }) => {
   const blockBtnRef = useRef<HTMLButtonElement>(null),
     [viewed, setViewed] = useState(
       localStorage.getItem("block-instructions") ? true : false
@@ -109,8 +109,7 @@ const Home: React.FC<Props> = ({ setNotification }) => {
                     const blockBtn = blockBtnRef.current!;
 
                     localStorage.setItem("block-instructions", "true");
-                    setNotification({
-                      display: true,
+                    addNotification({
                       error: false,
                       content: "Instructions are now blocked. ✔",
                       close: false,
@@ -150,8 +149,8 @@ const Home: React.FC<Props> = ({ setNotification }) => {
 
 const mapStateToProps = ({}) => ({});
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  setNotification: (data: NotificationValues) =>
-    dispatch(setNotification(data)),
+  addNotification: (notification: Omit<NotificationValues, "id">) =>
+    dispatch(addNotification(notification)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

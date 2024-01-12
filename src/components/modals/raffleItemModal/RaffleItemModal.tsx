@@ -12,6 +12,7 @@ interface Props {
     availability: number;
     description: string;
   };
+  setShow: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const RaffleItemModal: React.FC<Props> = ({ products }) => {
@@ -25,9 +26,7 @@ const RaffleItemModal: React.FC<Props> = ({ products }) => {
         aria-controls="modal"
         onClick={() => setShow(true)}
         className={s.lensButton}
-      >
-        🔍
-      </button>
+      />
       <ModalTemplate show={show} setShow={setShow} label="Raffle Item Details">
         <div className={s.modalContainer}>
           <div className={s.modalLeft}>

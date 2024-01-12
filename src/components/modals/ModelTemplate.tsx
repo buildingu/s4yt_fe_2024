@@ -25,9 +25,9 @@ const ModalTemplate: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
     }
   }, [show]);
 
-  useEffect(() => {
-    console.log("setShow", setShow);
-  }, [setShow]);
+  // useEffect(() => {
+  //   console.log("setShow", setShow);
+  // }, [setShow]);
 
   // TODO: You can make a slide up animation CSS keyframes animation if you want
   return (
@@ -54,6 +54,7 @@ const ModalTemplate: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
         >
           {/* Modal */}
           <div
+            className="modal"
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             tabIndex={-1}
@@ -75,11 +76,11 @@ const ModalTemplate: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
                This can be the back btn, use the css from the sponsors backBtn, but we should actual make a global class backBtn lol
                If this is too weird to style we don't need the backBtn in the template... 
             */}
-            <button
+            {/* <button
               aria-label="Close"
               className="backBtn"
               onClick={() => setShow(false)}
-            />
+            /> */}
             {children}
           </div>
         </div>

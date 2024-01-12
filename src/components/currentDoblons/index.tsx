@@ -1,18 +1,22 @@
 import s from "./styles.module.css";
 import coins4 from "@static/coins_variant4.png";
+import { connect } from "react-redux";
 
 interface Props {
   type: "footer" | "header";
   style?: React.CSSProperties;
   addFullHeader?: boolean | "";
+  coins: number;
 }
 
 const CurrentDoblons = ({
   type,
   style,
   addFullHeader,
+  coins,
   ...options
 }: Props & React.HTMLAttributes<HTMLDivElement>) => {
+
   return (
     <div
       aria-label="Your Current Doblons"
@@ -25,7 +29,7 @@ const CurrentDoblons = ({
       <img src={coins4} alt="Doblons" />
       <p>
         You got <br />
-        <span>24</span>
+        <span>{coins}</span>
         <br />
         Doblons
       </p>
@@ -33,4 +37,7 @@ const CurrentDoblons = ({
   );
 };
 
-export default CurrentDoblons;
+const mapStateToProps = (state: any) => ({
+  coins: state.coinTracker.remainingCoins,
+});
+export default connect(mapStateToProps)(CurrentDoblons);

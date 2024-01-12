@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { getReferrals, createReferral } from "@actions/user";
-import { setNotification } from "@actions/notification";
+import { addNotification } from "@actions/notifications";
 import s from "./styles.module.css";
 
 interface Props {
   getReferrals: Function;
   createReferral: Function;
-  setNotification: Function;
+  addNotification: Function;
 }
 
 const Referral: React.FC<Props> = ({
   getReferrals,
   createReferral,
-  setNotification,
+  addNotification,
   configuration,
 }) => {
   const [form, setForm] = useState({
@@ -51,7 +51,7 @@ const Referral: React.FC<Props> = ({
           fields[0].value = "";
           fields[1].value = "";
 
-          setNotification({
+          addNotification({
             display: true,
             error: false,
             content: "A referral email has been sent to " + data.email,
@@ -64,7 +64,7 @@ const Referral: React.FC<Props> = ({
         } else {
           const key = Object.keys(res.errors)[0];
 
-          setNotification({
+          addNotification({
             display: true,
             error: true,
             content: res.errors[key],
@@ -176,7 +176,7 @@ const mapStateToProps = ({ configuration }) => ({ configuration });
 const mapDispatchToProps = (dispatch: Function) => ({
   getReferrals: (callback) => dispatch(getReferrals(callback)),
   createReferral: (data, callback) => dispatch(createReferral(data, callback)),
-  setNotification: (data) => dispatch(setNotification(data)),
+  addNotification: (notification) => dispatch(addNotification(notification)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Referral);

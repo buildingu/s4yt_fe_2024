@@ -1,8 +1,4 @@
 /* TODO: Two different css files for register and profile...? */
-:root {
-  --_error: #ff3939;
-}
-
 .detail {
   font-size: 20px;
   color: var(--pbrown);
@@ -75,59 +71,38 @@
   width: 100%;
   line-height: 2;
 }
-.form div input:disabled,
-.form div select:disabled {
-  opacity: 0.9;
-}
-.form > div:nth-of-type(4) select {
+.form > div:nth-of-type(5) select {
   max-width: 35.8%;
 }
 
 .form div small {
   position: absolute;
-  font-family: Arial;
-  font-weight: 700;
-  white-space: nowrap;
-}
-.form div small:not(.notFoundMsg) {
-  display: none;
-  position: absolute;
   bottom: -6px;
-  padding: 5px;
-  font-size: 10px;
-  color: var(--white);
-  background: var(--_error);
 }
 .form div small.notFoundMsg {
   bottom: -19px;
+  font-family: Arial;
+  font-weight: 700;
   font-size: 11px;
   color: var(--black);
+}
 }
 .form span:nth-of-type(3) div small.notFoundMsg {
   left: 70px;
 }
-.form div:nth-of-type(4) small.notFoundMsg {
+.form div:nth-of-type(5) small.notFoundMsg {
   left: 97px;
 }
-.form div input[data-valid="false"],
-.form div select[data-valid="false"]
-/* .error  */ {
-  border: 1px solid var(--_error);
-}
-.form div input[data-valid="false"] + small,
-.form span:first-of-type div input[matching-passwords="false"] + small {
-  display: block;
-}
-.form > div:nth-of-type(2) input[data-valid="false"] + small,
-.form span:first-of-type div:first-of-type input[data-valid="false"] + small {
+.form > div:nth-of-type(2) input[aria-invalid="true"] + small,
+.form span:first-of-type div:first-of-type input[aria-invalid="true"] + small {
   left: 6.03rem;
 }
-.form span:first-of-type div:last-of-type input[data-valid="false"] + small,
-.form span:first-of-type div input[matching-passwords="false"] + small {
+.form span:first-of-type div:last-of-type input[aria-invalid="true"] + small,
+.form span:first-of-type div input[matching-passwords="true"] + small {
   left: 7.6rem;
 }
-.form > div:nth-of-type(2) input[data-valid="false"],
-.form span:first-of-type div input[data-valid="false"],
+.form > div:nth-of-type(2) input[aria-invalid="true"],
+.form span:first-of-type div input[aria-invalid="true"],
 .form span:first-of-type div input[matching-passwords="false"] {
   margin-bottom: 22px;
 }
@@ -138,35 +113,47 @@
   margin-right: 1rem;
 }
 
-.form div button {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  background: url("../../../static/ok-btn-normal.png") no-repeat center
-    center/contain;
-  border-radius: 60px 60px;
-  cursor: pointer;
-}
-.form div button:before {
+.form div :global(.spinner) {
   position: absolute;
-  bottom: 30px;
-  right: -220px;
-  width: 200px;
-  height: 341px;
-  background: url("../../../static/feather.png") no-repeat center center/contain;
-  transform: rotate(10deg);
-  content: "";
+  top: 10px;
 }
-.form div button:hover {
-  background: url("../../../static/ok-btn-hover.png") no-repeat center
-    center/contain;
+.form span:nth-of-type(3) div :global(.spinner) {
+  right: 29px;
 }
-.form div button:active {
-  background: url("../../../static/ok-btn-press.png") no-repeat center
-    center/contain;
+.form > div:nth-of-type(5) :global(.spinner) {
+  left: 315px;
 }
-.form div button[disabled] {
-  opacity: 0.35;
+@media screen and (min-width: 759px) and (max-width: 788px) {
+  .form > div:nth-of-type(5) :global(.spinner) {
+    left: 305px;
+  }
+}
+@media screen and (min-width: 735px) and (max-width: 758px) {
+  .form > div:nth-of-type(5) :global(.spinner) {
+    left: 295px;
+  }
+}
+@media screen and (min-width: 701px) and (max-width: 734px) {
+  .form > div:nth-of-type(5) :global(.spinner) {
+    left: 285px;
+  }
+}
+@media screen and (min-width: 677px) and (max-width: 700px) {
+  .form > div:nth-of-type(5) :global(.spinner) {
+    left: 275px;
+  }
+}
+@media screen and (min-width: 626px) and (max-width: 676px) {
+  .form > div:nth-of-type(5) :global(.spinner) {
+    left: 260px;
+  }
+}
+
+@media screen and (min-width: 626px) and (max-width: 707px) {
+  .form span:nth-of-type(3) div small.notFoundMsg {
+    bottom: -22px;
+    white-space: normal;
+  }
 }
 
 @media screen and (max-width: 625px) {
@@ -178,7 +165,7 @@
     margin-right: unset;
     top: unset;
   }
-  .form > div:nth-of-type(4) select {
+  .form > div:nth-of-type(5) select {
     max-width: 100%;
   }
 
@@ -193,10 +180,17 @@
     margin-right: 0;
   }
 
-  .form > div:nth-of-type(2) input[data-valid="false"] + small,
-  .form span:first-of-type div:first-of-type input[data-valid="false"] + small,
-  .form span:first-of-type div:last-of-type input[data-valid="false"] + small {
-    left: 0;
+  .form div :global(.spinner) {
+    top: 39px;
+  }
+  .form > div:nth-of-type(5) :global(.spinner) {
+    right: 29px;
+    left: auto;
+  }
+
+  .form div input + small,
+  .form div select + small {
+    left: 0 !important;
   }
 }
 

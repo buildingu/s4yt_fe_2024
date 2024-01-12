@@ -51,6 +51,7 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
             <div className={s.right}>
               {title === "Login" ||
               title === "Register" ||
+              title.includes("Email") ||
               title === "Reset" ? (
                 <>
                   <h1 className={s.mainTitle}>{title}</h1>

@@ -1,4 +1,4 @@
-import { SET_CONFIGURATION } from "@actions";
+import { SET_CONFIGURATION } from "@actions/index";
 
 // TODO: this will change and the name probably.
 const initialState = {
