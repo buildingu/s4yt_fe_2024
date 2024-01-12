@@ -18,7 +18,7 @@ const SupportModal: React.FC<Props> = ({ student }) => {
       <button
         onClick={() => setShow(true)}
         aria-label="Support"
-        className={s.questions}
+        className={`${s.questions} fade`}
       />
       <ModalTemplate show={show} setShow={setShow} label="Raffle Item Details">
         <div className={s.modalContainer}>
@@ -26,10 +26,11 @@ const SupportModal: React.FC<Props> = ({ student }) => {
           <div className={s.supportContainer}>
             <p>
               Hey, {student.name}! If you need help with anything feel free to
-              contact us via our email: <span>s4yt@mail.com</span> 
+              contact us via our email: <span>s4yt@mail.com</span>
             </p>
             <p>
-              Additionally, if you are a part of our discord community, we would be happy to provide help in our 'SUPPORT' channel: 
+              Additionally, if you are a part of our discord community, we would
+              be happy to provide help in our 'SUPPORT' channel:
               <span>discord link</span>
             </p>
           </div>
