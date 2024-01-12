@@ -139,6 +139,7 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
               </time>
             </div>
             <input
+              aria-describedby="explanation"
               id="email"
               name="email"
               type="email"
@@ -154,7 +155,7 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
           </div>
 
           <div role="presentation">
-            <p>
+            <p id="explanation">
               Enter your email address to resend the variation email. If your
               account exists, the message will be resent.
             </p>
