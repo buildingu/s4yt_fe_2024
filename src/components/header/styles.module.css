@@ -31,6 +31,10 @@
   height: 118px;
 }
 
+.checkoutPersist {
+  display: none;
+}
+
 /* FIXME: This is currently only for Instructions,
    might need to make a isInstructions class or something later. 
 */
@@ -284,6 +288,23 @@
     align-items: center;
     margin: 1.5rem 2rem 2.5rem 2rem;
   }
+
+  .checkoutPersist {
+    display: block;
+    width: 82px;
+    height: 82px;
+    background: url("../../static/btn_checkout_normal.png") no-repeat center
+      center/contain;
+  }
+  .checkoutPersist:hover {
+    background: url("../../static/btn_checkout_hover.png") no-repeat center
+      center/contain;
+  }
+  .checkoutPersist:active {
+    background: url("../../static/btn_checkout_pressed.png") no-repeat center
+      center/contain;
+  }
+  
   @media screen and (max-width: 446px) {
     .container.full .right .menu > div:first-of-type {
       margin: 1.5rem 0.5rem 2.5rem 0.5rem;
