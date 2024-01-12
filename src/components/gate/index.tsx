@@ -1,8 +1,8 @@
-// import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
-// import { getConfiguration } from "@actions/configuration";
+import { getConfiguration } from "@actions/configuration";
 
 interface Props {
   user: any;
@@ -14,26 +14,26 @@ interface Props {
 
 // TODO:
 const Gate: React.FC<Props> = ({
-  // user,
-  // configuration,
+  user,
+  configuration,
   view,
   restricted,
-  // getConfiguration,
+  getConfiguration,
 }) => {
-  // const allow =
-  //   (restricted && user.token) || (!restricted && !user.token) ? true : false;
-  const allow = restricted ? false : true;
-  const redirect = !restricted ? "/" : "/register";
+  const allow =
+    (restricted && user.token) || (!restricted && !user.token) ? true : false;
+  const redirect = !restricted ? "/profile" : "/login";
 
   // useEffect(() => {
-  //   if (!configuration.loaded) {
-  //     getConfiguration();
-  //   }
-  // }, []);
+  // 	if(!configuration.loaded){
+  // 		getConfiguration();
+  // 	}
+  // },[]);
 
-  // return configuration.loaded ? (
-  return allow ? <>{view}</> : <Navigate to={redirect} />;
-  // ) : null;
+  // return (configuration.loaded ? (allow ? <>
+  // 	{view}
+  // </> : <Navigate to={redirect} />) : null)
+  return <>{view}</>;
 };
 
 const mapStateToProps = ({ user, configuration }: any) => ({
@@ -41,7 +41,7 @@ const mapStateToProps = ({ user, configuration }: any) => ({
   configuration,
 });
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  // getConfiguration: () => dispatch(getConfiguration()),
+  getConfiguration: () => dispatch(getConfiguration()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Gate);

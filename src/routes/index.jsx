@@ -17,59 +17,39 @@ import Details from "@views/businesses/Details";
 import Error404 from "@views/errors/Error404";
 import Error500 from "@views/errors/Error500";
 
+export const routes = [
+  { path: "/register", view: Register, restricted: 0 },
+  { path: "/register/verify-email", view: VerifyEmail, restricted: 0 },
+  {
+    path: "/register/verify-email/success",
+    view: VerifySuccess,
+    restricted: 0,
+  },
+  { path: "/login", view: Login, restricted: 0 },
+  { path: "/password-reset", view: PasswordReset, restricted: 0 },
+  { path: "/", view: Home, restricted: 1 },
+  { path: "/profile", view: Profile, restricted: 1 },
+  { path: "/raffle", view: Raffle, restricted: 1 },
+  { path: "/sponsors", view: Sponsors, restricted: 1 },
+  { path: "/businesses", view: Businesses, restricted: 1 },
+  { path: "/businesses/:details", view: Details, restricted: 1 },
+  { path: "/error-500", view: Error500, restricted: 0 },
+  { path: "/error-404", view: Error404, restricted: 0 },
+  // { path: "/results", view: SomeComponent, restricted: 1 },
+];
+
 const RoutesProvider = () => {
-  // temporary useParams for business details
   const { details } = useParams();
 
   return (
     <Routes>
-      <Route
-        path="/register"
-        element={<Gate view={<Register />} restricted={0} />}
-      />
-      <Route
-        path="/register/verify-email"
-        element={<Gate view={<VerifyEmail />} restricted={0} />}
-      />
-      <Route
-        path="/register/verify-email/success"
-        element={<Gate view={<VerifySuccess />} restricted={0} />}
-      />
-      <Route path="/login" element={<Gate view={<Login />} restricted={0} />} />
-      <Route
-        path="/password-reset"
-        element={<Gate view={<PasswordReset />} restricted={0} />}
-      />
-      <Route path="/" element={<Gate view={<Home />} restricted={1} />} />
-      <Route
-        path="/profile"
-        element={<Gate view={<Profile />} restricted={1} />}
-      />
-      <Route
-        path="/raffle"
-        element={<Gate view={<Raffle />} restricted={1} />}
-      />
-      <Route
-        path="/sponsors"
-        element={<Gate view={<Sponsors />} restricted={1} />}
-      />
-      <Route
-        path="/businesses"
-        element={<Gate view={<Businesses />} restricted={1} />}
-      />
-      <Route
-        path="/businesses/:details"
-        element={<Gate view={<Details />} restricted={1} />}
-      />
-      {/* <Route path="/results" element={<Gate view={< />} restricted={1} />} /> */}
-      <Route
-        path="/error-500"
-        element={<Gate view={<Error500 />} restricted={0} />}
-      />
-      <Route
-        path="/error-404"
-        element={<Gate view={<Error404 />} restricted={0} />}
-      />
+      {routes.map((route) => (
+        <Route
+          key={route.path}
+          path={route.path}
+          element={<Gate view={<route.view />} restricted={route.restricted} />}
+        />
+      ))}
       <Route path="*" element={<Navigate to="/error-404" />} />
     </Routes>
   );

@@ -1,16 +1,21 @@
 import { NavLink } from "react-router-dom";
-import s from "./styles.module.css";
+import { connect } from "react-redux";
+
 import CurrentDoblons from "../currentDoblons";
 import Hamburger from "./Hamburger";
+
+import s from "./styles.module.css";
 
 interface Props {
   title?: string;
   style?: React.CSSProperties;
+  user: any;
 }
 
 const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
   title,
   style,
+  user,
   ...options
 }) => {
   const addFullHeader =
@@ -79,7 +84,17 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
                   {title}
                 </h1>
               )}
-              <Hamburger />
+              {user ? (
+                <Hamburger />
+              ) : (
+                  <a
+                    aria-label="building-U Website"
+                    href="https://building-u.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={s.checkoutPersist}
+                  />
+              )}
             </div>
           </>
         )}
@@ -89,4 +104,8 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
   );
 };
 
-export default Header;
+const mapStateToProps = (state: any) => ({
+  user: state.user.credentials,
+});
+
+export default connect(mapStateToProps, null)(Header);
