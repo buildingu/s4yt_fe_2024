@@ -3,7 +3,7 @@ import NotificationValues from "@typings/NotificationValues";
 import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Dispatch } from "redux";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 
 import { registerPlayer, userProfile } from "@actions/user";
 import {
@@ -97,15 +97,16 @@ const UserForm: React.FC<Props> = ({
       city_id: null,
       // TODO:
       //  ...(user.id && { ...user }),
-    });
+    }),
+    dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   console.log("currentData", currentData);
-  // }, [currentData]);
+  useEffect(() => {
+    console.log("currentData", currentData);
+  }, [currentData]);
 
-  // useEffect(() => {
-  //   console.log("formOptions", formOptions);
-  // }, [formOptions]);
+  useEffect(() => {
+    console.log("formOptions", formOptions);
+  }, [formOptions]);
 
   // useEffect(() => {
   //   console.log("form", form);
