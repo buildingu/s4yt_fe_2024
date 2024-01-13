@@ -1,6 +1,3 @@
-// configuration
-export const SET_CONFIGURATION = "configuration.SET_CONFIGURATION";
-
 // formOptions
 export const GET_GRADES_SUCCESS = "formOptions.GET_GRADES_SUCCESS";
 export const GET_EDUCATION_SUCCESS = "formOptions.GET_EDUCATION_SUCCESS";
@@ -15,7 +12,11 @@ export const UPDATE_NOTIFICATION = "notification.UPDATE_NOTIFICATION";
 export const REMOVE_NOTIFICATION = "notification.REMOVE_NOTIFICATION";
 
 // user
-export const SET_TOKEN_SUCCESS = "user.SET_TOKEN_SUCCESS";
+export const SET_CURRENT_USER = "user.SET_CURRENT_USER";
+export const SET_TOKEN = "user.SET_TOKEN";
+
+// configuration
+export const SET_CONFIGURATION = "gameConfig.SET_CONFIGURATION";
 
 // coinTracker
 export const SPEND_COINS = "SPEND_COINS";
