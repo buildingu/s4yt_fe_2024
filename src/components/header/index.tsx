@@ -83,7 +83,7 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
                   {title}
                 </h1>
               )}
-              {user ? (
+              {user.id ? (
                 <Hamburger />
               ) : (
                 <a
