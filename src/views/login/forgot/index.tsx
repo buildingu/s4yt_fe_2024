@@ -18,13 +18,15 @@ import ExpiresInIndicator from "@components/forms/expiresInIndicator";
 import s from "./styles.module.css";
 
 interface Props {
-  sendVerifyEmail: (email: string) => Promise<any>;
+  sendForgotPassword: (email: string) => Promise<any>;
   addNotification: (data: Omit<NotificationValues, "id">) => void;
 }
 
-const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
+const ForgotPassword: React.FC<Props> = ({
+  sendForgotPassword,
+  addNotification,
+}) => {
   const formRef = useRef<HTMLFormElement>(null),
-    // timeRef = useRef<HTMLTimeElement>(null),
     [form, setForm] = useState({ processing: false, success: false }),
     [currentData, setCurrentData] = useState({ email: "" });
 
@@ -34,7 +36,7 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
     e.preventDefault();
 
     const field = document.querySelector<HTMLInputElement>(
-      "#verifyEmailForm input"
+      "#forgotPasswordForm input"
     )!;
     let valid = true;
 
@@ -45,14 +47,14 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
 
     if (valid) {
       setForm({ success: false, processing: true });
-      const res = await sendVerifyEmail(currentData.email);
+      const res = await sendForgotPassword(currentData.email);
       // console.log("res", res);
       if (res.success) {
         formRef.current!.reset();
         addNotification({
           error: false,
           content:
-            "Lastly, to complete the registration process, please check your inbox to verify your email. In case you don't find it there, please check your spam folder.",
+            "Success! Check your inbox to reset your password. In case you don't find it there, please check your spam folder.",
           close: false,
           duration: 0,
         });
@@ -68,35 +70,6 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
       setForm((prev) => ({ ...prev, processing: false }));
     }
   };
-
-  // useEffect(() => {
-  //   const expiredTimer = () => {
-  //     let time = 600; // 10 minutes in seconds
-
-  //     setForm((prev) => ({ ...prev, processing: true }));
-  //     const timerInterval = setInterval(() => {
-  //       const minutes = Math.floor(time / 60),
-  //         seconds = time % 60,
-  //         formattedTime = `Expires in: <span>${String(minutes).padStart(
-  //           2,
-  //           "0"
-  //         )}:${String(seconds).padStart(2, "0")}<span>`;
-
-  //       if (time <= 0) {
-  //         clearInterval(timerInterval);
-  //         timeRef.current!.innerHTML = "Expired";
-
-  //         setForm((prev) => ({ ...prev, processing: false }));
-  //       } else {
-  //         timeRef.current!.innerHTML = formattedTime;
-  //       }
-
-  //       time -= 1;
-  //     }, 1000);
-  //   };
-
-  //   if (form.success) expiredTimer();
-  // }, [form.success]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -114,10 +87,9 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
   }, []);
 
   return (
-    // TODO: coins1
     <Layout addCoins="coins1">
       <Header
-        title="Verify Email"
+        title="Forgot Password"
         style={{
           maxWidth: "700px",
           ...(!breakCenter && { marginInline: "auto" }),
@@ -125,7 +97,7 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
       />
       <Content style={{ maxWidth: "600px", marginInline: "auto" }}>
         <form
-          id="verifyEmailForm"
+          id="forgotPasswordForm"
           onSubmit={(e) => submit(e)}
           className={s.form}
           ref={formRef}
@@ -135,9 +107,6 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
           <div role="presentation">
             <div role="presentation">
               <label htmlFor="email">Email</label>
-              {/* <time ref={timeRef}>
-                Expires in: <span>00:00</span>
-              </time> */}
               <ExpiresInIndicator
                 formSuccess={form.success}
                 setForm={setForm}
@@ -161,8 +130,8 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
 
           <div role="presentation">
             <p id="explanation">
-              Enter your email address to resend the variation email. If your
-              account exists, the email will be resent.
+              Enter your email address to receive a password reset link. If your
+              account exists, the email will be sent to your email address.
             </p>
             <button
               type="submit"
@@ -183,4 +152,4 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     dispatch(addNotification(notification)),
 });
 
-export default connect(null, mapDispatchToProps)(VerifyEmail);
+export default connect(null, mapDispatchToProps)(ForgotPassword);

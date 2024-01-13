@@ -2,21 +2,27 @@ Misc:
   - The coins and the feather pictures that are just placed in the background for pretty much all pages
     doesn't position properly. It should just stay in place, no letting the screen on resize push it, just
     fixed in place (in Layout component).
+  - Doc title fix for verify email pages, etc. 
+
+  - "I see, so when they login, I will be listening to a event (probably a better name would be referralCoins) 
+    if the user with the referral uses the referral it would be added to the referrer. And you know if the person 
+    with the referral used it would be /register?referrel=<whatever> and that would trigger the event the referrer 
+    is listening to, referralCoins to add the coins. I think I got it, but it will become more clearer when we start to use pusher"
+
+Notification:
 
 Header:
-  - Log out button will just clear the token?
+  - Log out button.
 
 Footer (Status):
   - How are we going to get the clock to count down in real time.
-  - The current dublons, how are we going to get that? It might be in the configuration action, but I don't know
-    because Jose did that (We show the dublons on the header for small screens).
   - Chat and help buttons haven't been discussed, so we need to see whats going on there.
 
 Login:
-  - Fix types.
 
 Register:
-  - Fix types.
+
+Email Verify:
 
 Password Reset:
   - Fix types.
@@ -24,11 +30,10 @@ Password Reset:
     the profile. We can keep it like this or we can just have one component for both.
 
 Sponsors:
-  - Waiting on the endpoints for getting the sponsors (I think they're just static now) and the POST for the winnings of
-    the quiz.
+  - Waiting on the endpoints.
 
 Raffle:
-  - Need to figure out if the current coins the user has is in the configuration action. So, we can store the coins in redux.
+  - "the roles will be needed... only players will be able to answer questions or assign coins to the raffle."
 
 ---------------------------------------------------------------------------------------------------------------------------
 

@@ -4,7 +4,7 @@ import { useSearchParams, Link } from "react-router-dom";
 import Layout from "@components/layout";
 import Header from "@components/header";
 import Content from "@components/content";
-import { resetPassword } from "@actions/user";
+// import { resetPassword } from "@actions/user";
 import {
   addNotification,
   // setToken
@@ -13,14 +13,14 @@ import s from "./styles.module.css";
 
 // TODO: Fix types.
 interface Props {
-  resetPassword: Function;
+  // resetPassword: Function;
   notification: Array<String>;
   addNotification: Function;
   // setToken: Function;
 }
 
 const PasswordReset: React.FC<Props> = ({
-  resetPassword,
+  // resetPassword,
   notification,
   addNotification,
   // setToken,
@@ -60,18 +60,17 @@ const PasswordReset: React.FC<Props> = ({
     }
 
     if (valid) {
-      resetPassword(data, (res) => {
-        addNotification({
-          display: true,
-          error: res.success ? false : true,
-          content: res.message,
-          timed: res.success ? false : true,
-        });
-
-        if (!res.success) {
-          setForm({ ...form, processing: false });
-        }
-      });
+      // resetPassword(data, (res) => {
+      //   addNotification({
+      //     display: true,
+      //     error: res.success ? false : true,
+      //     content: res.message,
+      //     timed: res.success ? false : true,
+      //   });
+      //   if (!res.success) {
+      //     setForm({ ...form, processing: false });
+      //   }
+      // });
     }
 
     setForm({ ...form, valid: valid, submitted: true, processing: valid });
@@ -99,7 +98,7 @@ const PasswordReset: React.FC<Props> = ({
   // TODO: If there is a user show current_pass, new_pass and new_pass_confirmation. Then for forgot password use just new_password and new_password_confirmation.
   return (
     <Layout style={{ maxWidth: "600px" }}>
-      <Header title="Reset" />
+      <Header title="Password Reset" />
       <Content style={{ paddingTop: "3.5rem" }}>
         <form
           id="resetForm"
@@ -193,8 +192,8 @@ const PasswordReset: React.FC<Props> = ({
 // const mapStateToProps = ({ notification }: any) => ({ notification });
 const mapStateToProps = ({}) => ({});
 const mapDispatchToProps = (dispatch: Function) => ({
-  resetPassword: (data: any, callback: () => void) =>
-    dispatch(resetPassword(data, callback)),
+  // resetPassword: (data: any, callback: () => void) =>
+  //   dispatch(resetPassword(data, callback)),
   addNotification: (notification: any) =>
     dispatch(addNotification(notification)),
 });

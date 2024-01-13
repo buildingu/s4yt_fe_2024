@@ -16,13 +16,16 @@ export default <T extends Record<string, any>>(
   //     ? false
   //     : true;
 
+  // TODO: Maybe you can add form.submitted for this.
   target.removeAttribute("data-valid");
   target.removeAttribute("matching-passwords");
 
   setCurrentData((prev) => ({
     ...prev,
     [name!]:
-      name!.split("_")[1] === "id" ? parseInt(target.value) : target.value,
+      name! !== "player_id" && name!.split("_")[1] === "id"
+        ? parseInt(target.value)
+        : target.value,
   }));
 
   // setData(

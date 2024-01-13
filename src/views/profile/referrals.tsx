@@ -14,7 +14,7 @@ const Referral: React.FC<Props> = ({
   getReferrals,
   createReferral,
   addNotification,
-  configuration,
+  // configuration,
 }) => {
   const [form, setForm] = useState({
     processing: false,
@@ -157,9 +157,9 @@ const Referral: React.FC<Props> = ({
                     <td>{referral.email}</td>
                     <td>{referral.status}</td>
                     <td>
-                      {referral.status === "accepted"
+                      {/* {referral.status === "accepted"
                         ? configuration.instagram_coins
-                        : 0}
+                        : 0} */}
                     </td>
                   </tr>
                 );
@@ -172,11 +172,11 @@ const Referral: React.FC<Props> = ({
   );
 };
 
-const mapStateToProps = ({ configuration }) => ({ configuration });
+// const mapStateToProps = ({ configuration }) => ({ configuration });
 const mapDispatchToProps = (dispatch: Function) => ({
   getReferrals: (callback) => dispatch(getReferrals(callback)),
   createReferral: (data, callback) => dispatch(createReferral(data, callback)),
   addNotification: (notification) => dispatch(addNotification(notification)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Referral);
+export default connect(null, mapDispatchToProps)(Referral);

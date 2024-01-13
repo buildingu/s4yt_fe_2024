@@ -23,8 +23,7 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
     (title.includes(" ") ||
       title === "Sponsors" ||
       title === "Login" ||
-      title === "Register" ||
-      title === "Reset");
+      title === "Register");
 
   const hasSpace = (title: string) => {
     const parts = title.split(" ");
@@ -57,7 +56,7 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
               {title === "Login" ||
               title === "Register" ||
               title.includes("Email") ||
-              title === "Reset" ? (
+              title.includes("Password") ? (
                 <>
                   <h1 className={s.mainTitle}>{title}</h1>
                   <a
@@ -87,13 +86,13 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
               {user ? (
                 <Hamburger />
               ) : (
-                  <a
-                    aria-label="building-U Website"
-                    href="https://building-u.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={s.checkoutPersist}
-                  />
+                <a
+                  aria-label="building-U Website"
+                  href="https://building-u.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={s.checkoutPersist}
+                />
               )}
             </div>
           </>
