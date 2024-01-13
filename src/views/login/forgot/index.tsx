@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import updateField from "@utils/forms/updateField";
 import checkValidEmail from "@root/utils/forms/checkValidEmail";
 
-import { sendVerifyEmail } from "@actions/user";
+import { sendResetPasswordEmail } from "@actions/user";
 import { addNotification } from "@actions/notifications";
 
 import Layout from "@components/layout";
@@ -18,12 +18,12 @@ import ExpiresInIndicator from "@components/forms/expiresInIndicator";
 import s from "./styles.module.css";
 
 interface Props {
-  sendForgotPassword: (email: string) => Promise<any>;
+  sendResetPasswordEmail: (email: string) => Promise<any>;
   addNotification: (data: Omit<NotificationValues, "id">) => void;
 }
 
 const ForgotPassword: React.FC<Props> = ({
-  sendForgotPassword,
+  sendResetPasswordEmail,
   addNotification,
 }) => {
   const formRef = useRef<HTMLFormElement>(null),
@@ -47,8 +47,8 @@ const ForgotPassword: React.FC<Props> = ({
 
     if (valid) {
       setForm({ success: false, processing: true });
-      const res = await sendForgotPassword(currentData.email);
-      // console.log("res", res);
+      const res = await sendResetPasswordEmail(currentData.email);
+
       if (res.success) {
         formRef.current!.reset();
         addNotification({
@@ -146,8 +146,8 @@ const ForgotPassword: React.FC<Props> = ({
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  sendVerifyEmail: (email: string) =>
-    dispatch(sendVerifyEmail(email) as unknown) as Promise<any>,
+  sendResetPasswordEmail: (email: string) =>
+    dispatch(sendResetPasswordEmail(email) as unknown) as Promise<any>,
   addNotification: (notification: Omit<NotificationValues, "id">) =>
     dispatch(addNotification(notification)),
 });

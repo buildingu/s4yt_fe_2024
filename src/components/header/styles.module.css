@@ -195,7 +195,6 @@
       center/contain;
   }
 
-  /* TODO: Need actual image. */
   .container.full .right nav button {
     width: 64px;
     height: 64px;
@@ -304,7 +303,7 @@
     background: url("../../static/btn_checkout_pressed.png") no-repeat center
       center/contain;
   }
-  
+
   @media screen and (max-width: 446px) {
     .container.full .right .menu > div:first-of-type {
       margin: 1.5rem 0.5rem 2.5rem 0.5rem;
@@ -394,20 +393,6 @@
   .container.full nav div .mainMap:active {
     background: url("../../static/btn_mainmap_pressed.png") no-repeat center
       center/contain;
-  }
-
-  /* TODO: Need images. */
-  .container.full nav div .questions {
-    background: url("../../static/btn_question_normal.png") no-repeat center
-      center/contain;
-  }
-  .container.full nav div .questions:hover {
-    /* background: url("../../static/btn_question_hover.png") no-repeat center
-      center/contain; */
-  }
-  .container.full nav div .questions:active {
-    /* background: url("../../static/btn_question_pressed.png") no-repeat center
-      center/contain; */
   }
 
   .container.full nav div .chat {
