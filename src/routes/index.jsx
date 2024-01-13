@@ -4,13 +4,16 @@ import Gate from "@components/gate";
 import Register from "@views/register";
 import VerifyEmail from "@views/register/verifyEmail";
 import VerifySuccess from "@views/register/verifyEmail/VerifySuccess";
+
 import Login from "@views/login";
+import ForgotPassword from "@root/views/login/forgot";
 import PasswordReset from "@views/password/reset";
 
-import Home from "@views/home";
 import Profile from "@views/profile";
-import Raffle from "@views/raffle";
+
+import Home from "@views/home";
 import Sponsors from "@views/sponsors";
+import Raffle from "@views/raffle";
 import Businesses from "@views/businesses";
 import Details from "@views/businesses/Details";
 
@@ -25,17 +28,22 @@ export const routes = [
     view: VerifySuccess,
     restricted: 0,
   },
+
   { path: "/login", view: Login, restricted: 0 },
+  { path: "/login/forgot", view: ForgotPassword, restricted: 0 },
   { path: "/password-reset", view: PasswordReset, restricted: 0 },
-  { path: "/", view: Home, restricted: 1 },
+
   { path: "/profile", view: Profile, restricted: 1 },
-  { path: "/raffle", view: Raffle, restricted: 1 },
+
+  { path: "/", view: Home, restricted: 1 },
   { path: "/sponsors", view: Sponsors, restricted: 1 },
+  { path: "/raffle", view: Raffle, restricted: 1 },
   { path: "/businesses", view: Businesses, restricted: 1 },
   { path: "/businesses/:details", view: Details, restricted: 1 },
+  // { path: "/results", view: SomeComponent, restricted: 1 },
+
   { path: "/error-500", view: Error500, restricted: 0 },
   { path: "/error-404", view: Error404, restricted: 0 },
-  // { path: "/results", view: SomeComponent, restricted: 1 },
 ];
 
 const RoutesProvider = () => {

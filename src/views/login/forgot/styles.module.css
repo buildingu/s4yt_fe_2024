@@ -1,0 +1,62 @@
+.form {
+  position: relative;
+  padding: 26px 0 0 34px;
+}
+
+.form > div:first-child {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  position: relative;
+  width: 100%;
+  max-width: 335px;
+}
+
+.form > div:first-child div {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.form > div:first-child div time {
+  color: var(--pbrown);
+}
+.form > div:first-child div time span {
+  color: #f47216;
+}
+
+.form div input {
+  width: 100%;
+}
+
+.form div small:global(.formError) {
+  width: fit-content;
+  margin-top: 6px;
+}
+
+.form > div:last-child {
+  display: grid;
+  grid-template-columns: 52% auto;
+  max-width: 437px;
+}
+.form > div:last-child button {
+  justify-self: flex-end;
+}
+.form > div:last-child p {
+  font-family: "Corbel", Arial;
+  color: var(--pbrown);
+  text-align: left;
+  height: fit-content;
+  margin-top: 0.5rem;
+}
+
+@media screen and (max-width: 494px) {
+  .form > div:last-child button {
+    margin-top: 0.75rem;
+  }
+}
+
+@media screen and (max-width: 403px) {
+  .form {
+    padding: 26px 0 0 0;
+  }
+}
