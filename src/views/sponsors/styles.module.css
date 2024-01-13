@@ -196,14 +196,14 @@ button.backBtn {
   margin-bottom: 10px;
 }
 
-.more .quiz button {
+.more .quiz :global(.okBtn.flip) {
   width: 110px;
   height: 110px;
 }
-.more .quiz button::before {
-  transform: scale(0.9) rotate(10deg);
-  right: -208px;
-  bottom: 10px;
+.more .quiz :global(.okBtn.flip)::before {
+  transform: rotate(260deg) scaleY(-1) scale(0.9);
+  right: -220px;
+  bottom: 34px;
 }
 
 .congrats {

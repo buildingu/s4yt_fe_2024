@@ -55,36 +55,6 @@
   }
 }
 
-.notViewed div .nextBtn {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  background: url("../../static/ok-btn-normal.png") no-repeat center
-    center/contain;
-  margin-top: 1rem;
-  border-radius: 60px 60px;
-  float: right;
-  cursor: pointer;
-}
-.notViewed div .nextBtn:hover {
-  background: url("../../static/ok-btn-hover.png") no-repeat center
-    center/contain;
-}
-.notViewed div .nextBtn:active {
-  background: url("../../static/ok-btn-press.png") no-repeat center
-    center/contain;
-}
-.notViewed div .nextBtn:before {
-  content: "";
-  position: absolute;
-  bottom: 60px;
-  right: -228px;
-  width: 200px;
-  height: 341px;
-  background: url("../../static/feather.png") no-repeat center center/contain;
-  transform: rotate(260deg) scaleY(-1);
-}
-
 .viewed {
   display: flex;
   justify-content: center;

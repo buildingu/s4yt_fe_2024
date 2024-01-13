@@ -121,7 +121,10 @@ const Home: React.FC<Props> = ({ addNotification }) => {
                 >
                   Don't show this again
                 </button>
-                <button className={s.nextBtn} onClick={() => setViewed(true)} />
+                <button
+                  className="okBtn flip"
+                  onClick={() => setViewed(true)}
+                />
               </div>
             </div>
           </>

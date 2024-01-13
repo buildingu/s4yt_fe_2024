@@ -221,7 +221,7 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
         </ol>
         {!quizComplete.complete && (
           <div>
-            <button className="okBtn" type="submit" />
+            <button className="okBtn flip" type="submit" />
           </div>
         )}
       </form>

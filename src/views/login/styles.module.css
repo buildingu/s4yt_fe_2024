@@ -1,19 +1,51 @@
 /* FIXME: coins position. */
-.coins {
+/* .coins {
   position: absolute;
   max-width: 250px;
   top: 365px;
   right: 365px;
-}
+} */
 
 .form {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  padding: 26px 0 0 34px;
+  margin-bottom: -36px;
+}
+
+.form div:not(:last-child) {
   max-width: 335px;
+}
+.form div:first-child {
   text-align: left;
-  margin-bottom: 85px;
+  margin-bottom: 2rem;
+}
+.form div:nth-child(2) {
+  text-align: left;
+  margin-bottom: 0.5rem;
+}
+.form div:nth-child(3),
+.form div:last-child {
+  text-align: right;
+}
+.form div:last-child {
+  max-width: 445px;
+}
+
+.form div input {
+  width: 100%;
+}
+
+@media screen and (min-width: 513px) {
+  .form div button {
+    position: relative;
+    bottom: 30px;
+  }
+}
+
+.form .forgot {
+  font-size: 18px;
+  color: var(--pbrown);
+  text-decoration: none;
+  text-align: right;
 }
 
 .form + a {
@@ -33,84 +65,31 @@
   }
 }
 
-.form input:first-of-type {
-  margin-bottom: 2rem;
-}
-.form input[data-valid="0"],
-.form select[data-valid="0"],
-.error {
-  border: 1px solid #f00;
+@media screen and (max-width: 512px) {
+  .form {
+    margin-bottom: 0;
+  }
+
+  .form div:last-child {
+    max-width: 352px;
+    margin-top: 0.5rem;
+  }
 }
 
-.form .forgot {
-  font-size: 18px;
-  color: var(--pbrown);
-  text-decoration: none;
-  margin-top: 0.5rem;
-  text-align: right;
+@media screen and (max-width: 436px) {
+  .form {
+    padding: 26px 0 0 0;
+  }
 }
 
-.form button {
-  position: absolute;
-  right: -7rem;
-  bottom: -5.5rem;
-  width: 120px;
-  height: 120px;
-  background: url("../../static/ok-btn-normal.png") no-repeat center
-    center/contain;
-  border-radius: 60px 60px;
-  float: right;
-  cursor: pointer;
-}
-
-.form button:before {
-  position: absolute;
-  bottom: 30px;
-  right: -220px;
-  width: 200px;
-  height: 341px;
-  background: url("../../static/feather.png") no-repeat center center/contain;
-  transform: rotate(10deg);
-  content: "";
-}
-
-.form button:hover {
-  background: url("../../static/ok-btn-hover.png") no-repeat center
-    center/contain;
-}
-
-.form button:active {
-  background: url("../../static/ok-btn-press.png") no-repeat center
-    center/contain;
-}
-
-.form button[disabled] {
-  opacity: 0.35;
-}
-
-@media screen and (max-width: 530px) {
+@media screen and (max-width: 405px) {
   .form {
     margin-bottom: 72px;
   }
+
   .form + a {
     bottom: -10rem;
     left: 50%;
     transform: translate(-50%, -50%) rotate(7deg);
-  }
-
-  .form button {
-    position: relative;
-    left: 14rem;
-    bottom: 0;
-    margin-top: 1rem;
-  }
-}
-
-@media screen and (max-width: 370px) {
-  .form button {
-    left: 0;
-  }
-  .form button:before {
-    display: none;
   }
 }

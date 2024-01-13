@@ -96,8 +96,8 @@ select {
   background: var(--white) url("./static/caret-down.svg") no-repeat
     calc(100% - 6px);
 }
-/* FIXME: Should be focus, but focus works like blur and doesn't work right. */
-select:active:not(select:disabled) {
+/* FIXME: focus doesn't work right becasue when click and then clicked again to close the select, it is still focused. */
+select:focus:not(select:disabled) {
   background: var(--white) url("./static/caret-up.svg") no-repeat
     calc(100% - 6px);
 }
@@ -144,13 +144,20 @@ button.okBtn {
 button.okBtn:before {
   content: "";
   position: absolute;
-  bottom: 30px;
-  right: -220px;
   width: 200px;
   height: 341px;
   background: url("./static/feather.png") no-repeat center/contain;
-  transform: rotate(10deg);
   pointer-events: none;
+}
+button.okBtn:not(.flip):before {
+  right: -220px;
+  bottom: 30px;
+  transform: rotate(10deg);
+}
+button.okBtn.flip:before {
+  right: -230px;
+  bottom: 60px;
+  transform: rotate(260deg) scaleY(-1);
 }
 button.okBtn:hover {
   background: url("./static/ok-btn-hover.png") no-repeat center/contain;
