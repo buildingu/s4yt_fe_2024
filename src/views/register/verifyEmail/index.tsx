@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
 import updateField from "@utils/forms/updateField";
-import checkValidity from "@utils/forms/checkValidity";
+import checkValidEmail from "@root/utils/forms/checkValidEmail";
 
 import { sendVerifyEmail } from "@actions/user";
 import { addNotification } from "@actions/notifications";
@@ -13,6 +13,7 @@ import { addNotification } from "@actions/notifications";
 import Layout from "@components/layout";
 import Header from "@components/header";
 import Content from "@components/content";
+import ExpiresInIndicator from "@components/forms/expiresInIndicator";
 
 import s from "./styles.module.css";
 
@@ -23,7 +24,7 @@ interface Props {
 
 const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
   const formRef = useRef<HTMLFormElement>(null),
-    timeRef = useRef<HTMLTimeElement>(null),
+    // timeRef = useRef<HTMLTimeElement>(null),
     [form, setForm] = useState({ processing: false, success: false }),
     [currentData, setCurrentData] = useState({ email: "" });
 
@@ -37,7 +38,7 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
     )!;
     let valid = true;
 
-    checkValidity(field);
+    checkValidEmail(field);
     if (!field.validity.valid && valid) {
       valid = false;
     }
@@ -55,8 +56,8 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
           close: false,
           duration: 0,
         });
-      } else {
         setForm((prev) => ({ ...prev, success: true }));
+      } else {
         addNotification({
           error: true,
           content: res.message,
@@ -68,34 +69,34 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
     }
   };
 
-  useEffect(() => {
-    const expiredTimer = () => {
-      let time = 600; // 10 minutes in seconds
+  // useEffect(() => {
+  //   const expiredTimer = () => {
+  //     let time = 600; // 10 minutes in seconds
 
-      setForm((prev) => ({ ...prev, processing: true }));
-      const timerInterval = setInterval(() => {
-        const minutes = Math.floor(time / 60),
-          seconds = time % 60,
-          formattedTime = `Expires in: <span>${String(minutes).padStart(
-            2,
-            "0"
-          )}:${String(seconds).padStart(2, "0")}<span>`;
+  //     setForm((prev) => ({ ...prev, processing: true }));
+  //     const timerInterval = setInterval(() => {
+  //       const minutes = Math.floor(time / 60),
+  //         seconds = time % 60,
+  //         formattedTime = `Expires in: <span>${String(minutes).padStart(
+  //           2,
+  //           "0"
+  //         )}:${String(seconds).padStart(2, "0")}<span>`;
 
-        if (time <= 0) {
-          clearInterval(timerInterval);
-          timeRef.current!.innerHTML = "Expired";
+  //       if (time <= 0) {
+  //         clearInterval(timerInterval);
+  //         timeRef.current!.innerHTML = "Expired";
 
-          setForm((prev) => ({ ...prev, processing: false }));
-        } else {
-          timeRef.current!.innerHTML = formattedTime;
-        }
+  //         setForm((prev) => ({ ...prev, processing: false }));
+  //       } else {
+  //         timeRef.current!.innerHTML = formattedTime;
+  //       }
 
-        time -= 1;
-      }, 1000);
-    };
+  //       time -= 1;
+  //     }, 1000);
+  //   };
 
-    if (form.success) expiredTimer();
-  }, [form.success]);
+  //   if (form.success) expiredTimer();
+  // }, [form.success]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -134,9 +135,13 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
           <div role="presentation">
             <div role="presentation">
               <label htmlFor="email">Email</label>
-              <time ref={timeRef}>
+              {/* <time ref={timeRef}>
                 Expires in: <span>00:00</span>
-              </time>
+              </time> */}
+              <ExpiresInIndicator
+                formSuccess={form.success}
+                setForm={setForm}
+              />
             </div>
             <input
               aria-describedby="explanation"
@@ -157,7 +162,7 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
           <div role="presentation">
             <p id="explanation">
               Enter your email address to resend the variation email. If your
-              account exists, the message will be resent.
+              account exists, the email will be resent.
             </p>
             <button
               type="submit"
