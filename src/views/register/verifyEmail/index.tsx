@@ -24,7 +24,6 @@ interface Props {
 
 const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
   const formRef = useRef<HTMLFormElement>(null),
-    // timeRef = useRef<HTMLTimeElement>(null),
     [form, setForm] = useState({ processing: false, success: false }),
     [currentData, setCurrentData] = useState({ email: "" });
 
@@ -46,7 +45,7 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
     if (valid) {
       setForm({ success: false, processing: true });
       const res = await sendVerifyEmail(currentData.email);
-      // console.log("res", res);
+
       if (res.success) {
         formRef.current!.reset();
         addNotification({
@@ -68,35 +67,6 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
       setForm((prev) => ({ ...prev, processing: false }));
     }
   };
-
-  // useEffect(() => {
-  //   const expiredTimer = () => {
-  //     let time = 600; // 10 minutes in seconds
-
-  //     setForm((prev) => ({ ...prev, processing: true }));
-  //     const timerInterval = setInterval(() => {
-  //       const minutes = Math.floor(time / 60),
-  //         seconds = time % 60,
-  //         formattedTime = `Expires in: <span>${String(minutes).padStart(
-  //           2,
-  //           "0"
-  //         )}:${String(seconds).padStart(2, "0")}<span>`;
-
-  //       if (time <= 0) {
-  //         clearInterval(timerInterval);
-  //         timeRef.current!.innerHTML = "Expired";
-
-  //         setForm((prev) => ({ ...prev, processing: false }));
-  //       } else {
-  //         timeRef.current!.innerHTML = formattedTime;
-  //       }
-
-  //       time -= 1;
-  //     }, 1000);
-  //   };
-
-  //   if (form.success) expiredTimer();
-  // }, [form.success]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -135,9 +105,6 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
           <div role="presentation">
             <div role="presentation">
               <label htmlFor="email">Email</label>
-              {/* <time ref={timeRef}>
-                Expires in: <span>00:00</span>
-              </time> */}
               <ExpiresInIndicator
                 formSuccess={form.success}
                 setForm={setForm}
