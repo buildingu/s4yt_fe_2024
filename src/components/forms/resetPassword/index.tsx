@@ -14,6 +14,7 @@ import { addNotification } from "@actions/notifications";
 import s from "./styles.module.css";
 
 interface Props {
+  playerId: string;
   user: any;
   resetPassword: (userData: any) => Promise<any>;
   updatePassword: (userData: any) => Promise<any>;
@@ -28,6 +29,7 @@ interface FromData {
 }
 
 const ResetPasswordForm: React.FC<Props> = ({
+  playerId,
   user,
   resetPassword,
   updatePassword,
@@ -39,13 +41,18 @@ const ResetPasswordForm: React.FC<Props> = ({
     }),
     // FIXME: Weird type error.
     [currentData, setCurrentData] = useState<FormData>({
-      ...(user.id ? { old_password: "" } : { player_id: "" }),
+      ...(user.id ? { old_password: "" } : { player_id: playerId }),
       password: "",
       password_confirmation: "",
     });
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!currentData.player_id)
+      throw Error(
+        "Somehow you were brought to this page without us finding your player_id, you should only get redirected here."
+      );
 
     const fields = document.querySelectorAll<HTMLInputElement>(
       "#updatePasswordForm input, #resetPasswordForm input"
@@ -108,37 +115,21 @@ const ResetPasswordForm: React.FC<Props> = ({
       autoComplete="off"
       noValidate
     >
-      <div role="presentation">
-        {user.id ? (
-          <>
-            <label htmlFor="old_password">Current Pass</label>
-            <input
-              id="old_password"
-              name="old_password"
-              type="old_password"
-              onChange={(e) => updateField<FromData>(e, setCurrentData)}
-              disabled={form.processing}
-              aria-disabled={form.processing}
-              autoComplete="off"
-              required
-            />
-          </>
-        ) : (
-          <>
-            <label htmlFor="player_id">Player Id</label>
-            <input
-              id="player_id"
-              name="player_id"
-              type="player_id"
-              onChange={(e) => updateField<FromData>(e, setCurrentData)}
-              disabled={form.processing}
-              aria-disabled={form.processing}
-              autoComplete="off"
-              required
-            />
-          </>
-        )}
-      </div>
+      {user.id && (
+        <div role="presentation">
+          <label htmlFor="old_password">Current Pass</label>
+          <input
+            id="old_password"
+            name="old_password"
+            type="old_password"
+            onChange={(e) => updateField<FromData>(e, setCurrentData)}
+            disabled={form.processing}
+            aria-disabled={form.processing}
+            autoComplete="off"
+            required
+          />
+        </div>
+      )}
 
       <div role="presentation">
         <label aria-label="Password" htmlFor="password">
