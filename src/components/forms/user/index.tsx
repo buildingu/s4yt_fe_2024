@@ -533,14 +533,21 @@ const UserForm: React.FC<Props> = ({
           <Link to="/login" className="fade move">
             Already have a account?
           </Link>
-          <button type="submit" className="okBtn" disabled={form.processing} />
+          <button
+            type="submit"
+            className="okBtn flip"
+            disabled={form.processing}
+          />
         </div>
       </form>
     </>
   );
 };
 
-const mapStateToProps = ({ formOptions }: Props) => ({ formOptions });
+const mapStateToProps = ({ formOptions, user }: Props) => ({
+  formOptions,
+  user: user.credentials,
+});
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   getEducation: () => dispatch(getEducation()),
   getGrades: () => dispatch(getGrades()),
