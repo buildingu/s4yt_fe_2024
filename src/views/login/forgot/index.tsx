@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
 import updateField from "@utils/forms/updateField";
-import checkValidEmail from "@root/utils/forms/checkValidEmail";
+import checkValidEmail from "@utils/forms/checkValidEmail";
 
 import { sendResetPasswordEmail } from "@actions/user";
 import { addNotification } from "@actions/notifications";

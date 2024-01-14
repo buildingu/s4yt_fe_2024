@@ -103,8 +103,8 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
   );
 };
 
-const mapStateToProps = (state: any) => ({
-  user: state.user.credentials,
+const mapStateToProps = ({ user }: Props) => ({
+  user: user.credentials,
 });
 
 export default connect(mapStateToProps, null)(Header);
