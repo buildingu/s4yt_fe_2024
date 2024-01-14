@@ -30,13 +30,13 @@ export const sendResetPasswordEmail = (email) => (dispatch, getState) => {
     errorHandler("sendResetPasswordEmail", error)
   );
 };
-export const resetPassword = (email) => (dispatch, getState) => {
-  return Api.post("/password", email).catch((error) =>
+export const resetPassword = (userData) => (dispatch, getState) => {
+  return Api.post("/password", userData).catch((error) =>
     errorHandler("resetPassword", error)
   );
 };
-export const updatePassword = (email) => (dispatch, getState) => {
-  return Api.post("/player/password", email).catch((error) =>
+export const updatePassword = (userData) => (dispatch, getState) => {
+  return Api.post("/player/password", userData).catch((error) =>
     errorHandler("updatePassword", error)
   );
 };

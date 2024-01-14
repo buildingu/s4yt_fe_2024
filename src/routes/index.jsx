@@ -6,8 +6,8 @@ import VerifyEmail from "@views/register/verifyEmail";
 import VerifySuccess from "@views/register/verifyEmail/VerifySuccess";
 
 import Login from "@views/login";
-import ForgotPassword from "@root/views/login/forgot";
-import PasswordReset from "@views/password/reset";
+import ForgotPassword from "@views/login/forgot";
+import ResetPassword from "@views/resetPassword";
 
 import Profile from "@views/profile";
 
@@ -31,7 +31,7 @@ export const routes = [
 
   { path: "/login", view: Login, restricted: 0 },
   { path: "/login/forgot", view: ForgotPassword, restricted: 0 },
-  { path: "/password-reset", view: PasswordReset, restricted: 0 },
+  { path: "/password-reset", view: ResetPassword, restricted: 0 },
 
   { path: "/profile", view: Profile, restricted: 1 },
 

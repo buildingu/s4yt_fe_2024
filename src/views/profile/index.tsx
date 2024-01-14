@@ -4,7 +4,7 @@ import Layout from "@components/layout";
 import Header from "@components/header";
 import Content from "@components/content";
 import UserForm from "@components/forms/user";
-import Password from "@components/forms/password";
+// import Password from "@root/components/forms/resetPassword";
 import { getCurrentUser } from "@actions/user";
 import { getCountries, getRegions, getCities } from "@actions/locations";
 import { getGrades, getEducation } from "@actions/options";
@@ -50,7 +50,7 @@ const Profile: React.FC<Props> = ({ user, getCurrentUser }) => {
 
             <section className={s.updatePassword}>
               <h2>Update Password</h2>
-              <Password user={data} />
+              {/* <Password user={data} /> */}
             </section>
           </div>
         ) : (
