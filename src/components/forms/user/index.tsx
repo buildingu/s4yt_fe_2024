@@ -79,6 +79,18 @@ const UserForm: React.FC<Props> = ({
   referral,
   setProfileData,
 }) => {
+  const [activeSelect, setActiveSelect] = useState<string | null>(null);
+  const handleSelectBlur = () => {
+    setActiveSelect(null);
+  };
+  const handleSelectClick = (selectId: string) => {
+    if (activeSelect === selectId) {
+      setActiveSelect(null);
+    } else {
+      setActiveSelect(selectId);
+    }
+  };
+
   const formRef = useRef<HTMLFormElement>(null),
     [form, setForm] = useState({
       processing: false,
@@ -349,6 +361,9 @@ const UserForm: React.FC<Props> = ({
               </span>
             </label>
             <select
+              onBlur={handleSelectBlur}
+              onClick={() => handleSelectClick("education")}
+              className={activeSelect === "education" ? "activeSelect" : ""}
               id="education"
               name="education_id"
               onChange={(e) => updateField<FromData>(e, setCurrentData)}
@@ -377,6 +392,9 @@ const UserForm: React.FC<Props> = ({
               </span>
             </label>
             <select
+              onBlur={handleSelectBlur}
+              onClick={() => handleSelectClick("grade")}
+              className={activeSelect === "grade" ? "activeSelect" : ""}
               id="grade"
               name="grade_id"
               onChange={(e) => updateField<FromData>(e, setCurrentData)}
@@ -425,6 +443,9 @@ const UserForm: React.FC<Props> = ({
               </span>
             </label>
             <select
+              onBlur={handleSelectBlur}
+              onClick={() => handleSelectClick("country")}
+              className={activeSelect === "country" ? "activeSelect" : ""}
               id="country"
               name="country_id"
               onChange={(e) => updateField<FromData>(e, setCurrentData)}
@@ -447,6 +468,9 @@ const UserForm: React.FC<Props> = ({
           <div role="presentation">
             <label htmlFor="region">Region</label>
             <select
+              onBlur={handleSelectBlur}
+              onClick={() => handleSelectClick("region")}
+              className={activeSelect === "region" ? "activeSelect" : ""}
               aria-live="polite"
               aria-busy={formOptions.regions.length === 0}
               id="region"
@@ -491,6 +515,9 @@ const UserForm: React.FC<Props> = ({
         <div role="presentation">
           <label htmlFor="city">City</label>
           <select
+            onBlur={handleSelectBlur}
+            onClick={() => handleSelectClick("city")}
+            className={activeSelect === "city" ? "activeSelect" : ""}
             aria-live="polite"
             aria-busy={formOptions.cities.length === 0}
             id="city"
