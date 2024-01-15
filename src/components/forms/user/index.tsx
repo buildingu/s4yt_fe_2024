@@ -101,14 +101,8 @@ const UserForm: React.FC<Props> = ({
       region_id: null,
       city_id: null,
       // TODO:
-<<<<<<< HEAD
-      //  ...(user.id && { ...user }),
-    }),
-    dispatch = useDispatch();
-=======
       //  ...(userToken && { ...user }),
     });
->>>>>>> 74f78b4d7040b4f196e3b05cd1e3ce442cf7ac07
 
   useEffect(() => {
     console.log("currentData", currentData);
