@@ -10,9 +10,6 @@ interface Props {}
 
 const Register: React.FC<Props> = ({}) => {
   const [queryParameters] = useSearchParams();
-  const data = queryParameters.has("email")
-    ? { player: {}, email: queryParameters.get("email") }
-    : [];
   const referral = queryParameters.has("referral")
     ? queryParameters.get("referral")
     : null;
@@ -21,14 +18,10 @@ const Register: React.FC<Props> = ({}) => {
     <Layout addCoins="coins1" style={{ maxWidth: "800px" }}>
       <Header title="Register" />
       <Content style={{ paddingTop: "3rem" }}>
-        <UserForm user={data} referral={referral} />
+        <UserForm referral={referral} />
       </Content>
     </Layout>
   );
 };
 
-// const mapStateToProps = ({ }) => ({ });
-// const mapDispatchToProps = (dispatch) => ({});
-
-// export default connect(mapStateToProps,mapDispatchToProps)(Register);
 export default Register;

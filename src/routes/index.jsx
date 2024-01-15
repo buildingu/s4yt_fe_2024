@@ -21,7 +21,7 @@ import Error404 from "@views/errors/Error404";
 import Error500 from "@views/errors/Error500";
 
 export const routes = [
-  { path: "/register", view: Register, restricted: 0 },
+  { path: "/register", view: Register, restricted: 2 },
   { path: "/register/verify-email", view: VerifyEmail, restricted: 0 },
   {
     path: "/register/verify-email/success",
@@ -29,9 +29,9 @@ export const routes = [
     restricted: 0,
   },
 
-  { path: "/login", view: Login, restricted: 0 },
-  { path: "/login/forgot", view: ForgotPassword, restricted: 0 },
-  { path: "/password-reset", view: ResetPassword, restricted: 0 },
+  { path: "/login", view: Login, restricted: 2 },
+  { path: "/login/forgot", view: ForgotPassword, restricted: 2 },
+  { path: "/password-reset", view: ResetPassword, restricted: 2 },
 
   { path: "/profile", view: Profile, restricted: 1 },
 
@@ -55,7 +55,11 @@ const RoutesProvider = () => {
         <Route
           key={route.path}
           path={route.path}
-          element={<Gate view={<route.view />} restricted={route.restricted} />}
+          element={
+            <Gate restricted={route.restricted}>
+              <route.view />
+            </Gate>
+          }
         />
       ))}
       <Route path="*" element={<Navigate to="/error-404" />} />

@@ -1,7 +1,8 @@
 .container {
   position: relative;
   padding: 30px;
-  background: rgba(255, 226, 176, 0.5);
+  /* TODO: Make varibles */
+  background-color: rgba(255, 226, 176, 0.5);
   border: 1px solid rgba(213, 213, 213, 0.5);
 }
 

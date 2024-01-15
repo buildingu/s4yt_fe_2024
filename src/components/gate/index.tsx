@@ -1,47 +1,46 @@
-import { useState, useEffect } from "react";
-import { Dispatch } from "redux";
+import UserCredentials from "@typings/UserCredentials";
+
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { getConfiguration } from "@actions/configuration";
 
-interface Props {
-  user: any;
-  configuration: any;
-  view: object;
-  restricted: Boolean;
-  getConfiguration: any;
+interface Props extends React.PropsWithChildren<{}> {
+  user: { credentials?: UserCredentials; token?: string };
+  gameConfig: any;
+  restricted: number;
 }
 
-// TODO:
-const Gate: React.FC<Props> = ({
-  user,
-  configuration,
-  view,
-  restricted,
-  getConfiguration,
-}) => {
-  const allow =
-    (restricted && user.token) || (!restricted && !user.token) ? true : false;
-  const redirect = !restricted ? "/profile" : "/login";
+// TODO: Add only pages you can only be redirected to... probably?
+const Gate: React.FC<Props> = ({ children, user, gameConfig, restricted }) => {
+  // const allow =
+  //   (restricted && user.token) || (!restricted && !user.token) ? true : false;
+  const redirect =
+    restricted === 1 && !user.token
+      ? "/login"
+      : restricted === 2 && user.token && user.credentials
+      ? "/already-logged-in"
+      : null;
 
-  // useEffect(() => {
-  // 	if(!configuration.loaded){
-  // 		getConfiguration();
-  // 	}
-  // },[]);
+  // console.log("allow", allow);
+  // console.log("redirect", redirect);
+  // console.log("user", user);
 
-  // return (configuration.loaded ? (allow ? <>
-  // 	{view}
-  // </> : <Navigate to={redirect} />) : null)
-  return <>{view}</>;
+  return !redirect ? (
+    <>{children}</>
+  ) : (
+    <Navigate to={redirect} replace={true} />
+  );
+  // return <>{children}</>;
 };
 
-const mapStateToProps = ({ user, configuration }: any) => ({
+const mapStateToProps = ({
   user,
-  configuration,
-});
-const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  getConfiguration: () => dispatch(getConfiguration()),
+  gameConfig,
+}: {
+  user: { credentials?: UserCredentials; token?: string };
+  gameConfig: any;
+}) => ({
+  user,
+  gameConfig,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Gate);
+export default connect(mapStateToProps, null)(Gate);

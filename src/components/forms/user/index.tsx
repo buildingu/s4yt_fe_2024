@@ -1,3 +1,5 @@
+import UserCredentials from "@typings/UserCredentials";
+import FormOptionsState from "@typings/redux/FormOptionsState";
 import NotificationValues from "@typings/NotificationValues";
 
 import { useRef, useState, useEffect } from "react";
@@ -25,28 +27,20 @@ import Spinner from "@components/loaders/spinner/Spinner";
 
 import s from "./styles.module.css";
 
+// FIXME: THESE RETURNS PROMISES.
 interface Props {
-  formOptions: {
-    education: Array<{ id: number; name: string }>;
-    grades: Array<{ id: number; name: string }>;
-    countries: Array<{ id: number; name: string }>;
-    regions: Array<{ id: number; name: string }>;
-    cities: Array<{ id: number; name: string }>;
-  };
+  formOptions: FormOptionsState;
   getEducation: () => void;
   getGrades: () => void;
   getCountries: () => void;
   getRegions: (countryId: number) => void;
   resetRegions: () => void;
   getCities: (regionId: number) => void;
-  // TODO: Find what the actual user object is.
-  user: any;
+  user: { credentials?: UserCredentials; token?: string };
   registerPlayer: (userData: any) => Promise<any>;
   userProfile: (data: any, callback: () => void) => void;
   addNotification: (data: Omit<NotificationValues, "id">) => void;
-  referral: number;
-  // TODO:
-  setProfileData: React.Dispatch<React.SetStateAction<any>>;
+  referral?: string;
 }
 
 interface FromData {
@@ -77,7 +71,6 @@ const UserForm: React.FC<Props> = ({
   registerPlayer,
   userProfile,
   referral,
-  setProfileData,
 }) => {
   const formRef = useRef<HTMLFormElement>(null),
     [form, setForm] = useState({
@@ -96,7 +89,7 @@ const UserForm: React.FC<Props> = ({
       region_id: null,
       city_id: null,
       // TODO:
-      //  ...(user.id && { ...user }),
+      //  ...(userToken && { ...user }),
     });
 
   // useEffect(() => {
@@ -148,7 +141,7 @@ const UserForm: React.FC<Props> = ({
 
     for (let i = 0; i < fields.length; i++) {
       const field = fields[i];
-      if (!user.id) {
+      if (!user.token) {
         if (field.name === "email") checkValidEmail(field as HTMLInputElement);
 
         if (field.name === "password") passwordValue = field.value;
@@ -167,7 +160,7 @@ const UserForm: React.FC<Props> = ({
     }
 
     if (valid) {
-      if (user.id) {
+      if (user.token) {
         // userProfile
       } else {
         setForm((prev) => ({ ...prev, processing: true }));
@@ -205,13 +198,13 @@ const UserForm: React.FC<Props> = ({
 
   return (
     <>
-      {!user.id && (
+      {!user.token && (
         <div className={s.detail} aria-label="* Means the Field is Required">
           Required: <span className={s.required}>*</span>
         </div>
       )}
       <form
-        id={user.id ? "userForm" : "registrationForm"}
+        id={user.token ? "userForm" : "registrationForm"}
         onSubmit={(e) => submit(e)}
         className={s.form}
         ref={formRef}
@@ -232,7 +225,7 @@ const UserForm: React.FC<Props> = ({
             onChange={(e) => updateField<FromData>(e, setCurrentData)}
             disabled={form.processing}
             aria-disabled={form.processing}
-            // defaultValue={data.name ? data.name : ""}
+            {...(currentData.name && { defaultValue: currentData.name })}
             autoComplete="off"
             required
             minLength={2}
@@ -254,7 +247,7 @@ const UserForm: React.FC<Props> = ({
             onChange={(e) => updateField<FromData>(e, setCurrentData)}
             disabled={form.processing}
             aria-disabled={form.processing}
-            // defaultValue={data.email ? data.email : ""}
+            {...(currentData.email && { defaultValue: currentData.email })}
             autoComplete="off"
             required
           />
@@ -264,7 +257,7 @@ const UserForm: React.FC<Props> = ({
         </div>
 
         {/* This is for the register. */}
-        {!user.id && (
+        {!user.token && (
           <span>
             <div role="presentation">
               <label aria-label="Password" htmlFor="password">
@@ -353,6 +346,9 @@ const UserForm: React.FC<Props> = ({
               onChange={(e) => updateField<FromData>(e, setCurrentData)}
               disabled={form.processing}
               aria-disabled={form.processing}
+              {...(currentData.education_id && {
+                defaultValue: currentData.education_id,
+              })}
               // defaultValue={data.player ? data.player.education_id : ""}
               required
             >
@@ -381,6 +377,9 @@ const UserForm: React.FC<Props> = ({
               onChange={(e) => updateField<FromData>(e, setCurrentData)}
               disabled={form.processing}
               aria-disabled={form.processing}
+              {...(currentData.grade_id && {
+                defaultValue: currentData.grade_id,
+              })}
               // defaultValue={data.player ? data.player.grade_id : ""}
               required
             >
@@ -410,6 +409,7 @@ const UserForm: React.FC<Props> = ({
             onChange={(e) => updateField<FromData>(e, setCurrentData)}
             disabled={form.processing}
             aria-disabled={form.processing}
+            {...(currentData.school && { defaultValue: currentData.school })}
             // defaultValue={data.name ? data.name : ""}
             autoComplete="off"
           />
@@ -430,6 +430,7 @@ const UserForm: React.FC<Props> = ({
               disabled={form.processing}
               aria-disabled={form.processing}
               // value={data.player ? data.player.country_iso : ""}
+              {...(currentData.country_id && { value: currentData.country_id })}
               required
             >
               <option value="">- Select -</option>
@@ -463,6 +464,7 @@ const UserForm: React.FC<Props> = ({
                 typeof formOptions.regions === "string" ||
                 form.processing
               }
+              {...(currentData.region_id && { value: currentData.region_id })}
               // value={data.player ? data.player.state_iso : ""}
             >
               <option value="">- Select -</option>
@@ -508,6 +510,7 @@ const UserForm: React.FC<Props> = ({
               form.processing
             }
             // value={data.player ? data.player.city_id : ""}
+            {...(currentData.city_id && { value: currentData.city_id })}
           >
             <option value="">- Select -</option>
             {formOptions.cities &&
@@ -530,23 +533,41 @@ const UserForm: React.FC<Props> = ({
         </div>
 
         <div>
-          <Link to="/login" className="fade move">
-            Already have a account?
-          </Link>
-          <button
-            type="submit"
-            className="okBtn flip"
-            disabled={form.processing}
-          />
+          {user.token ? (
+            <button
+              type="submit"
+              className={s.updateBtn}
+              disabled={form.processing}
+            >
+              Update
+            </button>
+          ) : (
+            <>
+              <Link to="/login" className="fade move">
+                Already have a account?
+              </Link>
+              <button
+                type="submit"
+                className="okBtn flip"
+                disabled={form.processing}
+              />
+            </>
+          )}
         </div>
       </form>
     </>
   );
 };
 
-const mapStateToProps = ({ formOptions, user }: Props) => ({
+const mapStateToProps = ({
+  user,
   formOptions,
-  user: user.credentials,
+}: {
+  user: { credentials?: UserCredentials; token?: string };
+  formOptions: FormOptionsState;
+}) => ({
+  user,
+  formOptions,
 });
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   getEducation: () => dispatch(getEducation()),

@@ -9,13 +9,8 @@ import {
 import { Api } from "@services/index";
 import errorHandler from "@services/errorHandler";
 
-export const getGrades = () => (dispatch, getState) => {
-  return Api.get("/grades")
-    .then((response) => {
-      dispatch({ type: GET_GRADES_SUCCESS, payload: response.data.grades });
-    })
-    .catch((error) => errorHandler("getGrades", error));
-};
+// TODO: Make these better and check for res.success.
+const wrapper = () => {};
 
 export const getEducation = () => (dispatch, getState) => {
   return Api.get("/education")
@@ -26,6 +21,14 @@ export const getEducation = () => (dispatch, getState) => {
       });
     })
     .catch((error) => errorHandler("getEducation", error));
+};
+
+export const getGrades = () => (dispatch, getState) => {
+  return Api.get("/grades")
+    .then((response) => {
+      dispatch({ type: GET_GRADES_SUCCESS, payload: response.data.grades });
+    })
+    .catch((error) => errorHandler("getGrades", error));
 };
 
 export const getCountries = () => (dispatch, getState) => {
@@ -59,9 +62,3 @@ export const getCities = (regionId) => (dispatch, getState) => {
     })
     .catch((error) => errorHandler("getCities", error));
 };
-
-// export const getCoinTypes = () => (dispatch, getState) => {
-//   return Api.get("/cointype").then((response) => {
-//     dispatch({ type: GET_COIN_TYPES_SUCCESS, payload: response.data });
-//   });
-// };

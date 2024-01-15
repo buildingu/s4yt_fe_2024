@@ -1,15 +1,19 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+
+// TODO:
+import { routes } from "@root/routes";
+
 import Notification from "@components/notification";
+
 import s from "./styles.module.css";
 import coins1 from "@static/coins_variant1.png";
 import coins2 from "@static/coins_variant2.png";
 import coins3 from "@static/coins_variant3.png";
 import feather from "@static/feather.png";
 
-interface Props {
-  children?: any;
-  large?: Boolean;
+interface Props extends React.PropsWithChildren<{}> {
+  // large?: Boolean;
   addCoins?: "coins1" | "coins2" | "coins3";
   addFeather?: "left" | "right1" | "right2";
   style?: React.CSSProperties;
@@ -19,7 +23,7 @@ interface Props {
 
 const Layout: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
   children,
-  large,
+  // large,
   addCoins,
   addFeather,
   style,
@@ -77,11 +81,7 @@ const Layout: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
           }`}
         />
       )}
-      <div
-        className={large ? s.container + " " + s.large : s.container}
-        style={style}
-        {...options}
-      >
+      <div className={s.container} style={style} {...options}>
         {addCoins && (
           <img
             src={
