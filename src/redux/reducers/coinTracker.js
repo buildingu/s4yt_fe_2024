@@ -30,10 +30,12 @@ const coinTracker = (state = initialState, action) => {
     case INITIALIZE_COINS:
       return {
         ...state,
-        items: action.payload.products.map((product) => ({
-          ...product,
-          entries: 0,
-        })),
+        ...(action.payload.products && {
+          items: action.payload.products.map((product) => ({
+            ...product,
+            entries: 0,
+          })),
+        }),
         remainingCoins: action.payload.remainingCoins,
       };
     default:

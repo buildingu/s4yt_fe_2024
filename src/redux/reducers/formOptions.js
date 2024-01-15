@@ -4,16 +4,14 @@ import {
   SET_COUNTRIES,
   SET_REGIONS,
   SET_CITIES,
-  // GET_COIN_TYPES_SUCCESS,
 } from "@actions/index";
 
 const initialState = {
-  grades: [],
   education: [],
+  grades: [],
   countries: [],
   regions: [],
   cities: [],
-  coinTypes: [],
 };
 
 const formOptions = (state = initialState, action) => {
@@ -31,9 +29,6 @@ const formOptions = (state = initialState, action) => {
       };
     case SET_CITIES:
       return { ...state, cities: action.payload };
-
-    // case GET_COIN_TYPES_SUCCESS:
-    //   return { ...state, coinTypes: action.payload };
     default:
       return state;
   }

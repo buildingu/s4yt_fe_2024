@@ -1,3 +1,5 @@
+import UserCredentials from "@typings/UserCredentials";
+
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -9,13 +11,14 @@ import s from "./styles.module.css";
 interface Props {
   title?: string;
   style?: React.CSSProperties;
-  user: any;
+  userToken?: string;
 }
 
+// FIXME: The styles and this code need to cleaned up.
 const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
   title,
   style,
-  user,
+  userToken,
   ...options
 }) => {
   const addFullHeader =
@@ -23,7 +26,8 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
     (title.includes(" ") ||
       title === "Sponsors" ||
       title === "Login" ||
-      title === "Register");
+      title === "Register" ||
+      title === "Profile");
 
   const hasSpace = (title: string) => {
     const parts = title.split(" ");
@@ -67,7 +71,9 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
                     className={s.checkout}
                   />
                 </>
-              ) : title === "Sponsors" || title.includes(" ") ? (
+              ) : title === "Sponsors" ||
+                title === "Profile" ||
+                title.includes(" ") ? (
                 <>
                   <h1 className={s.mainTitle}>
                     {title === "Sponsors" ? title : hasSpace(title)}
@@ -83,7 +89,11 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
                   {title}
                 </h1>
               )}
+<<<<<<< HEAD
               {user?.id ? (
+=======
+              {userToken ? (
+>>>>>>> 74f78b4d7040b4f196e3b05cd1e3ce442cf7ac07
                 <Hamburger />
               ) : (
                 <a
@@ -103,8 +113,12 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
   );
 };
 
-const mapStateToProps = ({ user }: Props) => ({
-  user: user.credentials,
+const mapStateToProps = ({
+  user,
+}: {
+  user: { credentials?: UserCredentials; token?: string };
+}) => ({
+  userToken: user.token,
 });
 
 export default connect(mapStateToProps, null)(Header);
