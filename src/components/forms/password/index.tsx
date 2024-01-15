@@ -1,3 +1,4 @@
+import UserCredentials from "@typings/UserCredentials";
 import NotificationValues from "@typings/NotificationValues";
 
 import { useRef, useState } from "react";
@@ -14,23 +15,23 @@ import { addNotification } from "@actions/notifications";
 import s from "./styles.module.css";
 
 interface Props {
-  playerId: string;
-  user: any;
+  playerId?: string | null;
+  userToken?: string;
   resetPassword: (userData: any) => Promise<any>;
   updatePassword: (userData: any) => Promise<any>;
   addNotification: (data: Omit<NotificationValues, "id">) => void;
 }
 
 interface FromData {
-  player_id: string;
-  old_password: string;
+  player_id?: string;
+  old_password?: string;
   password: string;
   password_confirmation: string;
 }
 
-const ResetPasswordForm: React.FC<Props> = ({
+const PasswordForm: React.FC<Props> = ({
   playerId,
-  user,
+  userToken,
   resetPassword,
   updatePassword,
   addNotification,
@@ -39,9 +40,9 @@ const ResetPasswordForm: React.FC<Props> = ({
     [form, setForm] = useState({
       processing: false,
     }),
-    // FIXME: Weird type error.
+    // FIXME: Weird type errors.
     [currentData, setCurrentData] = useState<FormData>({
-      ...(user.id ? { old_password: "" } : { player_id: playerId }),
+      ...(userToken ? { old_password: "" } : { player_id: playerId }),
       password: "",
       password_confirmation: "",
     });
@@ -49,8 +50,8 @@ const ResetPasswordForm: React.FC<Props> = ({
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!currentData.player_id)
-      throw Error(
+    if (!userToken && !currentData.player_id)
+      return alert(
         "Somehow you were brought to this page without us finding your player_id, you should only get redirected here."
       );
 
@@ -78,7 +79,7 @@ const ResetPasswordForm: React.FC<Props> = ({
       setForm((prev) => ({ ...prev, processing: true }));
 
       let res: any;
-      user.id
+      userToken
         ? (res = await updatePassword(currentData))
         : (res = await resetPassword(currentData));
 
@@ -86,7 +87,7 @@ const ResetPasswordForm: React.FC<Props> = ({
         formRef.current!.reset();
         addNotification({
           error: false,
-          content: user.id
+          content: userToken
             ? "Your password was successfully updated ✔"
             : "Your password reset successfully ✔",
           close: false,
@@ -108,14 +109,14 @@ const ResetPasswordForm: React.FC<Props> = ({
 
   return (
     <form
-      id={user.id ? "updatePasswordForm" : "resetPasswordForm"}
+      id={userToken ? "updatePasswordForm" : "resetPasswordForm"}
       className={s.form}
       onSubmit={(e) => submit(e)}
       ref={formRef}
       autoComplete="off"
       noValidate
     >
-      {user.id && (
+      {userToken && (
         <div role="presentation">
           <label htmlFor="old_password">Current Pass</label>
           <input
@@ -176,10 +177,10 @@ const ResetPasswordForm: React.FC<Props> = ({
       </div>
 
       <div>
-        {user.id ? (
+        {userToken ? (
           <button
             type="submit"
-            className="updateBtn"
+            className={s.updateBtn}
             disabled={form.processing}
           >
             Update
@@ -196,8 +197,12 @@ const ResetPasswordForm: React.FC<Props> = ({
   );
 };
 
-const mapStateToProps = ({ user }: any) => ({
-  user: user.credentials,
+const mapStateToProps = ({
+  user,
+}: {
+  user: { credentials?: UserCredentials; token?: string };
+}) => ({
+  userToken: user.token,
 });
 const mapDispatchToProps = (dispatch: Function) => ({
   resetPassword: (userData: FromData) =>
@@ -208,4 +213,4 @@ const mapDispatchToProps = (dispatch: Function) => ({
     dispatch(addNotification(notification)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResetPasswordForm);
+export default connect(mapStateToProps, mapDispatchToProps)(PasswordForm);

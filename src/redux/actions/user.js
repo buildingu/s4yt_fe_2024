@@ -1,8 +1,8 @@
-import { SET_CURRENT_USER, SET_TOKEN } from "@actions/index";
+import { SET_CURRENT_USER, SET_TOKEN, LOGOUT } from "@actions/index";
+import { addNotification } from "./notifications";
 import { Api } from "@services/index";
-import errorHandler from "@root/services/errorHandler";
+import errorHandler from "@services/errorHandler";
 
-// TODO: There is no need to use a callback...
 export const registerPlayer = (userData) => (dispatch, getState) => {
   return Api.post("/register", userData).catch((error) =>
     errorHandler("registerPlayer", error)
@@ -24,6 +24,9 @@ export const setCurrentUser = (userData) => (dispatch, getState) => {
 };
 export const setToken = (token) => (dispatch, getState) => {
   dispatch({ type: SET_TOKEN, payload: token });
+};
+export const logoutPlayer = () => (dispatch, getState) => {
+  dispatch({ type: LOGOUT });
 };
 export const sendResetPasswordEmail = (email) => (dispatch, getState) => {
   return Api.post("/email/reset", email).catch((error) =>
@@ -50,22 +53,32 @@ export const userProfile = (userData, callback) => (dispatch, getState) => {
   });
 };
 
-// This won't be here probably.
-export const getCurrentUser = (callback) => (dispatch, getState) => {
-  return Api.get("/user/current").then((response) => {
-    console.log("currentUser", response);
-    callback(response);
-  });
+export const getReferrals = (setReferrals) => (dispatch, getState) => {
+  return Api.get("/player/referrals")
+    .then((res) => {
+      console.log("res", res);
+
+      if (res.success) {
+        !res.data.referrals.length
+          ? setReferrals("No referrals has been used yet")
+          : setReferrals(res.data.referrals);
+      } else {
+        dispatch(
+          addNotification({
+            error: true,
+            content:
+              "Unexpected server error occurred getting your resent referrals.",
+            close: false,
+            duration: 0,
+          })
+        );
+      }
+    })
+    .catch((error) => errorHandler("getReferrals", error));
 };
 
-export const getReferrals = (callback) => (dispatch, getState) => {
-  return Api.get("/referral").then((response) => {
-    callback(response);
-  });
-};
-
-export const createReferral = (data, callback) => (dispatch, getState) => {
-  return Api.post("/referral", data).then((response) => {
-    callback(response);
-  });
-};
+// export const createReferral = (data, callback) => (dispatch, getState) => {
+//   return Api.post("/referral", data).then((response) => {
+//     callback(response);
+//   });
+// };

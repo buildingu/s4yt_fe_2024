@@ -14,6 +14,7 @@ export const REMOVE_NOTIFICATION = "notification.REMOVE_NOTIFICATION";
 // user
 export const SET_CURRENT_USER = "user.SET_CURRENT_USER";
 export const SET_TOKEN = "user.SET_TOKEN";
+export const LOGOUT = "user.LOGOUT";
 
 // configuration
 export const SET_CONFIGURATION = "gameConfig.SET_CONFIGURATION";

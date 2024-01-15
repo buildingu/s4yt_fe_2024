@@ -139,26 +139,26 @@ h4 {
     center/contain;
 }
 
-.doblonStatus div .coins {
+.coinsStatus div .coins {
   display: flex;
   align-items: center;
   position: relative;
   bottom: 6px;
 }
 
-.doblonStatus div .coins img {
+.coinsStatus div .coins img {
   max-width: 100px;
 }
 
-.doblonStatus div .coins p {
+.coinsStatus div .coins p {
   line-height: 1.45;
 }
 
-.doblonStatus div .coins p span {
+.coinsStatus div .coins p span {
   opacity: 0.7;
 }
 
-.doblonStatus div .statuses div {
+.coinsStatus div .statuses div {
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -166,25 +166,25 @@ h4 {
   border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
-.doblonStatus div .statuses div:first-of-type {
+.coinsStatus div .statuses div:first-of-type {
   margin-top: 2px;
   border-radius: 6px 6px 0 0;
 }
 
-.doblonStatus div .statuses div:nth-child(2) {
+.coinsStatus div .statuses div:nth-child(2) {
   top: -1px;
 }
 
-.doblonStatus div .statuses div:nth-child(3) {
+.coinsStatus div .statuses div:nth-child(3) {
   top: -2px;
   border-radius: 0 0 6px 6px;
 }
 
-.doblonStatus div .statuses div h4 {
+.coinsStatus div .statuses div h4 {
   font-size: 16px;
 }
 
-.doblonStatus div .statuses div span {
+.coinsStatus div .statuses div span {
   font-size: 12px;
   font-weight: 700;
   background-color: #242424;
@@ -193,7 +193,7 @@ h4 {
   border-radius: 50%;
 }
 
-.doblonStatus div .statuses div span:not(.statuses div:last-of-type span) {
+.coinsStatus div .statuses div span:not(.statuses div:last-of-type span) {
   padding: 4px 8px;
 }
 

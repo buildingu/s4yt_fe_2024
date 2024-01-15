@@ -1,0 +1,46 @@
+.form[id="resetPasswordForm"] {
+  position: relative;
+  padding: 26px 0 0 34px;
+}
+
+.form[id="resetPasswordForm"] > div {
+  width: 100%;
+  max-width: 335px;
+}
+.form[id="resetPasswordForm"] > div:first-child {
+  margin-bottom: 2rem;
+}
+
+@media screen and (max-width: 494px) {
+  .form[id="resetPasswordForm"] > div:last-child button {
+    margin-top: 0.75rem;
+  }
+}
+
+@media screen and (max-width: 403px) {
+  .form[id="resetPasswordForm"] {
+    padding: 26px 0 0 0;
+  }
+}
+
+/* <======================================/ Shared \======================================> */
+.form > div {
+  position: relative;
+  text-align: left;
+}
+
+.form div input {
+  width: 100%;
+}
+
+.form div small:global(.formError) {
+  width: fit-content;
+  margin-top: 6px;
+}
+
+.form > div:last-child {
+  text-align: right;
+  max-width: 437px;
+}
+
+/* <======================================/ Profile \======================================> */
