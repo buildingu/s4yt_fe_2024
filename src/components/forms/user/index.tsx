@@ -166,11 +166,19 @@ const UserForm: React.FC<Props> = ({
       if (field.name === "email" && field.value)
         checkValidEmail(field as HTMLInputElement);
 
-      if (!user.token && field.name === "password") passwordValue = field.value;
-      if (!user.token && field.name === "password_confirmation") {
-        checkMatchingPasswords(field as HTMLInputElement, passwordValue!);
+      if (
+        user.token &&
+        ["password", "password_confirmation"].includes(field.name)
+      ) {
+        continue;
       } else {
-        checkValidity(field);
+        if (!user.token && field.name === "password")
+          passwordValue = field.value;
+        if (!user.token && field.name === "password_confirmation") {
+          checkMatchingPasswords(field as HTMLInputElement, passwordValue!);
+        } else {
+          checkValidity(field);
+        }
       }
 
       if (!field.validity.valid && valid) valid = false;
@@ -183,8 +191,14 @@ const UserForm: React.FC<Props> = ({
               ? parseInt(field.value)
               : field.value;
 
-          if (fieldValue && fieldValue !== userCredentialsValue)
+          if (
+            (!fieldValue && userCredentialsValue) ||
+            fieldValue === userCredentialsValue
+          ) {
+            relevantData[field.name] = userCredentialsValue;
+          } else if (fieldValue && fieldValue !== userCredentialsValue) {
             relevantData[field.name] = field.value;
+          }
         } else {
           if (field.value) relevantData[field.name] = field.value;
         }
