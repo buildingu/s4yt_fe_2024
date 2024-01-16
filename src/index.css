@@ -168,6 +168,24 @@ button.okBtn:active {
 button.okBtn[disabled] {
   opacity: 0.35;
 }
+button.updateBtn {
+  position: relative;
+  font-family: "Corbel", Arial;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: #6e757d;
+  color: var(--white);
+  padding: 10px 16px;
+  border-radius: 6px;
+  transition: 0.15s ease-in-out background-color;
+}
+button.updateBtn:hover {
+  background-color: rgba(110, 117, 125, 0.78);
+}
+button.updateBtn:active {
+  top: 2px;
+  background-color: #444;
+}
 
 /* Use for clickable elements that doesn't have hover and active states. */
 .fade {

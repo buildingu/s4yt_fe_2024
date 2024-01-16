@@ -70,9 +70,7 @@ const PasswordForm: React.FC<Props> = ({
         checkValidity(field);
       }
 
-      if (!field.validity.valid && valid) {
-        valid = false;
-      }
+      if (!field.validity.valid && valid) valid = false;
     }
 
     if (valid) {
@@ -180,7 +178,7 @@ const PasswordForm: React.FC<Props> = ({
         {userToken ? (
           <button
             type="submit"
-            className={s.updateBtn}
+            className="updateBtn"
             disabled={form.processing}
           >
             Update

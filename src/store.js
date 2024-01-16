@@ -1,19 +1,19 @@
-import { createStore, applyMiddleware } from "redux";
+import { legacy_createStore as createStore, applyMiddleware } from "redux";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
-import Helpers from "@root/helpers";
+import helpers from "@root/helpers";
 import Reducers from "@reducers";
 
-const Middleware = [thunk.withExtraArgument(Helpers)];
-const PersistedReducer = persistReducer(
+const middleware = [thunk.withExtraArgument(helpers)];
+const persistedReducer = persistReducer(
   { key: "root", storage, whitelist: ["user", "formOptions"] },
   Reducers
 );
 
-export const Store = createStore(
-  PersistedReducer,
+export const store = createStore(
+  persistedReducer,
   {},
-  applyMiddleware(...Middleware)
+  applyMiddleware(...middleware)
 );
-export const Persistor = persistStore(Store);
+export const persistor = persistStore(store);
