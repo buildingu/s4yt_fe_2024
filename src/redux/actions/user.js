@@ -15,7 +15,8 @@ export const registerPlayer =
           addNotification({
             error: false,
             content:
-              "Thank you for registering! To complete the process, please check your inbox to verify your email. In case you don't find it there, please check your spam folder.",
+              "Thank you for registering! To complete the process, please check your inbox to verify\
+               your email. In case you don't find it there, please check your spam folder.",
             close: false,
             duration: 0,
           })
@@ -71,7 +72,8 @@ export const sendResetPasswordEmail =
           addNotification({
             error: false,
             content:
-              "Success! Check your inbox to reset your password. In case you don't find it there, please check your spam folder.",
+              "Success! Check your inbox to reset your password. In case you don't find it there,\
+               please check your spam folder.",
             close: false,
             duration: 0,
           })
@@ -132,6 +134,22 @@ export const updateProfile =
           })
         );
       }
+
+      if (res.success && res.data.verify_email) {
+        dispatch(logoutPlayer());
+        dispatch(
+          addNotification({
+            error: false,
+            content:
+              "Since you updated your email address, you now have to verify your new email address.\
+               So, please check your inbox to verify your email. In case you don't find it there, please\
+               check your spam folder.",
+            close: false,
+            duration: 0,
+          })
+        );
+      }
+
       return res;
     } catch (error) {
       errorHandler("updatePassword", error);
@@ -163,9 +181,3 @@ export const getReferrals = (setReferrals) => (dispatch, getState) => {
     })
     .catch((error) => errorHandler("getReferrals", error));
 };
-
-// export const createReferral = (data, callback) => (dispatch, getState) => {
-//   return Api.post("/referral", data).then((response) => {
-//     callback(response);
-//   });
-// };
