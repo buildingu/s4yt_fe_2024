@@ -1,4 +1,4 @@
-/* TODO: Two different css files for register and profile...? */
+/* <======================================/ Shared \======================================> */
 .detail {
   font-size: 20px;
   color: var(--pbrown);
@@ -17,6 +17,8 @@
 }
 
 .form {
+  --_labelWidth: 88.1167px;
+
   position: relative;
   display: flex;
   flex-direction: column;
@@ -26,14 +28,8 @@
 
 .form div {
   display: flex;
-  align-items: flex-start;
   position: relative;
   width: 100%;
-}
-.form > div:last-of-type {
-  justify-content: space-between;
-  flex-wrap: wrap-reverse;
-  row-gap: 1.5rem;
 }
 
 .form > span {
@@ -57,10 +53,7 @@
 }
 .form div:first-child label,
 .form > div label {
-  min-width: 88.1167px;
-}
-.form span:nth-of-type(2) div:last-child label {
-  margin-right: calc(0.5rem + 0.5ch);
+  min-width: var(--_labelWidth);
 }
 .form span:nth-of-type(3) div:last-child label {
   margin-right: calc(0.5rem + 0.9ch);
@@ -71,8 +64,13 @@
   width: 100%;
   line-height: 2;
 }
-.form > div:nth-of-type(5) select {
-  max-width: 35.8%;
+
+.form div :global(.spinner) {
+  position: absolute;
+  top: 10px;
+}
+.form span:nth-of-type(3) div :global(.spinner) {
+  right: 29px;
 }
 
 .form div small {
@@ -106,135 +104,159 @@
   margin-bottom: 22px;
 }
 
-.form div a {
+/* <======================================/ Register \======================================> */
+.form[id="registerForm"] > div:last-of-type {
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap-reverse;
+  row-gap: 1.5rem;
+}
+
+.form[id="registerForm"] span:nth-of-type(2) div:last-child label {
+  margin-right: calc(0.5rem + 0.5ch);
+}
+
+.form[id="registerForm"] > div:nth-of-type(5) select {
+  max-width: 35.8%;
+}
+
+.form[id="registerForm"] div a {
   color: var(--pbrown);
   font-size: 18px;
   margin-right: 1rem;
 }
 
-.form div :global(.spinner) {
-  position: absolute;
-  top: 10px;
-}
-.form span:nth-of-type(3) div :global(.spinner) {
-  right: 29px;
-}
-.form > div:nth-of-type(5) :global(.spinner) {
+.form[id="registerForm"] > div:nth-of-type(5) :global(.spinner) {
   left: 315px;
 }
+
 @media screen and (min-width: 759px) and (max-width: 788px) {
-  .form > div:nth-of-type(5) :global(.spinner) {
+  .form[id="registerForm"] > div:nth-of-type(5) :global(.spinner) {
     left: 305px;
   }
 }
 @media screen and (min-width: 735px) and (max-width: 758px) {
-  .form > div:nth-of-type(5) :global(.spinner) {
+  .form[id="registerForm"] > div:nth-of-type(5) :global(.spinner) {
     left: 295px;
   }
 }
 @media screen and (min-width: 701px) and (max-width: 734px) {
-  .form > div:nth-of-type(5) :global(.spinner) {
+  .form[id="registerForm"] > div:nth-of-type(5) :global(.spinner) {
     left: 285px;
   }
 }
 @media screen and (min-width: 677px) and (max-width: 700px) {
-  .form > div:nth-of-type(5) :global(.spinner) {
+  .form[id="registerForm"] > div:nth-of-type(5) :global(.spinner) {
     left: 275px;
   }
 }
 @media screen and (min-width: 626px) and (max-width: 676px) {
-  .form > div:nth-of-type(5) :global(.spinner) {
+  .form[id="registerForm"] > div:nth-of-type(5) :global(.spinner) {
     left: 260px;
   }
 }
 
 @media screen and (min-width: 626px) and (max-width: 707px) {
-  .form span:nth-of-type(3) div small.notFoundMsg {
-    bottom: -22px;
-    white-space: normal;
+  .form[id="registerForm"] span:nth-of-type(3) div small.notFoundMsg {
+    bottom: -32px;
   }
 }
 
 @media screen and (max-width: 625px) {
-  .form div {
+  .form[id="registerForm"] div {
     flex-wrap: wrap;
   }
-  .form div label {
+  .form[id="registerForm"] div label {
     min-width: unset !important;
     margin-right: unset;
     top: unset;
   }
-  .form > div:nth-of-type(5) select {
+  .form[id="registerForm"] > div:nth-of-type(5) select {
     max-width: 100%;
   }
 
-  .form span {
+  .form[id="registerForm"] span {
     gap: 1rem;
     flex-wrap: wrap;
   }
-  .form > span div {
+  .form[id="registerForm"] > span div {
     width: 100%;
   }
-  .form span div:first-child {
+  .form[id="registerForm"] span div:first-child {
     margin-right: 0;
   }
 
-  .form div :global(.spinner) {
+  .form[id="registerForm"] div :global(.spinner) {
     top: 39px;
   }
-  .form > div:nth-of-type(5) :global(.spinner) {
+  .form[id="registerForm"] > div:nth-of-type(5) :global(.spinner) {
     right: 29px;
     left: auto;
   }
 
-  .form div input + small,
-  .form div select + small {
+  .form[id="registerForm"] div input ~ small,
+  .form[id="registerForm"] div select ~ small {
     left: 0 !important;
   }
 }
 
 @media screen and (max-width: 318px) {
-  .form > div:last-of-type {
+  .form[id="registerForm"] > div:last-of-type {
     justify-content: flex-end;
   }
 }
 @media screen and (max-width: 300px) {
-  .form > div:last-of-type a {
+  .form[id="registerForm"] > div:last-of-type a {
     margin-right: 0;
   }
 }
 
-/* .form[id="registrationForm"] div:nth-child(3),
-  .form[id="registrationForm"] div:nth-child(4),
-  .form[id="registrationForm"] div:nth-child(5),
-  .form[id="registrationForm"] div:nth-child(6) {
-    flex: 0 0 50%;
+/* <======================================/ Profile \======================================> */
+.form[id="userForm"] span:nth-of-type(2) div:last-child label {
+  margin-right: calc(0.5rem + 1.3ch);
+}
+
+.form[id="userForm"] > div:nth-of-type(5) select {
+  max-width: 37.1%;
+}
+
+.form[id="userForm"] > div:nth-of-type(5) :global(.spinner) {
+  left: 43.48%;
+}
+
+.form[id="userForm"] div.notFoundMsg {
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (max-width: 663px) {
+  .form[id="userForm"] div:not(.form[id="userForm"] > div:last-of-type) {
+    flex-direction: column;
   }
-  
-  .form[id="registrationForm"] div:nth-child(4) {
-    padding-left: 5px;
+  .form[id="userForm"] > div:nth-of-type(5) select {
+    max-width: 48.85%;
   }
-  
-  .form[id="registrationForm"] div:nth-child(5),
-  .form[id="registrationForm"] div:nth-child(8) {
-    padding-right: 10px;
-    padding-left: 0;
-    margin: 6px 0;
+
+  .form[id="userForm"] div label {
+    top: 0;
+    margin: 0;
   }
-  
-  .form[id="registrationForm"] div:nth-child(5),
-  .form[id="registrationForm"] div:nth-child(6),
-  .form[id="registrationForm"] div:nth-child(7),
-  .form[id="registrationForm"] div:nth-child(9),
-  .form[id="registrationForm"] div:nth-child(10) {
-    flex: 0 0 33.33%;
-    margin: 6px 0;
+
+  .form[id="userForm"] div :global(.spinner) {
+    top: 39px;
   }
-  
-  .form[id="registrationForm"] div:nth-child(9) {
-    padding-right: 10px;
+  .form[id="userForm"] > div:nth-of-type(5) :global(.spinner) {
+    left: 41.5%;
   }
-  
-  .form[id="registrationForm"] div:nth-child(4) small {
-    left: 5px;
-  } */
+}
+
+@media screen and (min-width: 664px) {
+  .form[id="userForm"] div :global(.updateBtn) {
+    margin-left: calc(var(--_labelWidth) + 0.5rem);
+  }
+}
+
+@media screen and (min-width: 952px) and (max-width: 1003px) {
+  .form[id="userForm"] span:nth-of-type(3) div small.notFoundMsg {
+    bottom: -32px;
+  }
+}

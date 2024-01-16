@@ -3,11 +3,42 @@ import { addNotification } from "./notifications";
 import { Api } from "@services/index";
 import errorHandler from "@services/errorHandler";
 
-export const registerPlayer = (userData) => (dispatch, getState) => {
-  return Api.post("/register", userData).catch((error) =>
-    errorHandler("registerPlayer", error)
-  );
-};
+// TODO: Put all logic in here like this.
+export const registerPlayer =
+  (userData, formRef, setForm) => async (dispatch, getState) => {
+    try {
+      const res = await Api.post("/register", userData);
+
+      if (!res.errors) {
+        formRef.current.reset();
+        dispatch(
+          addNotification({
+            error: false,
+            content:
+              "Thank you for registering! To complete the process, please check your inbox to verify your email. In case you don't find it there, please check your spam folder.",
+            close: false,
+            duration: 0,
+          })
+        );
+      } else {
+        const key = Object.keys(res.errors)[0];
+
+        dispatch(
+          addNotification({
+            error: true,
+            content: res.errors[key],
+            close: false,
+            duration: 0,
+          })
+        );
+      }
+      return res;
+    } catch (error) {
+      errorHandler("registerPlayer", error);
+    } finally {
+      setForm((prev) => ({ ...prev, processing: false }));
+    }
+  };
 export const sendVerifyEmail = (email) => (dispatch, getState) => {
   return Api.post("/email/verify", { email }).catch((error) =>
     errorHandler("sendVerifyEmail", error)
@@ -28,11 +59,41 @@ export const setToken = (token) => (dispatch, getState) => {
 export const logoutPlayer = () => (dispatch, getState) => {
   dispatch({ type: LOGOUT });
 };
-export const sendResetPasswordEmail = (email) => (dispatch, getState) => {
-  return Api.post("/email/reset", email).catch((error) =>
-    errorHandler("sendResetPasswordEmail", error)
-  );
-};
+
+export const sendResetPasswordEmail =
+  (email, formRef, setForm) => async (dispatch, getState) => {
+    try {
+      const res = await Api.post("/email/reset", email);
+
+      if (res.success) {
+        formRef.current.reset();
+        dispatch(
+          addNotification({
+            error: false,
+            content:
+              "Success! Check your inbox to reset your password. In case you don't find it there, please check your spam folder.",
+            close: false,
+            duration: 0,
+          })
+        );
+        setForm((prev) => ({ ...prev, success: true }));
+      } else {
+        dispatch(
+          addNotification({
+            error: true,
+            content: res.message,
+            close: false,
+            duration: 0,
+          })
+        );
+      }
+      return res;
+    } catch (error) {
+      errorHandler("sendResetPasswordEmail", error);
+    } finally {
+      setForm((prev) => ({ ...prev, processing: false }));
+    }
+  };
 export const resetPassword = (userData) => (dispatch, getState) => {
   return Api.post("/password", userData).catch((error) =>
     errorHandler("resetPassword", error)
@@ -43,15 +104,41 @@ export const updatePassword = (userData) => (dispatch, getState) => {
     errorHandler("updatePassword", error)
   );
 };
+export const updateProfile =
+  (userData, formRef, setForm) => async (dispatch, getState) => {
+    console.log("getState()", getState());
+    try {
+      const res = await Api.post("/player/profile", userData);
 
-export const userProfile = (userData, callback) => (dispatch, getState) => {
-  return Api.post(
-    userData.id ? "/user/" + userData.id : "/user",
-    userData
-  ).then((response) => {
-    callback(response);
-  });
-};
+      if (!res.errors) {
+        formRef.current.reset();
+        dispatch(
+          addNotification({
+            error: false,
+            content: "Your profile was successfully updated ✔",
+            close: false,
+            duration: 4000,
+          })
+        );
+      } else {
+        const key = Object.keys(res.errors)[0];
+
+        dispatch(
+          addNotification({
+            error: true,
+            content: res.errors[key],
+            close: false,
+            duration: 0,
+          })
+        );
+      }
+      return res;
+    } catch (error) {
+      errorHandler("updatePassword", error);
+    } finally {
+      setForm((prev) => ({ ...prev, processing: false }));
+    }
+  };
 
 export const getReferrals = (setReferrals) => (dispatch, getState) => {
   return Api.get("/player/referrals")

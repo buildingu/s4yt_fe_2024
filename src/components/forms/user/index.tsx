@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
-import { registerPlayer, userProfile } from "@actions/user";
+import { registerPlayer, updateProfile } from "@actions/user";
 import {
   getGrades,
   getEducation,
@@ -16,7 +16,7 @@ import {
   getCities,
 } from "@actions/formOptions";
 import { addNotification } from "@actions/notifications";
-import { SET_REGIONS } from "@actions/index";
+import { SET_REGIONS, SET_CITIES } from "@actions/index";
 
 import updateField from "@utils/forms/updateField";
 import checkValidity from "@utils/forms/checkValidity";
@@ -27,18 +27,34 @@ import Spinner from "@components/loaders/spinner/Spinner";
 
 import s from "./styles.module.css";
 
-// FIXME: THESE RETURNS PROMISES.
 interface Props {
   formOptions: FormOptionsState;
-  getEducation: () => void;
-  getGrades: () => void;
-  getCountries: () => void;
-  getRegions: (countryId: number) => void;
+  getEducation: () => Promise<void>;
+  getGrades: () => Promise<void>;
+  getCountries: () => Promise<void>;
+  getRegions: (countryId: number) => Promise<void>;
   resetRegions: () => void;
-  getCities: (regionId: number) => void;
+  getCities: (regionId: number) => Promise<void>;
+  resetCities: () => void;
   user: { credentials?: UserCredentials; token?: string };
-  registerPlayer: (userData: any) => Promise<any>;
-  userProfile: (data: any, callback: () => void) => void;
+  registerPlayer: (
+    userData: any,
+    formRef: React.RefObject<HTMLFormElement>,
+    setForm: React.Dispatch<
+      React.SetStateAction<{
+        processing: boolean;
+      }>
+    >
+  ) => Promise<any>;
+  updateProfile: (
+    userData: any,
+    formRef: React.RefObject<HTMLFormElement>,
+    setForm: React.Dispatch<
+      React.SetStateAction<{
+        processing: boolean;
+      }>
+    >
+  ) => Promise<any>;
   addNotification: (data: Omit<NotificationValues, "id">) => void;
   referral?: string;
 }
@@ -50,7 +66,7 @@ interface FromData {
   password_confirmation: string;
   // instagram: string;
   education_id: null | number;
-  school: "";
+  school: string;
   grade_id: null | number;
   country_id: null | number;
   region_id: null | number;
@@ -65,11 +81,12 @@ const UserForm: React.FC<Props> = ({
   getRegions,
   resetRegions,
   getCities,
-  addNotification,
+  resetCities,
   // This will not be passed in at profile anymore, it will be in the redux.
   user,
   registerPlayer,
-  userProfile,
+  updateProfile,
+  addNotification,
   referral,
 }) => {
   const formRef = useRef<HTMLFormElement>(null),
@@ -77,19 +94,16 @@ const UserForm: React.FC<Props> = ({
       processing: false,
     }),
     [currentData, setCurrentData] = useState<FromData>({
-      name: "",
-      email: "",
+      name: user.credentials?.name ?? "",
+      email: user.credentials?.email ?? "",
       password: "",
       password_confirmation: "",
-      // instagram: "",
-      education_id: null,
-      school: "",
-      grade_id: null,
-      country_id: null,
-      region_id: null,
-      city_id: null,
-      // TODO:
-      //  ...(userToken && { ...user }),
+      education_id: user.credentials?.education_id ?? null,
+      school: user.credentials?.school ?? "",
+      grade_id: user.credentials?.grade_id ?? null,
+      country_id: user.credentials?.country_id ?? null,
+      region_id: user.credentials?.region_id ?? null,
+      city_id: user.credentials?.city_id ?? null,
     });
 
   // useEffect(() => {
@@ -123,7 +137,11 @@ const UserForm: React.FC<Props> = ({
   useEffect(() => {
     // Just for a reset if refresh or something.
     if (typeof formOptions.regions === "string") resetRegions();
-    if (currentData.country_id) getRegions(currentData.country_id);
+    if (currentData.country_id) {
+      getRegions(currentData.country_id);
+      // Reset too because of change of if country changes.
+      if (currentData.city_id) resetCities();
+    }
   }, [currentData.country_id]);
 
   useEffect(() => {
@@ -135,63 +153,58 @@ const UserForm: React.FC<Props> = ({
 
     const fields = document.querySelectorAll<
       HTMLInputElement | HTMLSelectElement
-    >("#userForm input,select, #registrationForm input,select");
+    >(
+      "#userForm input,#userForm select, #registerForm input,#registerForm select"
+    );
     let valid = true,
       passwordValue: string;
 
+    let relevantData: any = {};
+
     for (let i = 0; i < fields.length; i++) {
       const field = fields[i];
-      if (!user.token) {
-        if (field.name === "email") checkValidEmail(field as HTMLInputElement);
+      if (field.name === "email" && field.value)
+        checkValidEmail(field as HTMLInputElement);
 
-        if (field.name === "password") passwordValue = field.value;
-        if (field.name === "password_confirmation") {
-          checkMatchingPasswords(field as HTMLInputElement, passwordValue!);
-        } else {
-          checkValidity(field);
-        }
+      if (!user.token && field.name === "password") passwordValue = field.value;
+      if (!user.token && field.name === "password_confirmation") {
+        checkMatchingPasswords(field as HTMLInputElement, passwordValue!);
       } else {
         checkValidity(field);
       }
 
-      if (!field.validity.valid && valid) {
-        valid = false;
+      if (!field.validity.valid && valid) valid = false;
+
+      if (valid) {
+        if (user.token) {
+          const userCredentialsValue =
+              user.credentials && (user.credentials as any)[field.name],
+            fieldValue = parseInt(field.value)
+              ? parseInt(field.value)
+              : field.value;
+
+          if (fieldValue && fieldValue !== userCredentialsValue)
+            relevantData[field.name] = field.value;
+        } else {
+          if (field.value) relevantData[field.name] = field.value;
+        }
       }
     }
 
-    if (valid) {
+    if (user.token && !Object.keys(relevantData).length) {
+      addNotification({
+        error: true,
+        content: "Nothing to update",
+        close: false,
+        duration: 0,
+      });
+    } else if (valid) {
       if (user.token) {
-        // userProfile
+        setForm((prev) => ({ ...prev, processing: true }));
+        await updateProfile(relevantData, formRef, setForm);
       } else {
         setForm((prev) => ({ ...prev, processing: true }));
-        const relevantData = {
-          password_confirmation: currentData.password_confirmation,
-          region_id: currentData.region_id,
-          city_id: currentData.city_id,
-          ...currentData,
-        };
-
-        const res = await registerPlayer(relevantData);
-        if (!res.errors) {
-          formRef.current!.reset();
-          addNotification({
-            error: false,
-            content:
-              "Thank you for registering! To complete the process, please check your inbox to verify your email. In case you don't find it there, please check your spam folder.",
-            close: false,
-            duration: 0,
-          });
-        } else {
-          const key = Object.keys(res.errors)[0];
-
-          addNotification({
-            error: true,
-            content: res.errors[key],
-            close: false,
-            duration: 0,
-          });
-        }
-        setForm((prev) => ({ ...prev, processing: false }));
+        await registerPlayer(relevantData, formRef, setForm);
       }
     }
   };
@@ -204,7 +217,7 @@ const UserForm: React.FC<Props> = ({
         </div>
       )}
       <form
-        id={user.token ? "userForm" : "registrationForm"}
+        id={user.token ? "userForm" : "registerForm"}
         onSubmit={(e) => submit(e)}
         className={s.form}
         ref={formRef}
@@ -214,9 +227,11 @@ const UserForm: React.FC<Props> = ({
         <div role="presentation">
           <label htmlFor="name">
             Name
-            <span aria-hidden="true" className={s.required}>
-              *
-            </span>
+            {!user.token && (
+              <span aria-hidden="true" className={s.required}>
+                *
+              </span>
+            )}
           </label>
           <input
             id="name"
@@ -227,7 +242,7 @@ const UserForm: React.FC<Props> = ({
             aria-disabled={form.processing}
             {...(currentData.name && { defaultValue: currentData.name })}
             autoComplete="off"
-            required
+            {...(!user.token && { required: true })}
             minLength={2}
           />
         </div>
@@ -235,9 +250,11 @@ const UserForm: React.FC<Props> = ({
         <div role="presentation">
           <label htmlFor="email">
             Email
-            <span aria-hidden="true" className={s.required}>
-              *
-            </span>
+            {!user.token && (
+              <span aria-hidden="true" className={s.required}>
+                *
+              </span>
+            )}
           </label>
           <input
             aria-describedby="formError"
@@ -249,71 +266,78 @@ const UserForm: React.FC<Props> = ({
             aria-disabled={form.processing}
             {...(currentData.email && { defaultValue: currentData.email })}
             autoComplete="off"
-            required
+            {...(!user.token && { required: true })}
           />
           <small aria-live="assertive" id="formError" className="formError">
             Not a valid email address
           </small>
         </div>
 
-        {/* This is for the register. */}
-        {!user.token && (
-          <span>
-            <div role="presentation">
-              <label aria-label="Password" htmlFor="password">
-                Pass
-                <span aria-hidden="true" className={s.required}>
-                  *
-                </span>
-              </label>
-              <input
-                aria-describedby="formError"
-                id="password"
-                name="password"
-                type="password"
-                onChange={(e) => updateField<FromData>(e, setCurrentData)}
-                disabled={form.processing}
-                aria-disabled={form.processing}
-                autoComplete="off"
-                minLength={8}
-                maxLength={24}
-                required
-              />
-              <small aria-live="assertive" id="formError" className="formError">
-                Must be between 8 and 24 characters
-              </small>
-            </div>
-            <div role="presentation">
-              <label
-                aria-label="Confirm Password"
-                htmlFor="password_confirmation"
-              >
-                Confirm Pass
-                <span aria-hidden="true" className={s.required}>
-                  *
-                </span>
-              </label>
-              <input
-                aria-describedby="formError"
-                id="password_confirmation"
-                name="password_confirmation"
-                type="password"
-                onChange={(e) => updateField<FromData>(e, setCurrentData)}
-                disabled={form.processing}
-                aria-disabled={form.processing}
-                autoComplete="off"
-                minLength={8}
-                maxLength={24}
-                required
-              />
-              <small aria-live="assertive" id="formError" className="formError">
-                Passwords do not match
-              </small>
-            </div>
-          </span>
-        )}
+        {/* This is for the register only. */}
+        <span
+          style={{
+            display: user.token ? "none" : "",
+          }}
+        >
+          <div role="presentation">
+            <label aria-label="Password" htmlFor="password">
+              Pass
+              <span aria-hidden="true" className={s.required}>
+                *
+              </span>
+            </label>
+            <input
+              aria-describedby="formError"
+              id="password"
+              name="password"
+              type="password"
+              onChange={(e) => updateField<FromData>(e, setCurrentData)}
+              disabled={form.processing}
+              aria-disabled={form.processing}
+              autoComplete="off"
+              minLength={8}
+              maxLength={24}
+              required
+            />
+            <small aria-live="assertive" id="formError" className="formError">
+              Must be between 8 and 24 characters
+            </small>
+          </div>
+          <div role="presentation">
+            <label
+              aria-label="Confirm Password"
+              htmlFor="password_confirmation"
+            >
+              Confirm Pass
+              <span aria-hidden="true" className={s.required}>
+                *
+              </span>
+            </label>
+            <input
+              aria-describedby="formError"
+              id="password_confirmation"
+              name="password_confirmation"
+              type="password"
+              onChange={(e) => updateField<FromData>(e, setCurrentData)}
+              disabled={form.processing}
+              aria-disabled={form.processing}
+              autoComplete="off"
+              minLength={8}
+              maxLength={24}
+              required
+            />
+            <small aria-live="assertive" id="formError" className="formError">
+              Passwords do not match
+            </small>
+          </div>
+        </span>
 
-        <div role="presentation">
+        <div
+          role="presentation"
+          style={{
+            display: user.token ? "none" : "",
+          }}
+        >
           <label htmlFor="instagram" style={{ opacity: "0.65" }}>
             Instagram
           </label>
@@ -323,7 +347,9 @@ const UserForm: React.FC<Props> = ({
             // onChange={(e) => updateField(e)}
             // disabled={form.processing}
             // aria-disabled={form.processing}
-            // // defaultValue={data.player ? data.player.instagram : ""}
+            // {...(currentData.instagram && {
+            //   defaultValue: currentData.instagram,
+            // })}
             autoComplete="off"
             disabled={true}
             aria-disabled="true"
@@ -336,9 +362,11 @@ const UserForm: React.FC<Props> = ({
           <div role="presentation">
             <label htmlFor="education">
               Education
-              <span aria-hidden="true" className={s.required}>
-                *
-              </span>
+              {!user.token && (
+                <span aria-hidden="true" className={s.required}>
+                  *
+                </span>
+              )}
             </label>
             <select
               id="education"
@@ -349,8 +377,7 @@ const UserForm: React.FC<Props> = ({
               {...(currentData.education_id && {
                 defaultValue: currentData.education_id,
               })}
-              // defaultValue={data.player ? data.player.education_id : ""}
-              required
+              {...(!user.token && { required: true })}
             >
               <option value="">- Select -</option>
               {formOptions.education &&
@@ -367,9 +394,11 @@ const UserForm: React.FC<Props> = ({
           <div role="presentation">
             <label htmlFor="grade">
               Grade
-              <span aria-hidden="true" className={s.required}>
-                *
-              </span>
+              {!user.token && (
+                <span aria-hidden="true" className={s.required}>
+                  *
+                </span>
+              )}
             </label>
             <select
               id="grade"
@@ -380,8 +409,7 @@ const UserForm: React.FC<Props> = ({
               {...(currentData.grade_id && {
                 defaultValue: currentData.grade_id,
               })}
-              // defaultValue={data.player ? data.player.grade_id : ""}
-              required
+              {...(!user.token && { required: true })}
             >
               <option value="">- Select -</option>
               {formOptions.grades &&
@@ -410,7 +438,6 @@ const UserForm: React.FC<Props> = ({
             disabled={form.processing}
             aria-disabled={form.processing}
             {...(currentData.school && { defaultValue: currentData.school })}
-            // defaultValue={data.name ? data.name : ""}
             autoComplete="off"
           />
         </div>
@@ -419,9 +446,11 @@ const UserForm: React.FC<Props> = ({
           <div role="presentation">
             <label htmlFor="country">
               Country
-              <span aria-hidden="true" className={s.required}>
-                *
-              </span>
+              {!user.token && (
+                <span aria-hidden="true" className={s.required}>
+                  *
+                </span>
+              )}
             </label>
             <select
               id="country"
@@ -429,9 +458,8 @@ const UserForm: React.FC<Props> = ({
               onChange={(e) => updateField<FromData>(e, setCurrentData)}
               disabled={form.processing}
               aria-disabled={form.processing}
-              // value={data.player ? data.player.country_iso : ""}
               {...(currentData.country_id && { value: currentData.country_id })}
-              required
+              {...(!user.token && { required: true })}
             >
               <option value="">- Select -</option>
               {formOptions.countries &&
@@ -465,7 +493,6 @@ const UserForm: React.FC<Props> = ({
                 form.processing
               }
               {...(currentData.region_id && { value: currentData.region_id })}
-              // value={data.player ? data.player.state_iso : ""}
             >
               <option value="">- Select -</option>
               {formOptions.regions &&
@@ -489,7 +516,13 @@ const UserForm: React.FC<Props> = ({
           </div>
         </span>
 
-        <div role="presentation">
+        <div
+          role="presentation"
+          {...(user.token &&
+            typeof formOptions.regions === "string" && {
+              className: s.notFoundMsg,
+            })}
+        >
           <label htmlFor="city">City</label>
           <select
             aria-live="polite"
@@ -500,16 +533,15 @@ const UserForm: React.FC<Props> = ({
             disabled={
               !currentData.region_id ||
               formOptions.cities.length === 0 ||
-              typeof formOptions.cities === "string" ||
+              typeof formOptions.regions === "string" ||
               form.processing
             }
             aria-disabled={
               !currentData.region_id ||
               formOptions.cities.length === 0 ||
-              typeof formOptions.cities === "string" ||
+              typeof formOptions.regions === "string" ||
               form.processing
             }
-            // value={data.player ? data.player.city_id : ""}
             {...(currentData.city_id && { value: currentData.city_id })}
           >
             <option value="">- Select -</option>
@@ -522,9 +554,11 @@ const UserForm: React.FC<Props> = ({
                 );
               })}
           </select>
-          {formOptions.cities.length === 0 && currentData.region_id && (
-            <Spinner />
-          )}
+          {formOptions.cities.length === 0 &&
+            currentData.region_id &&
+            currentData.region_id !== user.credentials?.region_id && (
+              <Spinner />
+            )}
           {typeof formOptions.regions === "string" && (
             <small className={s.notFoundMsg}>
               No cities were found for the given region
@@ -536,7 +570,7 @@ const UserForm: React.FC<Props> = ({
           {user.token ? (
             <button
               type="submit"
-              className={s.updateBtn}
+              className="updateBtn"
               disabled={form.processing}
             >
               Update
@@ -570,19 +604,42 @@ const mapStateToProps = ({
   formOptions,
 });
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  getEducation: () => dispatch(getEducation()),
-  getGrades: () => dispatch(getGrades()),
-  getCountries: () => dispatch(getCountries()),
-  getRegions: (regionId: number) => dispatch(getRegions(regionId)),
-  getCities: (regionId: number) => dispatch(getCities(regionId)),
-  registerPlayer: (userData: FormData) =>
-    dispatch(registerPlayer(userData) as unknown) as Promise<any>,
-  userProfile: (data: any, callback: () => void) =>
-    dispatch(userProfile(data, callback)),
+  getEducation: () => dispatch(getEducation() as unknown) as Promise<void>,
+  getGrades: () => dispatch(getGrades() as unknown) as Promise<void>,
+  getCountries: () => dispatch(getCountries() as unknown) as Promise<void>,
+  getRegions: (regionId: number) =>
+    dispatch(getRegions(regionId) as unknown) as Promise<void>,
+  getCities: (regionId: number) =>
+    dispatch(getCities(regionId) as unknown) as Promise<void>,
+  registerPlayer: (
+    userData: FormData,
+    formRef: React.RefObject<HTMLFormElement>,
+    setForm: React.Dispatch<
+      React.SetStateAction<{
+        processing: boolean;
+      }>
+    >
+  ) =>
+    dispatch(
+      registerPlayer(userData, formRef, setForm) as unknown
+    ) as Promise<any>,
+  updateProfile: (
+    userData: FormData,
+    formRef: React.RefObject<HTMLFormElement>,
+    setForm: React.Dispatch<
+      React.SetStateAction<{
+        processing: boolean;
+      }>
+    >
+  ) =>
+    dispatch(
+      updateProfile(userData, formRef, setForm) as unknown
+    ) as Promise<any>,
   addNotification: (notification: Omit<NotificationValues, "id">) =>
     dispatch(addNotification(notification)),
 
   resetRegions: () => dispatch({ type: SET_REGIONS, payload: [] }),
+  resetCities: () => dispatch({ type: SET_CITIES, payload: [] }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserForm);
