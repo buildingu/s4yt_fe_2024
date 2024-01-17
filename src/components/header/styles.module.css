@@ -91,9 +91,31 @@
   font-size: 64px;
   text-align: left;
 }
-.container.full .right h1 {
+.container.full .right:not(.isProfile) h1 {
   font-size: 42px;
   margin: 0 0.5rem 0 0;
+}
+
+/* Profile Header */
+.container.full.isProfile img {
+  position: relative;
+  right: 13px;
+  transform: scale(1.1);
+}
+
+.container.full.isProfile .right {
+  justify-content: flex-start;
+  width: fit-content;
+  gap: 2.85rem;
+}
+@media screen and (min-width: 851px) and (max-width: 874px) {
+  .container.full.isProfile .right {
+    gap: 1.5rem;
+  }
+}
+.container.full.isProfile .right h1 {
+  /* 1350px to 350px viewports. */
+  font-size: clamp(2.625rem, 2.14375rem + 2.1999999999999997vw, 4rem);
 }
 
 @media screen and (max-width: 520px) {
