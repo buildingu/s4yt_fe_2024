@@ -56,7 +56,7 @@ interface Props {
     >
   ) => Promise<any>;
   addNotification: (data: Omit<NotificationValues, "id">) => void;
-  referral?: string;
+  referral: string | null;
 }
 
 interface FromData {
@@ -218,7 +218,19 @@ const UserForm: React.FC<Props> = ({
         await updateProfile(relevantData, formRef, setForm);
       } else {
         setForm((prev) => ({ ...prev, processing: true }));
-        await registerPlayer(relevantData, formRef, setForm);
+        const queries = referral?.split("&");
+
+        await registerPlayer(
+          {
+            ...relevantData,
+            ...(referral && {
+              referral_code: queries![0].split("=")[1],
+              version_id: queries![1].split("=")[1],
+            }),
+          },
+          formRef,
+          setForm
+        );
       }
     }
   };
