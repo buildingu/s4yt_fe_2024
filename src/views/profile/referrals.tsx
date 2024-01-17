@@ -18,7 +18,7 @@ interface ReferralsDTO {
 interface Props {
   user: UserCredentials;
   getReferrals: (
-    setReferrals: React.Dispatch<React.SetStateAction<ReferralsDTO[]>>
+    setReferrals: React.Dispatch<React.SetStateAction<ReferralsDTO[] | string>>
   ) => Promise<any>;
 }
 
@@ -26,7 +26,6 @@ const Referral: React.FC<Props> = ({ user, getReferrals }) => {
   const [referrals, setReferrals] = useState<ReferralsDTO[] | string>([]);
 
   useEffect(() => {
-    // FIXME: Type error.
     if (!referrals.length) getReferrals(setReferrals);
   }, []);
 
@@ -34,14 +33,14 @@ const Referral: React.FC<Props> = ({ user, getReferrals }) => {
     <section className={s.referrals}>
       <h2>Referrals</h2>
 
-      <div className={s.referralLink}>
-        <button
-          aria-label="Your Referral Link"
-          onClick={() => copyToClipboard(user.referral_link)}
-        >
-          {user.referral_link}
-        </button>
-      </div>
+      <button
+        aria-label="Your Referral Link"
+        title="Copy Referral Link"
+        className={s.referralLink}
+        onClick={() => copyToClipboard(user.referral_link)}
+      >
+        {user.referral_link}
+      </button>
       {referrals.length > 0 && (
         <>
           <h3 {...(typeof referrals !== "string" && { className: s.move })}>
@@ -97,7 +96,7 @@ const Referral: React.FC<Props> = ({ user, getReferrals }) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   getReferrals: (
-    setReferrals: React.Dispatch<React.SetStateAction<ReferralsDTO[]>>
+    setReferrals: React.Dispatch<React.SetStateAction<ReferralsDTO[] | string>>
   ) => dispatch(getReferrals(setReferrals) as unknown) as Promise<any>,
 });
 

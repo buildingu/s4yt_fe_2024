@@ -152,7 +152,7 @@ export const updateProfile =
 
       return res;
     } catch (error) {
-      errorHandler("updatePassword", error);
+      errorHandler("updateProfile", error);
     } finally {
       setForm((prev) => ({ ...prev, processing: false }));
     }
