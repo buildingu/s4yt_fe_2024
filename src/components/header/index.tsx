@@ -42,7 +42,11 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
 
   return (
     <header
-      className={addFullHeader ? `${s.container} ${s.full}` : s.container}
+      className={
+        addFullHeader
+          ? `${s.container} ${s.full} ${title === "Profile" ? s.isProfile : ""}`
+          : s.container
+      }
       style={style}
       {...options}
     >

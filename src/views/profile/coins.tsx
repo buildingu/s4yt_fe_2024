@@ -36,17 +36,15 @@ const Coins: React.FC<Props> = ({ remainingCoins, getCoinsGainedHistory }) => {
   }, []);
 
   return (
-    <section
-      // className={s.doblonStatus}
-      className={s.coinsStatus}
-    >
+    <section className={s.coinsStatus}>
       <h2>My Dubl-u-nes Status</h2>
       <div>
         <div className={s.coins}>
           <img src={coins} alt="Doblon Coins" />
           <p>
             You got <br />
-            <b>{remainingCoins}</b> <br /> <span>Dubl-u-nes</span>
+            <b className={s.remain}>{remainingCoins}</b> <br />
+            <span className={s.dub}>Dubl-u-nes</span>
           </p>
         </div>
         <div

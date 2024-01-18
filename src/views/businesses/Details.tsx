@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { useLocation } from "react-router-dom";
 import history from "../../utils/History";
 import Layout from "@components/layout";
 import Header from "@components/header";
@@ -49,9 +50,9 @@ const businessDetails: BusinessDetailsType = {
   },
 };
 
-const Details: React.FC = () => {
+const Details: React.FC = (props) => {
   const { details } = useParams<{ details: string }>();
-
+const location = useLocation();
   const [selectedOption, setSelectedOption] = useState<string>("Video");
   const selectedBusiness = businessDetails[details ? details : ""];
 
@@ -64,7 +65,9 @@ const Details: React.FC = () => {
   const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectedOption(event.target.value);
   };
-
+  
+  const selectedBusiness1 = props.businessData || location.state?.businessData;
+  console.log(selectedBusiness1)
   return (
     <Layout>
       <Header title={"see business"} />

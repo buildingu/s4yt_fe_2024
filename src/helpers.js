@@ -1,6 +1,6 @@
-export default function Helpers({history, cookies}){
-    return {
-        history,
-        cookies,
-    }
+export default function helpers({ history, cookies }) {
+  return {
+    history,
+    cookies,
+  };
 }

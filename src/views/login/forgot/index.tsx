@@ -1,5 +1,3 @@
-import NotificationValues from "@typings/NotificationValues";
-
 import { useRef, useState, useEffect } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
@@ -8,7 +6,6 @@ import updateField from "@utils/forms/updateField";
 import checkValidEmail from "@utils/forms/checkValidEmail";
 
 import { sendResetPasswordEmail } from "@actions/user";
-import { addNotification } from "@actions/notifications";
 
 import Layout from "@components/layout";
 import Header from "@components/header";
@@ -18,14 +15,19 @@ import ExpiresInIndicator from "@components/forms/expiresInIndicator";
 import s from "./styles.module.css";
 
 interface Props {
-  sendResetPasswordEmail: (email: string) => Promise<any>;
-  addNotification: (data: Omit<NotificationValues, "id">) => void;
+  sendResetPasswordEmail: (
+    email: string,
+    formRef: React.RefObject<HTMLFormElement>,
+    setForm: React.Dispatch<
+      React.SetStateAction<{
+        processing: boolean;
+        success: boolean;
+      }>
+    >
+  ) => Promise<any>;
 }
 
-const ForgotPassword: React.FC<Props> = ({
-  sendResetPasswordEmail,
-  addNotification,
-}) => {
+const ForgotPassword: React.FC<Props> = ({ sendResetPasswordEmail }) => {
   const formRef = useRef<HTMLFormElement>(null),
     [form, setForm] = useState({ processing: false, success: false }),
     [currentData, setCurrentData] = useState({ email: "" });
@@ -41,33 +43,11 @@ const ForgotPassword: React.FC<Props> = ({
     let valid = true;
 
     checkValidEmail(field);
-    if (!field.validity.valid && valid) {
-      valid = false;
-    }
+    if (!field.validity.valid && valid) valid = false;
 
     if (valid) {
       setForm({ success: false, processing: true });
-      const res = await sendResetPasswordEmail(currentData.email);
-
-      if (res.success) {
-        formRef.current!.reset();
-        addNotification({
-          error: false,
-          content:
-            "Success! Check your inbox to reset your password. In case you don't find it there, please check your spam folder.",
-          close: false,
-          duration: 0,
-        });
-        setForm((prev) => ({ ...prev, success: true }));
-      } else {
-        addNotification({
-          error: true,
-          content: res.message,
-          close: false,
-          duration: 0,
-        });
-      }
-      setForm((prev) => ({ ...prev, processing: false }));
+      await sendResetPasswordEmail(currentData.email, formRef, setForm);
     }
   };
 
@@ -146,10 +126,19 @@ const ForgotPassword: React.FC<Props> = ({
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  sendResetPasswordEmail: (email: string) =>
-    dispatch(sendResetPasswordEmail(email) as unknown) as Promise<any>,
-  addNotification: (notification: Omit<NotificationValues, "id">) =>
-    dispatch(addNotification(notification)),
+  sendResetPasswordEmail: (
+    email: string,
+    formRef: React.RefObject<HTMLFormElement>,
+    setForm: React.Dispatch<
+      React.SetStateAction<{
+        processing: boolean;
+        success: boolean;
+      }>
+    >
+  ) =>
+    dispatch(
+      sendResetPasswordEmail(email, formRef, setForm) as unknown
+    ) as Promise<any>,
 });
 
 export default connect(null, mapDispatchToProps)(ForgotPassword);

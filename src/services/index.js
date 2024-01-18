@@ -1,4 +1,4 @@
-import { Store } from "@root/store";
+import { store } from "@root/store";
 
 const headers = (token) => {
   const headers = {
@@ -16,7 +16,7 @@ const sendRequest = async (method, url, params, body) => {
           params
         ).toString()}`
       : `${process.env.REACT_APP_API_BASE_URL}${url}`,
-    token = Store.getState().user.token;
+    token = store.getState().user.token;
 
   const response = await fetch(apiUrl, {
     method,

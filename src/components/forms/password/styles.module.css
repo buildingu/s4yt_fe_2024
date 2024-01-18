@@ -1,5 +1,5 @@
+/* <======================================/ Reset \======================================> */
 .form[id="resetPasswordForm"] {
-  position: relative;
   padding: 26px 0 0 34px;
 }
 
@@ -9,6 +9,10 @@
 }
 .form[id="resetPasswordForm"] > div:first-child {
   margin-bottom: 2rem;
+}
+.form[id="resetPasswordForm"] > div:last-child {
+  text-align: right;
+  max-width: 437px;
 }
 
 @media screen and (max-width: 494px) {
@@ -38,9 +42,28 @@
   margin-top: 6px;
 }
 
-.form > div:last-child {
-  text-align: right;
-  max-width: 437px;
+/* <======================================/ Profile \======================================> */
+.form[id="updatePasswordForm"] {
+  --_labelWidth: 105.5px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-/* <======================================/ Profile \======================================> */
+@media screen and (min-width: 664px) {
+  .form[id="updatePasswordForm"] > div {
+    display: flex;
+  }
+  .form[id="updatePasswordForm"] > div:last-child {
+    margin-left: calc(var(--_labelWidth) + 0.5rem);
+  }
+
+  .form[id="updatePasswordForm"] div label {
+    position: relative;
+    top: 4px;
+    white-space: nowrap;
+    margin-right: 0.5rem;
+    min-width: var(--_labelWidth);
+  }
+}
