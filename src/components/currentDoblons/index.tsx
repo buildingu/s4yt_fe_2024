@@ -1,6 +1,9 @@
+import CoinTrackerState from "@typings/redux/CoinTrackerState";
+
+import { connect } from "react-redux";
+
 import s from "./styles.module.css";
 import coins4 from "@static/coins_variant4.png";
-import { connect } from "react-redux";
 
 interface Props {
   type: "footer" | "header";
@@ -16,7 +19,6 @@ const CurrentDoblons = ({
   coins,
   ...options
 }: Props & React.HTMLAttributes<HTMLDivElement>) => {
-
   return (
     <div
       aria-label="Your Current Doblons"
@@ -37,7 +39,11 @@ const CurrentDoblons = ({
   );
 };
 
-const mapStateToProps = (state: any) => ({
-  coins: state.coinTracker.remainingCoins,
+const mapStateToProps = ({
+  coinTracker,
+}: {
+  coinTracker: CoinTrackerState;
+}) => ({
+  coins: coinTracker.remainingCoins,
 });
-export default connect(mapStateToProps)(CurrentDoblons);
+export default connect(mapStateToProps, null)(CurrentDoblons);
