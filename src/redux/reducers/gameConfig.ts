@@ -8,9 +8,7 @@ interface GameConfigState {
   winnersAnnounced?: boolean; // When reviewStart ends, we maybe don't need this one because we can just use if gameStart is false?
 }
 
-const initialState: GameConfigState = {
-  restrictedAccess: true,
-};
+const initialState: GameConfigState = {};
 
 const gameConfig = (
   state = initialState,

@@ -150,21 +150,25 @@ export const logoutPlayer = () => (dispatch, getState) => {
 // export const isPlayer = () => (dispatch, getState) => {
 //   return getState().user.credentials?.roles.includes("player");
 // };
-export const isNotPlayer = (message) => (dispatch, getState) => {
-  if (!getState().user.credentials?.roles.includes("player")) {
-    dispatch(
-      addNotification({
-        error: true,
-        content: message ? message : "Players only have access to this feature",
-        close: false,
-        duration: 4000,
-      })
-    );
-    return true;
-  }
+export const isNotPlayer =
+  (useNotification, message) => (dispatch, getState) => {
+    if (!getState().user.credentials?.roles.includes("player")) {
+      useNotification &&
+        dispatch(
+          addNotification({
+            error: true,
+            content: message
+              ? message
+              : "Players only have access to this feature",
+            close: false,
+            duration: 4000,
+          })
+        );
+      return true;
+    }
 
-  return false;
-};
+    return false;
+  };
 
 export const sendResetPasswordEmail =
   (email, formRef, setForm) => async (dispatch, getState) => {

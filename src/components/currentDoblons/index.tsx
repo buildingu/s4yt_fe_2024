@@ -2,6 +2,8 @@ import CoinTrackerState from "@typings/redux/CoinTrackerState";
 
 import { connect } from "react-redux";
 
+import { isNotPlayer } from "@actions/user";
+
 import s from "./styles.module.css";
 import coins4 from "@static/coins_variant4.png";
 
@@ -10,6 +12,7 @@ interface Props {
   style?: React.CSSProperties;
   addFullHeader?: boolean | "";
   coins: number;
+  isNotPlayer: (clickable?: boolean, message?: string) => boolean;
 }
 
 const CurrentDoblons = ({
@@ -17,6 +20,7 @@ const CurrentDoblons = ({
   style,
   addFullHeader,
   coins,
+  isNotPlayer,
   ...options
 }: Props & React.HTMLAttributes<HTMLDivElement>) => {
   return (
@@ -31,7 +35,7 @@ const CurrentDoblons = ({
       <img src={coins4} alt="Doblons" />
       <p>
         You got <br />
-        <span>{coins}</span>
+        <span>{isNotPlayer() ? 0 : coins}</span>
         <br />
         Doblons
       </p>
@@ -46,4 +50,9 @@ const mapStateToProps = ({
 }) => ({
   coins: coinTracker.remainingCoins,
 });
-export default connect(mapStateToProps, null)(CurrentDoblons);
+const mapDispatchToProps = (dispatch: Function) => ({
+  isNotPlayer: (clickable?: boolean, message?: string) =>
+    dispatch(isNotPlayer(clickable, message) as unknown) as boolean,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrentDoblons);
