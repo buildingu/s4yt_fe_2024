@@ -97,7 +97,7 @@ select {
     calc(100% - 6px);
 }
 /* FIXME: focus doesn't work right becasue when click and then clicked again to close the select, it is still focused. */
-select.activeSelect:not(select:disabled) {
+select:focus:not(select:disabled) {
   background: var(--white) url("./static/caret-up.svg") no-repeat
     calc(100% - 6px);
 }

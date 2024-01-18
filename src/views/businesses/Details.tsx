@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+
 import history from "../../utils/History";
 import Layout from "@components/layout";
 import Header from "@components/header";

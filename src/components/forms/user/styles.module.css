@@ -84,7 +84,6 @@
   font-size: 11px;
   color: var(--black);
 }
-
 .form span:nth-of-type(3) div small.notFoundMsg {
   left: 70px;
 }
