@@ -56,7 +56,7 @@ interface Props {
     >
   ) => Promise<any>;
   addNotification: (data: Omit<NotificationValues, "id">) => void;
-  referral: string | null;
+  referral?: string | null;
 }
 
 interface FromData {
