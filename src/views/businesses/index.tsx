@@ -45,7 +45,7 @@ const Businesses: React.FC = () => {
             <Link
               aria-label={`${business.name}'s details`}
               key={i}
-              to={{ pathname: `/businesses/${business.name}`, state: {businessData: business}}}
+              to={{ pathname: `/businesses/${business.name}`}}
               className={s.businessContainer}
             >
               <img className={s.logos} src={business.img} alt="" />

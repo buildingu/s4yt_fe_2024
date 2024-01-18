@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { connect } from "react-redux";
+import { isNotPlayer } from "@root/redux/actions/user";
 import history from "@utils/History";
 import Layout from "@components/layout";
 import Header from "@components/header";
@@ -9,9 +10,11 @@ import More from "./More";
 // import Congrats from "./Congrats";
 import s from "./styles.module.css";
 
-interface Props {}
+interface PlayerProps {
+  isNotPlayer: (useNotification: boolean, message?: string | null) => void;
+}
 
-const Sponsors: React.FC<Props> = ({}) => {
+const Sponsors: React.FC<PlayerProps> = ({ isNotPlayer }) => {
   const [clicked, setClicked] = useState({ more: false, quizDone: false }),
     scoreRef = useRef("0");
 
@@ -27,6 +30,7 @@ const Sponsors: React.FC<Props> = ({}) => {
   }
 
   useEffect(() => {
+    isNotPlayer(true, "Only players can win more Dubl-U-Nes");
     const handleResize = () => {
       if (window.innerWidth <= 500) {
         setIsSmallerThen500(true);
@@ -34,7 +38,6 @@ const Sponsors: React.FC<Props> = ({}) => {
         setIsSmallerThen500(false);
       }
     };
-
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -70,6 +73,7 @@ const Sponsors: React.FC<Props> = ({}) => {
               <button
                 className={`${s.moreBtn} fade`}
                 onClick={() => setClicked({ ...clicked, more: true })}
+                disabled={isNotPlayer()}
               />
             </div>
           </>
@@ -84,7 +88,10 @@ const Sponsors: React.FC<Props> = ({}) => {
   );
 };
 
-const mapStateToProps = ({}) => ({});
-const mapDispatchToProps = (dispatch: Function) => ({});
+const mapStateToProps = () => ({});
+const mapDispatchToProps = (dispatch: Function) => ({
+  isNotPlayer: (useNotification: boolean, message?: string | null) =>
+    dispatch(isNotPlayer(useNotification, message)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sponsors);

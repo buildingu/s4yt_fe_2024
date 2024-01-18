@@ -31,6 +31,9 @@
   display: flex;
   justify-content: flex-end;
 }
+.formButtons button:disabled {
+  cursor: not-allowed;
+}
 .meetUp {
   height: 100%;
   color: var(--pbrown);
@@ -46,6 +49,11 @@
 .meetUp p {
   font-family: "Corbel", Arial;
   font-size: 2rem;
+}
+.meetUp .meetSubmit:disabled,
+.meetOptions input:disabled,
+.meetOptions input:disabled + label {
+  cursor: not-allowed;
 }
 .meetOptions {
   display: flex;
@@ -83,6 +91,11 @@
   background: url("../../../static/businessSlidesBtns/btn-submit-pressed.png")
     no-repeat right center/contain;
 }
+.meetSubmit:disabled,
+.questionSubmit:disabled {
+  background: url("../../../static/businessSlidesBtns/btn-submit-hover.png")
+    no-repeat right center/contain;
+}
 .questionDelete {
   border: none;
   width: 150px;
@@ -99,8 +112,12 @@
   background: url("../../../static/businessSlidesBtns/btn-delete-pressed.png")
     no-repeat right center/contain;
 }
+.questionDelete:disabled {
+  background: url("../../../static/businessSlidesBtns/btn-delete-hover.png")
+    no-repeat right center/contain;
+}
 .questionSave {
-    border: none;
+  border: none;
   width: 150px;
   height: 50px;
   background: url("../../../static/businessSlidesBtns/btn-save-normal.png")
@@ -113,6 +130,10 @@
 }
 .questionSave:active {
   background: url("../../../static/businessSlidesBtns/btn-save-pressed.png")
+    no-repeat right center/contain;
+}
+.questionSave:disabled {
+  background: url("../../../static/businessSlidesBtns/btn-save-hover.png")
     no-repeat right center/contain;
 }
 .srOnly {

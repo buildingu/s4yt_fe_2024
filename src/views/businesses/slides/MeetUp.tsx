@@ -7,8 +7,11 @@ interface Data {
   time: string;
   method: string;
 }
+interface Props {
+  playerCheck: any;
+}
 
-const MeetUp: React.FC = () => {
+const MeetUp: React.FC<Props> = ({playerCheck}) => {
   const placeholderData: Data = {
     date: "january 1 2024",
     time: "13:00 EST",
@@ -29,6 +32,7 @@ const MeetUp: React.FC = () => {
               id="confirmRadio"
               name="meetupGroup"
               value="No"
+              disabled={playerCheck}
             />
             <label htmlFor="confirmRadio">
               I'd love to, but I can't make that time
@@ -40,11 +44,12 @@ const MeetUp: React.FC = () => {
               id="rejectRadio"
               name="meetupGroup"
               value="Yes"
+              disabled={playerCheck}
             />
             <label htmlFor="rejectRadio">I'm in</label>
           </div>
         </div>
-        <button className={s.meetSubmit}></button>
+        <button disabled={playerCheck} className={s.meetSubmit}></button>
       </div>
     </div>
   );

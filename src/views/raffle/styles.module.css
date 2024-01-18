@@ -161,6 +161,7 @@
 .container .products div .controls {
   display: flex;
 }
+
 .container .products div .controls h4,
 .container .products div .controls button {
   border: 1px solid #797979;
@@ -194,6 +195,9 @@
 }
 .container .products div .controls button:active {
   top: 1.5px;
+}
+.container .products div .controls button:disabled {
+  cursor: not-allowed;
 }
 .paginationButtons {
   width: 100%;

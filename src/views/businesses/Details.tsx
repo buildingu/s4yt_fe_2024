@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import history from "../../utils/History";
 import Layout from "@components/layout";
 import Header from "@components/header";
@@ -8,6 +9,7 @@ import Status from "@components/status";
 
 // temporary useParams
 import { useParams } from "react-router-dom";
+import { isNotPlayer } from "@root/redux/actions/user";
 
 import Video from "./slides/Video";
 import Question from "./slides/Question";
@@ -22,6 +24,13 @@ type BusinessDetailsType = {
     info: string;
   };
 };
+
+interface PlayerProps {
+  isNotPlayer: (
+    useNotification: boolean,
+    message?: string | null
+  ) => void;
+}
 
 const businessDetails: BusinessDetailsType = {
   "HOP Group": {
@@ -50,24 +59,25 @@ const businessDetails: BusinessDetailsType = {
   },
 };
 
-const Details: React.FC = (props) => {
+const Details: React.FC<PlayerProps> = ({isNotPlayer}) => {
   const { details } = useParams<{ details: string }>();
-const location = useLocation();
+
   const [selectedOption, setSelectedOption] = useState<string>("Video");
   const selectedBusiness = businessDetails[details ? details : ""];
 
   const contentView: { [key: string]: React.ReactNode } = {
     Video: <Video />,
-    Question: <Question />,
-    MeetUp: <MeetUp />,
+    Question: <Question playerCheck={isNotPlayer(false)} />,
+    MeetUp: <MeetUp playerCheck={isNotPlayer(false)} />,
   };
-
+  useEffect(() => {
+    isNotPlayer(true, "Only players have access to certain features on this page")
+  }, [])
+ 
   const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectedOption(event.target.value);
   };
-  
-  const selectedBusiness1 = props.businessData || location.state?.businessData;
-  console.log(selectedBusiness1)
+
   return (
     <Layout>
       <Header title={"see business"} />
@@ -127,7 +137,10 @@ const location = useLocation();
                   onChange={handleRadioChange}
                   checked={selectedOption === "MeetUp"}
                 />
-                <label htmlFor="meetupRadio" className={s.meetupLabel}></label>
+                <label
+                  htmlFor="meetupRadio"
+                  className={s.meetupLabel}
+                ></label>
               </div>
               <a
                 href="#"
@@ -147,7 +160,10 @@ const location = useLocation();
   );
 };
 
-const mapStateToProps = ({}) => ({});
-const mapDispatchToProps = (dispatch: Function) => ({});
+const mapStateToProps = () => ({});
+const mapDispatchToProps = (dispatch: Function) => ({
+  isNotPlayer: (useNotification: boolean, message?: string | null) =>
+    dispatch(isNotPlayer(useNotification, message)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Details);
