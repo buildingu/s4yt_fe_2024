@@ -3,7 +3,6 @@ export const staticBusiness = [
     name: "Max Schulte", // business name
     logo: require("@static/businessLogos/MaxSchulteInteractiveMediaArtist.png"), // business logo
     link: "", // business website link
-    person: "Max Schulte", // business owner? or person of contact
     description: "NA", // description of business
     meetUp: {
       date: "NA", // Manual format
@@ -25,7 +24,6 @@ export const staticBusiness = [
     name: "Meridian Stories", // business name
     logo: require("@static/businessLogos/meridianstories.png"), // business logo
     link: "https://roboticsforall.net/about/overview", // business website link
-    person: "Brett Pierce", // business owner? or person of contact
     description:
       "Meridian Stories is a non-profit based in Freeport, Maine. Meridian stories offers a comprehensive catalog of digital story times. It holds over 140 projects for students to research, create, develop, and produce curricular driven stories. Meridian Stories mission is to prepare students for the 21st century workplace by providing opportunities to create, collaborate, problem solve, and lead in the development and production of meaningful digitalized narratives that address circular goals. The purpose of this special non-profit is to provide students and teachers with digital media arts opportunities that enrich learning, support the curriculum, and inspire new entrusts and creativity.", // description of business
     meetUp: {
@@ -47,7 +45,6 @@ export const staticBusiness = [
     name: "Knowledgeflow Foundation", // business name
     logo: require("@static/businessLogos/KnowledgeFlow.png"), // business logo
     link: "https://knowledgeflow.org/", // business website link
-    person: "", // business owner? or person of contact
     description:
       "The KnowledgeFlow Cybersafety Foundation Is Canada’s ONLY Non-Profit Dedicated Exclusively To Cybersafety Education And Innovation. We are making the world #UnHackable by stamping out predatory online behavior, preventing privacy abuses and disrupting cybercrime. Our mission is to ensure that all Canadians have access to expert cybersafety instruction and resources regardless of their location or financial status. We offer a variety of workshops, courses, and training videos that can help people of all ages learn about online safety.", // description of business
     meetUp: {
@@ -69,7 +66,6 @@ export const staticBusiness = [
     name: "Porter Airlines", // business name
     logo: require("@static/businessLogos/Porter.jpg"), // business logo
     link: "https://www.flyporter.com/en-ca/", // business website link
-    person: "Zenon Phillips", // business owner? or person of contact
     description:
       "Porter Airlines is a Canadian carrier based out of Toronto, operating out of both hubs, Toronto Pearson International Airport (YYZ) and Billy Bishop Toronto City Airport (YTZ). With two different aircraft types, Porter aims to elevate the economy experience by bringing a refined experience back to air travel with no middle seats and with onboard amenities such as complimentary beer & wine, premium snacks and wifi on the jets. Porter is currently in the middle of a large expansion by launching longer flights to new destinations across North America in an effort to bring the elevated experience further and more accessible to more customers.", // description of business
     meetUp: {
@@ -91,7 +87,6 @@ export const staticBusiness = [
     name: "Robotics For All", // business name
     logo: require("@static/businessLogos/roboticsforall.png"), // business logo
     link: "https://roboticsforall.net/about/overview", // business website link
-    person: "Chris Langlois", // business owner? or person of contact
     description:
       "The mission of Robotics for All is to provide high-quality robotics education to students from all backgrounds. Our programs include online courses, robotics workshops, and summer camps. We support student volunteers to teach our classes and engage with their local communities. Robotics for All has partnered with schools, community centers, clubs, after-school programs, and other organizations to provide robotics education to students in various cities across the United States..We aim to inspire children to pursue careers in STEM fields later in life and seek to empower students with the skills necessary to succeed in an increasingly technology-driven world.", // description of business
     meetUp: {
@@ -113,7 +108,6 @@ export const staticBusiness = [
     name: "Matrix Personal Training", // business name
     logo: require("@static/businessLogos/matrix.png"), // business logo
     link: "https://www.matrix-pf.com/", // business website link
-    person: "Shane Sauer", // business owner? or person of contact
     description:
       "MATRIX is a personal training and massage studio in East Greenwich, RI. Our programs incorporate the latest advances in neuroscience to help reduce chronic pain, rehabilitate old injuries, build strength, increase cardiovascular capacity, and improve balance, agility and speed. Neuroscience teaches that our brains feel threatened if they are not receiving clear information from our nervous systems.MATRIX fitness programs train your nervous system so the information your brain receives is accurate and reliable.. At MATRIX, we work with your brain and body to achieve your personalized fitness goals!", // description of business
     meetUp: {
@@ -136,7 +130,6 @@ export const staticBusiness = [
     name: "Energie Academie", // business name
     logo: require("@static/businessLogos/ENERGIACADEMIE.png"), // business logo
     link: "https://energiakademiet.dk/en/projekter/", // business website link
-    person: "Mathias Switzer", // business owner? or person of contact
     description:
       "Samsø Energy Academy is a project-based organization focused on the consequences of climate change.Samsø Energy Academy is located on the island of Samsø, in the heart of Denmark, in the town of Ballen and it is a physical gathering and meeting place for all kinds of people who are interested in community development. The Energy Academy focuses on helping communities internationally to create decentralized solutions for energy supply, job creation and innovation to build a more sustainable future that can reduce the impact of climate change.Put simply, its organizational goal is to convey knowledge about holistic cooperative processes.Samsø was announced UN Climate Leader at COP26 ni Glasgow and is the first Local society to win this prize.", // description of business
     meetUp: {
