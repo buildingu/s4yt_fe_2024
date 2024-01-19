@@ -8,7 +8,6 @@ import errorHandler from "@services/errorHandler";
 import { addNotification } from "./notifications";
 import { updateConfiguration } from "./gameConfig";
 
-// TODO: Put all logic in here like this.
 export const registerPlayer =
   (userData, formRef, setForm) => async (dispatch, getState) => {
     try {
@@ -143,7 +142,12 @@ export const loginPlayer =
         setTimeout(() => {
           dispatch({ type: SET_CURRENT_USER, payload: user });
           res.data.countdown
-            ? dispatch(updateConfiguration({ countdown: res.data.countdown }))
+            ? dispatch(
+                updateConfiguration({
+                  countdown: res.data.countdown,
+                  gameStart: true,
+                })
+              )
             : dispatch(updateConfiguration({ restrictedAccess: true })); // Only allowed to profile.
         }, 1000);
 
