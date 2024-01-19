@@ -45,11 +45,40 @@ export const registerPlayer =
       setForm((prev) => ({ ...prev, processing: false }));
     }
   };
-export const sendVerifyEmail = (email) => (dispatch, getState) => {
-  return Api.post("/email/verify", { email }).catch((error) =>
-    errorHandler("sendVerifyEmail", error)
-  );
-};
+export const sendVerifyEmail =
+  (email, formRef, setForm) => async (dispatch, getState) => {
+    try {
+      const res = await Api.post("/email/verify", { email });
+
+      if (res.success) {
+        formRef.current.reset();
+        dispatch(
+          addNotification({
+            error: false,
+            content:
+              "Lastly, to complete the registration process, please check your inbox to verify your email. In case you don't find it there, please check your spam folder.",
+            close: false,
+            duration: 0,
+          })
+        );
+        setForm((prev) => ({ ...prev, success: true }));
+      } else {
+        dispatch(
+          addNotification({
+            error: true,
+            content: res.message,
+            close: false,
+            duration: 0,
+          })
+        );
+      }
+      return res;
+    } catch (error) {
+      errorHandler("sendVerifyEmail", error);
+    } finally {
+      setForm((prev) => ({ ...prev, processing: false }));
+    }
+  };
 
 // export const setCurrentUser = (userData) => (dispatch, getState) => {
 //   dispatch({ type: SET_CURRENT_USER, payload: userData });
@@ -173,7 +202,7 @@ export const isNotPlayer =
 export const sendResetPasswordEmail =
   (email, formRef, setForm) => async (dispatch, getState) => {
     try {
-      const res = await Api.post("/email/reset", email);
+      const res = await Api.post("/email/reset", { email });
 
       if (res.success) {
         formRef.current.reset();
@@ -217,7 +246,6 @@ export const updatePassword = (userData) => (dispatch, getState) => {
 };
 export const updateProfile =
   (userData, formRef, setForm) => async (dispatch, getState) => {
-    console.log("getState()", getState());
     try {
       const res = await Api.post("/player/profile", userData);
 
@@ -270,8 +298,6 @@ export const updateProfile =
 export const getReferrals = (setReferrals) => (dispatch, getState) => {
   return Api.get("/player/referrals")
     .then((res) => {
-      console.log("res", res);
-
       if (res.success) {
         !res.data.referrals.length
           ? setReferrals("No referrals has been used yet")

@@ -101,7 +101,6 @@ const ForgotPassword: React.FC<Props> = ({ sendResetPasswordEmail }) => {
                 updateField<{ email: string }>(e, setCurrentData)
               }
               disabled={form.processing}
-              aria-disabled={form.processing}
               autoComplete="off"
               required
             />
