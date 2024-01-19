@@ -1,20 +1,27 @@
 import { connect } from "react-redux";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import s from "./styles.module.css";
+import ChallengeModal from "@root/components/modals/challengeModal/ChallengeModal";
 
 interface Props {
   playerCheck: any;
+  data: {
+    title: string;
+    content: string;
+    submissionCount: number;
+  }
 }
 
-const Questions: React.FC<Props> = ({ playerCheck }) => {
+const Questions: React.FC<Props> = ({ playerCheck, data }) => {
+  const [isOpened, setIsOpened] = useState(false);
   const [answer, setAnswer] = useState<string>("");
-
+  console.log(data)
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setAnswer(e.target.value);
   };
 
-  const handleDelete = () => {
-    setAnswer("");
+  const handleAttach = () => {
+    
   };
   const handleSave = () => {
     console.log("saved");
@@ -26,8 +33,7 @@ const Questions: React.FC<Props> = ({ playerCheck }) => {
     <div className={s.optionsView}>
       <form onSubmit={handleSubmit}>
         <label>
-          Question: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Eveniet, sint!"
+          View challenge here: <ChallengeModal data={data} />
         </label>
         <textarea
           value={answer}
@@ -36,9 +42,23 @@ const Questions: React.FC<Props> = ({ playerCheck }) => {
           disabled={playerCheck}
         />
         <div className={s.formButtons}>
-          <button disabled={playerCheck} className={s.questionSave} onClick={handleSave}></button>
-          <button disabled={playerCheck} className={s.questionDelete} onClick={handleDelete}></button>
-          <button disabled={playerCheck} className={s.questionSubmit} type="submit"></button>
+          <button
+            disabled={playerCheck}
+            className={s.questionAttach}
+            onClick={handleAttach}
+          >
+          <i className="fas fa-paperclip"></i>
+          </button>
+          <button
+            disabled={playerCheck}
+            className={s.questionSave}
+            onClick={handleSave}
+          ></button>
+          <button
+            disabled={playerCheck}
+            className={s.questionSubmit}
+            type="submit"
+          ></button>
         </div>
       </form>
     </div>

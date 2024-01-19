@@ -90,25 +90,18 @@
   background: url("../../../static/businessSlidesBtns/btn-submit-hover.png")
     no-repeat right center/contain;
 }
-.questionDelete {
-  border: none;
+.questionAttach {
   width: 150px;
   height: 50px;
-  background: url("../../../static/businessSlidesBtns/btn-delete-normal.png")
-    no-repeat right center/contain;
-  cursor: pointer;
+  display: flex;
+  justify-content: center;
 }
-.questionDelete:hover {
-  background: url("../../../static/businessSlidesBtns/btn-delete-hover.png")
-    no-repeat right center/contain;
+.questionAttach i {
+  font-size: 50px;
+  color: var(--pbrown);
 }
-.questionDelete:active {
-  background: url("../../../static/businessSlidesBtns/btn-delete-pressed.png")
-    no-repeat right center/contain;
-}
-.questionDelete:disabled {
-  background: url("../../../static/businessSlidesBtns/btn-delete-hover.png")
-    no-repeat right center/contain;
+.questionAttach:hover i {
+  opacity: 50%;
 }
 .questionSave {
   border: none;

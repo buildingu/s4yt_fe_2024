@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useParams } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Gate from "@components/gate";
 
 import Register from "@views/register";
@@ -47,7 +47,6 @@ export const routes = [
 ];
 
 const RoutesProvider = () => {
-  const { details } = useParams();
 
   return (
     <Routes>

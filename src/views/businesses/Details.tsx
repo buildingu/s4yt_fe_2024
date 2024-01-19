@@ -8,7 +8,7 @@ import Content from "@components/content";
 import Status from "@components/status";
 
 // temporary useParams
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { isNotPlayer } from "@root/redux/actions/user";
 
 import Video from "./slides/Video";
@@ -18,13 +18,6 @@ import MeetUp from "./slides/MeetUp";
 import s from "./styles.module.css";
 import React, { useState, ChangeEvent } from "react";
 
-type BusinessDetailsType = {
-  [key: string]: {
-    logo: any;
-    info: string;
-  };
-};
-
 interface PlayerProps {
   isNotPlayer: (
     useNotification: boolean,
@@ -32,43 +25,15 @@ interface PlayerProps {
   ) => void;
 }
 
-const businessDetails: BusinessDetailsType = {
-  "HOP Group": {
-    logo: require("@static/businessLogos/HOPGroup.jpg"),
-    info: "something about HOP Group",
-  },
-  KnowledgeFlow: {
-    logo: require("@static/businessLogos/KnowledgeFlow.png"),
-    info: "something about KnowledgeFlow Cybersafety Foundation",
-  },
-  Matrix: {
-    logo: require("@static/businessLogos/matrix.png"),
-    info: "something about Matrix",
-  },
-  "Meridian Stories": {
-    logo: require("@static/businessLogos/meridianstories.png"),
-    info: "something about Meridian Stories",
-  },
-  Porter: {
-    logo: require("@static/businessLogos/Porter.jpg"),
-    info: "something about Porter",
-  },
-  "Robotics For All": {
-    logo: require("@static/businessLogos/roboticsforall.png"),
-    info: "something about Robotics For All",
-  },
-};
-
 const Details: React.FC<PlayerProps> = ({isNotPlayer}) => {
-  const { details } = useParams<{ details: string }>();
-
+  // passed through Link component
+  const {state} = useLocation()
   const [selectedOption, setSelectedOption] = useState<string>("Video");
-  const selectedBusiness = businessDetails[details ? details : ""];
 
   const contentView: { [key: string]: React.ReactNode } = {
-    Video: <Video />,
-    Question: <Question playerCheck={isNotPlayer(false)} />,
-    MeetUp: <MeetUp playerCheck={isNotPlayer(false)} />,
+    Video: <Video data={state?.video}/>,
+    Question: <Question data={state?.challenge} playerCheck={isNotPlayer(false)} />,
+    MeetUp: <MeetUp data={state?.meetUp} playerCheck={isNotPlayer(false)} />,
   };
   useEffect(() => {
     isNotPlayer(true, "Only players have access to certain features on this page")
@@ -95,12 +60,12 @@ const Details: React.FC<PlayerProps> = ({isNotPlayer}) => {
         <div className={s.details}>
           <div className={s.detailsHeader}>
             <img
-              src={selectedBusiness.logo}
-              alt={selectedBusiness + "'s logo"}
+              src={state?.logo}
+              alt={state?.name + "'s logo"}
             />
             <div className={s.businessTitle}>
-              <h2>{details}</h2>
-              <p>{selectedBusiness.info}</p>
+              <h2>{state?.name}</h2>
+              <p>{state?.description}</p>
             </div>
           </div>
           <div className={s.detailsContent}>

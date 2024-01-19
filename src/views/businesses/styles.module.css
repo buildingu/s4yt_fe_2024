@@ -86,7 +86,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 40px;
+  /* margin-top: 40px; */
 }
 .businessTitle h2 {
   font-size: 3rem;
@@ -95,6 +95,7 @@
 .businessTitle p {
   font-size: 1.2rem;
   font-family: "BebasNeue", Arial;
+  margin-bottom:  40px;
 }
 .detailsHeader img {
   height: 150px;

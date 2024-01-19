@@ -22,3 +22,6 @@ export const UPDATE_CONFIGURATION = "gameConfig.UPDATE_CONFIGURATION";
 export const SPEND_COINS = "coinTracker.SPEND_COINS";
 export const RETRIEVE_COINS = "coinTracker.RETRIEVE_COINS";
 export const INITIALIZE_COINS = "coinTracker.INITIALIZE_COINS";
+
+// businesses/event partners
+export const GET_BUSINESSES = "getBusinesses.GET_BUSINESSES"

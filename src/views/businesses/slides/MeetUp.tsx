@@ -2,28 +2,22 @@ import { connect } from "react-redux";
 import React, { useState } from "react";
 import s from "./styles.module.css";
 
-interface Data {
-  date: string;
-  time: string;
-  method: string;
-}
 interface Props {
   playerCheck: any;
+  data: {
+    date: string;
+    time: string;
+    method: string;
+  };
 }
 
-const MeetUp: React.FC<Props> = ({playerCheck}) => {
-  const placeholderData: Data = {
-    date: "january 1 2024",
-    time: "13:00 EST",
-    method: "Google Meet",
-  };
-
+const MeetUp: React.FC<Props> = ({playerCheck, data}) => {
   return (
     <div className={s.optionsView}>
       <div className={s.meetUp}>
-        <h2>I'm setting up a {placeholderData.method}</h2>
+        <h2>I'm setting up a {data?.method}</h2>
         <p>
-          On {placeholderData.date} at {placeholderData.time}
+          On {data?.date} at {data?.time} EST
         </p>
         <div className={s.meetOptions}>
           <div>
