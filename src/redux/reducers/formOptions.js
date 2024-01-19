@@ -1,6 +1,6 @@
 import {
-  GET_GRADES_SUCCESS,
-  GET_EDUCATION_SUCCESS,
+  SET_GRADES,
+  SET_EDUCATIONS,
   SET_COUNTRIES,
   SET_REGIONS,
   SET_CITIES,
@@ -16,9 +16,9 @@ const initialState = {
 
 const formOptions = (state = initialState, action) => {
   switch (action.type) {
-    case GET_GRADES_SUCCESS:
+    case SET_GRADES:
       return { ...state, grades: action.payload };
-    case GET_EDUCATION_SUCCESS:
+    case SET_EDUCATIONS:
       return { ...state, education: action.payload };
     case SET_COUNTRIES:
       return { ...state, countries: action.payload };
