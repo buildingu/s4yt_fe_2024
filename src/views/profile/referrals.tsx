@@ -47,7 +47,7 @@ const Referral: React.FC<Props> = ({ user, getReferrals }) => {
             Used
           </h3>
           {typeof referrals === "string" ? (
-            <span role="alert" className={s.noReferralsMsg}>
+            <span role="dialog" className={s.noReferralsMsg}>
               {referrals}
             </span>
           ) : (
