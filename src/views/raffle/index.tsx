@@ -5,6 +5,7 @@ import {
   retrieveCoins,
   initializeCoins,
 } from "@root/redux/actions/coinTracker";
+import { isNotPlayer } from "@root/redux/actions/user";
 
 import Layout from "@components/layout";
 import Header from "@components/header";
@@ -23,6 +24,7 @@ interface Props {
   initializeCoins: any;
   storeCoins: any;
   storeEntries: any;
+  isNotPlayer: (useNotification: boolean, message?: string | null) => void;
 }
 
 const products = [
@@ -187,6 +189,7 @@ const Raffle: React.FC<Props> = ({
   initializeCoins,
   storeCoins,
   storeEntries,
+  isNotPlayer
 }) => {
   const [slideIndex, setSlideIndex] = useState(0),
     [isOpened, setIsOpened] = useState(false);
@@ -220,6 +223,9 @@ const Raffle: React.FC<Props> = ({
     }
     setTotalDublunes((prev) => prev - value);
   };
+    useEffect(() => {
+      isNotPlayer(true, "Only players can assign Dubl-U-Nes to raffle items");
+    }, []);
 
   return (
     <Layout
@@ -296,6 +302,7 @@ const Raffle: React.FC<Props> = ({
                     disabled={storeEntries[i + startIndex]?.entries === 0}
                     onClick={() => handleProductEntries(i, -1)}
                     aria-label="Subtract"
+                    disabled={isNotPlayer()}
                   >
                     -
                   </button>
@@ -307,6 +314,7 @@ const Raffle: React.FC<Props> = ({
                     disabled={totaleDublunes === 0}
                     onClick={() => handleProductEntries(i, +1)}
                     aria-label="Add"
+                    disabled={isNotPlayer()}
                   >
                     +
                   </button>
@@ -350,6 +358,8 @@ const mapDispatchToProps = (dispatch: Function) => ({
     dispatch(retrieveCoins(item, numEntries)),
   initializeCoins: ({ products, remainingCoins }) =>
     dispatch(initializeCoins({ products, remainingCoins })),
+     isNotPlayer: (useNotification: boolean, message?: string | null) =>
+    dispatch(isNotPlayer(useNotification, message)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Raffle);

@@ -1,4 +1,6 @@
 import { connect } from "react-redux";
+import { useEffect } from "react";
+
 import history from "../../utils/History";
 import Layout from "@components/layout";
 import Header from "@components/header";
@@ -7,6 +9,7 @@ import Status from "@components/status";
 
 // temporary useParams
 import { useParams } from "react-router-dom";
+import { isNotPlayer } from "@root/redux/actions/user";
 
 import Video from "./slides/Video";
 import Question from "./slides/Question";
@@ -21,6 +24,13 @@ type BusinessDetailsType = {
     info: string;
   };
 };
+
+interface PlayerProps {
+  isNotPlayer: (
+    useNotification: boolean,
+    message?: string | null
+  ) => void;
+}
 
 const businessDetails: BusinessDetailsType = {
   "HOP Group": {
@@ -49,7 +59,7 @@ const businessDetails: BusinessDetailsType = {
   },
 };
 
-const Details: React.FC = () => {
+const Details: React.FC<PlayerProps> = ({isNotPlayer}) => {
   const { details } = useParams<{ details: string }>();
 
   const [selectedOption, setSelectedOption] = useState<string>("Video");
@@ -57,10 +67,13 @@ const Details: React.FC = () => {
 
   const contentView: { [key: string]: React.ReactNode } = {
     Video: <Video />,
-    Question: <Question />,
-    MeetUp: <MeetUp />,
+    Question: <Question playerCheck={isNotPlayer(false)} />,
+    MeetUp: <MeetUp playerCheck={isNotPlayer(false)} />,
   };
-
+  useEffect(() => {
+    isNotPlayer(true, "Only players have access to certain features on this page")
+  }, [])
+ 
   const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectedOption(event.target.value);
   };
@@ -124,7 +137,10 @@ const Details: React.FC = () => {
                   onChange={handleRadioChange}
                   checked={selectedOption === "MeetUp"}
                 />
-                <label htmlFor="meetupRadio" className={s.meetupLabel}></label>
+                <label
+                  htmlFor="meetupRadio"
+                  className={s.meetupLabel}
+                ></label>
               </div>
               <a
                 href="#"
@@ -144,7 +160,10 @@ const Details: React.FC = () => {
   );
 };
 
-const mapStateToProps = ({}) => ({});
-const mapDispatchToProps = (dispatch: Function) => ({});
+const mapStateToProps = () => ({});
+const mapDispatchToProps = (dispatch: Function) => ({
+  isNotPlayer: (useNotification: boolean, message?: string | null) =>
+    dispatch(isNotPlayer(useNotification, message)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Details);

@@ -47,6 +47,9 @@
   font-family: "Corbel", Arial;
   font-size: 2rem;
 }
+.meetOptions input:disabled + label {
+  cursor: not-allowed;
+}
 .meetOptions {
   display: flex;
   flex-direction: column;
@@ -54,7 +57,6 @@
 }
 .meetOptions input {
   margin-right: 10px;
-  cursor: pointer;
 }
 .meetOptions label {
   cursor: pointer;
@@ -83,6 +85,11 @@
   background: url("../../../static/businessSlidesBtns/btn-submit-pressed.png")
     no-repeat right center/contain;
 }
+.meetSubmit:disabled,
+.questionSubmit:disabled {
+  background: url("../../../static/businessSlidesBtns/btn-submit-hover.png")
+    no-repeat right center/contain;
+}
 .questionDelete {
   border: none;
   width: 150px;
@@ -99,8 +106,12 @@
   background: url("../../../static/businessSlidesBtns/btn-delete-pressed.png")
     no-repeat right center/contain;
 }
+.questionDelete:disabled {
+  background: url("../../../static/businessSlidesBtns/btn-delete-hover.png")
+    no-repeat right center/contain;
+}
 .questionSave {
-    border: none;
+  border: none;
   width: 150px;
   height: 50px;
   background: url("../../../static/businessSlidesBtns/btn-save-normal.png")
@@ -113,6 +124,10 @@
 }
 .questionSave:active {
   background: url("../../../static/businessSlidesBtns/btn-save-pressed.png")
+    no-repeat right center/contain;
+}
+.questionSave:disabled {
+  background: url("../../../static/businessSlidesBtns/btn-save-hover.png")
     no-repeat right center/contain;
 }
 .srOnly {

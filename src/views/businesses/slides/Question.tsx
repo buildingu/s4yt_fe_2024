@@ -2,7 +2,11 @@ import { connect } from "react-redux";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import s from "./styles.module.css";
 
-const Questions: React.FC = () => {
+interface Props {
+  playerCheck: any;
+}
+
+const Questions: React.FC<Props> = ({ playerCheck }) => {
   const [answer, setAnswer] = useState<string>("");
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -13,8 +17,8 @@ const Questions: React.FC = () => {
     setAnswer("");
   };
   const handleSave = () => {
-    console.log("saved")
-  }
+    console.log("saved");
+  };
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -29,11 +33,12 @@ const Questions: React.FC = () => {
           value={answer}
           onChange={handleInputChange}
           placeholder="Type your answer here"
+          disabled={playerCheck}
         />
         <div className={s.formButtons}>
-          <button className={s.questionSave} onClick={handleSave}></button>
-          <button className={s.questionDelete} onClick={handleDelete}></button>
-          <button className={s.questionSubmit} type="submit"></button>
+          <button disabled={playerCheck} className={s.questionSave} onClick={handleSave}></button>
+          <button disabled={playerCheck} className={s.questionDelete} onClick={handleDelete}></button>
+          <button disabled={playerCheck} className={s.questionSubmit} type="submit"></button>
         </div>
       </form>
     </div>
