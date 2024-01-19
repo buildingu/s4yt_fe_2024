@@ -30,14 +30,14 @@ const Gate: React.FC<Props> = ({ children, user, gameConfig, restricted }) => {
   // console.log("redirect", redirect);
   // console.log("user", user);
 
-  // return redirect ? (
-  //   <Navigate to={redirect} replace={true} />
-  // ) : gameConfig.restrictedAccess && user.token ? (
-  //   <Profile />
-  // ) : (
-  //   children
-  // );
-  return <>{children}</>;
+  return redirect ? (
+    <Navigate to={redirect} replace={true} />
+  ) : gameConfig.restrictedAccess && user.token ? (
+    <Profile />
+  ) : (
+    children
+  );
+  // return <>{children}</>;
 };
 
 const mapStateToProps = ({
