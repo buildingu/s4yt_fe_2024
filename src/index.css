@@ -72,7 +72,7 @@ a {
 }
 
 :disabled {
-  cursor: not-allowed;
+  cursor: not-allowed !important;
 }
 
 label {

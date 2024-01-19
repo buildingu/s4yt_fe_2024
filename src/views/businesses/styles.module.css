@@ -142,10 +142,6 @@
   color: white;
 }
 
-.detailsOptions .disabled {
-  cursor: not-allowed;
-}
-
 @media screen and (max-width: 800px) {
   .details {
     width: 100%;

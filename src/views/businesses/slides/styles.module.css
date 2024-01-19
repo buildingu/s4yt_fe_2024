@@ -31,9 +31,6 @@
   display: flex;
   justify-content: flex-end;
 }
-.formButtons button:disabled {
-  cursor: not-allowed;
-}
 .meetUp {
   height: 100%;
   color: var(--pbrown);
@@ -50,8 +47,6 @@
   font-family: "Corbel", Arial;
   font-size: 2rem;
 }
-.meetUp .meetSubmit:disabled,
-.meetOptions input:disabled,
 .meetOptions input:disabled + label {
   cursor: not-allowed;
 }
