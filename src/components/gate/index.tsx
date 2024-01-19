@@ -1,9 +1,10 @@
 import UserCredentials from "@typings/UserCredentials";
 
+import { useEffect } from "react";
 import { connect } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-import Profile from "@views/profile";
+import history from "@utils/History";
 
 interface Props extends React.PropsWithChildren<{}> {
   user: { credentials?: UserCredentials; token?: string };
@@ -12,32 +13,26 @@ interface Props extends React.PropsWithChildren<{}> {
 }
 
 // TODO: Add only pages you can only be redirected to... probably?
+// TODO: We can maybe fix by adding some kind of condition like newLogin and in the gate there will be a useEffect on this condition to add this data?
 const Gate: React.FC<Props> = ({ children, user, gameConfig, restricted }) => {
-  // FIXME: This is pissing me off for a long time, I have no idea why the other redirects work and the only one
-  // that doesn't is "/profile", it doesn't make any sense, so in a last resort, I just import Profile, this is not ideal.
-  const redirect =
-    // gameConfig.restrictedAccess && user.token
-    //   ? "/profile"
-    //   :
-    restricted === 1 && !user.token
-      ? "/login"
-      : restricted === 2 && user.token && user.credentials
-      ? "/already-logged-in"
-      : null;
+  const location = useLocation();
 
-  // console.log("allow", allow);
-  // console.log("gameConfig", gameConfig);
-  // console.log("redirect", redirect);
-  // console.log("user", user);
+  let redirect = "";
+  useEffect(() => {
+    redirect =
+      gameConfig.restrictedAccess && user.token
+        ? "/profile"
+        : restricted === 1 && !user.token
+        ? "/login"
+        : restricted === 2 && user.token && user.credentials
+        ? "/error-409" // Already logged in.
+        : "";
 
-  return redirect ? (
-    <Navigate to={redirect} replace={true} />
-  ) : gameConfig.restrictedAccess && user.token ? (
-    <Profile />
-  ) : (
-    children
-  );
-  // return <>{children}</>;
+    if (redirect)
+      history.push(redirect, { state: { from: location }, replace: true });
+  }, [user.token, gameConfig.restrictedAccess]);
+
+  return children;
 };
 
 const mapStateToProps = ({

@@ -265,7 +265,6 @@ const UserForm: React.FC<Props> = ({
             type="text"
             onChange={(e) => updateField<FromData>(e, setCurrentData)}
             disabled={form.processing}
-            aria-disabled={form.processing}
             {...(currentData.name && { defaultValue: currentData.name })}
             autoComplete="off"
             {...(!user.token && { required: true })}
@@ -289,7 +288,6 @@ const UserForm: React.FC<Props> = ({
             type="email"
             onChange={(e) => updateField<FromData>(e, setCurrentData)}
             disabled={form.processing}
-            aria-disabled={form.processing}
             {...(currentData.email && { defaultValue: currentData.email })}
             autoComplete="off"
             {...(!user.token && { required: true })}
@@ -319,7 +317,6 @@ const UserForm: React.FC<Props> = ({
               type="password"
               onChange={(e) => updateField<FromData>(e, setCurrentData)}
               disabled={form.processing}
-              aria-disabled={form.processing}
               autoComplete="off"
               minLength={8}
               maxLength={24}
@@ -346,7 +343,6 @@ const UserForm: React.FC<Props> = ({
               type="password"
               onChange={(e) => updateField<FromData>(e, setCurrentData)}
               disabled={form.processing}
-              aria-disabled={form.processing}
               autoComplete="off"
               minLength={8}
               maxLength={24}
@@ -372,13 +368,11 @@ const UserForm: React.FC<Props> = ({
             name="instagram"
             // onChange={(e) => updateField(e)}
             // disabled={form.processing}
-            // aria-disabled={form.processing}
             // {...(currentData.instagram && {
             //   defaultValue: currentData.instagram,
             // })}
             autoComplete="off"
             disabled={true}
-            aria-disabled="true"
             title="Work in Progress"
             style={{ opacity: "0.65" }}
           />
@@ -399,7 +393,6 @@ const UserForm: React.FC<Props> = ({
               name="education_id"
               onChange={(e) => updateField<FromData>(e, setCurrentData)}
               disabled={form.processing}
-              aria-disabled={form.processing}
               {...(currentData.education_id && {
                 defaultValue: currentData.education_id,
               })}
@@ -431,7 +424,6 @@ const UserForm: React.FC<Props> = ({
               name="grade_id"
               onChange={(e) => updateField<FromData>(e, setCurrentData)}
               disabled={form.processing}
-              aria-disabled={form.processing}
               {...(currentData.grade_id && {
                 defaultValue: currentData.grade_id,
               })}
@@ -462,7 +454,6 @@ const UserForm: React.FC<Props> = ({
             type="text"
             onChange={(e) => updateField<FromData>(e, setCurrentData)}
             disabled={form.processing}
-            aria-disabled={form.processing}
             {...(currentData.school && { defaultValue: currentData.school })}
             autoComplete="off"
           />
@@ -483,7 +474,6 @@ const UserForm: React.FC<Props> = ({
               name="country_id"
               onChange={(e) => updateField<FromData>(e, setCurrentData)}
               disabled={form.processing}
-              aria-disabled={form.processing}
               {...(currentData.country_id && { value: currentData.country_id })}
               {...(!user.token && { required: true })}
             >
@@ -507,12 +497,6 @@ const UserForm: React.FC<Props> = ({
               name="region_id"
               onChange={(e) => updateField<FromData>(e, setCurrentData)}
               disabled={
-                !currentData.country_id ||
-                formOptions.regions.length === 0 ||
-                typeof formOptions.regions === "string" ||
-                form.processing
-              }
-              aria-disabled={
                 !currentData.country_id ||
                 formOptions.regions.length === 0 ||
                 typeof formOptions.regions === "string" ||
@@ -557,12 +541,6 @@ const UserForm: React.FC<Props> = ({
             name="city_id"
             onChange={(e) => updateField<FromData>(e, setCurrentData)}
             disabled={
-              !currentData.region_id ||
-              formOptions.cities.length === 0 ||
-              typeof formOptions.regions === "string" ||
-              form.processing
-            }
-            aria-disabled={
               !currentData.region_id ||
               formOptions.cities.length === 0 ||
               typeof formOptions.regions === "string" ||

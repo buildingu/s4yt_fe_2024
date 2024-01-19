@@ -92,11 +92,12 @@ const PasswordForm: React.FC<Props> = ({
           duration: 4000,
         });
       } else {
-        const key = Object.keys(res.errors)[0];
-
         addNotification({
           error: true,
-          content: res.errors[key],
+          content:
+            res.errors && Object.keys(res.errors).length
+              ? Object.keys(res.errors)[0]
+              : res.message,
           close: false,
           duration: 0,
         });
@@ -123,7 +124,6 @@ const PasswordForm: React.FC<Props> = ({
             type="old_password"
             onChange={(e) => updateField<FromData>(e, setCurrentData)}
             disabled={form.processing}
-            aria-disabled={form.processing}
             autoComplete="off"
             required
           />
@@ -141,7 +141,6 @@ const PasswordForm: React.FC<Props> = ({
           type="password"
           onChange={(e) => updateField<FromData>(e, setCurrentData)}
           disabled={form.processing}
-          aria-disabled={form.processing}
           autoComplete="off"
           minLength={8}
           maxLength={24}
@@ -163,7 +162,6 @@ const PasswordForm: React.FC<Props> = ({
           type="password"
           onChange={(e) => updateField<FromData>(e, setCurrentData)}
           disabled={form.processing}
-          aria-disabled={form.processing}
           autoComplete="off"
           minLength={8}
           maxLength={24}

@@ -4,6 +4,8 @@ import { useRef, useState } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
+import treasureMapNavContent from "@constants/treasureMapNavContent";
+
 import { addNotification } from "@actions/notifications";
 
 import Layout from "@components/layout";
@@ -13,53 +15,6 @@ import Status from "@components/status";
 import MapNavigation from "@components/mapNavigation";
 
 import s from "./styles.module.css";
-
-// To be in constants folder.
-const treasureMapNavContent = [
-  {
-    img: require("@static/welcome.png"),
-    alt: "Welcome",
-    txt: "Welcome aboard!",
-    to: "",
-  },
-  {
-    img: require("@static/free_dublons.png"),
-    alt: "Free Raffle",
-    txt: "3 free dubl-u-nes already!",
-    to: "",
-  },
-  {
-    img: require("@static/profile_page.png"),
-    alt: "Profile",
-    txt: "Profile page",
-    to: "/profile",
-  },
-  {
-    img: require("@static/see_businesses.png"),
-    alt: "Businesses",
-    txt: "See businesses",
-    to: "/businesses",
-  },
-  {
-    img: require("@static/sponsors.png"),
-    alt: "Sponsors",
-    txt: "Sponsors",
-    to: "/sponsors",
-  },
-  {
-    img: require("@static/raffle_page.png"),
-    alt: "Raffle",
-    txt: "Raffle page",
-    to: "/raffle",
-  },
-  {
-    img: require("@static/event_results.png"),
-    alt: "Results",
-    txt: "Event Results",
-    to: "/results",
-    disabled: true, // Locked during the game time.
-  },
-];
 
 interface Props {
   addNotification: (notification: Omit<NotificationValues, "id">) => void;
@@ -116,7 +71,6 @@ const Home: React.FC<Props> = ({ addNotification }) => {
                       duration: 4000,
                     });
                     blockBtn.disabled = true;
-                    blockBtn.setAttribute("aria-disabled", "true");
                   }}
                 >
                   Don't show this again
@@ -150,10 +104,9 @@ const Home: React.FC<Props> = ({ addNotification }) => {
   );
 };
 
-const mapStateToProps = ({}) => ({});
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   addNotification: (notification: Omit<NotificationValues, "id">) =>
     dispatch(addNotification(notification)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(null, mapDispatchToProps)(Home);

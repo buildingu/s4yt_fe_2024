@@ -79,7 +79,6 @@ const Login: React.FC<Props> = ({ loginPlayer }) => {
               type="player_id"
               onChange={(e) => updateField<FromData>(e, setCurrentData)}
               disabled={form.processing}
-              aria-disabled={form.processing}
               autoComplete="off"
               required
             />
@@ -95,7 +94,6 @@ const Login: React.FC<Props> = ({ loginPlayer }) => {
               type="password"
               onChange={(e) => updateField<FromData>(e, setCurrentData)}
               disabled={form.processing}
-              aria-disabled={form.processing}
               autoComplete="off"
               minLength={8}
               maxLength={24}

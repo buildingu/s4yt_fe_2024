@@ -1,6 +1,6 @@
 // formOptions
-export const GET_GRADES_SUCCESS = "formOptions.GET_GRADES_SUCCESS";
-export const GET_EDUCATION_SUCCESS = "formOptions.GET_EDUCATION_SUCCESS";
+export const SET_GRADES = "formOptions.SET_GRADES";
+export const SET_EDUCATIONS = "formOptions.SET_EDUCATIONS";
 export const SET_COUNTRIES = "formOptions.SET_COUNTRIES";
 export const SET_REGIONS = "formOptions.SET_REGIONS";
 export const SET_CITIES = "formOptions.SET_CITIES";

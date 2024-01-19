@@ -1,5 +1,3 @@
-import NotificationValues from "@typings/NotificationValues";
-
 import { useRef, useState, useEffect } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
@@ -8,7 +6,6 @@ import updateField from "@utils/forms/updateField";
 import checkValidEmail from "@root/utils/forms/checkValidEmail";
 
 import { sendVerifyEmail } from "@actions/user";
-import { addNotification } from "@actions/notifications";
 
 import Layout from "@components/layout";
 import Header from "@components/header";
@@ -18,11 +15,19 @@ import ExpiresInIndicator from "@components/forms/expiresInIndicator";
 import s from "./styles.module.css";
 
 interface Props {
-  sendVerifyEmail: (email: string) => Promise<any>;
-  addNotification: (data: Omit<NotificationValues, "id">) => void;
+  sendVerifyEmail: (
+    email: string,
+    formRef: React.RefObject<HTMLFormElement>,
+    setForm: React.Dispatch<
+      React.SetStateAction<{
+        processing: boolean;
+        success: boolean;
+      }>
+    >
+  ) => Promise<any>;
 }
 
-const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
+const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail }) => {
   const formRef = useRef<HTMLFormElement>(null),
     [form, setForm] = useState({ processing: false, success: false }),
     [currentData, setCurrentData] = useState({ email: "" });
@@ -38,33 +43,11 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
     let valid = true;
 
     checkValidEmail(field);
-    if (!field.validity.valid && valid) {
-      valid = false;
-    }
+    if (!field.validity.valid && valid) valid = false;
 
     if (valid) {
       setForm({ success: false, processing: true });
-      const res = await sendVerifyEmail(currentData.email);
-
-      if (res.success) {
-        formRef.current!.reset();
-        addNotification({
-          error: false,
-          content:
-            "Lastly, to complete the registration process, please check your inbox to verify your email. In case you don't find it there, please check your spam folder.",
-          close: false,
-          duration: 0,
-        });
-        setForm((prev) => ({ ...prev, success: true }));
-      } else {
-        addNotification({
-          error: true,
-          content: res.message,
-          close: false,
-          duration: 0,
-        });
-      }
-      setForm((prev) => ({ ...prev, processing: false }));
+      await sendVerifyEmail(currentData.email, formRef, setForm);
     }
   };
 
@@ -119,7 +102,6 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
                 updateField<{ email: string }>(e, setCurrentData)
               }
               disabled={form.processing}
-              aria-disabled={form.processing}
               autoComplete="off"
               required
             />
@@ -144,10 +126,19 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail, addNotification }) => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  sendVerifyEmail: (email: string) =>
-    dispatch(sendVerifyEmail(email) as unknown) as Promise<any>,
-  addNotification: (notification: Omit<NotificationValues, "id">) =>
-    dispatch(addNotification(notification)),
+  sendVerifyEmail: (
+    email: string,
+    formRef: React.RefObject<HTMLFormElement>,
+    setForm: React.Dispatch<
+      React.SetStateAction<{
+        processing: boolean;
+        success: boolean;
+      }>
+    >
+  ) =>
+    dispatch(
+      sendVerifyEmail(email, formRef, setForm) as unknown
+    ) as Promise<any>,
 });
 
 export default connect(null, mapDispatchToProps)(VerifyEmail);

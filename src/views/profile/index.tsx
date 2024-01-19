@@ -1,6 +1,5 @@
 import UserCredentials from "@typings/UserCredentials";
 
-import { useState } from "react";
 import { connect } from "react-redux";
 
 import Layout from "@components/layout";
@@ -19,14 +18,11 @@ interface Props {
 }
 
 const Profile: React.FC<Props> = ({ user }) => {
-  // TODO: Change this.
-  const [loading, setLoading] = useState(false);
-
   return (
     <Layout style={{ maxWidth: "1200px" }}>
       <Header title="Profile" />
       <Content style={{ backgroundColor: "transparent", border: "none" }}>
-        <div aria-live="polite" aria-busy={loading} className={s.container}>
+        <div className={s.container}>
           {user ? (
             <>
               <section className={s.profileInfo}>

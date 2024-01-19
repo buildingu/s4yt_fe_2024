@@ -1,64 +1,123 @@
 import {
-  GET_GRADES_SUCCESS,
-  GET_EDUCATION_SUCCESS,
+  SET_GRADES,
+  SET_EDUCATIONS,
   SET_COUNTRIES,
   SET_REGIONS,
   SET_CITIES,
-  // GET_COIN_TYPES_SUCCESS
 } from "@actions/index";
+
 import { Api } from "@services/index";
 import errorHandler from "@services/errorHandler";
 
-// TODO: Make these better and check for res.success.
-const wrapper = () => {};
+import { addNotification } from "./notifications";
 
-export const getEducation = () => (dispatch, getState) => {
-  return Api.get("/education")
-    .then((response) => {
+const showError = (res, dispatch) => {
+  dispatch(
+    addNotification({
+      error: true,
+      content:
+        res.errors && Object.keys(res.errors).length
+          ? Object.keys(res.errors)[0]
+          : res.message,
+      close: false,
+      duration: 0,
+    })
+  );
+};
+
+export const getEducation = () => async (dispatch, getState) => {
+  try {
+    const res = await Api.get("/education");
+
+    if (res.success) {
       dispatch({
-        type: GET_EDUCATION_SUCCESS,
-        payload: response.data.education,
+        type: SET_EDUCATIONS,
+        payload: res.data.education,
       });
-    })
-    .catch((error) => errorHandler("getEducation", error));
+    } else {
+      showError(res, dispatch);
+    }
+
+    return res;
+  } catch (error) {
+    errorHandler("getEducation", error);
+  }
 };
 
-export const getGrades = () => (dispatch, getState) => {
-  return Api.get("/grades")
-    .then((response) => {
-      dispatch({ type: GET_GRADES_SUCCESS, payload: response.data.grades });
-    })
-    .catch((error) => errorHandler("getGrades", error));
+export const getGrades = () => async (dispatch, getState) => {
+  try {
+    const res = await Api.get("/grades");
+
+    if (res.success) {
+      dispatch({
+        type: SET_GRADES,
+        payload: res.data.grades,
+      });
+    } else {
+      showError(res, dispatch);
+    }
+
+    return res;
+  } catch (error) {
+    errorHandler("getGrades", error);
+  }
 };
 
-export const getCountries = () => (dispatch, getState) => {
-  return Api.get("/countries")
-    .then((response) => {
-      dispatch({ type: SET_COUNTRIES, payload: response.data.countries });
-    })
-    .catch((error) => errorHandler("getCountries", error));
+export const getCountries = () => async (dispatch, getState) => {
+  try {
+    const res = await Api.get("/countries");
+
+    if (res.success) {
+      dispatch({
+        type: SET_COUNTRIES,
+        payload: res.data.countries,
+      });
+    } else {
+      showError(res, dispatch);
+    }
+
+    return res;
+  } catch (error) {
+    errorHandler("getCountries", error);
+  }
 };
 
-export const getRegions = (countryId) => (dispatch, getState) => {
-  // This is here for loading the field in the form.
-  dispatch({ type: SET_REGIONS, payload: [] });
+export const getRegions = (countryId) => async (dispatch, getState) => {
+  try {
+    // This is here for loading the field in the form.
+    dispatch({ type: SET_REGIONS, payload: [] });
+    const res = await Api.post("/regions", { country_id: countryId });
 
-  return Api.post("/regions", { country_id: countryId })
-    .then((response) => {
-      // 404 message.
-      response.message && response.message === "No regions found"
-        ? dispatch({ type: SET_REGIONS, payload: "Not Found" })
-        : dispatch({ type: SET_REGIONS, payload: response.data.regions });
-    })
-    .catch((error) => errorHandler("getRegions", error));
+    if (res.success) {
+      dispatch({ type: SET_REGIONS, payload: res.data.regions });
+    } else {
+      res.message && res.message === "No regions found"
+        ? dispatch({ type: SET_REGIONS, payload: "Not Found" }) // 404 message.
+        : showError(res, dispatch);
+    }
+
+    return res;
+  } catch (error) {
+    errorHandler("getRegions", error);
+  }
 };
 
-export const getCities = (regionId) => (dispatch, getState) => {
-  dispatch({ type: SET_CITIES, payload: [] });
+export const getCities = (regionId) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: SET_CITIES, payload: [] });
+    const res = await Api.post("/cities", { region_id: regionId });
 
-  return Api.post("/cities", { region_id: regionId })
-    .then((response) => {
-      dispatch({ type: SET_CITIES, payload: response.data.cities });
-    })
-    .catch((error) => errorHandler("getCities", error));
+    if (res.success) {
+      dispatch({
+        type: SET_CITIES,
+        payload: res.data.cities,
+      });
+    } else {
+      showError(res, dispatch);
+    }
+
+    return res;
+  } catch (error) {
+    errorHandler("getCities", error);
+  }
 };
