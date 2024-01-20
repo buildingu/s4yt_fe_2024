@@ -92,7 +92,7 @@ const Home: React.FC<Props> = ({ addNotification }) => {
                   alt={content.alt}
                   txt={content.txt}
                   to={content.to}
-                  // disabled={content.disabled}
+                  disabled={content.disabled}
                 />
               ))}
             </div>
