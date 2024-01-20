@@ -23,7 +23,7 @@ import checkValidity from "@utils/forms/checkValidity";
 import checkValidEmail from "@utils/forms/checkValidEmail";
 import checkMatchingPasswords from "@utils/forms/checkMatchingPasswords";
 
-import Spinner from "@components/loaders/spinner/Spinner";
+import Spinner from "@components/loaders/spinner";
 
 import s from "./styles.module.css";
 
