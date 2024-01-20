@@ -205,6 +205,12 @@
   justify-content: space-between;
   align-items: center;
 }
+.paginationPages {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .prevButton {
   background: url("../../static/arrow.png") no-repeat center center/contain;
   position: absolute;

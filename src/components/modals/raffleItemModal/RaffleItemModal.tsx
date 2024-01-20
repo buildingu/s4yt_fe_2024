@@ -12,7 +12,6 @@ interface Props {
     availability: number;
     description: string;
   };
-  setShow: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const RaffleItemModal: React.FC<Props> = ({ products }) => {
