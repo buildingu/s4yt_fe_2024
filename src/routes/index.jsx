@@ -18,6 +18,7 @@ import Businesses from "@views/businesses";
 import Details from "@views/businesses/Details";
 
 import Error404 from "@views/errors/Error404";
+import Error409 from "@views/errors/Error409";
 import Error500 from "@views/errors/Error500";
 
 export const routes = [
@@ -42,12 +43,12 @@ export const routes = [
   { path: "/businesses/:details", view: Details, restricted: 1 },
   // { path: "/results", view: SomeComponent, restricted: 1 },
 
-  { path: "/error-500", view: Error500, restricted: 0 },
+  { path: "/error-409", view: Error409, restricted: 1 },
   { path: "/error-404", view: Error404, restricted: 0 },
+  { path: "/error-500", view: Error500, restricted: 0 },
 ];
 
 const RoutesProvider = () => {
-
   return (
     <Routes>
       {routes.map((route) => (
