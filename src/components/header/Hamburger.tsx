@@ -52,7 +52,16 @@ const Hamburger: React.FC<Props> = ({ logoutPlayer }) => {
                 <NavLink to="/" className={s.mainMap} />
                 {/* <button aria-label="Support" className={s.questions} /> */}
                 <SupportModal student={student} />
-                <button aria-label="Chat" className={s.chat} />
+                <button
+                  aria-label="Chat"
+                  aria-disabled="true"
+                  className={s.chat}
+                  onClick={() =>
+                    alert(
+                      "This is a feature that will be implemented in the future - ❤ dev team."
+                    )
+                  }
+                />
                 <button
                   aria-label="Logout"
                   className={s.logout}

@@ -93,7 +93,7 @@
   color: var(--pbrown);
 }
 
-.container .timer span {
+.container .timer time {
   font-size: 60px;
   margin-inline: 0.5rem;
 }

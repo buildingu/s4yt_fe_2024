@@ -74,7 +74,11 @@ const Notification: React.FC<Props> = ({
   );
 };
 
-const mapStateToProps = ({ notifications }: Props) => ({ notifications });
+const mapStateToProps = ({
+  notifications,
+}: {
+  notifications: NotificationValues[];
+}) => ({ notifications });
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   updateNotification: (notification: NotificationValues) =>
     dispatch(updateNotification(notification)),
