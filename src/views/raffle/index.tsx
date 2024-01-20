@@ -192,9 +192,6 @@ const Raffle: React.FC<Props> = ({
   storeEntries,
   isNotPlayer
 }) => {
-  const [slideIndex, setSlideIndex] = useState(0),
-    [isOpened, setIsOpened] = useState(false);
-
   // Track product entries all have a default value of 0 at their respective index
   const [totaleDublunes, setTotalDublunes] = useState(
     storeCoins ? storeCoins : 0
@@ -210,7 +207,6 @@ const Raffle: React.FC<Props> = ({
 
   // Pagination hook
   const maxItems = 8;
-  const startIndex = slideIndex * maxItems;
 
   const {
     currentPage,
@@ -292,7 +288,6 @@ const Raffle: React.FC<Props> = ({
                 <div className={s.imgBox}>
                   <img src={item.img} alt={item.name} />
                   <RaffleItemModal
-                    setShow={setIsOpened}
                     products={item}
                   />
                   <img
