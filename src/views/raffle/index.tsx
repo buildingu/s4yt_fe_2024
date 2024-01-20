@@ -299,10 +299,12 @@ const Raffle: React.FC<Props> = ({
                 <h4 className={s.name}>{item.name}</h4>
                 <div className={s.controls}>
                   <button
-                    disabled={storeEntries[i + startIndex]?.entries === 0}
+                    disabled={
+                      storeEntries[i + startIndex]?.entries === 0 ||
+                      isNotPlayer()
+                    }
                     onClick={() => handleProductEntries(i, -1)}
                     aria-label="Subtract"
-                    disabled={isNotPlayer()}
                   >
                     -
                   </button>
@@ -311,10 +313,9 @@ const Raffle: React.FC<Props> = ({
                       storeEntries[i + startIndex].entries}
                   </h4>
                   <button
-                    disabled={totaleDublunes === 0}
+                    disabled={(totaleDublunes === 0) || isNotPlayer()}
                     onClick={() => handleProductEntries(i, +1)}
                     aria-label="Add"
-                    disabled={isNotPlayer()}
                   >
                     +
                   </button>
