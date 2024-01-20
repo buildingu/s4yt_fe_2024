@@ -16,7 +16,7 @@
   font-family: "Corbel", Arial;
   font-weight: 700;
   color: var(--black);
-  word-break: break-all;
+  word-wrap: break-word;
   opacity: 0;
 }
 .container .notification.error {
