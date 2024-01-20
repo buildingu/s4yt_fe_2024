@@ -1,17 +1,21 @@
-import UserCredentials from "@typings/UserCredentials";
+import { UserReduxState } from "@reducers/user";
 
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
+
+import { logoutPlayer } from "@actions/user";
 
 import CurrentDoblons from "../currentDoblons";
 import Hamburger from "./Hamburger";
 
 import s from "./styles.module.css";
+import { Dispatch } from "redux";
 
 interface Props {
   title?: string;
   style?: React.CSSProperties;
   userToken?: string;
+  logoutPlayer: () => void;
 }
 
 // FIXME: The styles and this code need to cleaned up.
@@ -19,6 +23,7 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
   title,
   style,
   userToken,
+  logoutPlayer,
   ...options
 }) => {
   const addFullHeader =
@@ -85,7 +90,10 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
                   <nav>
                     <NavLink to="/" className={s.mainMap} />
                     <NavLink to="/businesses" className={s.busMap} />
-                    <button aria-label="Logout" />
+                    <button
+                      aria-label="Logout"
+                      onClick={() => logoutPlayer()}
+                    />
                   </nav>
                 </>
               ) : (
@@ -94,7 +102,7 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
                 </h1>
               )}
               {userToken ? (
-                <Hamburger />
+                <Hamburger logoutPlayer={logoutPlayer} />
               ) : (
                 <a
                   aria-label="building-U Website"
@@ -113,12 +121,11 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
   );
 };
 
-const mapStateToProps = ({
-  user,
-}: {
-  user: { credentials?: UserCredentials; token?: string };
-}) => ({
+const mapStateToProps = ({ user }: { user: UserReduxState }) => ({
   userToken: user.token,
 });
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+  logoutPlayer: () => dispatch(logoutPlayer()),
+});
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
