@@ -1,4 +1,4 @@
-import UserCredentials from "@typings/UserCredentials";
+import { UserReduxState } from "@reducers/user";
 import NotificationValues from "@typings/NotificationValues";
 
 import { useRef, useState } from "react";
@@ -194,11 +194,7 @@ const PasswordForm: React.FC<Props> = ({
   );
 };
 
-const mapStateToProps = ({
-  user,
-}: {
-  user: { credentials?: UserCredentials; token?: string };
-}) => ({
+const mapStateToProps = ({ user }: { user: UserReduxState }) => ({
   userToken: user.token,
 });
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({

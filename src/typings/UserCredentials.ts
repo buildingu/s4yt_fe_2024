@@ -3,6 +3,7 @@ export default interface UserCredentials {
   coins: number;
   country_id: number;
   education_id: number;
+  email: string;
   grade_id: number;
   instagram_handle?: string;
   name: string;
