@@ -1,4 +1,4 @@
-import UserCredentials from "@typings/UserCredentials";
+import { UserReduxState } from "@reducers/user";
 import FormOptionsState from "@typings/redux/FormOptionsState";
 import NotificationValues from "@typings/NotificationValues";
 
@@ -36,7 +36,7 @@ interface Props {
   resetRegions: () => void;
   getCities: (regionId: number) => Promise<void>;
   resetCities: () => void;
-  user: { credentials?: UserCredentials; token?: string };
+  user: UserReduxState;
   registerPlayer: (
     userData: any,
     formRef: React.RefObject<HTMLFormElement>,
@@ -601,7 +601,7 @@ const mapStateToProps = ({
   user,
   formOptions,
 }: {
-  user: { credentials?: UserCredentials; token?: string };
+  user: UserReduxState;
   formOptions: FormOptionsState;
 }) => ({
   user,
