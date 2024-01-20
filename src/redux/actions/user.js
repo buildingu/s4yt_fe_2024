@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, SET_TOKEN, LOGOUT } from "@actions/index";
+import { SET_TOKEN, SET_NEW_LOGIN_FLAG, LOGOUT } from "@actions/index";
 
 import history from "@utils/History";
 
@@ -79,11 +79,11 @@ export const sendVerifyEmail =
     }
   };
 
-// export const setCurrentUser = (userData) => (dispatch, getState) => {
-//   dispatch({ type: SET_CURRENT_USER, payload: userData });
-// };
 // export const setToken = (token) => (dispatch, getState) => {
 //   dispatch({ type: SET_TOKEN, payload: token });
+// };
+// export const setCurrentUser = (userData) => (dispatch, getState) => {
+//   dispatch({ type: SET_CURRENT_USER, payload: userData });
 // };
 export const loginPlayer =
   (userData, setForm) => async (dispatch, getState) => {
@@ -105,11 +105,6 @@ export const loginPlayer =
             })
           );
 
-        // FIXME: I can't move to home because of the gate checks already logged in now.
-        // I changed the 2 condition to check both token and credentials and made it wait a second to add the user credentials
-        // because if it doesn't wait a second it will show /already-logged-in because this happens quick, but this
-        // is not a good solution because other users might not take 1 second to move to home so it can set the credentials.
-        // TODO: We can maybe fix by adding some kind of condition like newLogin and in the gate there will be a useEffect on this condition to add this data?
         dispatch({ type: SET_TOKEN, payload: data.token });
         if (
           user.is_backup &&
@@ -134,22 +129,13 @@ export const loginPlayer =
               })
             );
 
-          dispatch(updateConfiguration({ restrictedAccess: true }));
+          dispatch(updateConfiguration({ restrictedAccess: true })); // Only allowed to profile.
           history.push("/profile");
         } else {
           history.push("/");
         }
-        setTimeout(() => {
-          dispatch({ type: SET_CURRENT_USER, payload: user });
-          res.data.countdown
-            ? dispatch(
-                updateConfiguration({
-                  countdown: res.data.countdown,
-                  gameStart: true,
-                })
-              )
-            : dispatch(updateConfiguration({ restrictedAccess: true })); // Only allowed to profile.
-        }, 1000);
+
+        dispatch({ type: SET_NEW_LOGIN_FLAG, payload: data });
 
         // console.log("res.data", res.data);
         dispatch(
@@ -179,6 +165,7 @@ export const loginPlayer =
   };
 export const logoutPlayer = () => (dispatch, getState) => {
   dispatch({ type: LOGOUT });
+  alert("User session timed out.");
 };
 // export const isPlayer = () => (dispatch, getState) => {
 //   return getState().user.credentials?.roles.includes("player");

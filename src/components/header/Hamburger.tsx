@@ -3,9 +3,12 @@ import { NavLink } from "react-router-dom";
 import SupportModal from "../modals/supportModal/SupportModal";
 import s from "./styles.module.css";
 
-const Hamburger: React.FC = () => {
-  const [menu, toggleMenu] = useState(false),
-    [showSupportModal, setShowSupportModal] = useState(false);
+interface Props {
+  logoutPlayer: () => void;
+}
+
+const Hamburger: React.FC<Props> = ({ logoutPlayer }) => {
+  const [menu, toggleMenu] = useState(false);
 
   const student = { name: "Admin", email: "admin@mail.com" };
 
@@ -31,7 +34,6 @@ const Hamburger: React.FC = () => {
       {menu && (
         <>
           <div id="menu" className={s.menu}>
-            {/* TODO: Need image for secLogo. */}
             <div>
               <div className={s.secLogo} />{" "}
               <button
@@ -49,13 +51,13 @@ const Hamburger: React.FC = () => {
               <div>
                 <NavLink to="/" className={s.mainMap} />
                 {/* <button aria-label="Support" className={s.questions} /> */}
-                <SupportModal
-                  show={showSupportModal}
-                  setShow={setShowSupportModal}
-                  student={student}
-                />
+                <SupportModal student={student} />
                 <button aria-label="Chat" className={s.chat} />
-                <button aria-label="Logout" className={s.logout} />
+                <button
+                  aria-label="Logout"
+                  className={s.logout}
+                  onClick={() => logoutPlayer()}
+                />
               </div>
               <ul aria-label="Links">
                 <li>

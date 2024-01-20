@@ -2,6 +2,7 @@ import UserCredentials from "@typings/UserCredentials";
 import NotificationValues from "@typings/NotificationValues";
 
 import { useRef, useState } from "react";
+import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
 import updateField from "@utils/forms/updateField";
@@ -200,7 +201,7 @@ const mapStateToProps = ({
 }) => ({
   userToken: user.token,
 });
-const mapDispatchToProps = (dispatch: Function) => ({
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   resetPassword: (userData: FromData) =>
     dispatch(resetPassword(userData) as unknown) as Promise<any>,
   updatePassword: (userData: FromData) =>
