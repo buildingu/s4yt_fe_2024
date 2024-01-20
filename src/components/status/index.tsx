@@ -1,33 +1,40 @@
-import s from "./styles.module.css";
+import { GameConfigReduxState } from "@reducers/gameConfig";
+
+import { connect } from "react-redux";
+
 import CurrentDoblons from "../currentDoblons";
 import SupportModal from "../modals/supportModal/SupportModal";
-import { useState } from "react";
+
+import s from "./styles.module.css";
 
 interface Props {
   style?: React.CSSProperties;
+  countdown?: string;
 }
 
 const Status: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
   style,
+  countdown,
   ...options
 }) => {
-
-  const [isOpened, setIsOpened] = useState<boolean>(false)
   // test example if needed
-  const currentStudent = {name: "Admin", email: "admin@mail.com"}
+  const currentStudent = { name: "Admin", email: "admin@mail.com" };
 
   return (
     <footer className={s.container} style={style} {...options}>
       <div>
         <CurrentDoblons type="footer" />
-        {/* TODO: Need to figure out where Chat and Support goes to. */}
-        <button aria-label="Chat" className={s.chat} />
-        {/* <button aria-label="Support" className={s.questions} /> */}
-        {/* support modal */}
-        <SupportModal
-          setShow={setIsOpened}
-          student={currentStudent}
+        <button
+          aria-label="Chat"
+          aria-disabled="true"
+          className={s.chat}
+          onClick={() =>
+            alert(
+              "This is a feature that will be implemented in the future - ❤ dev team."
+            )
+          }
         />
+        <SupportModal student={currentStudent} />
         <a
           aria-label="building-U Website"
           href="https://building-u.com/"
@@ -36,12 +43,26 @@ const Status: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
           className={s.checkout}
         />
       </div>
-      {/* TODO: Get the time of how long the game is remaining from back-end? */}
       <p className={s.timer}>
-        You still have <span aria-label="Time Remaining">48:00:00</span> left
+        You still have
+        <time
+          aria-label="Time Remaining"
+          title="Time Remaining of the Game"
+          id="counter"
+          dateTime={countdown}
+        >
+          48:00:00
+        </time>
+        left
       </p>
     </footer>
   );
 };
 
-export default Status;
+const mapStateToProps = ({
+  gameConfig,
+}: {
+  gameConfig: GameConfigReduxState;
+}) => ({ countdown: gameConfig.countdown });
+
+export default connect(mapStateToProps, null)(Status);
