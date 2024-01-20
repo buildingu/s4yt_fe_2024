@@ -1,3 +1,4 @@
+import { UserReduxState } from "@reducers/user";
 import UserCredentials from "@typings/UserCredentials";
 
 import { connect } from "react-redux";
@@ -53,11 +54,7 @@ const Profile: React.FC<Props> = ({ user }) => {
   );
 };
 
-const mapStateToProps = ({
-  user,
-}: {
-  user: { credentials?: UserCredentials; token?: string };
-}) => ({
+const mapStateToProps = ({ user }: { user: UserReduxState }) => ({
   user: user.credentials,
 });
 

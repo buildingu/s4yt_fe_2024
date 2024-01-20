@@ -1,7 +1,8 @@
-import UserCredentials from "@typings/UserCredentials";
+import { UserReduxState } from "@reducers/user";
 import NotificationValues from "@typings/NotificationValues";
 
 import { useRef, useState } from "react";
+import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
 import updateField from "@utils/forms/updateField";
@@ -193,14 +194,10 @@ const PasswordForm: React.FC<Props> = ({
   );
 };
 
-const mapStateToProps = ({
-  user,
-}: {
-  user: { credentials?: UserCredentials; token?: string };
-}) => ({
+const mapStateToProps = ({ user }: { user: UserReduxState }) => ({
   userToken: user.token,
 });
-const mapDispatchToProps = (dispatch: Function) => ({
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   resetPassword: (userData: FromData) =>
     dispatch(resetPassword(userData) as unknown) as Promise<any>,
   updatePassword: (userData: FromData) =>

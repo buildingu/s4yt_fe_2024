@@ -11,8 +11,9 @@ export const UPDATE_NOTIFICATION = "notification.UPDATE_NOTIFICATION";
 export const REMOVE_NOTIFICATION = "notification.REMOVE_NOTIFICATION";
 
 // user
-export const SET_CURRENT_USER = "user.SET_CURRENT_USER";
 export const SET_TOKEN = "user.SET_TOKEN";
+export const SET_NEW_LOGIN_FLAG = "user.SET_NEW_LOGIN_FLAG";
+export const SET_CURRENT_USER = "user.SET_CURRENT_USER";
 export const LOGOUT = "user.LOGOUT";
 
 // configuration
