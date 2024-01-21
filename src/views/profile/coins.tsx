@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 import { getCoinsGainedHistory } from "@actions/coinTracker";
 
-import Spinner from "@components/loaders/spinner/Spinner";
+import Spinner from "@components/loaders/spinner";
 
 import s from "./styles.module.css";
 import coins from "@static/coins_variant1.png";

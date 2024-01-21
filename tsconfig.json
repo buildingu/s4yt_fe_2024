@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    // FIXME: We need to fix the broken types.
     "target": "es7",
     "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",

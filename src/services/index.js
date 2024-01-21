@@ -30,4 +30,5 @@ const sendRequest = async (method, url, params, body) => {
 export const Api = {
   get: (url, params) => sendRequest("GET", url, params),
   post: (url, body) => sendRequest("POST", url, null, body),
+  patch: (url, body) => sendRequest("PATCH", url, null, body),
 };

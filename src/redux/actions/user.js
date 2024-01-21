@@ -85,6 +85,7 @@ export const sendVerifyEmail =
 // export const setCurrentUser = (userData) => (dispatch, getState) => {
 //   dispatch({ type: SET_CURRENT_USER, payload: userData });
 // };
+// TODO: I don't know how I will determine if it's review_start.
 export const loginPlayer =
   (userData, setForm) => async (dispatch, getState) => {
     try {
@@ -147,6 +148,10 @@ export const loginPlayer =
           })
         );
       } else {
+        // Does not have validated email message.
+        if (res.message.includes("validated"))
+          history.push("/register/verify-email");
+
         dispatch(
           addNotification({
             error: true,
@@ -226,12 +231,12 @@ export const sendResetPasswordEmail =
     }
   };
 export const resetPassword = (userData) => (dispatch, getState) => {
-  return Api.post("/password", userData).catch((error) =>
+  return Api.patch("/password", userData).catch((error) =>
     errorHandler("resetPassword", error)
   );
 };
 export const updatePassword = (userData) => (dispatch, getState) => {
-  return Api.post("/player/password", userData).catch((error) =>
+  return Api.patch("/player/password", userData).catch((error) =>
     errorHandler("updatePassword", error)
   );
 };
