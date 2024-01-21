@@ -63,8 +63,8 @@ const Gate: React.FC<Props> = ({
       clearNewLoginFlag();
     }
 
-    // console.log("gameConfig", gameConfig);
-
+    console.log("GATE gameConfig", gameConfig);
+    console.log("GATE USER", user)
     // console.log("user.token", user.token);
     // console.log("user.newLogin", user.newLogin);
     // console.log("user.credentials", user.credentials);
