@@ -87,12 +87,11 @@ const Home: React.FC<Props> = ({ addNotification }) => {
             <div className={s.viewed}>
               {treasureMapNavContent.map((content) => (
                 <MapNavigation
-                  key={content.alt}
+                  key={content.txt}
                   img={content.img}
-                  alt={content.alt}
                   txt={content.txt}
                   to={content.to}
-                  disabled={content.disabled}
+                  disableOn={content.disableOn}
                 />
               ))}
             </div>

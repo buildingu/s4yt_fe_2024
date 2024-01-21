@@ -1,29 +1,56 @@
-import history from "@utils/History";
+import { GameConfigReduxState } from "@reducers/gameConfig";
+
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
 import s from "./styles.module.css";
 
 interface Props {
-  img: string;
-  alt: string;
+  img: { src: any; alt: string };
   txt: string;
   to: string;
-  disabled?: boolean;
+  disableOn?: string[];
+  gameConfig: GameConfigReduxState;
 }
 
-const MapNavigation: React.FC<Props> = ({ img, alt, txt, to, disabled }) => {
+const MapNavigation: React.FC<Props> = ({
+  img,
+  txt,
+  to,
+  disableOn,
+  gameConfig,
+}) => {
+  const disabled =
+    !to ||
+    disableOn?.includes(
+      gameConfig.gameStart
+        ? "gameStart"
+        : gameConfig.reviewStart
+        ? "reviewStart"
+        : gameConfig.winnersAnnounced
+        ? "winnersAnnounced"
+        : ""
+    );
+
   return (
-    <a
-      href={to}
+    <Link
+      to={to}
       className={s.card}
-      onClick={(e) => {
-        e.preventDefault();
-        if (to && !disabled) history.push(to);
-      }}
-      {...((!to || disabled) && { "aria-disabled": true })}
+      {...(disabled && {
+        "aria-disabled": true,
+        onClick: (e) => e.preventDefault(),
+      })}
     >
-      <img src={img} alt={alt} />
+      <img src={img.src} alt={img.alt} />
       <h4>{txt}</h4>
-    </a>
+    </Link>
   );
 };
 
-export default MapNavigation;
+const mapStateToProps = ({
+  gameConfig,
+}: {
+  gameConfig: GameConfigReduxState;
+}) => ({ gameConfig });
+
+export default connect(mapStateToProps, null)(MapNavigation);

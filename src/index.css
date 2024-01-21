@@ -84,7 +84,7 @@ input:not(input[type="radio"]),
 select {
   padding: 0 6px;
   border: 1px solid #d5d5d5;
-  min-height: 36px;
+  height: 36px;
   border-radius: 6px;
   box-shadow: 6px 4px 4px rgba(8, 7, 7, 0.2);
   outline: none;
