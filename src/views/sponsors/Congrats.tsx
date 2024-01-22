@@ -57,7 +57,7 @@ const Congrats: React.FC<Props> = ({
 
       <div data-score={finalScore}>
         <p>
-          Doblons have been added <br />
+          Dubl-u-nes have been added <br />
           to your account
         </p>
       </div>

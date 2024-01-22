@@ -110,7 +110,7 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail }) => {
 
           <div role="presentation">
             <p id="explanation">
-              Enter your email address to resend the variation email. If your
+              Enter your email address to resend the verification email. If your
               account exists, the email will be resent.
             </p>
             <button

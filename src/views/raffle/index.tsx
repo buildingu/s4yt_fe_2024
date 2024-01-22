@@ -7,6 +7,8 @@ import {
 } from "@root/redux/actions/coinTracker";
 import { isNotPlayer } from "@root/redux/actions/user";
 import usePagination from "@root/hooks/usePagination";
+import { CoinTrackerState } from "@root/redux/reducers/coinTracker";
+import { Product } from "@root/redux/reducers/coinTracker";
 
 import Layout from "@components/layout";
 import Header from "@components/header";
@@ -20,12 +22,15 @@ import silverCoin from "@static/coin-smallsilver.png";
 import s from "./styles.module.css";
 
 interface Props {
-  spendCoins: any;
-  retrieveCoins: any;
-  initializeCoins: any;
-  storeCoins: any;
-  storeEntries: any;
-  isNotPlayer: (useNotification: boolean, message?: string | null) => void;
+  spendCoins: (item: Product, numEntries: number) => void;
+  retrieveCoins: (item: Product, numEntries: number) => void;
+  initializeCoins: (data: {
+    items: Product[];
+    remainingCoins: number;
+  }) => void;
+  storeCoins: number;
+  storeEntries: Product[] | undefined;
+  isNotPlayer: (useNotification: boolean, message?: string | null) => boolean | undefined;
 }
 
 const products = [
@@ -35,7 +40,7 @@ const products = [
     id: 1,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
-    availability: 3,
+    availability: 6,
     description: "here we will write a description of this item",
   },
   {
@@ -53,16 +58,16 @@ const products = [
     id: 3,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
-    availability: 3,
+    availability: 1,
     description: "here we will write a description of this item",
   },
   {
     img: require("@static/error-logo.png"),
-    name: "T-Shirt",
+    name: "Lanyard",
     id: 4,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
-    availability: 3,
+    availability: 2,
     description: "here we will write a description of this item",
   },
   {
@@ -71,12 +76,12 @@ const products = [
     id: 5,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
-    availability: 3,
+    availability: 6,
     description: "here we will write a description of this item",
   },
   {
     img: require("@static/error-logo.png"),
-    name: "T-Shirt",
+    name: "Bag & Key Chain",
     id: 6,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
@@ -85,101 +90,29 @@ const products = [
   },
   {
     img: require("@static/error-logo.png"),
-    name: "T-Shirt",
+    name: "Lanyard",
     id: 7,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
-    availability: 3,
+    availability: 1,
     description: "here we will write a description of this item",
   },
   {
     img: require("@static/error-logo.png"),
-    name: "T-Shirt",
+    name: "Lanyard",
     id: 8,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
-    availability: 3,
+    availability: 2,
     description: "here we will write a description of this item",
   },
   {
     img: require("@static/error-logo.png"),
-    name: "T-Shirt",
+    name: "Lanyard",
     id: 9,
     sponsor: "sponsor name",
     sponsorLogo: require("@static/error-logo.png"),
-    availability: 3,
-    description: "here we will write a description of this item",
-  },
-  {
-    img: require("@static/error-logo.png"),
-    name: "T-Shirt",
-    id: 10,
-    sponsor: "sponsor name",
-    sponsorLogo: require("@static/error-logo.png"),
-    availability: 3,
-    description: "here we will write a description of this item",
-  },
-  {
-    img: require("@static/error-logo.png"),
-    name: "T-Shirt",
-    id: 11,
-    sponsor: "sponsor name",
-    sponsorLogo: require("@static/error-logo.png"),
-    availability: 3,
-    description: "here we will write a description of this item",
-  },
-  {
-    img: require("@static/error-logo.png"),
-    name: "T-Shirt",
-    id: 12,
-    sponsor: "sponsor name",
-    sponsorLogo: require("@static/error-logo.png"),
-    availability: 3,
-    description: "here we will write a description of this item",
-  },
-  {
-    img: require("@static/error-logo.png"),
-    name: "T-Shirt",
-    id: 13,
-    sponsor: "sponsor name",
-    sponsorLogo: require("@static/error-logo.png"),
-    availability: 3,
-    description: "here we will write a description of this item",
-  },
-  {
-    img: require("@static/error-logo.png"),
-    name: "T-Shirt",
-    id: 14,
-    sponsor: "sponsor name",
-    sponsorLogo: require("@static/error-logo.png"),
-    availability: 3,
-    description: "here we will write a description of this item",
-  },
-  {
-    img: require("@static/error-logo.png"),
-    name: "T-Shirt",
-    id: 15,
-    sponsor: "sponsor name",
-    sponsorLogo: require("@static/error-logo.png"),
-    availability: 3,
-    description: "here we will write a description of this item",
-  },
-  {
-    img: require("@static/error-logo.png"),
-    name: "T-Shirt",
-    id: 16,
-    sponsor: "sponsor name",
-    sponsorLogo: require("@static/error-logo.png"),
-    availability: 3,
-    description: "here we will write a description of this item",
-  },
-  {
-    img: require("@static/error-logo.png"),
-    name: "T-Shirt",
-    id: 17,
-    sponsor: "sponsor name",
-    sponsorLogo: require("@static/error-logo.png"),
-    availability: 3,
+    availability: 2,
     description: "here we will write a description of this item",
   },
 ];
@@ -193,14 +126,13 @@ const Raffle: React.FC<Props> = ({
   isNotPlayer
 }) => {
   // Track product entries all have a default value of 0 at their respective index
-  const [totaleDublunes, setTotalDublunes] = useState(
+  const [totalDublunes, setTotalDublunes] = useState<number>(
     storeCoins ? storeCoins : 0
   );
-
   // For testing persistenece between pages
   useEffect(() => {
-    if (storeEntries.length === 0) {
-      initializeCoins({ products, remainingCoins: storeCoins });
+    if (storeEntries?.length === 0) {
+      initializeCoins({ items: products, remainingCoins: storeCoins });
       setTotalDublunes(storeCoins);
     }
   }, []);
@@ -219,17 +151,21 @@ const Raffle: React.FC<Props> = ({
   
   // Adds/Subtracts entries that correspond with product index and adjust total Dubulunes
   const handleProductEntries = (itemId: number, value: number) => {
-    console.log(itemId)
     const item = products.find((product) => product.id === itemId);
-    if (value > 0) {
-      spendCoins(item, value);
-    } else {
-      retrieveCoins(item, Math.abs(value));
+    if (item){
+      if (value > 0) {
+        spendCoins(item, value);
+      } else {
+        retrieveCoins(item, Math.abs(value));
+      }
     }
     setTotalDublunes((prev) => prev - value);
   };
   useEffect(() => {
-    isNotPlayer(true, "Only players can assign Dubl-U-Nes to raffle items");
+    const result = isNotPlayer(false);
+    if (result){
+      isNotPlayer(true, "Only players can assign Dubl-U-Nes to raffle items");
+    }
   }, []);
 
   return (
@@ -265,7 +201,7 @@ const Raffle: React.FC<Props> = ({
             </h2>
             {/* TODO: The total is their current doblons. */}
             <h4 className={s.dublunesCount}>
-              Your Total Dubl-u-nes: <span>{totaleDublunes}</span>
+              Your Total Dubl-u-nes: <span>{totalDublunes}</span>
             </h4>
             <div className={s.legend}>
               <h4>Legend</h4>
@@ -303,18 +239,18 @@ const Raffle: React.FC<Props> = ({
                 <h4 className={s.name}>{item.name}</h4>
                 <div className={s.controls}>
                   <button
-                    disabled={storeEntries.find((entry) => entry.id === item.id)?.entries === 0 || isNotPlayer()}
+                    disabled={storeEntries?.find((entry) => entry.id === item.id)?.entries === 0 || isNotPlayer(false)}
                     onClick={() => handleProductEntries(item.id, -1)}
                     aria-label="Subtract"
                   >
                     -
                   </button>
                   <h4>
-                    {storeEntries.length !== 0 &&
-                      storeEntries.find((entry) => entry.id === item.id)?.entries}
+                    {storeEntries?.length !== 0 &&
+                      storeEntries?.find((entry) => entry.id === item.id)?.entries}
                   </h4>
                   <button
-                    disabled={totaleDublunes === 0 || isNotPlayer()}
+                    disabled={totalDublunes === 0 || isNotPlayer(false)}
                     onClick={() => handleProductEntries(item.id, +1)}
                     aria-label="Add"
                   >
@@ -332,7 +268,7 @@ const Raffle: React.FC<Props> = ({
                 onClick={() => prevPage()}
               />
             )}
-            {totalPages > 0 && (
+            {totalPages > 1 && (
               <span
                 className={s.paginationPages}
               >{`Page ${currentPage} of ${totalPages}`}</span>
@@ -352,16 +288,20 @@ const Raffle: React.FC<Props> = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  storeCoins: state.coinTracker.remainingCoins,
-  storeEntries: state.coinTracker.items,
+const mapStateToProps = ({
+  coinTracker,
+}: {
+  coinTracker: CoinTrackerState;
+}) => ({
+  storeCoins: coinTracker.remainingCoins,
+  storeEntries: coinTracker.items,
 });
 const mapDispatchToProps = (dispatch: Function) => ({
-  spendCoins: (item, numEntries) => dispatch(spendCoins(item, numEntries)),
-  retrieveCoins: (item, numEntries) =>
+  spendCoins: (item: Product, numEntries: number) => dispatch(spendCoins(item, numEntries)),
+  retrieveCoins: (item: Product, numEntries: number) =>
     dispatch(retrieveCoins(item, numEntries)),
-  initializeCoins: ({ products, remainingCoins }) =>
-    dispatch(initializeCoins({ products, remainingCoins })),
+  initializeCoins: ({ items, remainingCoins }: CoinTrackerState) =>
+    dispatch(initializeCoins({ items, remainingCoins })),
      isNotPlayer: (useNotification: boolean, message?: string | null) =>
     dispatch(isNotPlayer(useNotification, message)),
 });

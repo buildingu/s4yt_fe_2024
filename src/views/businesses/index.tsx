@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Dispatch } from "redux";
 import { getBusinesses } from "@root/redux/actions/getBusinesses";
+import { BusinessReduxState } from "@root/redux/reducers/getBusinesses";
 
 import history from "@utils/History";
 import Layout from "@components/layout";
@@ -11,14 +11,20 @@ import Status from "@components/status";
 import s from "./styles.module.css";
 import { useEffect, useState } from "react";
 
+interface Props {
+  partners: BusinessReduxState[];
+  getBusinesses: () => Promise<any>;
+}
 
-const Businesses: React.FC = (props) => {
-  const [businesses, setBusinesses] = useState<any>([]);
+const Businesses: React.FC<Props> = ({ partners, getBusinesses }) => {
+  const [businesses, setBusinesses] = useState<BusinessReduxState[]>([]);
   useEffect(() => {
-    props.getBusinesses().then((data) => {
-      setBusinesses(data);
-    });
-  }, [props.getBusinesses]);
+    if (partners && partners.length > 0) {
+      setBusinesses(partners);
+    } else {
+      getBusinesses();
+    }
+  }, [partners, getBusinesses]);
 
   return (
     <Layout
@@ -27,7 +33,7 @@ const Businesses: React.FC = (props) => {
       <Header title="See Business" />
       <Content>
         <div className={s.businesses}>
-          {businesses?.map((business, i) => (
+          {businesses?.map((business: BusinessReduxState, i: number) => (
             <Link
               aria-label={`${business.name}'s details`}
               key={i}
@@ -50,8 +56,14 @@ const Businesses: React.FC = (props) => {
   );
 };
 
-const mapStateToProps = ({}) => ({});
-const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+const mapStateToProps = ({
+  getBusinesses,
+}: {
+  getBusinesses: BusinessReduxState[];
+}) => ({
+  partners: getBusinesses,
+});
+const mapDispatchToProps = (dispatch: Function) => ({
   getBusinesses: () => dispatch(getBusinesses()),
 });
 

@@ -37,7 +37,7 @@ const CurrentDoblons = ({
         You got <br />
         <span>{isNotPlayer() ? 0 : coins}</span>
         <br />
-        Doblons
+        Dubl-u-nes
       </p>
     </div>
   );
