@@ -18,7 +18,6 @@ interface Props {
   user?: UserCredentials;
 }
 const Profile: React.FC<Props> = ({ user }) => {
-  console.log(user)
   return (
     <Layout style={{ maxWidth: "1200px" }}>
       <Header title="Profile" />
