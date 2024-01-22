@@ -1,8 +1,19 @@
 import { SPEND_COINS, RETRIEVE_COINS, INITIALIZE_COINS } from "@actions/index";
 
+export interface Product {
+  img: string;
+  name: string;
+  id: number;
+  sponsor: string;
+  sponsorLogo: string;
+  availability: number;
+  description: string;
+  entries?: number;
+}
+
 export interface CoinTrackerState {
   remainingCoins: number;
-  items: any[];
+  items: Product[];
 }
 
 const initialState: CoinTrackerState = {

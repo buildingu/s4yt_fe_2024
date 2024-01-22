@@ -17,7 +17,7 @@ interface Props {
 }
 
 const Businesses: React.FC<Props> = ({ partners, getBusinesses }) => {
-  const [businesses, setBusinesses] = useState<any>([]);
+  const [businesses, setBusinesses] = useState<BusinessReduxState[]>([]);
   useEffect(() => {
     if (partners && partners.length > 0) {
       setBusinesses(partners);
