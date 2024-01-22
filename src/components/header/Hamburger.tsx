@@ -10,8 +10,6 @@ interface Props {
 const Hamburger: React.FC<Props> = ({ logoutPlayer }) => {
   const [menu, toggleMenu] = useState(false);
 
-  const student = { name: "Admin", email: "admin@mail.com" };
-
   useEffect(() => {
     menu
       ? (document.body.style.overflowY = "hidden")
@@ -50,8 +48,7 @@ const Hamburger: React.FC<Props> = ({ logoutPlayer }) => {
             <nav>
               <div>
                 <NavLink to="/" className={s.mainMap} />
-                {/* <button aria-label="Support" className={s.questions} /> */}
-                <SupportModal student={student} />
+                <SupportModal />
                 <button
                   aria-label="Chat"
                   aria-disabled="true"

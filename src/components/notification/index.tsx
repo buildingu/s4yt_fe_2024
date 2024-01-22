@@ -53,9 +53,10 @@ const Notification: React.FC<Props> = ({
   return (
     <div role="presentation" className={s.container}>
       {notifications.length > 0 &&
-        notifications.map((notification) => (
+        notifications.map((notification, i) => (
           <div
             role="dialog"
+            aria-label={`Notification ${i + 1}`}
             key={notification.id}
             className={`${s.notification} ${
               notification.error ? s.error : ""
