@@ -17,6 +17,7 @@ import s from "./styles.module.css";
 interface Props {
   user?: UserCredentials;
 }
+
 const Profile: React.FC<Props> = ({ user }) => {
   return (
     <Layout style={{ maxWidth: "1200px" }}>
