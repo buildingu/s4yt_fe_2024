@@ -21,7 +21,7 @@
   color: var(--pbrown);
 }
 .form > div:first-child div time span {
-  color: #f47216;
+  color: var(--orange);
 }
 
 .form div input {
