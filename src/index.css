@@ -31,13 +31,17 @@ html {
   --pbrown: #895734;
   --pbrown-fade: #e8c18e;
   --sBeige: #ffe2b0;
+  --sBeige-fade: rgba(255, 226, 176, 0.5);
+  --cBorder: rgba(213, 213, 213, 0.5);
   --black: #2c2c2c;
   --white: #f5f5f5;
   --form-red: #ff3939;
+  --orange: #e68b4b;
 
   /* TODO: Use everywhere. */
   --heading-42: 42px;
   --heading-38: 38px;
+  --heading-28: 28px;
 }
 
 body {
@@ -187,6 +191,50 @@ button.updateBtn:active {
   background-color: #444;
 }
 
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  transform: blur(2px);
+  z-index: 10;
+}
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  padding: 1.5rem;
+  border: 1px solid var(--cBorder);
+  background-color: var(--sBeige);
+  animation: slideUpModal 0.9s ease-in-out forwards;
+  z-index: 10;
+}
+.modal .exitBtn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #363636;
+  border-radius: 4px;
+  background-color: #eee;
+  color: var(--black);
+  transition: 0.2s ease background-color;
+}
+.modal .exitBtn::before {
+  content: "\2715";
+  font-size: 1rem;
+  color: var(--black);
+}
+.modal .exitBtn:hover {
+  background-color: #ff5b5b;
+}
+.modal .exitBtn:active {
+  top: -6px;
+}
+
 /* Use for clickable elements that doesn't have hover and active states. */
 .fade {
   position: relative;
@@ -200,20 +248,14 @@ button.updateBtn:active {
   top: 3px;
 }
 
-/* Global modal animation/style */
-.modal {
-  position: fixed;
-  transform: translateX(-50%);
-  top: 100%;
-  animation: slideUp 0.2s ease-out forwards;
-}
-@keyframes slideUp {
-  from {
-    top: 100%;
-    transform: translateY(0);
+@keyframes slideUpModal {
+  100% {
+    transform: translate(-50%, -50%);
   }
-  to {
-    top: 50%;
-    transform: translateY(-50%);
+  80% {
+    transform: translate(-50%, -55%);
+  }
+  0% {
+    transform: translate(-50%, 120%);
   }
 }

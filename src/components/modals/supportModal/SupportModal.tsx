@@ -1,18 +1,19 @@
+import { UserReduxState } from "@reducers/user";
+import UserCredentials from "@typings/UserCredentials";
+
 import { useState } from "react";
+import { connect } from "react-redux";
 
 import s from "./styles.module.css";
 import ModalTemplate from "../ModelTemplate";
 
 interface Props {
-  student: {
-    name: string;
-    email: string;
-  };
-  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  user?: UserCredentials;
 }
 
-const SupportModal: React.FC<Props> = ({ student }) => {
+const SupportModal: React.FC<Props> = ({ user }) => {
   const [show, setShow] = useState(false);
+
   return (
     <>
       <button
@@ -25,13 +26,17 @@ const SupportModal: React.FC<Props> = ({ student }) => {
           <h2>Support</h2>
           <div className={s.supportContainer}>
             <p>
-              Hey, {student.name}! If you need help with anything feel free to
-              contact us via our email: <span>s4yt@mail.com</span>
+              Hey, {user ? user.name : "NA"}! If you need help with anything
+              feel free to contact us via our email:
+              <a onClick={() => window.open("mailto:connect@building-U.com")}>
+                connect@building-U.com
+              </a>
             </p>
             <p>
               Additionally, if you are a part of our discord community, we would
               be happy to provide help in our 'SUPPORT' channel:
-              <span>discord link</span>
+              {/* TODO: Need to get the link. */}
+              <a>Discord Link</a>
             </p>
           </div>
         </div>
@@ -40,4 +45,8 @@ const SupportModal: React.FC<Props> = ({ student }) => {
   );
 };
 
-export default SupportModal;
+const mapStateToProps = ({ user }: { user: UserReduxState }) => ({
+  user: user.credentials,
+});
+
+export default connect(mapStateToProps, null)(SupportModal);

@@ -16,22 +16,25 @@ export const spendCoins = (item, numEntries) => (dispatch) => {
 };
 
 export const getCoinsGainedHistory =
-  (setCoinsGainedHistory) => (dispatch, getState) => {
-    console.log("setCoinsGainedHistory", setCoinsGainedHistory);
-    return Api.get("/player/coins")
-      .then((res) => {
-        if (res.success) {
-          setCoinsGainedHistory(res.data.coin_details);
-        } else {
-          // Is there res.errors for this?
+  (setCoinsGainedHistory) => async (dispatch, getState) => {
+    try {
+      const res = await Api.get("/player/coins");
+
+      if (res.success) {
+        setCoinsGainedHistory(res.data.coin_details);
+      } else {
+        // Is there res.errors for this?
+        dispatch(
           addNotification({
             error: true,
             content:
               "Unexpected server error occurred getting your Dubl-u-nes gained history.",
             close: false,
             duration: 0,
-          });
-        }
-      })
-      .catch((error) => errorHandler("getCoinsGainedHistory", error));
+          })
+        );
+      }
+    } catch (error) {
+      errorHandler("getCoinsGainedHistory", error);
+    }
   };

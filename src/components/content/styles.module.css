@@ -1,9 +1,8 @@
 .container {
   position: relative;
   padding: 30px;
-  /* TODO: Make varibles */
-  background-color: rgba(255, 226, 176, 0.5);
-  border: 1px solid rgba(213, 213, 213, 0.5);
+  background-color: var(--sBeige-fade);
+  border: 1px solid var(--cBorder);
 }
 
 @media screen and (max-width: 560px) {

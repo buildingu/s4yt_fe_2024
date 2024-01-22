@@ -11,7 +11,7 @@
 }
 
 .text h4 {
-  font-size: 28px;
+  font-size: var(--heading-28);
   color: var(--pbrown);
   font-weight: 400;
   margin-bottom: 0.5rem;
@@ -73,6 +73,6 @@
   }
 
   .text h4 {
-    font-size: 28px;
+    font-size: var(--heading-28);
   }
 }

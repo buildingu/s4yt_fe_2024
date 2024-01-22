@@ -15,20 +15,30 @@
   align-items: center;
 }
 .modalContainer h2 {
-  margin-bottom: 30px;
+  font-size: var(--heading-38);
+  margin-bottom: 32px;
 }
 .modalContainer p {
-  font-size: 24px;
+  font-size: 21px;
   max-width: 80%;
 }
-.modalContainer span {
+.modalContainer p a:first-child {
   display: block;
   width: fit-content;
-  font-size: 26px;
-  font-weight: bold;
-  margin: 10px auto 20px auto;
+  margin-inline: auto;
+  font-family: "Corbel", Arial;
+  font-size: 21px;
+  font-weight: 700;
+  text-decoration: underline;
+  opacity: 0.85;
   cursor: pointer;
 }
-.modalContainer span:hover {
+.modalContainer p:first-child a {
+  margin-block: 6px 24px;
+}
+.modalContainer p:last-child a {
+  margin-block: 6px 0;
+}
+.modalContainer p a:hover {
   opacity: 0.5;
 }

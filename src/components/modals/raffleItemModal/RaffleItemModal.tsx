@@ -26,7 +26,12 @@ const RaffleItemModal: React.FC<Props> = ({ products }) => {
         onClick={() => setShow(true)}
         className={s.lensButton}
       />
-      <ModalTemplate show={show} setShow={setShow} label="Raffle Item Details">
+      <ModalTemplate
+        show={show}
+        setShow={setShow}
+        label="Raffle Item Details"
+        noExitBtn
+      >
         <div className={s.modalContainer}>
           <div className={s.modalLeft}>
             {/* temporary button */}
@@ -42,7 +47,11 @@ const RaffleItemModal: React.FC<Props> = ({ products }) => {
               </p>
               <div>
                 <p>sponsored by:</p>
-                <img className={s.sponsorLogo} src={products.sponsorLogo} alt={products.sponsor} />
+                <img
+                  className={s.sponsorLogo}
+                  src={products.sponsorLogo}
+                  alt={products.sponsor}
+                />
               </div>
             </div>
           </div>
