@@ -2,6 +2,8 @@ import { GameConfigReduxState } from "@reducers/gameConfig";
 
 import { connect } from "react-redux";
 
+// import useContinueCountdown from "@hooks/useContinueCountdown";
+
 import CurrentDoblons from "../currentDoblons";
 import SupportModal from "../modals/supportModal/SupportModal";
 
@@ -14,11 +16,11 @@ interface Props {
 
 const Status: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
   style,
-  countdown,
+  // countdown,
   ...options
 }) => {
-  // test example if needed
-  const currentStudent = { name: "Admin", email: "admin@mail.com" };
+  // Continues the countdown from login, etc.
+  // useContinueCountdown();
 
   return (
     // FIXME: {...options} throwing "Invalid value for prop `dispatch` on <footer> tag." error
@@ -35,7 +37,7 @@ const Status: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
             )
           }
         />
-        <SupportModal student={currentStudent} />
+        <SupportModal />
         <a
           aria-label="building-U Website"
           href="https://building-u.com/"
@@ -50,9 +52,9 @@ const Status: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
           aria-label="Time Remaining"
           title="Time Remaining of the Game"
           id="counter"
-          dateTime={countdown}
+          dateTime="00:00:00"
         >
-          48:00:00
+          00:00:00
         </time>
         left
       </p>
