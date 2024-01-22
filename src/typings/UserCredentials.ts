@@ -1,6 +1,5 @@
 export default interface UserCredentials {
   city_id?: number;
-  coins: number;
   country_id: number;
   education_id: number;
   email: string;

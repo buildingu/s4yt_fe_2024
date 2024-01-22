@@ -79,12 +79,6 @@ export const sendVerifyEmail =
     }
   };
 
-// export const setToken = (token) => (dispatch, getState) => {
-//   dispatch({ type: SET_TOKEN, payload: token });
-// };
-// export const setCurrentUser = (userData) => (dispatch, getState) => {
-//   dispatch({ type: SET_CURRENT_USER, payload: userData });
-// };
 // TODO: I don't know how I will determine if it's review_start.
 export const loginPlayer =
   (userData, setForm) => async (dispatch, getState) => {

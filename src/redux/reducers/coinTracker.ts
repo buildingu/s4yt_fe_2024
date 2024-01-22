@@ -1,11 +1,19 @@
 import { SPEND_COINS, RETRIEVE_COINS, INITIALIZE_COINS } from "@actions/index";
 
-const initialState = {
-  remainingCoins: 10,
+export interface CoinTrackerState {
+  remainingCoins: number;
+  items: any[];
+}
+
+const initialState: CoinTrackerState = {
+  remainingCoins: 0,
   items: [],
 };
 
-const coinTracker = (state = initialState, action) => {
+const coinTracker = (
+  state = initialState,
+  action: { type: string; payload: any }
+) => {
   switch (action.type) {
     case SPEND_COINS:
       return {
@@ -31,7 +39,7 @@ const coinTracker = (state = initialState, action) => {
       return {
         ...state,
         ...(action.payload.products && {
-          items: action.payload.products.map((product) => ({
+          items: action.payload.products.map((product: any) => ({
             ...product,
             entries: 0,
           })),
