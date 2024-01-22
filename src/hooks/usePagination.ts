@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-type Props = {
-  maxPerPage: number,
-  data: any[]
+interface Props {
+  maxPerPage: number;
+  data: any[];
 };
 
-type Results = {
+interface Results {
   currentPage: number;
   currentItems: any[];
   totalPages: number;

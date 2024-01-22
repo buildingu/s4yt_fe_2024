@@ -85,15 +85,6 @@ const Gate: React.FC<Props> = ({
 
       delay(1500, () => clearNewLoginFlag());
     }
-<<<<<<< HEAD
-
-    console.log("GATE gameConfig", gameConfig);
-    console.log("GATE USER", user)
-    // console.log("user.token", user.token);
-    // console.log("user.newLogin", user.newLogin);
-    // console.log("user.credentials", user.credentials);
-=======
->>>>>>> d70f7aca0417a64bcc50ba7d69cd6f141eaa54ad
   }, [user.newLogin]);
 
   // useEffect(() => {

@@ -25,4 +25,4 @@ export const RETRIEVE_COINS = "coinTracker.RETRIEVE_COINS";
 export const INITIALIZE_COINS = "coinTracker.INITIALIZE_COINS";
 
 // businesses/event partners
-export const GET_BUSINESSES = "getBusinesses.GET_BUSINESSES"
+export const SET_BUSINESSES = "setBusinesses.SET_BUSINESSES"

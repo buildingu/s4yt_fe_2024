@@ -21,6 +21,7 @@ const Status: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
   const currentStudent = { name: "Admin", email: "admin@mail.com" };
 
   return (
+    // {...options} throwing "Invalid value for prop `dispatch` on <footer> tag." error
     <footer className={s.container} style={style} {...options}>
       <div>
         <CurrentDoblons type="footer" />
