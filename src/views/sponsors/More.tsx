@@ -158,7 +158,7 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
       )}
       <div className={s.title}>
         <h2>The More You Know</h2>
-        <p aria-label="Help">Answer all 10 quests for more doblons</p>
+        <p aria-label="Help">Answer all 10 quests for more Dubl-u-nes</p>
       </div>
       <div className={s.trueFalse}>
         <p aria-label="True">T</p> <p aria-label="False">F</p>
