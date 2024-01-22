@@ -6,7 +6,15 @@ import {
   SET_CITIES,
 } from "@actions/index";
 
-const initialState = {
+export interface FormOptionsState {
+  education: { id: number; name: string }[];
+  grades: { id: number; name: string }[];
+  countries: { id: number; name: string }[];
+  regions: { id: number; name: string }[];
+  cities: { id: number; name: string }[];
+}
+
+const initialState: FormOptionsState = {
   education: [],
   grades: [],
   countries: [],
@@ -14,7 +22,10 @@ const initialState = {
   cities: [],
 };
 
-const formOptions = (state = initialState, action) => {
+const formOptions = (
+  state = initialState,
+  action: { type: string; payload: { id: number; name: string }[] }
+) => {
   switch (action.type) {
     case SET_GRADES:
       return { ...state, grades: action.payload };

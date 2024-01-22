@@ -1,4 +1,4 @@
-import CoinTrackerState from "@typings/redux/CoinTrackerState";
+import { CoinTrackerState } from "@reducers/coinTracker";
 
 import { connect } from "react-redux";
 

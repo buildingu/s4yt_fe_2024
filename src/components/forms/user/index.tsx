@@ -1,5 +1,5 @@
 import { UserReduxState } from "@reducers/user";
-import FormOptionsState from "@typings/redux/FormOptionsState";
+import { FormOptionsState } from "@reducers/formOptions";
 import NotificationValues from "@typings/NotificationValues";
 
 import { useRef, useState, useEffect } from "react";
