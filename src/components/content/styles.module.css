@@ -1,7 +1,6 @@
 .container {
   position: relative;
   padding: 30px;
-  /* TODO: Make varibles */
   background-color: var(--sBeige-fade);
   border: 1px solid var(--cBorder);
 }
