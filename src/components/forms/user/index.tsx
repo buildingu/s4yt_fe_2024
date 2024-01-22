@@ -23,6 +23,7 @@ import checkValidity from "@utils/forms/checkValidity";
 import checkValidEmail from "@utils/forms/checkValidEmail";
 import checkMatchingPasswords from "@utils/forms/checkMatchingPasswords";
 
+import Select from "../controls/Select";
 import Spinner from "@components/loaders/spinner";
 
 import s from "./styles.module.css";
@@ -388,7 +389,7 @@ const UserForm: React.FC<Props> = ({
                 </span>
               )}
             </label>
-            <select
+            <Select
               id="education"
               name="education_id"
               onChange={(e) => updateField<FromData>(e, setCurrentData)}
@@ -407,7 +408,7 @@ const UserForm: React.FC<Props> = ({
                     </option>
                   );
                 })}
-            </select>
+            </Select>
           </div>
 
           <div role="presentation">
@@ -419,7 +420,7 @@ const UserForm: React.FC<Props> = ({
                 </span>
               )}
             </label>
-            <select
+            <Select
               id="grade"
               name="grade_id"
               onChange={(e) => updateField<FromData>(e, setCurrentData)}
@@ -438,7 +439,7 @@ const UserForm: React.FC<Props> = ({
                     </option>
                   );
                 })}
-            </select>
+            </Select>
           </div>
         </span>
 
@@ -469,7 +470,7 @@ const UserForm: React.FC<Props> = ({
                 </span>
               )}
             </label>
-            <select
+            <Select
               id="country"
               name="country_id"
               onChange={(e) => updateField<FromData>(e, setCurrentData)}
@@ -486,11 +487,11 @@ const UserForm: React.FC<Props> = ({
                     </option>
                   );
                 })}
-            </select>
+            </Select>
           </div>
           <div role="presentation">
             <label htmlFor="region">Region</label>
-            <select
+            <Select
               aria-live="polite"
               aria-busy={formOptions.regions.length === 0}
               id="region"
@@ -514,7 +515,7 @@ const UserForm: React.FC<Props> = ({
                     </option>
                   );
                 })}
-            </select>
+            </Select>
             {formOptions.regions.length === 0 && currentData.country_id && (
               <Spinner />
             )}
@@ -534,7 +535,7 @@ const UserForm: React.FC<Props> = ({
             })}
         >
           <label htmlFor="city">City</label>
-          <select
+          <Select
             aria-live="polite"
             aria-busy={formOptions.cities.length === 0}
             id="city"
@@ -557,7 +558,7 @@ const UserForm: React.FC<Props> = ({
                   </option>
                 );
               })}
-          </select>
+          </Select>
           {formOptions.cities.length === 0 &&
             currentData.region_id &&
             currentData.region_id !== user.credentials?.region_id && (
