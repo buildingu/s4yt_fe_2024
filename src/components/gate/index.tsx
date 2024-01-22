@@ -8,13 +8,16 @@ import { useLocation } from "react-router-dom";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
-import history from "@utils/History";
-
 // import { store } from "@root/store";
 
 import { SET_CURRENT_USER, SET_NEW_LOGIN_FLAG } from "@actions/index";
 import { initializeCoins } from "@actions/coinTracker";
 import { updateConfiguration } from "@actions/gameConfig";
+
+import history from "@utils/History";
+import delay from "@utils/delay";
+
+import OverlayLoader from "../loaders/overlayLoader";
 
 interface Props extends React.PropsWithChildren<{}> {
   user: UserReduxState;
@@ -64,7 +67,7 @@ const Gate: React.FC<Props> = ({
   // On login it adds their credentials, ... when redirected. This is because of the restricted redirects.
   const storeUserData = (newLogin: LoginDTO) => {
     const { coins, ...userData } = newLogin.user;
-    console.log("coins", coins);
+
     setUserCredentials(userData);
     initializeCoins({ remainingCoins: coins });
 
@@ -77,12 +80,10 @@ const Gate: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    // TODO: Could add a loading overlay when this happening?
     if (user.newLogin) {
-      console.log("newLogin", user.newLogin);
       storeUserData(user.newLogin);
 
-      clearNewLoginFlag();
+      delay(1500, () => clearNewLoginFlag());
     }
   }, [user.newLogin]);
 
@@ -90,7 +91,7 @@ const Gate: React.FC<Props> = ({
   //   console.log("store.getState()", store.getState());
   // }, [store.getState()]);
 
-  return children;
+  return user.newLogin ? <OverlayLoader text="Loading user data" /> : children;
 };
 
 const mapStateToProps = ({
