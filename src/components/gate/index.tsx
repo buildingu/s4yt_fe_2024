@@ -67,7 +67,7 @@ const Gate: React.FC<Props> = ({
   // On login it adds their credentials, ... when redirected. This is because of the restricted redirects.
   const storeUserData = (newLogin: LoginDTO) => {
     const { coins, ...userData } = newLogin.user;
-
+    console.log(newLogin)
     setUserCredentials(userData);
     initializeCoins({ remainingCoins: coins });
 

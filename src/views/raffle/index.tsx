@@ -136,7 +136,7 @@ const Raffle: React.FC<Props> = ({
       setTotalDublunes(storeCoins);
     }
   }, []);
-
+  
   // Pagination hook
   const maxItems = 8;
 
@@ -147,12 +147,12 @@ const Raffle: React.FC<Props> = ({
     goToPage,
     nextPage,
     prevPage,
-  } = usePagination({data: products, maxPerPage: maxItems});
-  
+  } = usePagination({ data: products, maxPerPage: maxItems });
+
   // Adds/Subtracts entries that correspond with product index and adjust total Dubulunes
   const handleProductEntries = (itemId: number, value: number) => {
     const item = products.find((product) => product.id === itemId);
-    if (item){
+    if (item) {
       if (value > 0) {
         spendCoins(item, value);
       } else {
@@ -163,7 +163,7 @@ const Raffle: React.FC<Props> = ({
   };
   useEffect(() => {
     const result = isNotPlayer(false);
-    if (result){
+    if (result) {
       isNotPlayer(true, "Only players can assign Dubl-U-Nes to raffle items");
     }
   }, []);
@@ -223,13 +223,12 @@ const Raffle: React.FC<Props> = ({
               <div aria-label={item.name} key={i}>
                 <div className={s.imgBox}>
                   <img src={item.img} alt={item.name} />
-                  <RaffleItemModal
-                    products={item}
-                  />
+                  <RaffleItemModal products={item} />
                   <img
                     className={s.entryNotification}
                     src={
-                      storeEntries.find((entry) => entry.id === item.id)?.entries > 0
+                      storeEntries.find((entry) => entry.id === item.id)
+                        ?.entries > 0
                         ? goldCoin
                         : silverCoin
                     }
@@ -239,7 +238,10 @@ const Raffle: React.FC<Props> = ({
                 <h4 className={s.name}>{item.name}</h4>
                 <div className={s.controls}>
                   <button
-                    disabled={storeEntries?.find((entry) => entry.id === item.id)?.entries === 0 || isNotPlayer(false)}
+                    disabled={
+                      storeEntries?.find((entry) => entry.id === item.id)
+                        ?.entries === 0 || isNotPlayer(false)
+                    }
                     onClick={() => handleProductEntries(item.id, -1)}
                     aria-label="Subtract"
                   >
@@ -247,7 +249,8 @@ const Raffle: React.FC<Props> = ({
                   </button>
                   <h4>
                     {storeEntries?.length !== 0 &&
-                      storeEntries?.find((entry) => entry.id === item.id)?.entries}
+                      storeEntries?.find((entry) => entry.id === item.id)
+                        ?.entries}
                   </h4>
                   <button
                     disabled={totalDublunes === 0 || isNotPlayer(false)}
