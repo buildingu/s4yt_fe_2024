@@ -12,7 +12,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { isNotPlayer } from "@root/redux/actions/user";
 
 import Video from "./slides/Video";
-import Question from "./slides/Question";
+import Question from "./slides/Question2024Temp";
 import MeetUp from "./slides/MeetUp";
 
 import s from "./styles.module.css";

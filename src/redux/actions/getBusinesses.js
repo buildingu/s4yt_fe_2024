@@ -1,5 +1,5 @@
 import { SET_BUSINESSES } from "@actions/index";
-import { staticBusiness } from "@root/views/businesses/staticEventPartners";
+import { staticBusiness } from "@root/constants/temporaryDb/businesses";
 import { addNotification } from "./notifications";
 import errorHandler from "@services/errorHandler";
 
