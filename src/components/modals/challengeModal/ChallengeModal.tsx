@@ -8,7 +8,6 @@ interface Props {
     content: string;
     title: string;
   };
-  // setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ChallengeModal: React.FC<Props> = ({ data }) => {
@@ -17,15 +16,20 @@ const ChallengeModal: React.FC<Props> = ({ data }) => {
   return (
     <>
       <label
-        aria-label="View Raffle Item"
+        aria-label="View Business Challenge"
         aria-expanded={show}
         aria-controls="modal"
+        htmlFor="answer"
         onClick={() => setShow(true)}
         className={s.challengeLabel}
       >
         {data?.title}
       </label>
-      <ModalTemplate show={show} setShow={setShow} label="Raffle Item Details">
+      <ModalTemplate
+        show={show}
+        setShow={setShow}
+        label="Your Business Challenge"
+      >
         <div className={s.challengeContainer}>
           <button className={s.backBtn} onClick={() => setShow(false)} />
           <p>{data?.content}</p>
