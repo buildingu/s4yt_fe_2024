@@ -1,7 +1,11 @@
 import { useRef, useState } from "react";
 import { connect } from "react-redux";
-import s from "./styles.module.css";
+
+import { quizQuestions } from "@constants/temporaryDb/sponsors";
+
 import Congrats from "./Congrats";
+
+import s from "./styles.module.css";
 
 interface Props {
   setClicked: React.Dispatch<
@@ -12,69 +16,6 @@ interface Props {
   >;
   scoreRef: React.MutableRefObject<string>;
 }
-
-const questions = [
-  {
-    question:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pulvinar felis sit amet libero pulvinar, id hendrerit quam efficitur.",
-    answer: false,
-    explanation: "Lorem ipsum dolor sit amet.",
-  },
-  {
-    question:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pulvinar felis sit amet libero pulvinar, id hendrerit quam efficitur.",
-    answer: true,
-    explanation: "Lorem ipsum dolor sit amet.",
-  },
-  {
-    question:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pulvinar felis sit amet libero pulvinar, id hendrerit quam efficitur.",
-    answer: true,
-    explanation: "Lorem ipsum dolor sit amet.",
-  },
-  {
-    question:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pulvinar felis sit amet libero pulvinar, id hendrerit quam efficitur.",
-    answer: true,
-    explanation: "Lorem ipsum dolor sit amet.",
-  },
-  {
-    question:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pulvinar felis sit amet libero pulvinar, id hendrerit quam efficitur.",
-    answer: true,
-    explanation: "Lorem ipsum dolor sit amet.",
-  },
-  {
-    question:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pulvinar felis sit amet libero pulvinar, id hendrerit quam efficitur.",
-    answer: false,
-    explanation: "Lorem ipsum dolor sit amet.",
-  },
-  {
-    question:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pulvinar felis sit amet libero pulvinar, id hendrerit quam efficitur.",
-    answer: false,
-    explanation: "Lorem ipsum dolor sit amet.",
-  },
-  {
-    question:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pulvinar felis sit amet libero pulvinar, id hendrerit quam efficitur.",
-    answer: false,
-    explanation: "Lorem ipsum dolor sit amet.",
-  },
-  {
-    question:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pulvinar felis sit amet libero pulvinar, id hendrerit quam efficitur.",
-    answer: false,
-    explanation: "Lorem ipsum dolor sit amet.",
-  },
-  {
-    question:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pulvinar felis sit amet libero pulvinar, id hendrerit quam efficitur.",
-    answer: false,
-    explanation: "Lorem ipsum dolor sit amet.",
-  },
-];
 
 const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
   const [quizComplete, setQuizComplete] = useState({
@@ -95,7 +36,7 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
 
       // prettier-ignore
       if (form) {
-        for (let i = 0; i < questions.length; i++) {
+        for (let i = 0; i < quizQuestions.length; i++) {
           const selectedTrue = form.elements[`true${i}` as any] as HTMLInputElement;
           const selectedFalse = form.elements[`false${i}` as any] as HTMLInputElement;
   
@@ -104,8 +45,8 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
             alert("Please complete the quiz.");
             break;
           } else if (
-            (questions[i].answer === true && selectedTrue.checked) ||
-            (questions[i].answer === false && selectedFalse.checked)
+            (quizQuestions[i].answer === true && selectedTrue.checked) ||
+            (quizQuestions[i].answer === false && selectedFalse.checked)
           ) {
             finalScore++;
             correctCount++
@@ -165,7 +106,7 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
       </div>
       <form className={s.quiz} ref={formRef} onSubmit={(e) => handleSubmit(e)}>
         <ol>
-          {questions.map((question, i) => {
+          {quizQuestions.map((question, i) => {
             const index = i;
             // similar to the onRadioChange, this compares
             const selectedTrue = formRef.current?.elements[
@@ -182,6 +123,11 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
             const isCorrect =
               (isTrueSelected && question.answer) ||
               (isFalseSelected && !question.answer);
+
+            const linkQuestion =
+              question.explanation.includes("https://") &&
+              question.explanation.split(": ");
+            console.log("linkQuestion", linkQuestion);
             return (
               <li key={i}>
                 <div className={s.inputs}>
@@ -203,7 +149,30 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
                   />
                 </div>
                 <p>{question.question}</p>
-                {quizComplete && isIncorrect ? (
+                {quizComplete && (
+                  <p
+                    className={s[`explanation${isCorrect ? "Right" : "Wrong"}`]}
+                  >
+                    {isCorrect ? "That's right! " : "Not quite, "}
+                    {linkQuestion ? (
+                      <>
+                        {linkQuestion[0]}
+                        {": "}
+                        <a
+                          className="fade move"
+                          href={linkQuestion[1]}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {linkQuestion[1]}
+                        </a>
+                      </>
+                    ) : (
+                      question.explanation
+                    )}
+                  </p>
+                )}
+                {/* {quizComplete && isIncorrect ? (
                   <p className={s.explanationWrong}>
                     Not quite, {question.explanation}
                   </p>
@@ -214,7 +183,7 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
                       That's right! {question.explanation}
                     </p>
                   )
-                )}
+                )} */}
               </li>
             );
           })}

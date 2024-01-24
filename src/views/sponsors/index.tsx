@@ -1,17 +1,22 @@
 import { useState, useRef, useEffect } from "react";
 import { connect } from "react-redux";
-import { isNotPlayer } from "@root/redux/actions/user";
+
+import { isNotPlayer } from "@actions/user";
+
+import sponsors from "@constants/temporaryDb/sponsors";
 import history from "@utils/History";
+
 import Layout from "@components/layout";
 import Header from "@components/header";
 import Content from "@components/content";
 import Status from "@components/status";
 import More from "./More";
 // import Congrats from "./Congrats";
+
 import s from "./styles.module.css";
 
 interface PlayerProps {
-  isNotPlayer: (useNotification: boolean, message?: string | null) => void;
+  isNotPlayer: (useNotification?: boolean, message?: string) => boolean;
 }
 
 const Sponsors: React.FC<PlayerProps> = ({ isNotPlayer }) => {
@@ -20,14 +25,14 @@ const Sponsors: React.FC<PlayerProps> = ({ isNotPlayer }) => {
 
   const [isSmallerThen500, setIsSmallerThen500] = useState(false);
 
-  const sponsors = [];
-  for (let i = 0; i < 6; i++) {
-    sponsors.push(
-      <span key={i}>
-        <p>Logo</p>
-      </span>
-    );
-  }
+  // const sponsors = [];
+  // for (let i = 0; i < 6; i++) {
+  //   sponsors.push(
+  //     <span key={i}>
+  //       <p>Logo</p>
+  //     </span>
+  //   );
+  // }
 
   useEffect(() => {
     isNotPlayer(true, "Only players can win more Dubl-U-Nes");
@@ -62,8 +67,41 @@ const Sponsors: React.FC<PlayerProps> = ({ isNotPlayer }) => {
           // clicked.quizDone ? (
           //   <Congrats finalScore={scoreRef.current} setClicked={setClicked} />
           // )
+          // <>
+          //   <div className={s.sponsors}>{sponsors}</div>
+          //   <div className={s.options}>
+          //     <a
+          //       aria-label="Previous Page"
+          //       className={`${s.backBtn} fade move`}
+          //       onClick={() => history.push(-1)}
+          //     />
+          //     <button
+          //       className={`${s.moreBtn} fade`}
+          //       onClick={() => setClicked({ ...clicked, more: true })}
+          //       disabled={isNotPlayer()}
+          //     />
+          //   </div>
+          // </>
           <>
-            <div className={s.sponsors}>{sponsors}</div>
+            <div className={s.sponsors}>
+              {sponsors.map((sponsor) => (
+                <div className={s.spotlight}>
+                  <a
+                    className="fade move"
+                    href={sponsor.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={sponsor.img.src as string}
+                      alt={sponsor.img.alt}
+                    />
+                  </a>
+                  <small>{sponsor.name}</small>
+                </div>
+              ))}
+            </div>
+
             <div className={s.options}>
               <a
                 aria-label="Previous Page"
@@ -88,10 +126,9 @@ const Sponsors: React.FC<PlayerProps> = ({ isNotPlayer }) => {
   );
 };
 
-const mapStateToProps = () => ({});
 const mapDispatchToProps = (dispatch: Function) => ({
-  isNotPlayer: (useNotification: boolean, message?: string | null) =>
+  isNotPlayer: (useNotification?: boolean, message?: string) =>
     dispatch(isNotPlayer(useNotification, message)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Sponsors);
+export default connect(null, mapDispatchToProps)(Sponsors);
