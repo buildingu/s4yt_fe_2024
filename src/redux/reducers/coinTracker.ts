@@ -47,10 +47,11 @@ const coinTracker = (
         remainingCoins: state.remainingCoins + action.payload.numEntries,
       };
     case INITIALIZE_COINS:
+      console.log(action.payload)
       return {
         ...state,
-        ...(action.payload.products && {
-          items: action.payload.products.map((product: any) => ({
+        ...(action.payload.items && {
+          items: action.payload.items.map((product: any) => ({
             ...product,
             entries: 0,
           })),
