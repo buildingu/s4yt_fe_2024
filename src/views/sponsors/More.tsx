@@ -177,7 +177,7 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
                     Not quite, {question.explanation}
                   </p>
                 ) : (
-                  quizComplete &&
+                  quizComplete.complete &&
                   isCorrect && (
                     <p className={s.explanationRight}>
                       That's right! {question.explanation}
