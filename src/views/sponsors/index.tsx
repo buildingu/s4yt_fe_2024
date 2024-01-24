@@ -30,7 +30,6 @@ const Sponsors: React.FC<PlayerProps> = ({ isNotPlayer }) => {
   }
 
   useEffect(() => {
-    setClicked({})
     isNotPlayer(true, "Only players can win more Dubl-U-Nes");
     const handleResize = () => {
       if (window.innerWidth <= 500) {
