@@ -9,20 +9,18 @@ interface Props {
     title: string;
     content: string;
     submissionCount: number;
-  }
+  };
 }
 
 const Questions: React.FC<Props> = ({ playerCheck, data }) => {
   const [isOpened, setIsOpened] = useState(false);
   const [answer, setAnswer] = useState<string>("");
-  console.log(data)
+
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setAnswer(e.target.value);
   };
 
-  const handleAttach = () => {
-    
-  };
+  const handleAttach = () => {};
   const handleSave = () => {
     console.log("saved");
   };
@@ -36,6 +34,7 @@ const Questions: React.FC<Props> = ({ playerCheck, data }) => {
           View challenge here: <ChallengeModal data={data} />
         </label>
         <textarea
+          id="answer"
           value={answer}
           onChange={handleInputChange}
           placeholder="Type your answer here"
@@ -47,7 +46,7 @@ const Questions: React.FC<Props> = ({ playerCheck, data }) => {
             className={s.questionAttach}
             onClick={handleAttach}
           >
-          <i className="fas fa-paperclip"></i>
+            <i className="fas fa-paperclip"></i>
           </button>
           <button
             disabled={playerCheck}

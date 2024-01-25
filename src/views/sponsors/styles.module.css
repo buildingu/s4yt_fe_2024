@@ -35,7 +35,7 @@
 }
 .sponsors .spotlight small {
   position: absolute;
-  bottom: -1rem;
+  bottom: -26px;
   left: 50%;
   transform: translateX(-50%);
   font-family: "Corbel", Arial;
@@ -46,32 +46,14 @@
   transition: 0.2s ease-in-out opacity;
 }
 .sponsors .spotlight:nth-child(2) small {
-  bottom: 0;
+  bottom: -12px;
 }
 .sponsors .spotlight a:hover {
-  transform: translateY(-20px);
+  transform: translateY(-8px);
 }
 .sponsors .spotlight a:hover + small {
   opacity: 1;
 }
-
-/* .sponsors span {
-  display: flex;
-  width: 120px;
-  height: 120px;
-  background-color: var(--pbrown);
-  border-radius: 50%;
-}
-
-.sponsors span p {
-  text-transform: uppercase;
-  color: #f8e6c6;
-  font-family: Arial;
-  font-size: 32px;
-  font-weight: 700;
-  transform: rotate(-21deg);
-  margin: auto;
-} */
 
 .options {
   display: flex;
@@ -166,7 +148,7 @@ button.backBtn {
 }
 
 .more .quiz ol {
-  font-family: "Corbel";
+  font-family: "Corbel", Arial;
   font-size: 21px;
   color: var(--pbrown);
   padding-left: 92px;
