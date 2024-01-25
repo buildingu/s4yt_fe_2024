@@ -27,16 +27,10 @@ const Home: React.FC<Props> = ({ addNotification }) => {
     );
 
   return (
-    <Layout addCoins={!viewed ? "coins1" : "coins2"}>
+    <Layout>
       <Header title={!viewed ? "Instructions" : "Treasure Map"} />
-      {/* <img
-        src={!viewed ? coins1 : coins2}
-        alt="Doblons"
-        className={
-          !viewed ? `${s.coins} ${s.notViewed}` : `${s.coins} ${s.viewed}`
-        }
-      /> */}
       <Content
+        addCoins={!viewed ? "coins1" : "coins2"}
         {...(!viewed && {
           style: { padding: "30px 30px 14px 30px" },
         })}

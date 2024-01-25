@@ -61,9 +61,8 @@ const Login: React.FC<Props> = ({ loginPlayer }) => {
 
   return (
     <Layout style={{ maxWidth: "600px" }}>
-      {/* <img src={coins1} alt="Doblons" className={s.coins} /> */}
       <Header title="Login" />
-      <Content>
+      <Content addCoins="coins1">
         <form
           id="loginForm"
           onSubmit={(e) => submit(e)}
@@ -111,7 +110,7 @@ const Login: React.FC<Props> = ({ loginPlayer }) => {
             <button className="okBtn" disabled={form.processing}></button>
           </div>
         </form>
-        <Link to="/register" />
+        <Link className="fade" to="/register" />
       </Content>
     </Layout>
   );

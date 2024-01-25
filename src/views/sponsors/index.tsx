@@ -50,13 +50,11 @@ const Sponsors: React.FC<PlayerProps> = ({ isNotPlayer }) => {
   }, []);
 
   return (
-    <Layout
-    // TODO:
-    // addCoins={clicked.more || clicked.quizDone ? "coins2" : "coins3"}
-    // addFeather={clicked.more || clicked.quizDone ? "right1" : "left"}
-    >
+    <Layout>
       <Header title="Sponsors" />
       <Content
+        addCoins={clicked.more || clicked.quizDone ? "coins2" : "coins3"}
+        addFeather={clicked.more || clicked.quizDone ? undefined : "left"}
         {...(!clicked.more &&
           !clicked.quizDone && { style: { paddingBottom: "4px" } })}
       >

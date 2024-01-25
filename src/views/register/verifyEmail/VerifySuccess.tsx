@@ -6,9 +6,9 @@ import Content from "@components/content";
 
 const VerifySuccess: React.FC = () => {
   return (
-    <Layout addCoins="coins1" style={{ maxWidth: "600px" }}>
+    <Layout style={{ maxWidth: "600px" }}>
       <Header title="Email Verified" />
-      <Content style={{ paddingTop: "3rem" }}>
+      <Content addCoins="coins1" style={{ paddingTop: "3rem" }}>
         <h2
           style={{
             fontFamily: "'BebasNeue', Arial",
