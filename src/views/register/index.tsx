@@ -14,9 +14,9 @@ const Register: React.FC = () => {
         : null;
 
   return (
-    <Layout addCoins="coins1" style={{ maxWidth: "800px" }}>
+    <Layout style={{ maxWidth: "800px" }}>
       <Header title="Register" />
-      <Content style={{ paddingTop: "3rem" }}>
+      <Content addCoins="coins1" style={{ paddingTop: "3rem" }}>
         <UserForm referral={referral} />
       </Content>
     </Layout>

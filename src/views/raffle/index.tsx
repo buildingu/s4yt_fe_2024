@@ -15,7 +15,6 @@ import Header from "@components/header";
 import Content from "@components/content";
 import Status from "@components/status";
 import RaffleItemModal from "@components/modals/raffleItemModal/RaffleItemModal";
-import feather from "@static/feather.png";
 import goldCoin from "@static/coin-smallgolden.png";
 import silverCoin from "@static/coin-smallsilver.png";
 
@@ -24,13 +23,13 @@ import s from "./styles.module.css";
 interface Props {
   spendCoins: (item: Product, numEntries: number) => void;
   retrieveCoins: (item: Product, numEntries: number) => void;
-  initializeCoins: (data: {
-    items: Product[];
-    remainingCoins: number;
-  }) => void;
+  initializeCoins: (data: { items: Product[]; remainingCoins: number }) => void;
   storeCoins: number;
   storeEntries: Product[] | undefined;
-  isNotPlayer: (useNotification: boolean, message?: string | null) => boolean | undefined;
+  isNotPlayer: (
+    useNotification: boolean,
+    message?: string | null
+  ) => boolean | undefined;
 }
 
 const products = [
@@ -123,7 +122,7 @@ const Raffle: React.FC<Props> = ({
   initializeCoins,
   storeCoins,
   storeEntries,
-  isNotPlayer
+  isNotPlayer,
 }) => {
   // Track product entries all have a default value of 0 at their respective index
   const [totalDublunes, setTotalDublunes] = useState<number>(
@@ -136,7 +135,7 @@ const Raffle: React.FC<Props> = ({
       setTotalDublunes(storeCoins);
     }
   }, []);
-  
+
   // Pagination hook
   const maxItems = 8;
 
@@ -174,6 +173,7 @@ const Raffle: React.FC<Props> = ({
     >
       <Header title="Raffle Page" />
       <Content
+        addFeather="right2"
         style={{
           display: "grid",
           placeItems: "center",
@@ -182,18 +182,6 @@ const Raffle: React.FC<Props> = ({
         }}
       >
         <div className={s.container}>
-          {/* visual only */}
-          <img
-            style={{
-              position: "absolute",
-              right: "-220px",
-              height: "500px",
-              transform: "scaleX(-1) rotate(-50deg)",
-            }}
-            src={feather}
-            alt="feather"
-            aria-hidden
-          />
           <div className={s.top}>
             <h2>
               Tokens for
@@ -300,12 +288,13 @@ const mapStateToProps = ({
   storeEntries: coinTracker.items,
 });
 const mapDispatchToProps = (dispatch: Function) => ({
-  spendCoins: (item: Product, numEntries: number) => dispatch(spendCoins(item, numEntries)),
+  spendCoins: (item: Product, numEntries: number) =>
+    dispatch(spendCoins(item, numEntries)),
   retrieveCoins: (item: Product, numEntries: number) =>
     dispatch(retrieveCoins(item, numEntries)),
   initializeCoins: ({ items, remainingCoins }: CoinTrackerState) =>
     dispatch(initializeCoins({ items, remainingCoins })),
-     isNotPlayer: (useNotification: boolean, message?: string | null) =>
+  isNotPlayer: (useNotification: boolean, message?: string | null) =>
     dispatch(isNotPlayer(useNotification, message)),
 });
 

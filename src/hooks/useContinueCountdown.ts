@@ -14,16 +14,20 @@ import { UPDATE_CONFIGURATION, LOGOUT } from "@actions/index";
 
 // TODO: We should get the countdown on page load instead to fix the saved countdown?
 // TODO: Now getting timestamps instead of the countdown.
-const timestamps = {
-  register_start: "2023-01-19 13:00", // Game wouldn't be started when before game start so just restricted to profile (Don't need I think).
-  game_start: "2024-01-22 10:00", // When they're able to interact with the game pages.
-  review_start: "2024-01-24 10:00", // Only player roles will not be able to interact with anything.
-  review_end: "2024-01-25 11:00", // Award and raffle items are chosen.
-  game_end: "2024-02-01 17:00", // Entire app end.
-}; // Should be 48 hours in between game_start and review_start
+// const timestamps = {
+//   register_start: "2023-01-19 13:00", // Game wouldn't be started when before game start so just restricted to profile (Don't need I think).
+//   game_start: "2024-01-22 10:00", // When they're able to interact with the game pages.
+//   review_start: "2024-01-24 10:00", // Only player roles will not be able to interact with anything.
+//   review_end: "2024-01-25 11:00", // Award and raffle items are chosen.
+//   game_end: "2024-02-01 17:00", // Entire app end.
+// }; // Should be 48 hours in between game_start and review_start
 const useContinueCountdown = () => {
   // Countdown on log in or saved countdown.
-  const countdown = useSelector(
+  const timestamps = useSelector(
+      (state: { gameConfig: GameConfigReduxState }) =>
+        state.gameConfig.timestamps
+    ),
+    countdown = useSelector(
       (state: { gameConfig: GameConfigReduxState }) =>
         state.gameConfig.countdown
     ),
@@ -39,6 +43,10 @@ const useContinueCountdown = () => {
 
   useEffect(() => {
     const counter = document.getElementById("counter") as HTMLTimeElement;
+    if (!timestamps || !countdown) {
+      return;
+      //  throw Error("The counter clock is in a error state;\n unexpectedly there was no countdown state to work with.")
+    }
 
     const currentTimestamp = new Date().getTime(),
       gameStartTimestamp = new Date(timestamps.game_start).getTime(),

@@ -67,7 +67,7 @@ const ForgotPassword: React.FC<Props> = ({ sendResetPasswordEmail }) => {
   }, []);
 
   return (
-    <Layout addCoins="coins1">
+    <Layout>
       <Header
         title="Forgot Password"
         style={{
@@ -75,7 +75,10 @@ const ForgotPassword: React.FC<Props> = ({ sendResetPasswordEmail }) => {
           ...(!breakCenter && { marginInline: "auto" }),
         }}
       />
-      <Content style={{ maxWidth: "600px", marginInline: "auto" }}>
+      <Content
+        addCoins="coins1"
+        style={{ maxWidth: "600px", marginInline: "auto" }}
+      >
         <form
           id="forgotPasswordForm"
           onSubmit={(e) => submit(e)}

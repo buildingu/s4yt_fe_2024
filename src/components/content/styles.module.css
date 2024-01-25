@@ -4,9 +4,53 @@
   background-color: var(--sBeige-fade);
   border: 1px solid var(--cBorder);
 }
-
 @media screen and (max-width: 560px) {
   .container {
     padding: 16px;
   }
+}
+
+.coins1,
+.coins2,
+.coins3,
+.feather {
+  position: absolute;
+}
+
+.coins1 {
+  max-width: 250px;
+  right: -284px;
+  bottom: -60px;
+}
+.coins2 {
+  max-width: 230px;
+  bottom: -53px;
+  left: -275px;
+}
+.coins3 {
+  max-width: 230px;
+  right: -280px;
+  bottom: -63px;
+}
+
+.feather {
+  z-index: 1;
+}
+.feather.left {
+  max-width: 305px;
+  bottom: -12px;
+  left: -317px;
+  transform: rotate(190deg) scaleY(-1);
+}
+.feather.right1 {
+  max-width: 245px;
+  right: -250px;
+  bottom: 186px;
+  transform: rotate(255deg) scaleY(-1);
+}
+.feather.right2 {
+  max-width: 295px;
+  right: -221px;
+  bottom: 209px;
+  transform: rotate(230deg) scaleY(-1);
 }

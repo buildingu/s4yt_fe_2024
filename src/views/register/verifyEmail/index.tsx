@@ -67,8 +67,7 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail }) => {
   }, []);
 
   return (
-    // TODO: coins1
-    <Layout addCoins="coins1">
+    <Layout>
       <Header
         title="Verify Email"
         style={{
@@ -76,7 +75,10 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail }) => {
           ...(!breakCenter && { marginInline: "auto" }),
         }}
       />
-      <Content style={{ maxWidth: "600px", marginInline: "auto" }}>
+      <Content
+        addCoins="coins1"
+        style={{ maxWidth: "600px", marginInline: "auto" }}
+      >
         <form
           id="verifyEmailForm"
           onSubmit={(e) => submit(e)}

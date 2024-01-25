@@ -1,4 +1,7 @@
+import { UserReduxState } from "@reducers/user";
+
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 import history from "@utils/History";
 
@@ -13,16 +16,22 @@ interface Props extends React.PropsWithChildren<{}> {
   status: number;
   text: string;
   linkType: "back" | "home";
+  userToken?: string;
 }
 
-const Error: React.FC<Props> = ({ children, status, text, linkType }) => {
+const Error: React.FC<Props> = ({
+  children,
+  status,
+  text,
+  linkType,
+  userToken,
+}) => {
   return (
-    <Layout
-    // addCoins="coins2"
-    // addFeather="right1"
-    >
+    <Layout>
       <Header />
       <Content
+        addCoins="coins2"
+        addFeather="right1"
         style={{
           display: "flex",
           justifyContent: "center",
@@ -42,17 +51,27 @@ const Error: React.FC<Props> = ({ children, status, text, linkType }) => {
           <h4>{text}</h4>
           {linkType === "back" ? (
             <a
-              aria-label="Back to Main Map"
+              aria-label="Back to Previous Page"
               onClick={() => history.push(-1)}
               className="fade move"
             />
           ) : (
-            <Link aria-label="Back to Main Map" to="/" className="fade move" />
+            <Link
+              aria-label="Back to Main Map"
+              to="/"
+              className="fade move"
+              onClick={(e) => {
+                if (!userToken) {
+                  e.preventDefault();
+                  history.push("/login");
+                }
+              }}
+            />
           )}
         </div>
         {linkType === "back" ? (
           <a
-            aria-label="Back to Main Map"
+            aria-label="Back to Previous Page"
             onClick={() => history.push(-1)}
             className={s.responsiveBack}
           />
@@ -61,6 +80,12 @@ const Error: React.FC<Props> = ({ children, status, text, linkType }) => {
             aria-label="Back to Main Map"
             to="/"
             className={s.responsiveBack}
+            onClick={(e) => {
+              if (!userToken) {
+                e.preventDefault();
+                history.push("/login");
+              }
+            }}
           />
         )}
         {/* If any. */}
@@ -70,4 +95,8 @@ const Error: React.FC<Props> = ({ children, status, text, linkType }) => {
   );
 };
 
-export default Error;
+const mapStateToProps = ({ user }: { user: UserReduxState }) => ({
+  userToken: user.token,
+});
+
+export default connect(mapStateToProps, null)(Error);

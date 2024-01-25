@@ -19,26 +19,28 @@ import s from "./styles.module.css";
 import React, { useState, ChangeEvent } from "react";
 
 interface PlayerProps {
-  isNotPlayer: (
-    useNotification: boolean,
-    message?: string | null
-  ) => void;
+  isNotPlayer: (useNotification: boolean, message?: string | null) => void;
 }
 
-const Details: React.FC<PlayerProps> = ({isNotPlayer}) => {
+const Details: React.FC<PlayerProps> = ({ isNotPlayer }) => {
   // passed through Link component
-  const {state} = useLocation()
+  const { state } = useLocation();
   const [selectedOption, setSelectedOption] = useState<string>("Video");
 
   const contentView: { [key: string]: React.ReactNode } = {
-    Video: <Video data={state?.video}/>,
-    Question: <Question data={state?.challenge} playerCheck={isNotPlayer(false)} />,
+    Video: <Video data={state?.video} />,
+    Question: (
+      <Question data={state?.challenge} playerCheck={isNotPlayer(false)} />
+    ),
     MeetUp: <MeetUp data={state?.meetUp} playerCheck={isNotPlayer(false)} />,
   };
   useEffect(() => {
-    isNotPlayer(true, "Only players have access to certain features on this page")
-  }, [])
- 
+    isNotPlayer(
+      true,
+      "Only players have access to certain features on this page"
+    );
+  }, []);
+
   const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectedOption(event.target.value);
   };
@@ -47,6 +49,8 @@ const Details: React.FC<PlayerProps> = ({isNotPlayer}) => {
     <Layout>
       <Header title={"see business"} />
       <Content
+        addCoins="coins2"
+        addFeather="right1"
         // to be changed
         style={{
           display: "flex",
@@ -59,10 +63,7 @@ const Details: React.FC<PlayerProps> = ({isNotPlayer}) => {
       >
         <div className={s.details}>
           <div className={s.detailsHeader}>
-            <img
-              src={state?.logo}
-              alt={state?.name + "'s logo"}
-            />
+            <img src={state?.logo} alt={state?.name + "'s logo"} />
             <div className={s.businessTitle}>
               <h2>{state?.name}</h2>
               <p>{state?.description}</p>
@@ -102,10 +103,7 @@ const Details: React.FC<PlayerProps> = ({isNotPlayer}) => {
                   onChange={handleRadioChange}
                   checked={selectedOption === "MeetUp"}
                 />
-                <label
-                  htmlFor="meetupRadio"
-                  className={s.meetupLabel}
-                ></label>
+                <label htmlFor="meetupRadio" className={s.meetupLabel}></label>
               </div>
               <a
                 href="#"

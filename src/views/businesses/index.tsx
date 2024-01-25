@@ -27,11 +27,9 @@ const Businesses: React.FC<Props> = ({ partners, getBusinesses }) => {
   }, [partners, getBusinesses]);
 
   return (
-    <Layout
-    // addFeather="right1"
-    >
+    <Layout>
       <Header title="See Business" />
-      <Content>
+      <Content addCoins="coins3" addFeather="left">
         <div className={s.businesses}>
           {businesses?.map((business: BusinessReduxState, i: number) => (
             <Link

@@ -32,6 +32,13 @@ interface Props extends React.PropsWithChildren<{}> {
 interface LoginDTO {
   auth: string;
   countdown: string;
+  timestamps: {
+    register_start: string;
+    game_start: string;
+    review_start: string;
+    review_end: string;
+    game_end: string;
+  };
   token: string;
   user: UserCredentials & { coins: number };
 }
@@ -72,6 +79,7 @@ const Gate: React.FC<Props> = ({
 
     newLogin.countdown
       ? updateConfiguration({
+          timestamps: newLogin.timestamps,
           countdown: user.newLogin.countdown,
           gameStart: true,
         })
