@@ -8,7 +8,7 @@
 }
 .required {
   font-size: 18px;
-  color: var(--_error);
+  color: var(--form-red);
 }
 .form .required {
   position: relative;

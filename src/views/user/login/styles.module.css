@@ -1,0 +1,87 @@
+.form {
+  padding: 26px 0 0 34px;
+  margin-bottom: -36px;
+}
+
+.form div:not(:last-child) {
+  max-width: 335px;
+}
+.form div:first-child {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+.form div:nth-child(2) {
+  text-align: left;
+  margin-bottom: 0.5rem;
+}
+.form div:nth-child(3),
+.form div:last-child {
+  text-align: right;
+}
+.form div:last-child {
+  max-width: 445px;
+}
+
+.form div input {
+  width: 100%;
+}
+
+@media screen and (min-width: 513px) {
+  .form div button {
+    position: relative;
+    bottom: 30px;
+  }
+}
+
+.form .forgot {
+  font-size: 18px;
+  color: var(--pbrown);
+  text-decoration: none;
+  text-align: right;
+}
+
+.form + a {
+  display: block;
+  position: absolute;
+  bottom: -3rem;
+  left: -50px;
+  width: 100%;
+  max-width: 241px;
+  height: 155px;
+  background: url("../../../static/btn_donthaveaccount.png") no-repeat center
+    center/contain;
+}
+@media screen and (max-width: 644px) {
+  .form + a {
+    left: -15px;
+  }
+}
+
+@media screen and (max-width: 512px) {
+  .form {
+    margin-bottom: 0;
+  }
+
+  .form div:last-child {
+    max-width: 352px;
+    margin-top: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 436px) {
+  .form {
+    padding: 26px 0 0 0;
+  }
+}
+
+@media screen and (max-width: 405px) {
+  .form {
+    margin-bottom: 72px;
+  }
+
+  .form + a {
+    bottom: -10rem;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(7deg);
+  }
+}
