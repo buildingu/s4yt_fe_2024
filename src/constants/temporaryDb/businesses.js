@@ -1,6 +1,6 @@
 export const staticBusiness = [
   {
-    name: "Max Schulte", // business name
+    name: "Max Schulte: Teacher and Art Interventionist", // business name
     logo: require("@static/businessLogos/MaxSchulteInteractiveMediaArtist.png"), // business logo
     link: "", // business website link
     description:
@@ -12,13 +12,30 @@ export const staticBusiness = [
     },
     challenge: {
       title: "Innovate the Everyday", // challenge title
-      content:
-        "BACKGROUND: \n\n Max Schulte is a studio art assistant professor at Duke Univsersity. He sees his artistic practice and  his role as an educator as extensions of one another. Both involve a balance between careful planning and improvisational strategies to shape an experience of curiosity, imagination, and discovery. His teaching philosophy revolves around helping others expand their ability to communicate a personal relationship with the world through storytelling. CHALLENGE :  This challenge is about geography, place, and infrastructure and how it affects our lives. Choose a place/space you know well. Analyze how it has been designed; where it's located, for whom it's designed, and for what purpose. Identify the ways that the design enhances or interferes with our interaction with the space or with our connection with each other in it. Propose an artistic intervention that can provide relief from some of the negative things you've identified that interfere with a meaningful connection to the space and to the people in it. RECOMMENDED APPROACH : Start with a more global view of your selected space…with special attention to where it sits within your community. Is there a socioeconomic context that will impact who visits? How can it be accessed.? (Car, public transportation, foot,..) Who can visit? Who cannot? (consider things like families, pets /wild animals, seniors and mobility-restricted people, visitors from other places,... Then move inside. Think about the shape of the space. Is there indoor space ? Is there outdoor space? What kind of amenities services? Free? Paid? What kinds of restrictions are there if any? Identify a specific problem or a problem area.  Consider its impact on individuals and the community that the space can potentially serve.  Develop a creative solution in the form of an “artistic intervention” that you can present through rough sketches or labeled plans. Use critical thinking to justify your choices and showcase how your solution addresses the core issues. EVALUATION CRITERIA : Clarity of the description of the space Consideration of public accessibility to and use of the space Importance of identified problem/ problem area Creative and innovative solution Positive impact of the “artistic intervention” on the individual and/or on the community", // actual challenge description + instructions
+      content: `BACKGROUND:
+      Max Schulte is a studio art assistant professor at Duke University. He sees his artistic practice and his role as an educator as extensions of one another. Both involve a balance between careful planning and improvisational strategies to shape an experience of curiosity, imagination, and discovery. His teaching philosophy revolves around helping others expand their ability to communicate a personal relationship with the world through storytelling.
+
+      CHALLENGE:
+      This challenge is about geography, place, and infrastructure and how it affects our lives. Choose a place/space you know well. Analyze how it has been designed; where it's located, for whom it's designed, and for what purpose. Identify the ways that the design enhances or interferes with our interaction with the space or with our connection with each other in it. Propose an artistic intervention that can provide relief from some of the negative things you've identified that interfere with a meaningful connection to the space and to the people in it.
+
+      RECOMMENDED APPROACH:
+      Start with a more global view of your selected space…with special attention to where it sits within your community. Is there a socioeconomic context that will impact who visits? 
+      How can it be accessed? (Car, public transportation, foot,...) 
+      Who can visit? Who cannot? Consider things like families, pets/wild animals, seniors and mobility-restricted people, visitors from other places,...Then move inside. Think about the shape of the space. 
+      Is there indoor space? Is there outdoor space? What kind of amenities/services? Free? Paid? What kinds of restrictions are there if any? 
+      Identify a specific problem or a problem area. Consider its impact on individuals and the community that the space can potentially serve. Develop a creative solution in the form of an “artistic intervention” that you can present through rough sketches or labeled plans. Use critical thinking to justify your choices and showcase how your solution addresses the core issues.
+
+      EVALUATION CRITERIA:
+      - Clarity of the description of the space
+      - Consideration of public accessibility to and use of the space
+      - Importance of identified problem/ problem area
+      - Creative and innovative solution
+      - Positive impact of the “artistic intervention” on the individual and/or on the community`, // actual challenge description + instructions
       submissionCount: 0, // total number of submitted answers to challenge
     },
     video: {
       title: "Max Schulte Video", // video title
-      link: "https://www.youtube.com/embed/EN6-RqSP83Q?si=hcItk6xMELaZpmm3", // embed link to playlist or video
+      link: "https://www.youtube.com/embed/eJko2Wuk6Fc?si=rKItoXhScm7VLStr", // embed link to playlist or video
     },
   },
   {
@@ -28,18 +45,62 @@ export const staticBusiness = [
     description:
       "Meridian Stories is a non-profit based in Freeport, Maine. Meridian stories offers a comprehensive catalog of digital story times. It holds over 140 projects for students to research, create, develop, and produce curricular driven stories. Meridian Stories mission is to prepare students for the 21st century workplace by providing opportunities to create, collaborate, problem solve, and lead in the development and production of meaningful digitalized narratives that address circular goals. The purpose of this special non-profit is to provide students and teachers with digital media arts opportunities that enrich learning, support the curriculum, and inspire new entrusts and creativity.", // description of business
     meetUp: {
-      date: "NA date", // Manual format
-      time: "NA time", // 16:00
+      date: "Monday, February 12th", // Manual format
+      time: "5PM-6PM EST", // 16:00
       method: "NA method", // google meet / zoom etc.
     },
     challenge: {
-      title: "NA title", // challenge title
-      content: "NA content", // actual challenge description + instructions
+      title: "The Passion Pitch", // challenge title
+      content: `BACKGROUND : 
+        What do you want to be when you grow up? That's a loaded question these days! We used to know the options, the choices, the opportunities. But now, the nature of the post-secondary professional world is changing rapidly. Education is fundamentally based on preparing students for a somewhat predictable working environment. That predictability is evaporating. So, given the dramatic changes society is undergoing, for what are we, the teachers, preparing, you, our students? The answer: a culture of omnipresent change.
+
+        Ok, cool. But what does this even mean? How do you prepare for a world that you can't quite envision because it's constantly shifting? Peering out into your future, what do they see? 
+        Among other things, we suspect a complexly vast world peering over several enticing but unknown precipices, as parallel to your smaller, personal world characterized by a foggy vision of …uncertainty. That uncertainty about your future -  that unpredictability about your personal professional trajectories - has ramifications. Regarding adolescent identity, the American Psychological Association (APA) notes the following: “Identity refers to more than just how adolescents see themselves right now; it also includes what has been termed the “possible self”—what individuals might become and who they would like to become” (American Psychological Association 2002) .
+
+        CHALLENGE : 
+        The Passion Pitch challenges you to concretely imagine who and what you want to be in the very near future identifying the variety of your current skills, interests, personality traits, priorities and values that could shape different versions of your future selves.
+        The Passion Pitch digital stories - between 60 and 90 seconds - will be about starting a new company post-secondary education, or launching an initiative - an action, a movement - right now to catalyze change and thought.
+
+        RECOMMENDED APPROACH: 
+        The Passion Pitch is not your everyday straight-up digital storytelling Challenge. The Passion Pitch asks you to explore the tenuous bridge between that which is within you and the ever changing world outside of you. How do you articulate that bridge and then create it? That requires both discipline and flexibility in the storytelling structures and The Passion Pitch provides three narrative frameworks to help guide you to your destinations : 
+
+        1. The vlog : A good vlog has a theme. That theme can certainly be about talking to farmer's market retailers or working through a favorite video game, but the story being told needs to take the viewer on a journey with the vlogger in that activity. The goal is to get your viewers to go on a journey with you; not watch you during your daily activities. The driving force behind successful vlogging is character. This format leads with personality. The story that is being told begins and ends with the vlogger(s) - you. The vlogger(s) needs to matter; needs to give the audience a reason to care about them. And finally, as with most storytelling formats, the next level beyond theme and journey are the details of the story itself. The beginning, middle, and end; the obstacles and the climaxes. Vlogging is no different but can be harder: finding the drama in the details …of an idea and the deeply familiar.
+
+        2. PSAs - PSAs are a particular breed of commercial that are not designed to sell a product, like commercials, but, … an attitude: they are a format designed to change people's attitudes about an issue, like eating healthily or appreciating and respecting diversity. That is what you are attempting to do as well: not change so much as shape an attitude about your idea. You are selling an idea and you want your PSA to open up your audience's mind to that idea. Not buy the idea - that will take several steps - just consider it, seriously. The Ad Council is a fantastic website that features many PSAs. To find a PSA-driven narrative strategy that works for you, we recommend screening several campaigns, take notes and decide: what is working and what isn't? Then adapt those strategies for your PSA.
+
+        3. Movie Trailer / Show Open - This is a really fun format. It's both linear and non-linear simultaneously. It is designed to both tell a story, while teasing you want to know more. It's often fast-paced with many cuts. The Movie Trailer is specifically about providing you with enough information about plot, idea, and character, to entice you to desperately want to know how the story ends. The Show Open can be more of a mood piece that is designed to give you the flavor of a show, as well as point to a few key components, such a setting, character, or the central conceit. Either can play it literally or abstractly. In both cases, you will most likely want to use music/percussion to drive this from start to finish. Music and sound are especially important in this narrative format.
+
+        Please choose one of these three basic narrative formats - all of which will be fully defined and detailed in the Process to follow - for your Passion Pitch. But hold on, hold on. These stories are designed to be thought-provoking, engaging and shared widely. Therefore, they must be …fun. Funny, perhaps. They must embody some of the qualities of unpredictability itself. So, there is a surprise twist to each of these stories. In each digital story, you must find a way to integrate one surprise twist, from the list below, into their Passion Pitch. Below, to get you started, there are some subject choices to get you going, although you can select/create your own area. However, you have to choose from one of the twists listed below and work inside one of the three narrative formats. Take a look and start brainstorming. 
+
+        Suggested Subjects (OR choose your own!) :
+        Food / Agriculture / Social Media / Gaming / Energy / Transportation / Education / Sports and Recreation / Animals / Urban Planning / Construction / Water / Media / The Arts /  Medicine / Engineering…
+
+        Formats/Genres (choose one) : 
+        - Pitch / Commercial / PSA 
+        - Movie Trailer / Show Open
+        - Vlog / Day in the Life
+
+        Twists (15 seconds) (choose one) :
+        Dancing / Singing / Mysterious, wrapped box…to be opened / Animation / A Parade / Outlandish
+        Costume / Three Original Flags / Silence / Gymnastics/acrobatics / Rapping / The making of original art / Puppetry / Glorious Nature / A surmountable wall.
+
+        EVALUATION CRITERIA : 
+        Content command
+        - The idea that drives the Passion Pitch is well thought out, practical and aspirational.
+        - The shape of the idea - how it starts and evolves, and your role inside of it - is multi-dimensional and clear.
+
+        Storytelling command 
+        - Your command of the genre of storytelling  (Vlog, PSA or Movie Trailer) is both comprehensive and creatively applied.
+        - The integration of the twist into your story is poignant, seamless and entertaining.
+
+        Media command
+        - Your mix of shots and imagery to both convey the idea and persuade us of its worth is exemplary.
+        - The digital story is edited with just the right pacing to result in an engaging viewing experience.`, // actual challenge description + instructions
       submissionCount: 0, // total number of submitted answers to challenge
     },
     video: {
       title: "Meridian Stories Video", // video title
-      link: "https://www.youtube.com/embed/EN6-RqSP83Q?si=hcItk6xMELaZpmm3", // embed link to playlist or video
+      link: "https://www.youtube.com/embed/videoseries?si=DeqX9YF8K_nMu22Q&amp;list=PLq6JOS0PfxO-bA9WrxyNLRcXFM9z95dd2", // embed link to playlist or video
     },
   },
   {
@@ -47,7 +108,7 @@ export const staticBusiness = [
     logo: require("@static/businessLogos/KnowledgeFlow.png"), // business logo
     link: "https://knowledgeflow.org/", // business website link
     description:
-      "The KnowledgeFlow Cybersafety Foundation Is Canada’s ONLY Non-Profit Dedicated Exclusively To Cybersafety Education And Innovation. We are making the world #UnHackable by stamping out predatory online behavior, preventing privacy abuses and disrupting cybercrime. Our mission is to ensure that all Canadians have access to expert cybersafety instruction and resources regardless of their location or financial status. We offer a variety of workshops, courses, and training videos that can help people of all ages learn about online safety.", // description of business
+      "The KnowledgeFlow Cybersafety Foundation Is Canada's ONLY Non-Profit Dedicated Exclusively To Cybersafety Education And Innovation. We are making the world #UnHackable by stamping out predatory online behavior, preventing privacy abuses and disrupting cybercrime. Our mission is to ensure that all Canadians have access to expert cybersafety instruction and resources regardless of their location or financial status. We offer a variety of workshops, courses, and training videos that can help people of all ages learn about online safety.", // description of business
     meetUp: {
       date: "NA date", // Manual format
       time: "NA time", // 16:00

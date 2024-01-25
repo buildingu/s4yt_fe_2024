@@ -7,7 +7,7 @@ import Reducers from "@reducers";
 
 const middleware = [thunk.withExtraArgument(helpers)];
 const persistedReducer = persistReducer(
-  { key: "root", storage, blacklist: ["notifications"] },
+  { key: "root", storage, blacklist: ["notifications", "getBusinesses"] },
   Reducers
 );
 

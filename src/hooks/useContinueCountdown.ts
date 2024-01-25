@@ -32,13 +32,7 @@ const useContinueCountdown = () => {
         state.gameConfig.countdown
     ),
     dispatch = useDispatch();
-    console.log("game config",
-      useSelector(
-        (state: { gameConfig: GameConfigReduxState }) =>
-          state.gameConfig
-      )
-    );
-    
+
   const getSecondsInBetweenByTime = (from: number, till: number) => {
     return Math.max(0, Math.floor((till - from) / 1000));
   };
@@ -46,10 +40,10 @@ const useContinueCountdown = () => {
     const [hours, minutes, seconds] = countdown.split(":").map(Number);
     return hours * 3600 + minutes * 60 + seconds;
   };
+
   useEffect(() => {
-    console.log()
     const counter = document.getElementById("counter") as HTMLTimeElement;
-    if (!timestamps && !countdown) {
+    if (!timestamps || !countdown) {
       return;
       //  throw Error("The counter clock is in a error state;\n unexpectedly there was no countdown state to work with.")
     }
@@ -65,6 +59,7 @@ const useContinueCountdown = () => {
     console.log("reviewStartTimestamp", reviewStartTimestamp);
     console.log("reviewEndTimestamp", reviewEndTimestamp);
     console.log("gameEndTimestamp", gameEndTimestamp);
+
     let countdownSeconds: number | undefined;
 
     // FIXME: It just starts from the time in between these timestamps every time and we save it.
@@ -76,26 +71,26 @@ const useContinueCountdown = () => {
       // The actual game is ongoing.
       console.log("Game is ongoing.");
       countdownSeconds = getSecondsInBetweenByTime(
-        gameStartTimestamp,
+        currentTimestamp,
         reviewStartTimestamp
-        );
-        dispatch({
-          type: UPDATE_CONFIGURATION,
-          payload: {
-            gameStart: true,
-            reviewStart: false,
-            winnersAnnounced: false,
-          },
-        });
-      } else if (currentTimestamp < reviewEndTimestamp) {
-        // Review has started.
-        console.log("Review has started.");
-        // If there is already a countdown... but there would always be a countdown on login?
-        countdownSeconds = getSecondsByString(countdown); // This is here because I think we need the countdown still.
-        // countdownSeconds = getSecondsInBetweenByTime(
-          //   reviewStartTimestamp,
-          //   reviewEndTimestamp
-          // );
+      );
+      dispatch({
+        type: UPDATE_CONFIGURATION,
+        payload: {
+          gameStart: true,
+          reviewStart: false,
+          winnersAnnounced: false,
+        },
+      });
+    } else if (currentTimestamp < reviewEndTimestamp) {
+      // Review has started.
+      console.log("Review has started.");
+      // If there is already a countdown... but there would always be a countdown on login?
+      countdownSeconds = getSecondsByString(countdown); // This is here because I think we need the countdown still.
+      // countdownSeconds = getSecondsInBetweenByTime(
+      //   reviewStartTimestamp,
+      //   reviewEndTimestamp
+      // );
       dispatch({
         type: UPDATE_CONFIGURATION,
         payload: {
@@ -106,7 +101,6 @@ const useContinueCountdown = () => {
       });
     } else if (currentTimestamp < gameEndTimestamp) {
       // Review has ended, just let everyone go to event results.
-      console.log(currentTimestamp, reviewEndTimestamp)
       console.log("Review ended.");
       countdownSeconds = getSecondsInBetweenByTime(
         currentTimestamp,
@@ -140,7 +134,7 @@ const useContinueCountdown = () => {
         ).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
         counter.innerText = newCountdown;
         counter.dateTime = newCountdown;
-        // console.log("newCountdown", newCountdown);
+        console.log("newCountdown", newCountdown);
 
         countdownSeconds -= 1;
       } else {

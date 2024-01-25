@@ -16,9 +16,9 @@ const MeetUp: React.FC<Props> = ({ playerCheck, data }) => {
   return (
     <div className={s.optionsView}>
       <div className={s.meetUp}>
-        <h2>I'm setting up a {data?.method}</h2>
+        <h2>I'm setting up a meeting on:</h2>
         <p>
-          On {data?.date} at {data?.time} EST
+          {data?.date} at {data?.time} EST
         </p>
         <div className={s.meetOptions}>
           <div>
