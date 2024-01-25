@@ -5,9 +5,9 @@ import { connect } from "react-redux";
 
 import history from "@utils/History";
 
-import Layout from "@components/layout";
-import Header from "@components/header";
-import Content from "@components/content";
+import Layout from "@components/partials/layout";
+import Header from "@components/partials/header";
+import Content from "@components/partials/content";
 
 import s from "./styles.module.css";
 import errorLogo from "@static/error-logo.png";

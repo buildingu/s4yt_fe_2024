@@ -1,0 +1,137 @@
+.optionsView {
+  min-height: 350px;
+  width: 100%;
+}
+
+.optionsView form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+
+.optionsView textarea {
+  margin: 0.7rem 0;
+  width: 100%;
+  height: 60%;
+  min-height: 150px;
+  resize: none;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  border-radius: 6px;
+  box-shadow: 6px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.optionsView form button {
+  align-self: flex-end;
+}
+.formButtons {
+  display: flex;
+  justify-content: flex-end;
+}
+.meetUp {
+  height: 100%;
+  color: var(--pbrown);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.meetUp h2 {
+  font-family: "Corbel", Arial;
+  font-size: 2rem;
+}
+.meetUp p {
+  font-family: "Corbel", Arial;
+  font-size: 2rem;
+}
+.meetOptions input:disabled + label {
+  cursor: not-allowed;
+}
+.meetOptions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.meetOptions input {
+  margin-right: 10px;
+}
+.meetOptions label {
+  cursor: pointer;
+}
+
+.meetSubmit {
+  align-self: flex-end;
+}
+
+.questionSubmit,
+.meetSubmit {
+  border: none;
+  width: 150px;
+  height: 50px;
+  background: url("../../../../static/businessSlidesBtns/btn-submit-normal.png")
+    no-repeat right center/contain;
+  cursor: pointer;
+}
+.questionSubmit:hover,
+.meetSubmit:hover {
+  background: url("../../../../static/businessSlidesBtns/btn-submit-hover.png")
+    no-repeat right center/contain;
+}
+.questionSubmit:active,
+.meetSubmit:active {
+  background: url("../../../../static/businessSlidesBtns/btn-submit-pressed.png")
+    no-repeat right center/contain;
+}
+.meetSubmit:disabled,
+.questionSubmit:disabled {
+  background: url("../../../../static/businessSlidesBtns/btn-submit-hover.png")
+    no-repeat right center/contain;
+}
+.questionAttach {
+  width: 150px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+}
+.questionAttach i {
+  font-size: 50px;
+  color: var(--pbrown);
+}
+.questionAttach:hover i {
+  opacity: 50%;
+}
+.questionSave {
+  border: none;
+  width: 150px;
+  height: 50px;
+  background: url("../../../../static/businessSlidesBtns/btn-save-normal.png")
+    no-repeat right center/contain;
+  cursor: pointer;
+}
+.questionSave:hover {
+  background: url("../../../../static/businessSlidesBtns/btn-save-hover.png")
+    no-repeat right center/contain;
+}
+.questionSave:active {
+  background: url("../../../../static/businessSlidesBtns/btn-save-pressed.png")
+    no-repeat right center/contain;
+}
+.questionSave:disabled {
+  background: url("../../../../static/businessSlidesBtns/btn-save-hover.png")
+    no-repeat right center/contain;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
