@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 
 // import { store } from "@root/store";
 
+import { isNotPlayer } from "@actions/user";
 import { SET_CURRENT_USER, SET_NEW_LOGIN_FLAG } from "@actions/index";
 import { initializeCoins } from "@actions/coinTracker";
 import { updateConfiguration } from "@actions/gameConfig";
@@ -23,6 +24,7 @@ interface Props extends React.PropsWithChildren<{}> {
   user: UserReduxState;
   gameConfig: GameConfigReduxState;
   restricted: number;
+  isNotPlayer: (clickable?: boolean, message?: string) => boolean;
   setUserCredentials: (user: UserCredentials) => void;
   initializeCoins: (data: Omit<CoinTrackerState, "items">) => void;
   updateConfiguration: (data: GameConfigReduxState) => void;
@@ -49,6 +51,7 @@ const Gate: React.FC<Props> = ({
   user,
   gameConfig,
   restricted,
+  isNotPlayer,
   setUserCredentials,
   initializeCoins,
   updateConfiguration,
@@ -61,6 +64,9 @@ const Gate: React.FC<Props> = ({
     redirect =
       gameConfig.restrictedAccess && user.token
         ? "/profile"
+        : user.token &&
+          ((gameConfig.reviewStart && !isNotPlayer()) || gameConfig.gameEnd)
+        ? "/game-closed"
         : restricted === 1 && !user.token
         ? "/login"
         : restricted === 2 && user.token && user.credentials
@@ -79,11 +85,11 @@ const Gate: React.FC<Props> = ({
 
     newLogin.countdown
       ? updateConfiguration({
-          timestamps: newLogin.timestamps,
+          // timestamps: newLogin.timestamps,
           countdown: user.newLogin.countdown,
           gameStart: true,
         })
-      : updateConfiguration({ restrictedAccess: true }); // Only allowed to profile.
+      : updateConfiguration({ restrictedAccess: true }); // Only allowed to the profile.
   };
 
   useEffect(() => {
@@ -112,6 +118,8 @@ const mapStateToProps = ({
   gameConfig,
 });
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+  isNotPlayer: (clickable?: boolean, message?: string) =>
+    dispatch(isNotPlayer(clickable, message) as unknown) as boolean,
   setUserCredentials: (user: UserCredentials) =>
     dispatch({ type: SET_CURRENT_USER, payload: user }),
   initializeCoins: (data: Omit<CoinTrackerState, "items">) =>

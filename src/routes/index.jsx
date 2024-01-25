@@ -17,6 +17,7 @@ import Sponsors from "@views/game/sponsors";
 import Raffle from "@views/game/raffle";
 import Businesses from "@views/game/businesses";
 import Details from "@views/game/businesses/Details";
+import GameClosed from "@views/game/gameClosed";
 
 import Error404 from "@views/errors/Error404";
 import Error409 from "@views/errors/Error409";
@@ -40,6 +41,7 @@ export const routes = [
   { path: "/businesses", view: Businesses, restricted: 1, title: "See Businesses" },
   { path: "/businesses/:details", view: Details, restricted: 1, title: "Business Details" },
   // { path: "/results", view: SomeComponent, restricted: 1 },
+  { path: "/game-closed", view: GameClosed, restricted: 1, title: "Game Closed" },
 
   { path: "/error-409", view: Error409, restricted: 1, title: "ERROR 409" },
   { path: "/error-404", view: Error404, restricted: 0, title: "ERROR 404" },
