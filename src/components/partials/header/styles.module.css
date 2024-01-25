@@ -220,8 +220,6 @@
   .container.full .right nav button {
     width: 64px;
     height: 64px;
-    border: 0;
-    padding: 0;
     background: url("../../../static/btn_logout_normal.png") no-repeat center
       center/contain;
     cursor: pointer;

@@ -13,6 +13,7 @@ export interface GameConfigReduxState {
   gameStart?: boolean; // When there is a countdown.
   reviewStart?: boolean; // When gameStart ends.
   winnersAnnounced?: boolean; // When reviewStart ends, we maybe don't need this one because we can just use if gameStart is false?
+  gameEnd?: boolean;
 }
 
 const initialState: GameConfigReduxState = {
