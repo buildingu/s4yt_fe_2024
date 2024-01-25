@@ -94,6 +94,7 @@ export const loginPlayer =
               (!user.password_updated || !user.profile_updated));
 
         dispatch({ type: SET_TOKEN, payload: data.token });
+        console.log("res.data", res.data);
 
         // For if the countdown is a message when the haven't started.
         if (!data.countdown.includes(":"))
@@ -175,9 +176,7 @@ export const logoutPlayer = () => (dispatch, getState) => {
   dispatch({ type: LOGOUT });
   alert("User session timed out.");
 };
-// export const isPlayer = () => (dispatch, getState) => {
-//   return getState().user.credentials?.roles.includes("player");
-// };
+
 export const isNotPlayer =
   (useNotification, message) => (dispatch, getState) => {
     if (!getState().user.credentials?.roles.includes("player")) {

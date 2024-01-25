@@ -24,6 +24,7 @@ interface Props extends React.PropsWithChildren<{}> {
   user: UserReduxState;
   gameConfig: GameConfigReduxState;
   restricted: number;
+  isNotPlayer: (clickable?: boolean, message?: string) => boolean;
   setUserCredentials: (user: UserCredentials) => void;
   initializeCoins: (data: Omit<CoinTrackerState, "items">) => void;
   updateConfiguration: (data: GameConfigReduxState) => void;
@@ -42,7 +43,6 @@ interface LoginDTO {
   };
   token: string;
   user: UserCredentials & { coins: number };
-  isNotPlayer: (clickable?: boolean, message?: string) => boolean;
 }
 
 // TODO: Add only pages you can only be redirected to... probably?
@@ -51,6 +51,7 @@ const Gate: React.FC<Props> = ({
   user,
   gameConfig,
   restricted,
+  isNotPlayer,
   setUserCredentials,
   initializeCoins,
   updateConfiguration,
@@ -84,7 +85,7 @@ const Gate: React.FC<Props> = ({
 
     newLogin.countdown
       ? updateConfiguration({
-          timestamps: newLogin.timestamps,
+          // timestamps: newLogin.timestamps,
           countdown: user.newLogin.countdown,
           gameStart: true,
         })
