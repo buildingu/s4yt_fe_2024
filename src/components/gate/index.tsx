@@ -76,10 +76,10 @@ const Gate: React.FC<Props> = ({
     const { coins, ...userData } = newLogin.user;
     setUserCredentials(userData);
     initializeCoins({ remainingCoins: coins });
-
+    console.log(newLogin)
     newLogin.countdown
       ? updateConfiguration({
-          timestamps: newLogin.timestamps,
+          timestamps: gameConfig.timestamps,
           countdown: user.newLogin.countdown,
           gameStart: true,
         })
