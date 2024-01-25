@@ -1,0 +1,325 @@
+.sponsors {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.8rem 3rem;
+  margin: 1.5rem 9rem 4rem 9rem;
+  z-index: 1;
+}
+@media screen and (max-width: 638px) {
+  .sponsors {
+    margin: 1rem 6rem 1rem 6rem;
+  }
+}
+@media screen and (max-width: 512px) {
+  .sponsors {
+    margin: 1rem;
+  }
+}
+
+.sponsors .spotlight {
+  position: relative;
+}
+.sponsors .spotlight a {
+  display: block;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  transition: 0.2s ease-in-out transform;
+}
+.sponsors .spotlight a img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.sponsors .spotlight small {
+  position: absolute;
+  bottom: -26px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Corbel", Arial;
+  font-weight: 700;
+  color: var(--black);
+  pointer-events: none;
+  opacity: 0;
+  transition: 0.2s ease-in-out opacity;
+}
+.sponsors .spotlight:nth-child(2) small {
+  bottom: -12px;
+}
+.sponsors .spotlight a:hover {
+  transform: translateY(-8px);
+}
+.sponsors .spotlight a:hover + small {
+  opacity: 1;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 7rem;
+}
+@media screen and (max-width: 850px) {
+  .options {
+    margin-left: 5rem;
+  }
+}
+@media screen and (max-width: 802px) {
+  .options {
+    margin-left: 2rem;
+  }
+}
+
+.options a.backBtn {
+  cursor: pointer;
+}
+.options a.backBtn,
+button.backBtn {
+  width: 150px;
+  height: 120px;
+  background: url("../../../static/btn_back.png") no-repeat center
+    center/contain;
+}
+
+.options .moreBtn {
+  bottom: 30px;
+  width: 371px;
+  height: 237px;
+  margin-right: -30px;
+  margin-bottom: -30px;
+  border: 0;
+  background: url("../../../static/btn-winmoredoblons.png") no-repeat center
+    center/contain;
+}
+.congratsBtns {
+  width: 100%;
+  display: flex;
+}
+.congratsBtns .resultsBtn {
+  width: 100%;
+  height: 237px;
+  background: url("../../../static/btn-seemyresults.png") no-repeat center
+    center/contain;
+}
+
+@media screen and (max-width: 670px) {
+  .options {
+    margin-left: 0;
+  }
+  .options .backBtn,
+  .options .moreBtn,
+  button.backBtn {
+    transform: scale(0.8);
+  }
+}
+
+.more .title h2 {
+  font-family: "BebasNeue", Arial;
+  font-size: 38px;
+  color: var(--pbrown);
+}
+.more .title p {
+  font-family: "Corbel";
+  font-size: 24px;
+  color: var(--pbrown);
+}
+
+.hideContent .title,
+.hideContent .trueFalse,
+.hideContent form {
+  display: none;
+}
+
+.more .trueFalse {
+  position: relative;
+}
+.more .trueFalse p {
+  position: absolute;
+  top: -1rem;
+  font-size: 38px;
+  color: var(--pbrown);
+}
+.more .trueFalse p:first-of-type {
+  left: 26px;
+}
+.more .trueFalse p:last-of-type {
+  left: 57px;
+}
+
+.more .quiz ol {
+  font-family: "Corbel", Arial;
+  font-size: 21px;
+  color: var(--pbrown);
+  padding-left: 92px;
+  margin-block: 2rem 1rem;
+  list-style: none;
+  counter-reset: custom-counter 0;
+}
+@media screen and (max-width: 774px) {
+  .more .quiz ol {
+    margin-block: 3rem 1rem;
+  }
+
+  .more .trueFalse p {
+    top: 0;
+  }
+}
+
+.more .quiz ol li {
+  position: relative;
+}
+.more .quiz ol li::before {
+  counter-increment: custom-counter;
+  content: counters(custom-counter, ".");
+  position: absolute;
+  left: -1ch;
+}
+.more .quiz ol li:last-of-type::before {
+  position: absolute;
+  left: -2ch;
+  margin-left: 1ch;
+}
+
+.more .quiz ol li p {
+  text-align: left;
+  opacity: 0.75;
+  margin-inline: 1rem 1rem;
+}
+@media screen and (max-width: 774px) {
+  .more .quiz ol li p {
+    margin-inline: 1rem 0;
+  }
+}
+
+.more .quiz ol li .inputs {
+  position: absolute;
+  left: -71px;
+}
+.more .quiz ol li .inputs input:first-child {
+  margin-right: 12px;
+}
+
+.more .quiz > div {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.explanationWrong {
+  color: red;
+  margin-bottom: 10px;
+}
+.explanationRight {
+  color: green;
+  margin-bottom: 10px;
+}
+
+.more .quiz :global(.okBtn.flip) {
+  width: 110px;
+  height: 110px;
+}
+.more .quiz :global(.okBtn.flip)::before {
+  transform: rotate(260deg) scaleY(-1) scale(0.9);
+  right: -220px;
+  bottom: 34px;
+}
+
+.congrats {
+  display: grid;
+  place-items: center;
+  padding: 2rem 2rem 3rem 2rem;
+}
+
+.congrats h2 {
+  font-family: "BebasNeue", Arial;
+  font-size: 38px;
+  color: var(--pbrown);
+  margin-bottom: 3rem;
+}
+
+.congrats div {
+  position: relative;
+  max-width: 500px;
+}
+.congrats div::before {
+  content: attr(data-score);
+  font-size: 54px;
+  font-weight: 700;
+  color: var(--pbrown);
+  display: inline-block;
+  position: absolute;
+  left: -2.8rem;
+  transform: scaleY(2);
+}
+
+.congrats div p {
+  max-width: 420px;
+  line-height: 1;
+  margin-bottom: 2.5rem;
+}
+
+.congrats h2,
+.congrats div p {
+  font-size: 38px;
+  color: var(--pbrown);
+}
+
+.congrats a {
+  display: block;
+  width: 100%;
+  max-width: 371px;
+  height: 237px;
+  background: url("../../../static/btn-takemebackraffle.png") no-repeat center
+    center/contain;
+}
+
+@media screen and (max-width: 500px) {
+  .congrats {
+    padding: 0;
+  }
+
+  .congratsBtns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .congratsBtns .moreBtn {
+    top: auto;
+  }
+
+  .resultsBtn {
+    transform: rotate(7.5deg);
+  }
+
+  .congrats div::before {
+    content: attr(data-score);
+    font-size: 102px;
+    position: absolute;
+    top: -0.9rem;
+    left: 50%;
+    transform: scaleY(2) translate(-50%, -50%);
+  }
+
+  .congrats h2 {
+    margin-bottom: 10rem;
+  }
+
+  .congrats h2,
+  .congrats div p {
+    font-size: 50px;
+  }
+
+  .congrats h2,
+  .congrats div,
+  .congrats a {
+    position: relative;
+    /* top: 5.5rem; */
+  }
+
+  .congrats a {
+    position: relative;
+    top: 5.5rem;
+    transform: rotate(7.5deg);
+  }
+}

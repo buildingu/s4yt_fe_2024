@@ -1,21 +1,22 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+
 import Gate from "@components/gate";
 
-import Register from "@views/register";
-import VerifyEmail from "@views/register/verifyEmail";
-import VerifySuccess from "@views/register/verifyEmail/VerifySuccess";
+import Register from "@views/user/register";
+import VerifyEmail from "@views/user/register/verifyEmail";
+import VerifySuccess from "@views/user/register/verifyEmail/VerifySuccess";
 
-import Login from "@views/login";
-import ForgotPassword from "@views/login/forgot";
-import ResetPassword from "@views/resetPassword";
+import Login from "@views/user/login";
+import ForgotPassword from "@views/user/login/forgot";
+import ResetPassword from "@views/user/resetPassword";
 
-import Profile from "@views/profile";
+import Profile from "@views/user/profile";
 
-import Home from "@views/home";
-import Sponsors from "@views/sponsors";
-import Raffle from "@views/raffle";
-import Businesses from "@views/businesses";
-import Details from "@views/businesses/Details";
+import Home from "@views/game/home";
+import Sponsors from "@views/game/sponsors";
+import Raffle from "@views/game/raffle";
+import Businesses from "@views/game/businesses";
+import Details from "@views/game/businesses/Details";
 
 import Error404 from "@views/errors/Error404";
 import Error409 from "@views/errors/Error409";

@@ -1,0 +1,470 @@
+.container {
+  position: relative;
+  margin: 1.5rem 0 3rem 0;
+  /* max-width: 900px; */
+}
+@media screen and (max-width: 916px) {
+  .container {
+    margin: 1.5rem 0.5rem 3rem 0.5rem;
+  }
+}
+
+.container > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .logo {
+  max-width: 320px;
+}
+.container.full .logo {
+  max-width: 235px;
+}
+
+.container hr {
+  border: 2px solid #895734;
+  height: 152px;
+  margin: 0 1rem 0 1rem;
+}
+.container.full hr {
+  height: 118px;
+}
+
+.checkoutPersist {
+  display: none;
+}
+
+/* FIXME: This is currently only for Instructions,
+   might need to make a isInstructions class or something later. 
+*/
+@media screen and (max-width: 846px) {
+  .container:not(.container.full) {
+    margin: 3rem 0.5rem 3rem 0.5rem;
+  }
+
+  .container:not(.container.full) .logo:not(.logo.noTitle) {
+    display: none;
+  }
+
+  .container:not(.container.full) hr {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 710px) {
+  /* .container:not(.container.full) {
+    margin: 3rem 0.5rem 3rem 0.5rem;
+  } */
+
+  .container .logo:not(.logo.noTitle) {
+    display: none;
+  }
+
+  .container:not(.container.full) hr {
+    display: none;
+  }
+  .container.full hr {
+    margin: 0 1rem 0 0.5rem;
+  }
+}
+
+.container .right {
+  position: relative;
+}
+.container.full .right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.container h1 {
+  line-height: 1;
+  color: var(--pbrown);
+  margin: 0;
+}
+.container .responsiveTitle {
+  display: none;
+}
+.container .right h1 {
+  font-size: 64px;
+  text-align: left;
+}
+.container.full .right:not(.isProfile) h1 {
+  font-size: 42px;
+  margin: 0 0.5rem 0 0;
+}
+
+/* Profile Header */
+.container.full.isProfile img {
+  position: relative;
+  right: 13px;
+  transform: scale(1.1);
+}
+
+.container.full.isProfile .right {
+  justify-content: flex-start;
+  width: fit-content;
+  gap: 2.85rem;
+}
+@media screen and (min-width: 851px) and (max-width: 874px) {
+  .container.full.isProfile .right {
+    gap: 1.5rem;
+  }
+}
+.container.full.isProfile .right h1 {
+  /* 1350px to 350px viewports. */
+  font-size: clamp(2.625rem, 2.14375rem + 2.1999999999999997vw, 4rem);
+}
+
+@media screen and (max-width: 520px) {
+  .container.full > div {
+    margin-bottom: 1rem;
+  }
+
+  .container .mainTitle {
+    display: none;
+  }
+  .container .responsiveTitle {
+    display: initial;
+    font-size: 42px;
+  }
+
+  .container hr {
+    display: none;
+  }
+  .container.full hr {
+    display: initial;
+    margin: 0 1.5rem 0 1.5rem;
+  }
+
+  .container.full .right {
+    justify-content: flex-start;
+    width: fit-content;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .container.full hr {
+    margin: 0 0.5rem 0 0.5rem;
+  }
+}
+
+@media screen and (min-width: 851px) {
+  .container.full .right nav {
+    position: relative;
+    bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .container.full .right nav .mainMap,
+  .container.full .right nav .busMap {
+    position: relative;
+    text-decoration: none;
+  }
+
+  .container.full .right nav .mainMap {
+    width: fit-content;
+    height: 76px;
+    background: url("../../../static/btn_mainmap_normal.png") no-repeat center
+      center/contain;
+  }
+  .container.full .right nav .mainMap::after {
+    content: "MAIN MAP";
+    display: inline-block;
+    position: relative;
+    min-width: max-content;
+    top: 76px;
+    right: 0.5rem;
+    font-size: 24px;
+    color: #895734;
+  }
+  .container.full .right nav .mainMap:hover {
+    background: url("../../../static/btn_mainmap_hover.png") no-repeat center
+      center/contain;
+  }
+  .container.full .right nav .mainMap:active {
+    background: url("../../../static/btn_mainmap_pressed.png") no-repeat center
+      center/contain;
+  }
+
+  .container.full .right nav .busMap {
+    width: 76px;
+    height: 76px;
+    border: 0;
+    background: url("../../../static/btn_busi_normal.png") no-repeat center
+      center/contain;
+  }
+  .container.full .right nav .busMap::after {
+    content: "BUSINESS MAP";
+    display: inline-block;
+    position: relative;
+    min-width: max-content;
+    top: 76px;
+    right: 0.5rem;
+    font-size: 24px;
+    color: #895734;
+  }
+  .container.full .right nav .busMap:hover {
+    background: url("../../../static/btn_busi_hover.png") no-repeat center
+      center/contain;
+  }
+  .container.full .right nav .busMap:active {
+    background: url("../../../static/btn_busi_pressed.png") no-repeat center
+      center/contain;
+  }
+
+  .container.full .right nav button {
+    width: 64px;
+    height: 64px;
+    border: 0;
+    padding: 0;
+    background: url("../../../static/btn_logout_normal.png") no-repeat center
+      center/contain;
+    cursor: pointer;
+  }
+  .container.full .right nav button:hover {
+    background: url("../../../static/btn_logout_hover.png") no-repeat center
+      center/contain;
+  }
+  .container.full .right nav button:active {
+    opacity: 0.7;
+  }
+
+  /* From Login and Register Header. */
+  .container.full div .checkout {
+    width: 82px;
+    height: 82px;
+    background: url("../../../static/btn_checkout_normal.png") no-repeat center
+      center/contain;
+  }
+  .container.full div .checkout:hover {
+    background: url("../../../static/btn_checkout_hover.png") no-repeat center
+      center/contain;
+  }
+  .container.full div .checkout:active {
+    background: url("../../../static/btn_checkout_pressed.png") no-repeat center
+      center/contain;
+  }
+}
+
+.container .hamburger {
+  display: none;
+}
+.container .right .menu {
+  display: none;
+  z-index: 10;
+}
+@media screen and (max-width: 850px) {
+  .container.full {
+    margin: 1.5rem 2rem 3rem 2rem;
+  }
+
+  .container.full .right > nav {
+    display: none;
+  }
+
+  .container.full .hamburger,
+  .container.full .right .menu > div:first-of-type .hamburgerClose {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    min-height: 100px;
+    padding: 1rem 12px;
+    border: 7px solid var(--pbrown);
+    border-radius: 1.85rem;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  .container.full .hamburger {
+    justify-content: space-between;
+  }
+  .container.full .hamburger span {
+    height: 9px;
+    width: 100%;
+    border-radius: 1rem;
+    background-color: var(--pbrown);
+  }
+
+  .container.full .right .menu {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--sBeige);
+    z-index: 10;
+    overflow-y: scroll;
+  }
+
+  .container.full .right .menu > div:first-of-type {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.5rem 2rem 2.5rem 2rem;
+  }
+
+  .checkoutPersist {
+    display: block;
+    width: 82px;
+    height: 82px;
+    background: url("../../../static/btn_checkout_normal.png") no-repeat center
+      center/contain;
+  }
+  .checkoutPersist:hover {
+    background: url("../../../static/btn_checkout_hover.png") no-repeat center
+      center/contain;
+  }
+  .checkoutPersist:active {
+    background: url("../../../static/btn_checkout_pressed.png") no-repeat center
+      center/contain;
+  }
+
+  @media screen and (max-width: 446px) {
+    .container.full .right .menu > div:first-of-type {
+      margin: 1.5rem 0.5rem 2.5rem 0.5rem;
+    }
+  }
+
+  .container.full .right .menu > div:first-of-type .secLogo {
+    background: url("../../../static/LOGO.png") no-repeat;
+    width: 200px;
+    height: 100px;
+  }
+  .container.full .right .menu > div:first-of-type .hamburgerClose {
+    align-items: center;
+    justify-content: center;
+  }
+  .container.full .right .menu > div:first-of-type .hamburgerClose span {
+    position: relative;
+    height: 9px;
+    width: 100%;
+    border-radius: 1rem;
+    background-color: var(--pbrown);
+  }
+  .container.full
+    .right
+    .menu
+    > div:first-of-type
+    .hamburgerClose
+    span:first-child {
+    top: 4px;
+    transform: rotate(40deg);
+  }
+  .container.full
+    .right
+    .menu
+    > div:first-of-type
+    .hamburgerClose
+    span:last-child {
+    bottom: 4px;
+    transform: rotate(-40deg);
+  }
+
+  .container.full nav {
+    display: grid;
+  }
+  .container.full nav div {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-inline: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  @media screen and (max-width: 456px) {
+    .container.full nav div {
+      transform: scale(0.9);
+    }
+  }
+  .container.full nav div button,
+  .container.full nav div a {
+    width: 76px;
+    height: 76px;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .container.full nav div .mainMap {
+    position: relative;
+    bottom: 12px;
+    text-decoration: none;
+    width: fit-content;
+    background: url("../../../static/btn_mainmap_normal.png") no-repeat center
+      center/contain;
+  }
+  .container.full nav div .mainMap::after {
+    content: "MAIN MAP";
+    display: inline-block;
+    position: relative;
+    min-width: max-content;
+    top: 76px;
+    font-size: 24px;
+    color: #895734;
+  }
+  .container.full nav div .mainMap:hover {
+    background: url("../../../static/btn_mainmap_hover.png") no-repeat center
+      center/contain;
+  }
+  .container.full nav div .mainMap:active {
+    background: url("../../../static/btn_mainmap_pressed.png") no-repeat center
+      center/contain;
+  }
+
+  .container.full nav div .chat {
+    background: url("../../../static/btn_chat_normal.png") no-repeat center
+      center/contain;
+  }
+  .container.full nav div .chat:hover {
+    background: url("../../../static/btn_chat_hover.png") no-repeat center
+      center/contain;
+  }
+  .container.full nav div .chat:active {
+    background: url("../../../static/btn_chat_pressed.png") no-repeat center
+      center/contain;
+  }
+
+  .container.full nav div .logout {
+    background: url("../../../static/btn_logout_normal.png") no-repeat center
+      center/contain;
+  }
+  .container.full nav div .logout:hover {
+    background: url("../../../static/btn_logout_hover.png") no-repeat center
+      center/contain;
+  }
+  .container.full nav div .logout:active {
+    opacity: 0.7;
+  }
+
+  .container.full nav ul {
+    align-self: flex-end;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .container.full nav ul li {
+    list-style: none;
+  }
+  .container.full nav ul li a {
+    display: block;
+    font-size: 42px;
+    color: var(--pbrown);
+    text-decoration: none;
+    padding-block: 2rem;
+    width: 100%;
+  }
+  .container.full nav ul li a:hover {
+    background-color: var(--pbrown-fade);
+  }
+}
+@media screen and (max-width: 602px) {
+  .container.full {
+    margin: 1.5rem 0.5rem 3rem 0.5rem;
+  }
+}
