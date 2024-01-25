@@ -1,5 +1,6 @@
 import { CoinTrackerState } from "@reducers/coinTracker";
 
+import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
 import { isNotPlayer } from "@actions/user";
@@ -50,7 +51,7 @@ const mapStateToProps = ({
 }) => ({
   coins: coinTracker.remainingCoins,
 });
-const mapDispatchToProps = (dispatch: Function) => ({
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   isNotPlayer: (clickable?: boolean, message?: string) =>
     dispatch(isNotPlayer(clickable, message) as unknown) as boolean,
 });
