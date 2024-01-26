@@ -23,8 +23,8 @@ const Notification: React.FC<Props> = ({
 }) => {
   const ANIMATION_DURATION = 500;
 
-  const close = (notification: NotificationValues) => {
-    if (notification.duration) {
+  const close = (notification: NotificationValues, closeNow: boolean) => {
+    if (notification.duration && !closeNow) {
       delay(notification.duration).then(() => {
         updateNotification({ ...notification, close: true });
         // fadeOut duration.
@@ -44,7 +44,7 @@ const Notification: React.FC<Props> = ({
       // fadeIn duration.
       delay(ANIMATION_DURATION, () =>
         durationNotifications.forEach((notification) => {
-          close(notification);
+          close(notification, false);
         })
       );
     }
@@ -64,7 +64,7 @@ const Notification: React.FC<Props> = ({
           >
             <button
               aria-label="Close"
-              onClick={() => close(notification)}
+              onClick={() => close(notification, true)}
               disabled={notification.close}
             />
 

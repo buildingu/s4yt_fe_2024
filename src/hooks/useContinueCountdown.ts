@@ -14,36 +14,32 @@ import { UPDATE_CONFIGURATION, LOGOUT } from "@actions/index";
 
 // TODO: We should get the countdown on page load instead to fix the saved countdown?
 // TODO: Now getting timestamps instead of the countdown.
-// const timestamps = {
-//   register_start: "2023-01-19 13:00", // Game wouldn't be started when before game start so just restricted to profile (Don't need I think).
-//   game_start: "2024-01-22 10:00", // When they're able to interact with the game pages.
-//   review_start: "2024-01-24 10:00", // Only player roles will not be able to interact with anything.
-//   review_end: "2024-01-25 11:00", // Award and raffle items are chosen.
-//   game_end: "2024-02-01 17:00", // Entire app end.
-// }; // Should be 48 hours in between game_start and review_start
 const useContinueCountdown = () => {
-  // Countdown on log in or saved countdown.
   const timestamps = useSelector(
       (state: { gameConfig: GameConfigReduxState }) =>
         state.gameConfig.timestamps
     ),
-    countdown = useSelector(
-      (state: { gameConfig: GameConfigReduxState }) =>
-        state.gameConfig.countdown
-    ),
+    // Countdown on log in or saved countdown.
+    // countdown = useSelector(
+    //   (state: { gameConfig: GameConfigReduxState }) =>
+    //     state.gameConfig.countdown
+    // ),
     dispatch = useDispatch();
 
+  // const getSecondsByString = (countdown: string) => {
+  //   const [hours, minutes, seconds] = countdown.split(":").map(Number);
+  //   return hours * 3600 + minutes * 60 + seconds;
+  // };
   const getSecondsInBetweenByTime = (from: number, till: number) => {
     return Math.max(0, Math.floor((till - from) / 1000));
-  };
-  const getSecondsByString = (countdown: string) => {
-    const [hours, minutes, seconds] = countdown.split(":").map(Number);
-    return hours * 3600 + minutes * 60 + seconds;
   };
 
   useEffect(() => {
     const counter = document.getElementById("counter") as HTMLTimeElement;
-    if (!timestamps || !countdown) {
+    if (
+      !timestamps
+      // || !countdown
+    ) {
       return;
       //  throw Error("The counter clock is in a error state;\n unexpectedly there was no countdown state to work with.")
     }
@@ -88,16 +84,15 @@ const useContinueCountdown = () => {
 
     let countdownSeconds: number | undefined;
 
-    // FIXME: It just starts from the time in between these timestamps every time and we save it.
-    // We probably still need the countdown? Because on logout it would just start from the time in between again, from the start.
-    if (currentTimestamp < gameStartTimestamp) {
-      // Game hasn't started, disable stuff.
-      console.log("Haven't started.");
-    } else if (currentTimestamp < reviewStartTimestamp) {
+    /* 
+       This just sets the countdown and timestamps for the game. Some is not here, like the when the game haven't started 
+       we don't have to worry about that one here because if the game haven't started restrictedAccess gets set from the login.
+    */
+    if (currentTimestamp < reviewStartTimestamp) {
       // The actual game is ongoing.
       console.log("Game is ongoing.");
       countdownSeconds = getSecondsInBetweenByTime(
-        gameStartTimestamp,
+        currentTimestamp,
         reviewStartTimestamp
       );
       dispatch({
@@ -106,27 +101,27 @@ const useContinueCountdown = () => {
           gameStart: true,
           reviewStart: false,
           winnersAnnounced: false,
+          gameEnd: false,
         },
       });
     } else if (currentTimestamp < reviewEndTimestamp) {
       // Review has started.
       console.log("Review has started.");
-      // If there is already a countdown... but there would always be a countdown on login?
-      countdownSeconds = getSecondsByString(countdown); // This is here because I think we need the countdown still.
-      // countdownSeconds = getSecondsInBetweenByTime(
-      //   reviewStartTimestamp,
-      //   reviewEndTimestamp
-      // );
+      countdownSeconds = getSecondsInBetweenByTime(
+        currentTimestamp,
+        reviewEndTimestamp
+      );
       dispatch({
         type: UPDATE_CONFIGURATION,
         payload: {
           gameStart: false,
           reviewStart: true,
           winnersAnnounced: false,
+          gameEnd: false,
         },
       });
     } else if (currentTimestamp < gameEndTimestamp) {
-      // Review has ended, just let everyone go to event results.
+      // Review has ended, everyone goes to event results.
       console.log("Review ended.");
       countdownSeconds = getSecondsInBetweenByTime(
         currentTimestamp,
@@ -138,19 +133,30 @@ const useContinueCountdown = () => {
           gameStart: false,
           reviewStart: false,
           winnersAnnounced: true,
+          gameEnd: false,
         },
       });
     } else {
-      // Game has ended, probably don't need this here because every time the countdown goes to 0 it logs everyone out.
+      // Game has ended.
       console.log("Game ended.");
+      dispatch({
+        type: UPDATE_CONFIGURATION,
+        payload: {
+          gameStart: false,
+          reviewStart: false,
+          winnersAnnounced: false,
+          gameEnd: true,
+        },
+      });
     }
-    console.log("countdownSeconds", countdownSeconds);
+    // console.log("countdownSeconds", countdownSeconds);
+
+    // countdownSeconds = getSecondsByString(countdown);
 
     let newCountdown: string | undefined;
 
     const countdownInterval = setInterval(() => {
       if (countdownSeconds !== undefined && countdownSeconds > 0) {
-        // console.log("countdownSeconds", countdownSeconds);
         const hours = Math.floor(countdownSeconds / 3600),
           minutes = Math.floor((countdownSeconds % 3600) / 60),
           seconds = countdownSeconds % 60;
@@ -160,29 +166,30 @@ const useContinueCountdown = () => {
         ).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
         counter.innerText = newCountdown;
         counter.dateTime = newCountdown;
-        console.log("newCountdown", newCountdown);
+        // console.log("newCountdown", newCountdown);
 
         countdownSeconds -= 1;
       } else {
-        console.log("LOGOUT");
-        // dispatch({ type: LOGOUT });
+        if (countdownSeconds !== undefined && countdownSeconds <= 0)
+          dispatch({ type: LOGOUT });
+
         clearInterval(countdownInterval);
       }
     }, 1000);
 
-    return () => {
-      // On unmount we save the new countdown.
-      dispatch({
-        type: UPDATE_CONFIGURATION,
-        payload: {
-          countdown: newCountdown ? newCountdown : "00:00:00",
-        },
-      });
-      clearInterval(countdownInterval);
-    };
-  }, [document.getElementById("counter")]);
+    return () => clearInterval(countdownInterval);
 
-  return {};
+    // return () => {
+    //   // On unmount we save the new countdown.
+    //   dispatch({
+    //     type: UPDATE_CONFIGURATION,
+    //     payload: {
+    //       countdown: newCountdown ? newCountdown : "00:00:00",
+    //     },
+    //   });
+    //   clearInterval(countdownInterval);
+    // };
+  }, [document.getElementById("counter")]);
 };
 
 export default useContinueCountdown;
