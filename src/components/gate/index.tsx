@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
-// import { store } from "@root/store";
+import { store } from "@root/store";
 
 import { isNotPlayer } from "@actions/user";
 import { SET_CURRENT_USER, SET_NEW_LOGIN_FLAG } from "@actions/index";
@@ -21,9 +21,10 @@ import delay from "@utils/delay";
 import OverlayLoader from "../loaders/overlayLoader";
 
 interface Props extends React.PropsWithChildren<{}> {
+  restricted: number;
+  disableOn?: string[];
   user: UserReduxState;
   gameConfig: GameConfigReduxState;
-  restricted: number;
   isNotPlayer: (clickable?: boolean, message?: string) => boolean;
   setUserCredentials: (user: UserCredentials) => void;
   initializeCoins: (data: Omit<CoinTrackerState, "items">) => void;
@@ -48,9 +49,10 @@ interface LoginDTO {
 // TODO: Add only pages you can only be redirected to... probably?
 const Gate: React.FC<Props> = ({
   children,
+  restricted,
+  disableOn,
   user,
   gameConfig,
-  restricted,
   isNotPlayer,
   setUserCredentials,
   initializeCoins,
@@ -64,6 +66,18 @@ const Gate: React.FC<Props> = ({
     redirect =
       gameConfig.restrictedAccess && user.token
         ? "/profile"
+        : disableOn?.includes(
+            gameConfig.gameStart
+              ? "gameStart"
+              : gameConfig.reviewStart
+              ? "reviewStart"
+              : gameConfig.winnersAnnounced
+              ? "winnersAnnounced"
+              : ""
+          )
+        ? user.token
+          ? "/"
+          : "/login"
         : user.token &&
           ((gameConfig.reviewStart && !isNotPlayer()) || gameConfig.gameEnd)
         ? "/game-closed"
@@ -87,7 +101,7 @@ const Gate: React.FC<Props> = ({
       ? updateConfiguration({
           // timestamps: newLogin.timestamps,
           countdown: user.newLogin.countdown,
-          gameStart: true,
+          // gameStart: true,
         })
       : updateConfiguration({ restrictedAccess: true }); // Only allowed to the profile.
   };
@@ -100,9 +114,9 @@ const Gate: React.FC<Props> = ({
     }
   }, [user.newLogin]);
 
-  // useEffect(() => {
-  //   console.log("store.getState()", store.getState());
-  // }, [store.getState()]);
+  useEffect(() => {
+    console.log("store.getState()", store.getState());
+  }, [store.getState()]);
 
   return user.newLogin ? <OverlayLoader text="Loading user data" /> : children;
 };
