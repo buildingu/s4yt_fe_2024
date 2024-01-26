@@ -2,16 +2,10 @@ import { useState } from "react";
 
 import s from "./styles.module.css";
 import ModalTemplate from "../ModelTemplate";
+import { Product } from "@root/redux/reducers/coinTracker";
 
 interface Props {
-  products: {
-    img: any;
-    name: string;
-    sponsor: string;
-    sponsorLogo: any;
-    availability: number;
-    description: string;
-  };
+  products: Product
 }
 
 const RaffleItemModal: React.FC<Props> = ({ products }) => {
@@ -47,11 +41,18 @@ const RaffleItemModal: React.FC<Props> = ({ products }) => {
               </p>
               <div>
                 <p>sponsored by:</p>
-                <img
-                  className={s.sponsorLogo}
-                  src={products.sponsorLogo}
-                  alt={products.sponsor}
-                />
+                <a
+                  href={products.resourceLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    className={s.sponsorLogo}
+                    src={products.partnerLogo}
+                    alt={products.partnerLogo}
+                  />
+                </a>
+                <span>{products.rafflePartner}</span>
               </div>
             </div>
           </div>

@@ -47,6 +47,7 @@
   height: 100%;
   width: 300px;
   height: 300px;
+  margin: auto;
 }
 .modalContainer .modalRight {
   height: 100%;

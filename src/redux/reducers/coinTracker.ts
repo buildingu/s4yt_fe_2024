@@ -1,11 +1,12 @@
 import { SPEND_COINS, RETRIEVE_COINS, INITIALIZE_COINS } from "@actions/index";
 
 export interface Product {
-  img: string;
-  name: string;
   id: number;
-  sponsor: string;
-  sponsorLogo: string;
+  name: string;
+  img: any;
+  rafflePartner: string;
+  partnerLogo: any;
+  resourceLink: string;
   availability: number;
   description: string;
   entries?: number;
@@ -41,7 +42,7 @@ const coinTracker = (
         ...state,
         items: state.items.map((item) =>
           item.id === action.payload.item.id
-            ? { ...item, entries: item.entries - action.payload.numEntries }
+            ? { ...item, entries: item.entries && item.entries - action.payload.numEntries }
             : item
         ),
         remainingCoins: state.remainingCoins + action.payload.numEntries,

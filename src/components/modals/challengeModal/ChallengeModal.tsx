@@ -31,7 +31,6 @@ const ChallengeModal: React.FC<Props> = ({ data }) => {
         label="Your Business Challenge"
       >
         <div className={s.challengeContainer}>
-          <button className={s.backBtn} onClick={() => setShow(false)} />
           <p>{data?.content}</p>
         </div>
       </ModalTemplate>
