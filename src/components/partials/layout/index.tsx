@@ -21,9 +21,12 @@ const Layout: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
 
   useEffect(() => {
     const currentRoute = routes.find(
-      (route) => route.path === location.pathname || route.path.includes(":")
+      (route) =>
+        route.path === location.pathname ||
+        (route.path.includes("/:") &&
+          location.pathname.startsWith("/businesses"))
     );
-    console.log("currentRoute", currentRoute);
+
     document.title = currentRoute?.title
       ? `${currentRoute.title} | ${titlePrefix}`
       : titlePrefix;
