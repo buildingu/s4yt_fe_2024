@@ -70,7 +70,6 @@ const Raffle: React.FC<Props> = ({
 
   // Adds/Subtracts entries that correspond with product index and adjust total Dubulunes
   const handleProductEntries = (itemId: number, value: number) => {
-    console.log(itemId)
     const item = staticRaffleItems.find((product) => product.id === itemId);
     if (item) {
       if (value > 0) {
