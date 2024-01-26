@@ -12,6 +12,7 @@ import {
 import { isNotPlayer } from "@actions/user";
 
 import usePagination from "@hooks/usePagination";
+import { staticRaffleItems } from "@root/constants/temporaryDb/raffleItems";
 
 import Layout from "@components/partials/layout";
 import Header from "@components/partials/header";
@@ -35,90 +36,6 @@ interface Props {
   ) => boolean | undefined;
 }
 
-const products = [
-  {
-    img: require("@static/error-logo.png"),
-    name: "T-Shirt",
-    id: 1,
-    sponsor: "sponsor name",
-    sponsorLogo: require("@static/error-logo.png"),
-    availability: 6,
-    description: "here we will write a description of this item",
-  },
-  {
-    img: require("@static/error-logo.png"),
-    name: "Bag & Key Chain",
-    id: 2,
-    sponsor: "sponsor name",
-    sponsorLogo: require("@static/error-logo.png"),
-    availability: 3,
-    description: "here we will write a description of this item",
-  },
-  {
-    img: require("@static/error-logo.png"),
-    name: "Lanyard",
-    id: 3,
-    sponsor: "sponsor name",
-    sponsorLogo: require("@static/error-logo.png"),
-    availability: 1,
-    description: "here we will write a description of this item",
-  },
-  {
-    img: require("@static/error-logo.png"),
-    name: "Lanyard",
-    id: 4,
-    sponsor: "sponsor name",
-    sponsorLogo: require("@static/error-logo.png"),
-    availability: 2,
-    description: "here we will write a description of this item",
-  },
-  {
-    img: require("@static/error-logo.png"),
-    name: "T-Shirt",
-    id: 5,
-    sponsor: "sponsor name",
-    sponsorLogo: require("@static/error-logo.png"),
-    availability: 6,
-    description: "here we will write a description of this item",
-  },
-  {
-    img: require("@static/error-logo.png"),
-    name: "Bag & Key Chain",
-    id: 6,
-    sponsor: "sponsor name",
-    sponsorLogo: require("@static/error-logo.png"),
-    availability: 3,
-    description: "here we will write a description of this item",
-  },
-  {
-    img: require("@static/error-logo.png"),
-    name: "Lanyard",
-    id: 7,
-    sponsor: "sponsor name",
-    sponsorLogo: require("@static/error-logo.png"),
-    availability: 1,
-    description: "here we will write a description of this item",
-  },
-  {
-    img: require("@static/error-logo.png"),
-    name: "Lanyard",
-    id: 8,
-    sponsor: "sponsor name",
-    sponsorLogo: require("@static/error-logo.png"),
-    availability: 2,
-    description: "here we will write a description of this item",
-  },
-  {
-    img: require("@static/error-logo.png"),
-    name: "Lanyard",
-    id: 9,
-    sponsor: "sponsor name",
-    sponsorLogo: require("@static/error-logo.png"),
-    availability: 2,
-    description: "here we will write a description of this item",
-  },
-];
-
 const Raffle: React.FC<Props> = ({
   spendCoins,
   retrieveCoins,
@@ -134,10 +51,10 @@ const Raffle: React.FC<Props> = ({
   // For testing persistenece between pages
   useEffect(() => {
     if (storeEntries?.length === 0) {
-      initializeCoins({ items: products, remainingCoins: storeCoins });
+      initializeCoins({ items: staticRaffleItems, remainingCoins: storeCoins });
       setTotalDublunes(storeCoins);
     }
-  }, []);
+  }, [storeEntries, initializeCoins, storeCoins]);
 
   // Pagination hook
   const maxItems = 8;
@@ -149,11 +66,12 @@ const Raffle: React.FC<Props> = ({
     goToPage,
     nextPage,
     prevPage,
-  } = usePagination({ data: products, maxPerPage: maxItems });
+  } = usePagination({ data: staticRaffleItems, maxPerPage: maxItems });
 
   // Adds/Subtracts entries that correspond with product index and adjust total Dubulunes
   const handleProductEntries = (itemId: number, value: number) => {
-    const item = products.find((product) => product.id === itemId);
+    console.log(itemId)
+    const item = staticRaffleItems.find((product) => product.id === itemId);
     if (item) {
       if (value > 0) {
         spendCoins(item, value);

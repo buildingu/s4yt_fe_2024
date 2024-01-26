@@ -71,7 +71,7 @@ const useContinueCountdown = () => {
       // The actual game is ongoing.
       console.log("Game is ongoing.");
       countdownSeconds = getSecondsInBetweenByTime(
-        currentTimestamp,
+        gameStartTimestamp,
         reviewStartTimestamp
       );
       dispatch({

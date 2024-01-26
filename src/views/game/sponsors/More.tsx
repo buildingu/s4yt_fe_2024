@@ -150,7 +150,7 @@ const More: React.FC<Props> = ({ setClicked, scoreRef }) => {
                   />
                 </div>
                 <p>{question.question}</p>
-                {quizComplete && (
+                {quizComplete.complete && (
                   <p
                     className={s[`explanation${isCorrect ? "Right" : "Wrong"}`]}
                   >
