@@ -9,12 +9,14 @@ import Content from "@components/partials/content";
 
 import s from "./styles.module.css";
 import errorLogo from "@static/error-logo.png";
+import { GameConfigReduxState } from "../../../redux/reducers/gameConfig";
 
 interface Props {
+  gameEnd?: boolean;
   logoutPlayer: () => void;
 }
 
-const GameClosed: React.FC<Props> = ({ logoutPlayer }) => {
+const GameClosed: React.FC<Props> = ({ gameEnd, logoutPlayer }) => {
   return (
     <Layout>
       <Header />
@@ -39,16 +41,28 @@ const GameClosed: React.FC<Props> = ({ logoutPlayer }) => {
             <br /> now closed
           </h1>
           <p className={s.timer}>
-            Come back in
-            <time
-              aria-label="Time Remaining"
-              title="Time Remaining of the Game"
-              id="counter"
-              dateTime="00:00:00"
-            >
-              00:00:00
-            </time>
-            to see the results
+            {gameEnd ? (
+              // Shows for gameEnd.
+              <>
+                Come back for
+                <span>Next Year</span>
+                to see the next Version
+              </>
+            ) : (
+              // Shows for reviewStart.
+              <>
+                Come back in
+                <time
+                  aria-label="Time Remaining"
+                  title="Time Remaining of the Game"
+                  id="counter"
+                  dateTime="00:00:00"
+                >
+                  00:00:00
+                </time>
+                to see the results
+              </>
+            )}
           </p>
         </div>
       </Content>
@@ -56,8 +70,15 @@ const GameClosed: React.FC<Props> = ({ logoutPlayer }) => {
   );
 };
 
+const mapStateToProps = ({
+  gameConfig,
+}: {
+  gameConfig: GameConfigReduxState;
+}) => ({
+  gameEnd: gameConfig.gameEnd,
+});
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   logoutPlayer: () => dispatch(logoutPlayer()),
 });
 
-export default connect(null, mapDispatchToProps)(GameClosed);
+export default connect(mapStateToProps, mapDispatchToProps)(GameClosed);
