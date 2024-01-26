@@ -89,7 +89,7 @@ const Gate: React.FC<Props> = ({
 
     if (redirect)
       history.push(redirect, { state: { from: location }, replace: true });
-  }, [user.token, gameConfig.restrictedAccess]);
+  }, [user.token, gameConfig.restrictedAccess, disableOn]);
 
   // On login it adds their credentials, ... when redirected. This is because of the restricted redirects.
   const storeUserData = (newLogin: LoginDTO) => {

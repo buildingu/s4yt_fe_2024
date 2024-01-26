@@ -14,7 +14,7 @@ const Results: React.FC<Props> = () => {
   return (
     <Layout>
       <Header title="Event Results" />
-      <Content addCoins="coins2" addFeather="right1"></Content>
+      <Content addCoins="coins3" addFeather="left"></Content>
       <Status />
     </Layout>
   );
