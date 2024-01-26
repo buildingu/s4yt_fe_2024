@@ -15,7 +15,7 @@ import errorLogo from "@static/error-logo.png";
 interface Props extends React.PropsWithChildren<{}> {
   status: number;
   text: string;
-  linkType: "back" | "home";
+  linkType: "back" | "home" | "login";
   userToken?: string;
 }
 
@@ -58,7 +58,7 @@ const Error: React.FC<Props> = ({
           ) : (
             <Link
               aria-label="Back to Main Map"
-              to="/"
+              to={linkType === "home" ? "/" : "/login"}
               className="fade move"
               onClick={(e) => {
                 if (!userToken) {
@@ -78,7 +78,7 @@ const Error: React.FC<Props> = ({
         ) : (
           <Link
             aria-label="Back to Main Map"
-            to="/"
+            to={linkType === "home" ? "/" : "/login"}
             className={s.responsiveBack}
             onClick={(e) => {
               if (!userToken) {
