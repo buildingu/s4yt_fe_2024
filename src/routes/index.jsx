@@ -17,6 +17,7 @@ import Sponsors from "@views/game/sponsors";
 import Raffle from "@views/game/raffle";
 import Businesses from "@views/game/businesses";
 import Details from "@views/game/businesses/Details";
+import Results from "@views/game/results";
 import GameClosed from "@views/game/gameClosed";
 
 import Error404 from "@views/errors/Error404";
@@ -36,11 +37,11 @@ export const routes = [
   { path: "/profile", view: Profile, restricted: 1, title: "Profile" },
 
   { path: "/", view: Home, restricted: 1, title: "Treasure Map" },
-  { path: "/sponsors", view: Sponsors, restricted: 1, title: "Sponsors" },
-  { path: "/raffle", view: Raffle, restricted: 1, title: "Raffle" },
-  { path: "/businesses", view: Businesses, restricted: 1, title: "See Businesses" },
-  { path: "/businesses/:details", view: Details, restricted: 1, title: "Business Details" },
-  // { path: "/results", view: SomeComponent, restricted: 1 },
+  { path: "/sponsors", view: Sponsors, restricted: 1, title: "Sponsors", disableOn: ["reviewStart", "winnersAnnounced"] },
+  { path: "/raffle", view: Raffle, restricted: 1, title: "Raffle", disableOn: ["reviewStart", "winnersAnnounced"] },
+  { path: "/businesses", view: Businesses, restricted: 1, title: "See Businesses", disableOn: ["reviewStart", "winnersAnnounced"] },
+  { path: "/businesses/:details", view: Details, restricted: 1, title: "Business Details", disableOn: ["reviewStart", "winnersAnnounced"] },
+  { path: "/results", view: Results, restricted: 1, title: "Event Results", disableOn: ["gameStart"] },
   { path: "/game-closed", view: GameClosed, restricted: 1, title: "Game Closed" },
 
   { path: "/error-409", view: Error409, restricted: 1, title: "ERROR 409" },
@@ -56,7 +57,7 @@ const RoutesProvider = () => {
           key={route.path}
           path={route.path}
           element={
-            <Gate restricted={route.restricted}>
+            <Gate restricted={route.restricted} disableOn={route.disableOn}>
               <route.view />
             </Gate>
           }

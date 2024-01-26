@@ -33,7 +33,8 @@
   color: var(--pbrown);
   line-height: 64px;
 }
-.right .timer time {
+.right .timer time,
+.right .timer span {
   display: block;
   font-size: 100px;
   line-height: auto;
@@ -53,7 +54,8 @@
     font-size: 52px;
     line-height: 74px;
   }
-  .right .timer time {
+  .right .timer time,
+  .right .timer span {
     font-size: 110px;
   }
 }
