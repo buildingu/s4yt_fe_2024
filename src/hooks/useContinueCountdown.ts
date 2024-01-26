@@ -54,6 +54,32 @@ const useContinueCountdown = () => {
       reviewEndTimestamp = new Date(timestamps.review_end).getTime(),
       gameEndTimestamp = new Date(timestamps.game_end).getTime();
 
+      const formattedCurrentTimestamp = new Date(
+        currentTimestamp
+      ).toLocaleString("en-US", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: false, // Use 24-hour format
+      });
+
+      // Format gameEndTimestamp
+      const formattedGameEndTimestamp = new Date(
+        gameEndTimestamp
+      ).toLocaleString("en-US", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: false, // Use 24-hour format
+      });
+
+      console.log("Current Timestamp:", formattedCurrentTimestamp);
+      console.log("Game End Timestamp:", formattedGameEndTimestamp);
+
     console.log("currentTimestamp", currentTimestamp);
     console.log("gameStartTimestamp", gameStartTimestamp);
     console.log("reviewStartTimestamp", reviewStartTimestamp);
