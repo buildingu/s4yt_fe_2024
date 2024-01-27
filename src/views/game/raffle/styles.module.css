@@ -155,7 +155,7 @@
 .container .products div .imgBox img {
   object-fit: contain;
   width: 100%;
-  /* height: 100%; */
+  height: 100%;
 }
 
 .container .products div .controls {
