@@ -23,7 +23,7 @@ const ChallengeModal: React.FC<Props> = ({ data }) => {
         onClick={() => setShow(true)}
         className={s.challengeLabel}
       >
-        {data?.title}
+        Click here to view challenge
       </label>
       <ModalTemplate
         show={show}

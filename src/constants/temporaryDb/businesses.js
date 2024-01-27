@@ -11,7 +11,7 @@ export const staticBusiness = [
       method: "NA", // google meet / zoom etc.
     },
     challenge: {
-      title: "Innovate the Everyday", // challenge title
+      title: "Max Schulte - Innovate the Everyday", // challenge title
       content: `BACKGROUND:
       Max Schulte is a studio art assistant professor at Duke University. He sees his artistic practice and his role as an educator as extensions of one another. Both involve a balance between careful planning and improvisational strategies to shape an experience of curiosity, imagination, and discovery. His teaching philosophy revolves around helping others expand their ability to communicate a personal relationship with the world through storytelling.
 
@@ -50,7 +50,7 @@ export const staticBusiness = [
       method: "NA method", // google meet / zoom etc.
     },
     challenge: {
-      title: "The Passion Pitch", // challenge title
+      title: "Meridian Stories - The Passion Pitch", // challenge title
       content: `BACKGROUND : 
         What do you want to be when you grow up? That's a loaded question these days! We used to know the options, the choices, the opportunities. But now, the nature of the post-secondary professional world is changing rapidly. Education is fundamentally based on preparing students for a somewhat predictable working environment. That predictability is evaporating. So, given the dramatic changes society is undergoing, for what are we, the teachers, preparing, you, our students? The answer: a culture of omnipresent change.
 
@@ -115,7 +115,7 @@ export const staticBusiness = [
       method: "NA method", // google meet / zoom etc.
     },
     challenge: {
-      title: "Knowledgeflow Challenge", // challenge title
+      title: "Knowledgeflow Foundation", // challenge title
       content: `BACKGROUND :
         The importance of the privacy of personal data and concerns about collected, tracked, and shared data can be overlooked, diminished, and even offhandedly dismissed especially when the simple act of accepting or refusing ‘cookies' is the only impediment standing between your gaining, or being denied, access to a website. We think that understanding the importance of what you are losing, and  how you can control what is being collected/ shared/ sold could prove very useful especially as you are navigating in and around or away from a website..
 
@@ -152,7 +152,7 @@ export const staticBusiness = [
       method: "NA method", // google meet / zoom etc.
     },
     challenge: {
-      title: "Porter Airlines Challenge", // challenge title
+      title: "Porter Airlines", // challenge title
       content: `BACKGROUND :
         Working in an airline operations centre is a dynamic and challenging experience. Every day, there are both internal and external factors affecting the operation and the goal of those working in operations is to look ahead and resolve these problems before they impact the passengers. Luckily, there are a number of different roles working together because each decision that is made must take many different factors into consideration. But making decisions on uncertain and ever-changing elements can make things complicated especially when there are real people with real lives affected. So it's important to take all options into consideration. Remember, each passenger is traveling for a reason and the reputation of the company will be directly impacted. 
 
@@ -230,7 +230,7 @@ export const staticBusiness = [
       method: "NA method", // google meet / zoom etc.
     },
     challenge: {
-      title: "Matrix Challenge", // challenge title
+      title: "Matrix Personal Training", // challenge title
       content: `BACKGROUND :
         Owning a Small Business is incredibly rewarding, but also very challenging. The smaller your business is, the more resource constraints you encounter. When trying to grow, one of the biggest tradeoffs is between time and money. This is especially true with marketing.
 
@@ -263,7 +263,7 @@ export const staticBusiness = [
       method: "NA method", // google meet / zoom etc.
     },
     challenge: {
-      title: "ENERGI ACADEMY CHALLENGE", // challenge title
+      title: "Energie Academie", // challenge title
       content: `BACKGROUND : 
         This challenge comes from a piece of an actual EU project  that we (ENERGY ACADEMY)  are partners in and started working on in January.  
         NESSIE: "Innovative Education for Energy Transition"

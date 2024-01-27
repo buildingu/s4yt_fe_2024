@@ -13,7 +13,7 @@ import Status from "@components/partials/status";
 import { isNotPlayer } from "@actions/user";
 
 import Video from "./slides/Video";
-import Question from "./slides/Question2024Temp";
+import Question from "./slides/Question";
 import MeetUp from "./slides/MeetUp";
 
 import s from "./styles.module.css";

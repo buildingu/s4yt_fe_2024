@@ -20,8 +20,8 @@ const initialState: GameConfigReduxState = {
   timestamps: {
     register_start: "2023-01-19T13:00:00-05:00",
     game_start: "2024-01-22T10:00:00-05:00",
-    review_start: "2024-01-24T10:00:00-05:00",
-    review_end: "2024-01-25T11:00:00-05:00",
+    review_start: "2024-01-28T10:00:00-05:00",
+    review_end: "2024-01-29T11:00:00-05:00",
     game_end: "2024-02-01T17:00:00-05:00",
   },
 };
