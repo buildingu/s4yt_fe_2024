@@ -108,7 +108,7 @@ const Details: React.FC<PlayerProps> = ({ isNotPlayer }) => {
               <a
                 href="#"
                 aria-label="Previous Page"
-                className={s.backBtn}
+                className={`${s.backBtn} fade move`}
                 onClick={() => history.push(-1)}
               ></a>
             </div>

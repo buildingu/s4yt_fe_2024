@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 
 import { logoutPlayer } from "@actions/user";
 
+import useContinueCountdown from "@hooks/useContinueCountdown";
+
 import Layout from "@components/partials/layout";
 import Header from "@components/partials/header";
 import Content from "@components/partials/content";
@@ -12,11 +14,18 @@ import errorLogo from "@static/error-logo.png";
 import { GameConfigReduxState } from "../../../redux/reducers/gameConfig";
 
 interface Props {
+  reviewStart?: boolean;
   gameEnd?: boolean;
   logoutPlayer: () => void;
 }
 
-const GameClosed: React.FC<Props> = ({ gameEnd, logoutPlayer }) => {
+const GameClosed: React.FC<Props> = ({
+  reviewStart,
+  gameEnd,
+  logoutPlayer,
+}) => {
+  if (reviewStart) useContinueCountdown();
+
   return (
     <Layout>
       <Header />
@@ -75,6 +84,7 @@ const mapStateToProps = ({
 }: {
   gameConfig: GameConfigReduxState;
 }) => ({
+  reviewStart: gameConfig.reviewStart,
   gameEnd: gameConfig.gameEnd,
 });
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({

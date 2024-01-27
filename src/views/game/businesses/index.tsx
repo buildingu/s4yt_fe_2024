@@ -49,7 +49,7 @@ const Businesses: React.FC<Props> = ({ partners, getBusinesses }) => {
         </div>
         <button
           aria-label="Previous Page"
-          className={s.backBtn}
+          className={`${s.backBtn} fade move`}
           onClick={() => history.push(-1)}
         />
       </Content>
