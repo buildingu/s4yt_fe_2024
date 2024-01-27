@@ -7,7 +7,7 @@ import Header from "@components/partials/header";
 import Content from "@components/partials/content";
 import Status from "@components/partials/status";
 import Winners from "./EventWinners";
-import Banner from "@static/eventResults/img_thankyou.png"
+import Banner from "@static/eventResults/img_thankyou.png";
 
 import { staticWinners } from "@constants/temporaryDb/winners";
 
@@ -30,19 +30,20 @@ const Results: React.FC<Props> = () => {
   return (
     <Layout>
       <Header title="Event Results" />
-      <Content
-        addCoins="coins3"
-        addFeather="left"
-      >
+      <Content addCoins="coins3" addFeather="left">
         <div className={s.resultsContainer}>
-          <img className={s.bannerImage} src={Banner} alt="Thank you for participating" />
-          <div>
-            {currentPage < totalPartners ? (
-              <Winners data={currentItems[0]} />
-            ) : (
-              <Other data={currentItems[0]} />
-            )}
-          </div>
+          <img
+            className={s.bannerImage}
+            src={Banner}
+            alt="Thank you for participating"
+          />
+
+          {currentPage < totalPartners ? (
+            <Winners data={currentItems[0]} />
+          ) : (
+            <Other data={currentItems[0]} />
+          )}
+
           <div className={s.eventSelection}>
             <button
               className={`${s.prevButton}`}

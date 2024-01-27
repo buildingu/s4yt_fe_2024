@@ -1,3 +1,5 @@
+import usePagination from "@hooks/usePagination";
+
 import s from "./styles.module.css";
 
 interface Props {
@@ -17,24 +19,47 @@ interface Props {
 }
 
 const Winners: React.FC<Props> = ({ data }) => {
-  console.log(data);
+  // for future use if the event partner also have more than 2 raffle items
+  const {
+    // currentPage,
+    currentItems,
+    // goToPage,
+    // nextPage,
+    // prevPage,
+    // allPageNumbers,
+  } = usePagination({ data: data.winners.items, maxPerPage: 2 });
   return (
-    <div>
+    <>
       <div className={s.resultDisplayTop}>
         <img src={data.logo} alt={data?.name || "others"} />
         <ul>
-          <li>{data.winners.main.name}</li>
+          <li>
+            {data.winners.main.prize} {data.winners.main.name},{" "}
+            {data.winners.main.address}
+          </li>
           {data.winners.mentions?.map((mention: any, index: any) => {
             return (
               <li key={index}>
-                {mention.name}, {mention.address}
+                Honourable mention: {mention.name}, {mention.address}
               </li>
             );
           })}
         </ul>
       </div>
-      <div className={s.resultDisplayBottom}></div>
-    </div>
+      <div className={s.resultDisplayBottom}>
+        {currentItems.length > 0 && currentItems.map((item, index) => {
+          return (
+            <div className={s.partnerRaffleItems} key={index}>
+              <img src={item.logo} alt={item.itemName} />
+              <div>
+                <p>{item.winnerName}</p>
+                <p>{item.itemName}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 };
 

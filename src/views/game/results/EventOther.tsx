@@ -20,7 +20,6 @@ interface Props {
 }
 
 const Other: React.FC<Props> = ({ data }) => {
-  console.log(data);
   return (
     <ul className={s.otherContainer}>
       {data.items?.map((item, index) => {

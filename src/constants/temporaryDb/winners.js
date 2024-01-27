@@ -18,14 +18,7 @@ export const staticWinners = [
           address: "Winner ADDRESS",
         },
       ],
-      items: [
-        {
-          logo: require("@static/error-logo.png"),
-          itemName: "item NAME",
-          winnerName: "ITEM WINNER",
-          address: "Winner ADDRESS",
-        },
-      ],
+      items: [],
     },
   },
   {
@@ -77,6 +70,18 @@ export const staticWinners = [
         },
       ],
       items: [
+        {
+          logo: require("@static/error-logo.png"),
+          itemName: "item NAME",
+          winnerName: "ITEM WINNER",
+          address: "Winner ADDRESS",
+        },
+        {
+          logo: require("@static/error-logo.png"),
+          itemName: "item NAME",
+          winnerName: "ITEM WINNER",
+          address: "Winner ADDRESS",
+        },
         {
           logo: require("@static/error-logo.png"),
           itemName: "item NAME",
