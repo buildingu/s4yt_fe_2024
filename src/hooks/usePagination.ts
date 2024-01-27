@@ -12,6 +12,7 @@ interface Results {
   goToPage: (page: number) => void;
   nextPage: () => void;
   prevPage: () => void;
+  allPageNumbers: () => number[];
 };
 
 const usePagination = ({maxPerPage, data}: Props): Results => {
@@ -34,6 +35,10 @@ const usePagination = ({maxPerPage, data}: Props): Results => {
     goToPage(currentPage - 1);
   };
 
+  const allPageNumbers = () => {
+    return Array.from({ length: totalPages }, (_, index) => index + 1);
+  };
+
   return {
     currentPage,
     currentItems,
@@ -41,6 +46,7 @@ const usePagination = ({maxPerPage, data}: Props): Results => {
     goToPage,
     nextPage,
     prevPage,
+    allPageNumbers,
   };
 };
 

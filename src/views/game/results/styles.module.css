@@ -1,0 +1,85 @@
+.resultsContainer {
+  min-height: 650px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.eventSelection {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.otherContainer {
+  max-height: 500px;
+  width: 100%;
+  overflow: auto;
+  scroll-behavior: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.otherContainer li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: calc(100% / 2 - 40px);
+  max-height: 120px;
+  margin: 20px;
+}
+.otherContainer .winnerContainer {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  overflow: auto;
+  max-height: 120px;
+  overflow: auto;
+}
+.otherContainer .singleWinner {
+
+}
+.otherContainer img {
+  width: 100px;
+  height: 100px;
+}
+.resultDisplayTop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.resultDisplayTop img {
+  width: 250px;
+  height: 250px;
+}
+.logoPagination {
+  margin: 3px;
+  border: 3px solid transparent;
+  width: 60px;
+  height: 60px;
+}
+.logoSelected {
+  border: 3px solid red;
+}
+.logoPagination img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.prevButton {
+  background: url("../../../static/arrow.png") no-repeat center center/contain;
+  height: 80px;
+  width: 120px;
+}
+.nextButton {
+  background: url("../../../static/arrow.png") no-repeat center center/contain;
+  transform: rotate(180deg);
+  height: 80px;
+  width: 120px;
+}
+.prevButton:hover,
+.nextButton:hover {
+  transition: all 0.1s linear;
+  opacity: 0.5;
+}
