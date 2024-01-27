@@ -31,6 +31,22 @@
   display: flex;
   justify-content: flex-end;
 }
+.challengeLabel {
+  margin-bottom: 20px;
+}
+.formSubmission {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+.formSubmission div {
+  display: flex;
+  justify-content: space-between;
+}
+.formSubmission div input {
+  width: 60%;
+  margin-bottom: 20px;
+}
 .meetUp {
   height: 100%;
   color: var(--pbrown);
