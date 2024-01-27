@@ -175,7 +175,7 @@ export const staticWinners = [
   },
   {
     name: "Others", // business name
-    logo: require("@static/error-logo.png"), // business logo
+    logo: require("@static/eventResults/img_08-others.png"), // business logo
     items: [
       {
         logo: require("@static/error-logo.png"),

@@ -5,12 +5,17 @@
   justify-content: space-between;
   align-items: center;
 }
+.bannerImage {
+  width: 100%;
+}
 .eventSelection {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
 .otherContainer {
+  padding: 0;
+  margin: 0;
   max-height: 500px;
   width: 100%;
   overflow: auto;
@@ -68,13 +73,12 @@
   display: block;
 }
 .prevButton {
-  background: url("../../../static/arrow.png") no-repeat center center/contain;
+  background: url("../../../static/eventResults/btn_back.png") no-repeat center center/contain;
   height: 80px;
   width: 120px;
 }
 .nextButton {
-  background: url("../../../static/arrow.png") no-repeat center center/contain;
-  transform: rotate(180deg);
+  background: url("../../../static/eventResults/btn_next.png") no-repeat center center/contain;
   height: 80px;
   width: 120px;
 }
