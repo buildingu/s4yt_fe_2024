@@ -17,11 +17,12 @@
   padding: 0;
   margin: 0;
   max-height: 500px;
-  width: 100%;
+  min-height: 400px;
+  width: 90%;
   overflow: auto;
   scroll-behavior: auto;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
 }
 .otherContainer li {
@@ -31,6 +32,9 @@
   width: calc(100% / 2 - 40px);
   max-height: 120px;
   margin: 20px;
+}
+.otherContainer li:last-child {
+  margin-right: auto;
 }
 .otherContainer .winnerContainer {
   margin-left: 20px;
@@ -44,6 +48,22 @@
 .otherContainer img {
   width: 100px;
   height: 100px;
+}
+.otherImageContainer {
+  position: relative;
+}
+.otherImageContainer .partnerLogo {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  border-radius: 50%;
+  bottom: 0;
+  right: -10px;
+  object-fit: contain;
+  transition: all 0.2s linear;
+}
+.otherImageContainer .partnerLogo:hover {
+  transform: scale(2);
 }
 .resultDisplayTop {
   display: flex;
@@ -105,9 +125,4 @@
   background: url("../../../static/eventResults/btn_next.png") no-repeat center center/contain;
   height: 80px;
   width: 120px;
-}
-.prevButton:hover,
-.nextButton:hover {
-  transition: all 0.1s linear;
-  opacity: 0.5;
 }

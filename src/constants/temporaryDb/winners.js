@@ -183,106 +183,54 @@ export const staticWinners = [
     logo: require("@static/eventResults/img_08-others.png"), // business logo
     items: [
       {
-        logo: require("@static/error-logo.png"),
-        itemName: "RAFFLE ITEM NAME",
+        logo: require("@static/raffle/items/ORGANICCOTTONU-SACU-Do-U(Black&White).png"),
+        itemName: "Cotton Shoulder Sling",
+        partnerName: "building-U",
+        partnerLogo: require("@static/raffle/partners/building-U.png"),
         winners: [
           {
-            winnerName: "RAFFLE ITEM WINNER4",
-            address: "Winner ADDRESS",
+            winnerName: "Winner 1 Name here",
+            address: "Winner 1 Address",
           },
           {
-            winnerName: "RAFFLE ITEM WINNER4",
-            address: "Winner ADDRESS",
+            winnerName: "Winner 2 Name here",
+            address: "Winner 2 Address",
           },
           {
-            winnerName: "RAFFLE ITEM WINNER4",
-            address: "Winner ADDRESS",
+            winnerName: "Winner 3 Name here",
+            address: "Winner 3 Address",
           },
         ],
       },
       {
-        logo: require("@static/error-logo.png"),
-        itemName: "RAFFLE ITEM NAME",
+        logo: require("@static/raffle/items/UW_hoodie.png"),
+        itemName: "Hoodie (black)",
+        partnerName: "Waterloo University",
+        partnerLogo: require("@static/raffle/partners/waterloouni.png"),
         winners: [
           {
-            winnerName: "RAFFLE ITEM WINNER4",
-            address: "Winner ADDRESS",
+            winnerName: "Winner 1 Name here Winner 1 Name here",
+            address: "Winner 1 Address",
+          },
+          {
+            winnerName: "Winner 2 Name here",
+            address: "Winner 2 Address",
+          },
+          {
+            winnerName: "Winner 3 Name here",
+            address: "Winner 3 Address",
           },
         ],
       },
       {
-        logo: require("@static/error-logo.png"),
-        itemName: "RAFFLE ITEM NAME",
+        logo: require("@static/raffle/items/savethefrogwhite.png"),
+        itemName: "T-Shirt",
+        partnerName: "SavetheFrogs!",
+        partnerLogo: require("@static/raffle/partners/savetheFrogs.png"),
         winners: [
           {
-            winnerName: "RAFFLE ITEM WINNER4",
-            address: "Winner ADDRESS",
-          },
-        ],
-      },
-      {
-        logo: require("@static/error-logo.png"),
-        itemName: "RAFFLE ITEM NAME",
-        winners: [
-          {
-            winnerName: "RAFFLE ITEM WINNER4",
-            address: "Winner ADDRESS",
-          },
-          {
-            winnerName: "RAFFLE ITEM WINNER4",
-            address: "Winner ADDRESS",
-          },
-          {
-            winnerName: "RAFFLE ITEM WINNER4",
-            address: "Winner ADDRESS",
-          },
-          {
-            winnerName: "RAFFLE ITEM WINNER4",
-            address: "Winner ADDRESS",
-          },
-          {
-            winnerName: "RAFFLE ITEM WINNER4",
-            address: "Winner ADDRESS",
-          },
-        ],
-      },
-      {
-        logo: require("@static/error-logo.png"),
-        itemName: "RAFFLE ITEM NAME",
-        winners: [
-          {
-            winnerName: "RAFFLE ITEM WINNER4",
-            address: "Winner ADDRESS",
-          },
-          {
-            winnerName: "RAFFLE ITEM WINNER4",
-            address: "Winner ADDRESS",
-          },
-        ],
-      },
-      {
-        logo: require("@static/error-logo.png"),
-        itemName: "RAFFLE ITEM NAME",
-        winners: [
-          {
-            winnerName: "RAFFLE ITEM WINNER4",
-            address: "Winner ADDRESS",
-          },
-          {
-            winnerName: "RAFFLE ITEM WINNER4 RAFFLE ITEM WINNER4",
-            address: "Winner ADDRESS",
-          },
-          {
-            winnerName: "RAFFLE ITEM WINNER4",
-            address: "Winner ADDRESS",
-          },
-          {
-            winnerName: "RAFFLE ITEM WINNER4",
-            address: "Winner ADDRESS",
-          },
-          {
-            winnerName: "RAFFLE ITEM WINNER4",
-            address: "Winner ADDRESS",
+            winnerName: "Winner 1 Name here",
+            address: "Winner 1 Address",
           },
         ],
       },

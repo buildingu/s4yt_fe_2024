@@ -46,7 +46,7 @@ const Results: React.FC<Props> = () => {
 
           <div className={s.eventSelection}>
             <button
-              className={`${s.prevButton}`}
+              className={`${s.prevButton} fade move`}
               aria-label="Previous page"
               onClick={() => prevPage()}
             />
@@ -69,7 +69,7 @@ const Results: React.FC<Props> = () => {
               ))}
             </div>
             <button
-              className={s.nextButton}
+              className={`${s.nextButton} fade move`}
               aria-label="Next page"
               onClick={() => nextPage()}
             />

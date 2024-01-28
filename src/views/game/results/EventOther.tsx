@@ -6,6 +6,8 @@ interface Props {
       {
         itemName: string;
         logo: any;
+        partnerName: string;
+        partnerLogo: any;
         winners: [
           {
             winnerName: string;
@@ -25,7 +27,10 @@ const Other: React.FC<Props> = ({ data }) => {
       {data.items?.map((item, index) => {
         return (
           <li key={index}>
-            <img src={item.logo} alt={item.itemName} />
+            <div className={s.otherImageContainer}>
+              <img src={item.logo} alt={item.itemName} />
+              <img className={s.partnerLogo} src={item.partnerLogo} alt={item.partnerName} />
+            </div>
             <div className={s.winnerContainer}>
               {item.winners?.map((winner, index) => {
                 return (

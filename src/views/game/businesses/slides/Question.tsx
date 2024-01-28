@@ -3,7 +3,7 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import emailjs from "@emailjs/browser";
 import uuidRegex from "@constants/uuidRegex";
-import linkValidator from "@constants/linkValidator";
+import linkValidator from "@utils/linkValidator";
 import { addNotification } from "@actions/notifications";
 import NotificationValues from "@typings/NotificationValues";
 
@@ -23,7 +23,7 @@ interface Props {
 
 const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
   const [submission, setSubmission] = useState({
-    sponsorName: data.title,
+    sponsorName: data?.title,
     studentID: "",
     submissionLink: "",
   });
@@ -49,11 +49,17 @@ const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
             console.log("FAILED...", error);
           }
         );
-    } else {
+    } else if (!uuidRegex.test(submission.studentID)) {
       addNotification({
         error: true,
-        content:
-          "Please enter a valid Player ID and link.",
+        content: "Please enter a valid Player ID.",
+        close: false,
+        duration: 5000,
+      });
+    } else if (!linkValidator(submission.submissionLink)) {
+      addNotification({
+        error: true,
+        content: "Please enter a valid Google Doc link.",
         close: false,
         duration: 5000,
       });
@@ -66,10 +72,11 @@ const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
           <ChallengeModal data={data} />
         </label>
         <label>
-          Instructions: After viewing the challenge, please create a Google Doc
-          for your answer. Provide any images, links, and other media within
-          that document. Share the link to your completed document as well as
-          your Player ID in the respective inputs below:
+          Instructions: Please create a Google Doc and provide any images,
+          links, and/or other media within that document. Share the link to your
+          completed document as well as your Player ID in the inputs below. For
+          any help, please use the support button at the bottom of the page to
+          contact us.
         </label>
         <div className={s.formSubmission}>
           <div>
@@ -83,6 +90,7 @@ const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
               }}
               id="playerID"
               type="text"
+              placeholder="Same as Login ID"
             />
           </div>
           <div>
@@ -96,6 +104,7 @@ const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
               }}
               id="docLink"
               type="text"
+              placeholder="https://docs.google.com/document"
             />
           </div>
         </div>
