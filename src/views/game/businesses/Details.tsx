@@ -1,6 +1,5 @@
 import { useState, useEffect, ChangeEvent } from "react";
-// temporary useParams
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 
 import history from "@utils/History";
@@ -105,12 +104,11 @@ const Details: React.FC<PlayerProps> = ({ isNotPlayer }) => {
                 />
                 <label htmlFor="meetupRadio" className={s.meetupLabel}></label>
               </div>
-              <a
-                href="#"
+              <button
                 aria-label="Previous Page"
                 className={`${s.backBtn} fade move`}
                 onClick={() => history.push(-1)}
-              ></a>
+              ></button>
             </div>
             <div className={s.detailsContentView}>
               {selectedOption ? contentView[selectedOption] : null}

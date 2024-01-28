@@ -24,7 +24,9 @@ const GameClosed: React.FC<Props> = ({
   gameEnd,
   logoutPlayer,
 }) => {
-  if (reviewStart) useContinueCountdown();
+  // I don't think there's a way to call the hook conditionally
+  // Can we render GameClosed if reviewStart instead?
+  // if (reviewStart) useContinueCountdown();
 
   return (
     <Layout>
