@@ -1,11 +1,15 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import NotificationValues from "@typings/NotificationValues";
+
+import { useRef, useState, FormEvent } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import emailjs from "@emailjs/browser";
-import uuidRegex from "@constants/uuidRegex";
-import linkValidator from "@utils/linkValidator";
+
+import updateField from "@utils/forms/updateField";
+import checkValidPlayerId from "@utils/forms/checkValidPlayerId";
+import checkValidDocLink from "@utils/forms/checkValidDocLink";
+
 import { addNotification } from "@actions/notifications";
-import NotificationValues from "@typings/NotificationValues";
 
 import ChallengeModal from "@components/modals/challengeModal/ChallengeModal";
 
@@ -21,53 +25,79 @@ interface Props {
   addNotification: (data: Omit<NotificationValues, "id">) => void;
 }
 
-const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
-  const [submission, setSubmission] = useState({
-    sponsorName: data?.title,
-    studentID: "",
-    submissionLink: "",
-  });
+interface FromData {
+  sponsorName: string;
+  player_id: string;
+  docLink: string;
+}
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
+  const formRef = useRef<HTMLFormElement>(null),
+    [form, setForm] = useState({
+      processing: false,
+    }),
+    [currentData, setCurrentData] = useState<FromData>({
+      sponsorName: data?.title,
+      player_id: "",
+      docLink: "",
+    });
+  //  [submission, setSubmission] = useState({
+  //   sponsorName: data?.title,
+  //   studentID: "",
+  //   submissionLink: "",
+  // });
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (
-      uuidRegex.test(submission.studentID) &&
-      linkValidator(submission.submissionLink)
-    ) {
-      emailjs
-        .send(
+
+    const fields = document.querySelectorAll<HTMLInputElement>(
+      "#questionForm input"
+    );
+    let valid = true;
+
+    for (let i = 0; i < fields.length; i++) {
+      const field = fields[i];
+
+      if (field.name === "player_id") checkValidPlayerId(field);
+      if (field.name === "docLink") checkValidDocLink(field);
+
+      if (!field.validity.valid && valid) valid = false;
+    }
+
+    if (valid) {
+      setForm((prev) => ({ ...prev, processing: true }));
+
+      try {
+        const submission = currentData as unknown;
+        await emailjs.send(
           `${process.env.REACT_APP_EMAILJS_SERVICE_ID}`,
           "template_oc3kfme",
-          submission,
+          submission as Record<string, unknown>,
           `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
-        )
-        .then(
-          function (response) {
-            console.log("SUCCESS!", response.status, response.text);
-          },
-          function (error) {
-            console.log("FAILED...", error);
-          }
         );
-    } else if (!uuidRegex.test(submission.studentID)) {
-      addNotification({
-        error: true,
-        content: "Please enter a valid Player ID.",
-        close: false,
-        duration: 5000,
-      });
-    } else if (!linkValidator(submission.submissionLink)) {
-      addNotification({
-        error: true,
-        content: "Please enter a valid Google Doc link.",
-        close: false,
-        duration: 5000,
-      });
+      } catch (error) {
+        addNotification({
+          error: true,
+          content:
+            "Submission unexpectedly failed; error while sending automated email. Contact support if issue persists.",
+          close: false,
+          duration: 0,
+        });
+      } finally {
+        setForm((prev) => ({ ...prev, processing: false }));
+      }
     }
   };
+
   return (
     <div className={s.optionsView}>
-      <form onSubmit={handleSubmit}>
+      <form
+        id="questionForm"
+        onSubmit={handleSubmit}
+        ref={formRef}
+        autoComplete="off"
+        noValidate
+      >
         <label className={s.challengeLabel}>
           <ChallengeModal data={data} />
         </label>
@@ -78,45 +108,49 @@ const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
           any help, please use the support button at the bottom of the page to
           contact us.
         </label>
-        <div className={s.formSubmission}>
+        <div role="presentation" className={s.formSubmission}>
           <div>
-            <label htmlFor="playerID">Player ID:</label>
-            <input
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                setSubmission((prev) => ({
-                  ...prev,
-                  studentID: e.target.value,
-                }));
-              }}
-              id="playerID"
-              type="text"
-              placeholder="Same as Login ID"
-            />
+            <label htmlFor="player_id">Player Id:</label>
+            <div role="presentation" className={s.inputContainer}>
+              <input
+                aria-describedby="formError"
+                id="player_id"
+                name="player_id"
+                type="text"
+                placeholder="Same as Login ID"
+                onChange={(e) => updateField<FromData>(e, setCurrentData)}
+                disabled={form.processing}
+                autoComplete="off"
+              />
+              <small aria-live="assertive" id="formError" className="formError">
+                Not a valid player ID.
+              </small>
+            </div>
           </div>
-          <div>
+          <div role="presentation">
             <label htmlFor="docLink">Google Doc Link:</label>
-            <input
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                setSubmission((prev) => ({
-                  ...prev,
-                  submissionLink: e.target.value,
-                }));
-              }}
-              id="docLink"
-              type="text"
-              placeholder="https://docs.google.com/document"
-            />
+            <div role="presentation" className={s.inputContainer}>
+              <input
+                aria-describedby="formError"
+                id="docLink"
+                name="docLink"
+                type="text"
+                placeholder="https://docs.google.com/document"
+                onChange={(e) => updateField<FromData>(e, setCurrentData)}
+                disabled={form.processing}
+                autoComplete="off"
+              />
+              <small aria-live="assertive" id="formError" className="formError">
+                Not a valid Google Doc link.
+              </small>
+            </div>
           </div>
         </div>
-        <div className={s.formButtons}>
+        <div role="presentation" className={s.formButtons}>
           <button
-            disabled={
-              playerCheck ||
-              submission.studentID === "" ||
-              submission.submissionLink === ""
-            }
-            className={s.questionSubmit}
             type="submit"
+            className={s.questionSubmit}
+            disabled={playerCheck || form.processing}
           />
         </div>
       </form>

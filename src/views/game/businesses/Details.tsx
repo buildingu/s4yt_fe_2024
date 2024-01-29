@@ -18,7 +18,7 @@ import MeetUp from "./slides/MeetUp";
 import s from "./styles.module.css";
 
 interface PlayerProps {
-  isNotPlayer: (useNotification: boolean, message?: string | null) => void;
+  isNotPlayer: (useNotification?: boolean, message?: string) => boolean;
 }
 
 const Details: React.FC<PlayerProps> = ({ isNotPlayer }) => {
@@ -28,10 +28,8 @@ const Details: React.FC<PlayerProps> = ({ isNotPlayer }) => {
 
   const contentView: { [key: string]: React.ReactNode } = {
     Video: <Video data={state?.video} />,
-    Question: (
-      <Question data={state?.challenge} playerCheck={isNotPlayer(false)} />
-    ),
-    MeetUp: <MeetUp data={state?.meetUp} playerCheck={isNotPlayer(false)} />,
+    Question: <Question data={state?.challenge} playerCheck={isNotPlayer()} />,
+    MeetUp: <MeetUp data={state?.meetUp} playerCheck={isNotPlayer()} />,
   };
   useEffect(() => {
     isNotPlayer(
@@ -122,7 +120,7 @@ const Details: React.FC<PlayerProps> = ({ isNotPlayer }) => {
 };
 
 const mapDispatchToProps = (dispatch: Function) => ({
-  isNotPlayer: (useNotification: boolean, message?: string | null) =>
+  isNotPlayer: (useNotification?: boolean, message?: string) =>
     dispatch(isNotPlayer(useNotification, message)),
 });
 

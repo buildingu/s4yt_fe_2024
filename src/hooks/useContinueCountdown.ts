@@ -3,58 +3,56 @@ import { GameConfigReduxState } from "@reducers/gameConfig";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { UPDATE_CONFIGURATION, LOGOUT } from "@actions/index";
+import {
+  UPDATE_CONFIGURATION,
+  UPDATE_NEW_PERIOD,
+  ADD_NOTIFICATION,
+  LOGOUT,
+} from "@actions/index";
 
-/* 
-   If the current time is lower than game_start the game has not started and the countdown 
-   is off. (Would just be login disabled from the back-end?) If the current time is greater or equal 
-   than review_start the login is disabled (with the message page) and countdown is off. Any time in between 
-   countdown will be the difference between review_start and current_time.
-*/
+import delay from "@utils/delay";
 
-// TODO: We should get the countdown on page load instead to fix the saved countdown?
-// TODO: Now getting timestamps instead of the countdown.
-const useContinueCountdown = () => {
+const useContinueCountdown = (
+  counterRef: React.RefObject<HTMLTimeElement>,
+  isGameClosedCounter: boolean
+) => {
   const timestamps = useSelector(
       (state: { gameConfig: GameConfigReduxState }) =>
         state.gameConfig.timestamps
     ),
-    // Countdown on log in or saved countdown.
-    // countdown = useSelector(
-    //   (state: { gameConfig: GameConfigReduxState }) =>
-    //     state.gameConfig.countdown
-    // ),
+    // reviewStart can be set when they redirect to /game-closed.
+    reviewStart = useSelector(
+      (state: { gameConfig: GameConfigReduxState }) =>
+        state.gameConfig.reviewStart
+    ),
     dispatch = useDispatch();
 
-  // const getSecondsByString = (countdown: string) => {
-  //   const [hours, minutes, seconds] = countdown.split(":").map(Number);
-  //   return hours * 3600 + minutes * 60 + seconds;
-  // };
   const getSecondsInBetweenByTime = (from: number, till: number) => {
     return Math.max(0, Math.floor((till - from) / 1000));
   };
 
   useEffect(() => {
-    const counter = document.getElementById("counter") as HTMLTimeElement;
     if (
-      !timestamps
-      // || !countdown
+      !timestamps ||
+      !counterRef.current ||
+      (isGameClosedCounter && !reviewStart)
     ) {
       return;
       //  throw Error("The counter clock is in a error state;\n unexpectedly there was no countdown state to work with.")
     }
+    const counter = counterRef.current;
 
     const currentTimestamp = new Date().getTime(),
-      gameStartTimestamp = new Date(timestamps.game_start).getTime(),
+      // gameStartTimestamp = new Date(timestamps.game_start).getTime(),
       reviewStartTimestamp = new Date(timestamps.review_start).getTime(),
       reviewEndTimestamp = new Date(timestamps.review_end).getTime(),
       gameEndTimestamp = new Date(timestamps.game_end).getTime();
 
-    console.log("currentTimestamp", currentTimestamp);
-    console.log("gameStartTimestamp", gameStartTimestamp);
-    console.log("reviewStartTimestamp", reviewStartTimestamp);
-    console.log("reviewEndTimestamp", reviewEndTimestamp);
-    console.log("gameEndTimestamp", gameEndTimestamp);
+    // console.log("currentTimestamp", currentTimestamp);
+    // console.log("gameStartTimestamp", gameStartTimestamp);
+    // console.log("reviewStartTimestamp", reviewStartTimestamp);
+    // console.log("reviewEndTimestamp", reviewEndTimestamp);
+    // console.log("gameEndTimestamp", gameEndTimestamp);
 
     let countdownSeconds: number | undefined;
 
@@ -123,12 +121,12 @@ const useContinueCountdown = () => {
         },
       });
     }
+    // This is literally for the redirect useEffect in the gate, I didn't want to add the full list to useEffect; gameConfig.gameStart, etc.
+    dispatch({ type: UPDATE_NEW_PERIOD });
+
     // console.log("countdownSeconds", countdownSeconds);
 
-    // countdownSeconds = getSecondsByString(countdown);
-
     let newCountdown: string | undefined;
-
     const countdownInterval = setInterval(() => {
       if (countdownSeconds !== undefined && countdownSeconds > 0) {
         const hours = Math.floor(countdownSeconds / 3600),
@@ -144,26 +142,26 @@ const useContinueCountdown = () => {
 
         countdownSeconds -= 1;
       } else {
-        if (countdownSeconds !== undefined && countdownSeconds <= 0)
-          dispatch({ type: LOGOUT });
+        if (countdownSeconds !== undefined && countdownSeconds <= 0) {
+          dispatch({
+            type: ADD_NOTIFICATION,
+            payload: {
+              error: true,
+              content:
+                "You are now being logged out because the timer has ran out...",
+              close: false,
+              duration: 0,
+            },
+          });
+          delay(2500, () => dispatch({ type: LOGOUT }));
+        }
 
         clearInterval(countdownInterval);
       }
     }, 1000);
 
     return () => clearInterval(countdownInterval);
-
-    // return () => {
-    //   // On unmount we save the new countdown.
-    //   dispatch({
-    //     type: UPDATE_CONFIGURATION,
-    //     payload: {
-    //       countdown: newCountdown ? newCountdown : "00:00:00",
-    //     },
-    //   });
-    //   clearInterval(countdownInterval);
-    // };
-  }, [document.getElementById("counter")]);
+  }, [counterRef.current]);
 };
 
 export default useContinueCountdown;

@@ -1,3 +1,6 @@
+import { GameConfigReduxState } from "@reducers/gameConfig";
+
+import { useRef } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
@@ -11,7 +14,6 @@ import Content from "@components/partials/content";
 
 import s from "./styles.module.css";
 import errorLogo from "@static/error-logo.png";
-import { GameConfigReduxState } from "../../../redux/reducers/gameConfig";
 
 interface Props {
   reviewStart?: boolean;
@@ -24,9 +26,9 @@ const GameClosed: React.FC<Props> = ({
   gameEnd,
   logoutPlayer,
 }) => {
-  // I don't think there's a way to call the hook conditionally
-  // Can we render GameClosed if reviewStart instead?
-  // if (reviewStart) useContinueCountdown();
+  const counterRef = useRef<HTMLTimeElement>(null);
+
+  useContinueCountdown(counterRef, true);
 
   return (
     <Layout>
@@ -47,32 +49,35 @@ const GameClosed: React.FC<Props> = ({
           <img src={errorLogo} alt="Error Pirate" className={s.errorLogo} />
         </div>
         <div className={s.right}>
-          <h1>
-            The game is
-            <br /> now closed
-          </h1>
+          {(gameEnd || reviewStart) && (
+            <h1>
+              The game is
+              <br /> now closed
+            </h1>
+          )}
           <p className={s.timer}>
             {gameEnd ? (
-              // Shows for gameEnd.
               <>
                 Come back for
                 <span>Next Year</span>
                 to see the next Version
               </>
-            ) : (
-              // Shows for reviewStart.
+            ) : reviewStart ? (
               <>
                 Come back in
                 <time
                   aria-label="Time Remaining"
                   title="Time Remaining of the Game"
                   id="counter"
+                  ref={counterRef}
                   dateTime="00:00:00"
                 >
                   00:00:00
                 </time>
                 to see the results
               </>
+            ) : (
+              <>Why are you on this page? The game isn't closed, go play!</>
             )}
           </p>
         </div>

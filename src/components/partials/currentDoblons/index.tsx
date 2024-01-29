@@ -13,7 +13,7 @@ interface Props {
   style?: React.CSSProperties;
   addFullHeader?: boolean | "";
   coins: number;
-  isNotPlayer: (clickable?: boolean, message?: string) => boolean;
+  isNotPlayer: (useNotification?: boolean, message?: string) => boolean;
 }
 
 const CurrentDoblons = ({
@@ -52,8 +52,8 @@ const mapStateToProps = ({
   coins: coinTracker.remainingCoins,
 });
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  isNotPlayer: (clickable?: boolean, message?: string) =>
-    dispatch(isNotPlayer(clickable, message) as unknown) as boolean,
+  isNotPlayer: (useNotification?: boolean, message?: string) =>
+    dispatch(isNotPlayer(useNotification, message) as unknown) as boolean,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrentDoblons);

@@ -80,6 +80,7 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail }) => {
         style={{ maxWidth: "600px", marginInline: "auto" }}
       >
         <form
+          aria-describedby="explanation"
           id="verifyEmailForm"
           onSubmit={(e) => submit(e)}
           className={s.form}
@@ -96,7 +97,7 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail }) => {
               />
             </div>
             <input
-              aria-describedby="explanation"
+              aria-describedby="formError"
               id="email"
               name="email"
               type="email"
@@ -107,7 +108,9 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail }) => {
               autoComplete="off"
               required
             />
-            <small className="formError">Not a valid email address</small>
+            <small aria-live="assertive" id="formError" className="formError">
+              Not a valid email address
+            </small>
           </div>
 
           <div role="presentation">

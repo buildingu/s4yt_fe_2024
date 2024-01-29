@@ -81,6 +81,7 @@ const ForgotPassword: React.FC<Props> = ({ sendResetPasswordEmail }) => {
         style={{ maxWidth: "600px", marginInline: "auto" }}
       >
         <form
+          aria-describedby="explanation"
           id="forgotPasswordForm"
           onSubmit={(e) => submit(e)}
           className={s.form}
@@ -97,7 +98,7 @@ const ForgotPassword: React.FC<Props> = ({ sendResetPasswordEmail }) => {
               />
             </div>
             <input
-              aria-describedby="explanation"
+              aria-describedby="formError"
               id="email"
               name="email"
               type="email"
@@ -108,7 +109,9 @@ const ForgotPassword: React.FC<Props> = ({ sendResetPasswordEmail }) => {
               autoComplete="off"
               required
             />
-            <small className="formError">Not a valid email address</small>
+            <small aria-live="assertive" id="formError" className="formError">
+              Not a valid email address
+            </small>
           </div>
 
           <div role="presentation">
