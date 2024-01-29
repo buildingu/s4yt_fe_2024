@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 
 import updateField from "@utils/forms/updateField";
 import checkValidity from "@utils/forms/checkValidity";
+import checkValidPlayerId from "@utils/forms/checkValidPlayerId";
 
 import { loginPlayer } from "@actions/user";
 
@@ -48,8 +49,12 @@ const Login: React.FC<Props> = ({ loginPlayer }) => {
 
     for (let i = 0; i < fields.length; i++) {
       const field = fields[i];
+      if (field.name === "player_id") {
+        checkValidPlayerId(field);
+      } else {
+        checkValidity(field);
+      }
 
-      checkValidity(field);
       if (!field.validity.valid && valid) valid = false;
     }
 
@@ -73,6 +78,7 @@ const Login: React.FC<Props> = ({ loginPlayer }) => {
           <div role="presentation">
             <label htmlFor="player_id">Player Id</label>
             <input
+              aria-describedby="formError"
               id="player_id"
               name="player_id"
               type="player_id"
@@ -81,6 +87,9 @@ const Login: React.FC<Props> = ({ loginPlayer }) => {
               autoComplete="off"
               required
             />
+            <small aria-live="assertive" id="formError" className="formError">
+              Not a valid player ID.
+            </small>
           </div>
 
           <div role="presentation">

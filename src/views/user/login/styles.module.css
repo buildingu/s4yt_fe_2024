@@ -4,6 +4,7 @@
 }
 
 .form div:not(:last-child) {
+  position: relative;
   max-width: 335px;
 }
 .form div:first-child {
@@ -24,6 +25,11 @@
 
 .form div input {
   width: 100%;
+}
+
+.form div small {
+  position: absolute;
+  bottom: -28px;
 }
 
 @media screen and (min-width: 513px) {
