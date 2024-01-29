@@ -64,9 +64,7 @@ const Raffle: React.FC<Props> = ({
       try {
         const unsubscribe = onValue(userRef, (snapshot) => {
           const submittedCheck = snapshot.val();
-          console.log(submittedCheck)
           if (submittedCheck && submittedCheck.submittedRaffle) {
-            console.log("exists");
             setDisabledButton(true);
           } else {
             setDisabledButton(false);

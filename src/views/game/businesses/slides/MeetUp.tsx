@@ -32,7 +32,6 @@ const MeetUp: React.FC<Props> = ({ playerCheck, data, user, name }) => {
         const unsubscribe = onValue(userRef, (snapshot) => {
           const meeting = snapshot.val();
           if (meeting && meeting[name]) {
-            console.log("exists");
             setDisabledButton(true);
           } else {
             setDisabledButton(false);

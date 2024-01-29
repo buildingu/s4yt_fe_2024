@@ -64,7 +64,6 @@ const coinTracker = (
         remainingCoins: action.payload.remainingCoins,
       };
     case SET_RAFFLE_ITEMS:
-      console.log("PAYLOAD", action.payload);
       return {
         ...state,
         items: action.payload.map((product: any) => ({

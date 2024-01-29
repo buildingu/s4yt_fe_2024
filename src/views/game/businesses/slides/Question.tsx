@@ -63,7 +63,6 @@ const Questions: React.FC<Props> = ({
         const unsubscribe = onValue(userRef, (snapshot) => {
           const challenges = snapshot.val();
           if (challenges && challenges[data.title]) {
-            console.log("exists");
             setDisabledButton(true);
           } else {
             setDisabledButton(false);
@@ -108,7 +107,6 @@ const Questions: React.FC<Props> = ({
             `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
           )
           .then(async () => {
-            console.log("email sent, adding to firebase");
             try {
               await update(userRef, {
                 [data.title]: {

@@ -44,11 +44,9 @@ export const getCoinsGainedHistory =
     }
   };
 export const getRaffleItems = () => async (dispatch, getState) => {
-  console.log("raffle backend call")
   try {
     const res = await Api.get("/raffle");
     if (res) {
-      console.log(res.data.raffle_items, "server");
       dispatch({ type: SET_RAFFLE_ITEMS, payload: res.data.raffle_items });
     } else {
       dispatch(
