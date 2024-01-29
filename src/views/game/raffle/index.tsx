@@ -30,10 +30,7 @@ interface Props {
   initializeCoins: (data: { items: Product[]; remainingCoins: number }) => void;
   storeCoins: number;
   storeEntries: Product[] | undefined;
-  isNotPlayer: (
-    useNotification: boolean,
-    message?: string | null
-  ) => boolean | undefined;
+  isNotPlayer: (useNotification?: boolean, message?: string) => boolean;
 }
 
 const Raffle: React.FC<Props> = ({
@@ -81,16 +78,14 @@ const Raffle: React.FC<Props> = ({
     setTotalDublunes((prev) => prev - value);
   };
   useEffect(() => {
-    const result = isNotPlayer(false);
+    const result = isNotPlayer();
     if (result) {
       isNotPlayer(true, "Only players can assign Dubl-U-Nes to raffle items");
     }
   }, []);
 
   return (
-    <Layout
-    // addFeather="right2"
-    >
+    <Layout>
       <Header title="Raffle Page" />
       <Content
         addFeather="right2"
@@ -135,8 +130,8 @@ const Raffle: React.FC<Props> = ({
                   <img
                     className={s.entryNotification}
                     src={
-                      storeEntries.find((entry) => entry.id === item.id)
-                        ?.entries > 0
+                      storeEntries!.find((entry) => entry.id === item.id)
+                        ?.entries! > 0
                         ? goldCoin
                         : silverCoin
                     }
@@ -148,7 +143,7 @@ const Raffle: React.FC<Props> = ({
                   <button
                     disabled={
                       storeEntries?.find((entry) => entry.id === item.id)
-                        ?.entries === 0 || isNotPlayer(false)
+                        ?.entries === 0 || isNotPlayer()
                     }
                     onClick={() => handleProductEntries(item.id, -1)}
                     aria-label="Subtract"
@@ -161,7 +156,7 @@ const Raffle: React.FC<Props> = ({
                         ?.entries}
                   </h4>
                   <button
-                    disabled={totalDublunes === 0 || isNotPlayer(false)}
+                    disabled={totalDublunes === 0 || isNotPlayer()}
                     onClick={() => handleProductEntries(item.id, +1)}
                     aria-label="Add"
                   >
@@ -214,7 +209,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
     dispatch(retrieveCoins(item, numEntries)),
   initializeCoins: ({ items, remainingCoins }: CoinTrackerState) =>
     dispatch(initializeCoins({ items, remainingCoins })),
-  isNotPlayer: (useNotification: boolean, message?: string | null) =>
+  isNotPlayer: (useNotification?: boolean, message?: string) =>
     dispatch(isNotPlayer(useNotification, message)),
 });
 

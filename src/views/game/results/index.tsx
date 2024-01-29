@@ -1,5 +1,8 @@
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
+
+import { staticWinners } from "@constants/temporaryDb/winners";
+
 import usePagination from "@hooks/usePagination";
 
 import Layout from "@components/partials/layout";
@@ -7,12 +10,10 @@ import Header from "@components/partials/header";
 import Content from "@components/partials/content";
 import Status from "@components/partials/status";
 import Winners from "./EventWinners";
-import Banner from "@static/eventResults/img_thankyou.png";
-
-import { staticWinners } from "@constants/temporaryDb/winners";
+import Other from "./EventOther";
 
 import s from "./styles.module.css";
-import Other from "./EventOther";
+import Banner from "@static/eventResults/img_thankyou.png";
 
 interface Props {}
 
