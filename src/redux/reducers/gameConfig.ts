@@ -1,4 +1,4 @@
-import { UPDATE_CONFIGURATION } from "@actions/index";
+import { UPDATE_CONFIGURATION, UPDATE_NEW_PERIOD } from "@actions/index";
 
 export interface GameConfigReduxState {
   timestamps?: {
@@ -8,22 +8,16 @@ export interface GameConfigReduxState {
     review_end: string; // Award and raffle items are chosen.
     game_end: string; // Entire app end.
   };
-  countdown?: string;
-  restrictedAccess?: boolean; // When there is no countdown or there is problems with the user's profile.
-  gameStart?: boolean; // When there is a countdown.
+  newPeriod: number;
+  restrictedAccess?: boolean; // When there is no timestamps or there is problems with the user's profile.
+  gameStart?: boolean; // When there is timestamps.
   reviewStart?: boolean; // When gameStart ends.
-  winnersAnnounced?: boolean; // When reviewStart ends, we maybe don't need this one because we can just use if gameStart is false?
-  gameEnd?: boolean;
+  winnersAnnounced?: boolean; // When it's reviewStart ends.
+  gameEnd?: boolean; // When all timestamps are exceeded.
 }
 
 const initialState: GameConfigReduxState = {
-  timestamps: {
-    register_start: "2023-01-19T13:00:00-05:00",
-    game_start: "2024-01-22T10:00:00-05:00",
-    review_start: "2024-01-28T10:00:00-05:00",
-    review_end: "2024-01-29T11:00:00-05:00",
-    game_end: "2024-02-01T17:00:00-05:00",
-  },
+  newPeriod: 0,
 };
 
 const gameConfig = (
@@ -33,6 +27,8 @@ const gameConfig = (
   switch (action.type) {
     case UPDATE_CONFIGURATION:
       return { ...state, ...action.payload };
+    case UPDATE_NEW_PERIOD:
+      return { ...state, newPeriod: state.newPeriod + 1 };
     default:
       return state;
   }

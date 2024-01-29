@@ -79,7 +79,6 @@ export const sendVerifyEmail =
     }
   };
 
-// TODO: We may get the timestamps instead of the countdown now.
 export const loginPlayer =
   (userData, setForm) => async (dispatch, getState) => {
     try {
@@ -89,23 +88,28 @@ export const loginPlayer =
         const data = res.data,
           user = res.data.user,
           restrictedAccess =
-            !data.countdown.includes(":") ||
+            data.timestamps === "The game has not started yet" ||
             (user.is_backup &&
               (!user.password_updated || !user.profile_updated));
 
         dispatch({ type: SET_TOKEN, payload: data.token });
-        console.log("res.data", res.data);
 
-        // For if the countdown is a message when the haven't started.
-        if (!data.countdown.includes(":"))
+        if (data.timestamps === "The game has not started yet") {
           dispatch(
             addNotification({
               error: true,
-              content: data.countdown,
+              content: data.timestamps,
               close: false,
               duration: 0,
             })
           );
+        } else {
+          dispatch(
+            updateConfiguration({
+              timestamps: data.timestamps,
+            })
+          );
+        }
 
         // This is temporary for the backup users because they're data wasn't correct.
         if (

@@ -18,6 +18,7 @@ export const LOGOUT = "user.LOGOUT";
 
 // configuration
 export const UPDATE_CONFIGURATION = "gameConfig.UPDATE_CONFIGURATION";
+export const UPDATE_NEW_PERIOD = "gameConfig.UPDATE_NEW_PERIOD";
 
 // coinTracker
 export const SPEND_COINS = "coinTracker.SPEND_COINS";
@@ -25,4 +26,4 @@ export const RETRIEVE_COINS = "coinTracker.RETRIEVE_COINS";
 export const INITIALIZE_COINS = "coinTracker.INITIALIZE_COINS";
 
 // businesses/event partners
-export const SET_BUSINESSES = "setBusinesses.SET_BUSINESSES"
+export const SET_BUSINESSES = "setBusinesses.SET_BUSINESSES";

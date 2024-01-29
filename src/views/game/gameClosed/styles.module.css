@@ -32,6 +32,7 @@
   font-size: var(--heading-42);
   color: var(--pbrown);
   line-height: 64px;
+  max-width: 415px;
 }
 .right .timer time,
 .right .timer span {
