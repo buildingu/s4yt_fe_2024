@@ -25,7 +25,7 @@ interface Props {
   addNotification: (data: Omit<NotificationValues, "id">) => void;
 }
 
-interface FromData {
+interface QuestionFormData {
   sponsorName: string;
   player_id: string;
   docLink: string;
@@ -36,7 +36,7 @@ const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
     [form, setForm] = useState({
       processing: false,
     }),
-    [currentData, setCurrentData] = useState<FromData>({
+    [currentData, setCurrentData] = useState<QuestionFormData>({
       sponsorName: data?.title,
       player_id: "",
       docLink: "",
@@ -118,7 +118,9 @@ const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
                 name="player_id"
                 type="text"
                 placeholder="Same as Login ID"
-                onChange={(e) => updateField<FromData>(e, setCurrentData)}
+                onChange={(e) =>
+                  updateField<QuestionFormData>(e, setCurrentData)
+                }
                 disabled={form.processing}
                 autoComplete="off"
               />
@@ -136,7 +138,9 @@ const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
                 name="docLink"
                 type="text"
                 placeholder="https://docs.google.com/document"
-                onChange={(e) => updateField<FromData>(e, setCurrentData)}
+                onChange={(e) =>
+                  updateField<QuestionFormData>(e, setCurrentData)
+                }
                 disabled={form.processing}
                 autoComplete="off"
               />

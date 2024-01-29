@@ -17,7 +17,7 @@ import s from "./styles.module.css";
 
 interface Props {
   loginPlayer: (
-    userData: any,
+    userData: LoginFormData,
     setForm: React.Dispatch<
       React.SetStateAction<{
         processing: boolean;
@@ -26,7 +26,7 @@ interface Props {
   ) => Promise<any>;
 }
 
-interface FromData {
+interface LoginFormData {
   player_id: string;
   password: string;
 }
@@ -35,7 +35,7 @@ const Login: React.FC<Props> = ({ loginPlayer }) => {
   const [form, setForm] = useState({
       processing: false,
     }),
-    [currentData, setCurrentData] = useState<FromData>({
+    [currentData, setCurrentData] = useState<LoginFormData>({
       player_id: "",
       password: "",
     });
@@ -82,7 +82,7 @@ const Login: React.FC<Props> = ({ loginPlayer }) => {
               id="player_id"
               name="player_id"
               type="player_id"
-              onChange={(e) => updateField<FromData>(e, setCurrentData)}
+              onChange={(e) => updateField<LoginFormData>(e, setCurrentData)}
               disabled={form.processing}
               autoComplete="off"
               required
@@ -100,7 +100,7 @@ const Login: React.FC<Props> = ({ loginPlayer }) => {
               id="password"
               name="password"
               type="password"
-              onChange={(e) => updateField<FromData>(e, setCurrentData)}
+              onChange={(e) => updateField<LoginFormData>(e, setCurrentData)}
               disabled={form.processing}
               autoComplete="off"
               minLength={8}
@@ -127,7 +127,7 @@ const Login: React.FC<Props> = ({ loginPlayer }) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   loginPlayer: (
-    userData: any,
+    userData: LoginFormData,
     setForm: React.Dispatch<
       React.SetStateAction<{
         processing: boolean;
