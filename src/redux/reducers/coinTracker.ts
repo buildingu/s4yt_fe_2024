@@ -1,14 +1,21 @@
-import { SPEND_COINS, RETRIEVE_COINS, INITIALIZE_COINS } from "@actions/index";
+import {
+  SPEND_COINS,
+  RETRIEVE_COINS,
+  INITIALIZE_COINS,
+  SET_RAFFLE_ITEMS,
+} from "@actions/index";
 
 export interface Product {
   id: number;
   name: string;
-  img: any;
-  rafflePartner: string;
-  partnerLogo: any;
-  resourceLink: string;
-  availability: number;
   description: string;
+  image_src: string;
+  stock: number;
+  raffle_partner: {
+    organization_name: string;
+    logo_default: string;
+    resource_link: string;
+  };
   entries?: number;
 }
 
@@ -42,7 +49,11 @@ const coinTracker = (
         ...state,
         items: state.items.map((item) =>
           item.id === action.payload.item.id
-            ? { ...item, entries: item.entries && item.entries - action.payload.numEntries }
+            ? {
+                ...item,
+                entries:
+                  item.entries && item.entries - action.payload.numEntries,
+              }
             : item
         ),
         remainingCoins: state.remainingCoins + action.payload.numEntries,
@@ -50,13 +61,16 @@ const coinTracker = (
     case INITIALIZE_COINS:
       return {
         ...state,
-        ...(action.payload.items && {
-          items: action.payload.items.map((product: any) => ({
-            ...product,
-            entries: 0,
-          })),
-        }),
         remainingCoins: action.payload.remainingCoins,
+      };
+    case SET_RAFFLE_ITEMS:
+      console.log("PAYLOAD", action.payload);
+      return {
+        ...state,
+        items: action.payload.map((product: any) => ({
+          ...product,
+          entries: 0,
+        })),
       };
     default:
       return state;

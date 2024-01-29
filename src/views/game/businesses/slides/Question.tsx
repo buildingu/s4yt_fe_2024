@@ -1,9 +1,11 @@
 import NotificationValues from "@typings/NotificationValues";
 
-import { useRef, useState, FormEvent } from "react";
+import { useRef, useState, FormEvent, useEffect } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import emailjs from "@emailjs/browser";
+import { db } from "@root/firebase";
+import { ref, update, onValue } from "firebase/database";
 
 import updateField from "@utils/forms/updateField";
 import checkValidPlayerId from "@utils/forms/checkValidPlayerId";
@@ -14,6 +16,9 @@ import { addNotification } from "@actions/notifications";
 import ChallengeModal from "@components/modals/challengeModal/ChallengeModal";
 
 import s from "./styles.module.css";
+import AreYouSureModal from "@root/components/modals/areYouSure/AreYouSureModal";
+import { UserReduxState } from "@root/redux/reducers/user";
+import UserCredentials from "@root/typings/UserCredentials";
 
 interface Props {
   playerCheck: any;
@@ -23,29 +28,56 @@ interface Props {
     submissionCount: number;
   };
   addNotification: (data: Omit<NotificationValues, "id">) => void;
+  user?: UserCredentials;
 }
 
 interface FromData {
   sponsorName: string;
-  player_id: string;
-  docLink: string;
+  studentID: string;
+  submissionLink: string;
 }
 
-const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
+const Questions: React.FC<Props> = ({
+  playerCheck,
+  data,
+  addNotification,
+  user,
+}) => {
+  const [disabledButton, setDisabledButton] = useState<boolean>(false);
+
+  const encodedEmail = user?.email.replace(/\./g, ",");
+  const userRef = ref(db, "users/" + encodedEmail + "/challenges/");
   const formRef = useRef<HTMLFormElement>(null),
     [form, setForm] = useState({
       processing: false,
     }),
     [currentData, setCurrentData] = useState<FromData>({
       sponsorName: data?.title,
-      player_id: "",
-      docLink: "",
+      studentID: "",
+      submissionLink: "",
     });
-  //  [submission, setSubmission] = useState({
-  //   sponsorName: data?.title,
-  //   studentID: "",
-  //   submissionLink: "",
-  // });
+
+  useEffect(() => {
+    const checkIfFieldExists = async () => {
+      try {
+        const unsubscribe = onValue(userRef, (snapshot) => {
+          const challenges = snapshot.val();
+          if (challenges && challenges[data.title]) {
+            console.log("exists");
+            setDisabledButton(true);
+          } else {
+            setDisabledButton(false);
+          }
+        });
+        return () => {
+          unsubscribe();
+        };
+      } catch (error) {
+        console.error("Error checking data:", error);
+      }
+    };
+    checkIfFieldExists();
+  }, [userRef]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,23 +90,35 @@ const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
     for (let i = 0; i < fields.length; i++) {
       const field = fields[i];
 
-      if (field.name === "player_id") checkValidPlayerId(field);
-      if (field.name === "docLink") checkValidDocLink(field);
+      if (field.name === "studentID") checkValidPlayerId(field);
+      if (field.name === "submissionLink") checkValidDocLink(field);
 
       if (!field.validity.valid && valid) valid = false;
     }
 
     if (valid) {
       setForm((prev) => ({ ...prev, processing: true }));
-
       try {
         const submission = currentData as unknown;
-        await emailjs.send(
-          `${process.env.REACT_APP_EMAILJS_SERVICE_ID}`,
-          "template_oc3kfme",
-          submission as Record<string, unknown>,
-          `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
-        );
+        await emailjs
+          .send(
+            `${process.env.REACT_APP_EMAILJS_SERVICE_ID}`,
+            `${process.env.REACT_APP_EMAILJS_TEMPLATE_ID}`,
+            submission as Record<string, unknown>,
+            `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
+          )
+          .then(async () => {
+            console.log("email sent, adding to firebase");
+            try {
+              await update(userRef, {
+                [data.title]: {
+                  challengeSubmitted: true,
+                },
+              });
+            } catch (error) {
+              console.error("Error updating data:", error);
+            }
+          });
       } catch (error) {
         addNotification({
           error: true,
@@ -88,7 +132,6 @@ const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
       }
     }
   };
-
   return (
     <div className={s.optionsView}>
       <form
@@ -110,12 +153,12 @@ const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
         </label>
         <div role="presentation" className={s.formSubmission}>
           <div>
-            <label htmlFor="player_id">Player Id:</label>
+            <label htmlFor="studentID">Player Id:</label>
             <div role="presentation" className={s.inputContainer}>
               <input
                 aria-describedby="formError"
-                id="player_id"
-                name="player_id"
+                id="studentID"
+                name="studentID"
                 type="text"
                 placeholder="Same as Login ID"
                 onChange={(e) => updateField<FromData>(e, setCurrentData)}
@@ -128,12 +171,12 @@ const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
             </div>
           </div>
           <div role="presentation">
-            <label htmlFor="docLink">Google Doc Link:</label>
+            <label htmlFor="submissionLink">Google Doc Link:</label>
             <div role="presentation" className={s.inputContainer}>
               <input
                 aria-describedby="formError"
-                id="docLink"
-                name="docLink"
+                id="submissionLink"
+                name="submissionLink"
                 type="text"
                 placeholder="https://docs.google.com/document"
                 onChange={(e) => updateField<FromData>(e, setCurrentData)}
@@ -147,20 +190,30 @@ const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
           </div>
         </div>
         <div role="presentation" className={s.formButtons}>
-          <button
+          <AreYouSureModal
+            label={"Are you sure?"}
+            text={`Once you submit your choice, you will not be able to change it later.`}
+            func={handleSubmit}
+            disabledProps={playerCheck || disabledButton || form.processing}
+            buttonClass={s.questionSubmit}
+          />
+          {/* <button
             type="submit"
             className={s.questionSubmit}
             disabled={playerCheck || form.processing}
-          />
+          /> */}
         </div>
       </form>
     </div>
   );
 };
 
+const mapStateToProps = ({ user }: { user: UserReduxState }) => ({
+  user: user.credentials,
+});
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   addNotification: (notification: Omit<NotificationValues, "id">) =>
     dispatch(addNotification(notification)),
 });
 
-export default connect(null, mapDispatchToProps)(Questions);
+export default connect(mapStateToProps, mapDispatchToProps)(Questions);
