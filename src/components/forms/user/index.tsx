@@ -39,7 +39,7 @@ interface Props {
   resetCities: () => void;
   user: UserReduxState;
   registerPlayer: (
-    userData: any,
+    userData: UserFormData,
     formRef: React.RefObject<HTMLFormElement>,
     setForm: React.Dispatch<
       React.SetStateAction<{
@@ -48,7 +48,7 @@ interface Props {
     >
   ) => Promise<any>;
   updateProfile: (
-    userData: any,
+    userData: UserFormData,
     formRef: React.RefObject<HTMLFormElement>,
     setForm: React.Dispatch<
       React.SetStateAction<{
@@ -60,7 +60,7 @@ interface Props {
   referral?: string | null;
 }
 
-interface FromData {
+interface UserFormData {
   name: string;
   email: string;
   password: string;
@@ -94,7 +94,7 @@ const UserForm: React.FC<Props> = ({
     [form, setForm] = useState({
       processing: false,
     }),
-    [currentData, setCurrentData] = useState<FromData>({
+    [currentData, setCurrentData] = useState<UserFormData>({
       name: user.credentials?.name ?? "",
       email: user.credentials?.email ?? "",
       password: "",
@@ -129,10 +129,6 @@ const UserForm: React.FC<Props> = ({
     if (!formOptions.education.length) getEducation();
 
     if (!formOptions.countries.length) getCountries();
-
-    // if (referral && user.email) {
-    //   setData({ ...data, referral: parseInt(referral), email: user.email });
-    // }
   }, []);
 
   useEffect(() => {
@@ -264,7 +260,7 @@ const UserForm: React.FC<Props> = ({
             id="name"
             name="name"
             type="text"
-            onChange={(e) => updateField<FromData>(e, setCurrentData)}
+            onChange={(e) => updateField<UserFormData>(e, setCurrentData)}
             disabled={form.processing}
             {...(currentData.name && { defaultValue: currentData.name })}
             autoComplete="off"
@@ -287,7 +283,7 @@ const UserForm: React.FC<Props> = ({
             id="email"
             name="email"
             type="email"
-            onChange={(e) => updateField<FromData>(e, setCurrentData)}
+            onChange={(e) => updateField<UserFormData>(e, setCurrentData)}
             disabled={form.processing}
             {...(currentData.email && { defaultValue: currentData.email })}
             autoComplete="off"
@@ -316,7 +312,7 @@ const UserForm: React.FC<Props> = ({
               id="password"
               name="password"
               type="password"
-              onChange={(e) => updateField<FromData>(e, setCurrentData)}
+              onChange={(e) => updateField<UserFormData>(e, setCurrentData)}
               disabled={form.processing}
               autoComplete="off"
               minLength={8}
@@ -342,7 +338,7 @@ const UserForm: React.FC<Props> = ({
               id="password_confirmation"
               name="password_confirmation"
               type="password"
-              onChange={(e) => updateField<FromData>(e, setCurrentData)}
+              onChange={(e) => updateField<UserFormData>(e, setCurrentData)}
               disabled={form.processing}
               autoComplete="off"
               minLength={8}
@@ -392,7 +388,7 @@ const UserForm: React.FC<Props> = ({
             <Select
               id="education"
               name="education_id"
-              onChange={(e) => updateField<FromData>(e, setCurrentData)}
+              onChange={(e) => updateField<UserFormData>(e, setCurrentData)}
               disabled={form.processing}
               {...(currentData.education_id && {
                 defaultValue: currentData.education_id,
@@ -423,7 +419,7 @@ const UserForm: React.FC<Props> = ({
             <Select
               id="grade"
               name="grade_id"
-              onChange={(e) => updateField<FromData>(e, setCurrentData)}
+              onChange={(e) => updateField<UserFormData>(e, setCurrentData)}
               disabled={form.processing}
               {...(currentData.grade_id && {
                 defaultValue: currentData.grade_id,
@@ -453,7 +449,7 @@ const UserForm: React.FC<Props> = ({
             id="school"
             name="school"
             type="text"
-            onChange={(e) => updateField<FromData>(e, setCurrentData)}
+            onChange={(e) => updateField<UserFormData>(e, setCurrentData)}
             disabled={form.processing}
             {...(currentData.school && { defaultValue: currentData.school })}
             autoComplete="off"
@@ -473,7 +469,7 @@ const UserForm: React.FC<Props> = ({
             <Select
               id="country"
               name="country_id"
-              onChange={(e) => updateField<FromData>(e, setCurrentData)}
+              onChange={(e) => updateField<UserFormData>(e, setCurrentData)}
               disabled={form.processing}
               {...(currentData.country_id && { value: currentData.country_id })}
               {...(!user.token && { required: true })}
@@ -496,7 +492,7 @@ const UserForm: React.FC<Props> = ({
               aria-busy={formOptions.regions.length === 0}
               id="region"
               name="region_id"
-              onChange={(e) => updateField<FromData>(e, setCurrentData)}
+              onChange={(e) => updateField<UserFormData>(e, setCurrentData)}
               disabled={
                 !currentData.country_id ||
                 formOptions.regions.length === 0 ||
@@ -540,7 +536,7 @@ const UserForm: React.FC<Props> = ({
             aria-busy={formOptions.cities.length === 0}
             id="city"
             name="city_id"
-            onChange={(e) => updateField<FromData>(e, setCurrentData)}
+            onChange={(e) => updateField<UserFormData>(e, setCurrentData)}
             disabled={
               !currentData.region_id ||
               formOptions.cities.length === 0 ||
@@ -617,7 +613,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   getCities: (regionId: number) =>
     dispatch(getCities(regionId) as unknown) as Promise<void>,
   registerPlayer: (
-    userData: FormData,
+    userData: UserFormData,
     formRef: React.RefObject<HTMLFormElement>,
     setForm: React.Dispatch<
       React.SetStateAction<{
@@ -629,7 +625,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
       registerPlayer(userData, formRef, setForm) as unknown
     ) as Promise<any>,
   updateProfile: (
-    userData: FormData,
+    userData: UserFormData,
     formRef: React.RefObject<HTMLFormElement>,
     setForm: React.Dispatch<
       React.SetStateAction<{

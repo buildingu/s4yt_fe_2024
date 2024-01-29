@@ -8,6 +8,8 @@ import { connect } from "react-redux";
 import updateField from "@utils/forms/updateField";
 import checkValidity from "@utils/forms/checkValidity";
 import checkMatchingPasswords from "@utils/forms/checkMatchingPasswords";
+import delay from "@utils/delay";
+import history from "@utils/History";
 
 import { resetPassword } from "@actions/user";
 import { updatePassword } from "@actions/user";
@@ -18,12 +20,12 @@ import s from "./styles.module.css";
 interface Props {
   playerId?: string | null;
   userToken?: string;
-  resetPassword: (userData: any) => Promise<any>;
-  updatePassword: (userData: any) => Promise<any>;
+  resetPassword: (userData: PasswordFormData) => Promise<any>;
+  updatePassword: (userData: PasswordFormData) => Promise<any>;
   addNotification: (data: Omit<NotificationValues, "id">) => void;
 }
 
-interface FromData {
+interface PasswordFormData {
   player_id?: string;
   old_password?: string;
   password: string;
@@ -41,9 +43,8 @@ const PasswordForm: React.FC<Props> = ({
     [form, setForm] = useState({
       processing: false,
     }),
-    // FIXME: Weird type errors.
-    [currentData, setCurrentData] = useState<FormData>({
-      ...(userToken ? { old_password: "" } : { player_id: playerId }),
+    [currentData, setCurrentData] = useState<PasswordFormData>({
+      ...(userToken ? { old_password: "" } : { player_id: playerId as string }),
       password: "",
       password_confirmation: "",
     });
@@ -92,6 +93,7 @@ const PasswordForm: React.FC<Props> = ({
           close: false,
           duration: 4000,
         });
+        !userToken && delay(2500, () => history.push("/login"));
       } else {
         addNotification({
           error: true,
@@ -123,7 +125,7 @@ const PasswordForm: React.FC<Props> = ({
             id="old_password"
             name="old_password"
             type="old_password"
-            onChange={(e) => updateField<FromData>(e, setCurrentData)}
+            onChange={(e) => updateField<PasswordFormData>(e, setCurrentData)}
             disabled={form.processing}
             autoComplete="off"
             required
@@ -140,7 +142,7 @@ const PasswordForm: React.FC<Props> = ({
           id="password"
           name="password"
           type="password"
-          onChange={(e) => updateField<FromData>(e, setCurrentData)}
+          onChange={(e) => updateField<PasswordFormData>(e, setCurrentData)}
           disabled={form.processing}
           autoComplete="off"
           minLength={8}
@@ -161,7 +163,7 @@ const PasswordForm: React.FC<Props> = ({
           id="password_confirmation"
           name="password_confirmation"
           type="password"
-          onChange={(e) => updateField<FromData>(e, setCurrentData)}
+          onChange={(e) => updateField<PasswordFormData>(e, setCurrentData)}
           disabled={form.processing}
           autoComplete="off"
           minLength={8}
@@ -198,9 +200,9 @@ const mapStateToProps = ({ user }: { user: UserReduxState }) => ({
   userToken: user.token,
 });
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  resetPassword: (userData: FromData) =>
+  resetPassword: (userData: PasswordFormData) =>
     dispatch(resetPassword(userData) as unknown) as Promise<any>,
-  updatePassword: (userData: FromData) =>
+  updatePassword: (userData: PasswordFormData) =>
     dispatch(updatePassword(userData) as unknown) as Promise<any>,
   addNotification: (notification: Omit<NotificationValues, "id">) =>
     dispatch(addNotification(notification)),

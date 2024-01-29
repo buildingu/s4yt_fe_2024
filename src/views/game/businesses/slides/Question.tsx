@@ -31,7 +31,7 @@ interface Props {
   user?: UserCredentials;
 }
 
-interface FromData {
+interface QuestionFormData {
   sponsorName: string;
   studentID: string;
   submissionLink: string;
@@ -51,7 +51,7 @@ const Questions: React.FC<Props> = ({
     [form, setForm] = useState({
       processing: false,
     }),
-    [currentData, setCurrentData] = useState<FromData>({
+    [currentData, setCurrentData] = useState<QuestionFormData>({
       sponsorName: data?.title,
       studentID: "",
       submissionLink: "",
@@ -159,7 +159,9 @@ const Questions: React.FC<Props> = ({
                 name="studentID"
                 type="text"
                 placeholder="Same as Login ID"
-                onChange={(e) => updateField<FromData>(e, setCurrentData)}
+                onChange={(e) =>
+                  updateField<QuestionFormData>(e, setCurrentData)
+                }
                 disabled={form.processing}
                 autoComplete="off"
               />
@@ -177,7 +179,9 @@ const Questions: React.FC<Props> = ({
                 name="submissionLink"
                 type="text"
                 placeholder="https://docs.google.com/document"
-                onChange={(e) => updateField<FromData>(e, setCurrentData)}
+                onChange={(e) =>
+                  updateField<QuestionFormData>(e, setCurrentData)
+                }
                 disabled={form.processing}
                 autoComplete="off"
               />
