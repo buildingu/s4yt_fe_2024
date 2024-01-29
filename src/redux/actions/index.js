@@ -24,6 +24,7 @@ export const UPDATE_NEW_PERIOD = "gameConfig.UPDATE_NEW_PERIOD";
 export const SPEND_COINS = "coinTracker.SPEND_COINS";
 export const RETRIEVE_COINS = "coinTracker.RETRIEVE_COINS";
 export const INITIALIZE_COINS = "coinTracker.INITIALIZE_COINS";
+export const SET_RAFFLE_ITEMS = "coinTracker.SET_RAFFLE_ITEMS";
 
 // businesses/event partners
 export const SET_BUSINESSES = "setBusinesses.SET_BUSINESSES";

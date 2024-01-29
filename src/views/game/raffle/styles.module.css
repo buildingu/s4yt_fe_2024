@@ -233,3 +233,24 @@
   transition: all 0.1s linear;
   opacity: 0.5;
 }
+.raffleSubmit {
+  align-self: flex-end;
+  border: none;
+  width: 150px;
+  height: 50px;
+  background: url("../../../static/businessSlidesBtns/btn-submit-normal.png")
+    no-repeat right center/contain;
+  cursor: pointer;
+}
+.raffleSubmit:hover {
+  background: url("../../../static/businessSlidesBtns/btn-submit-hover.png")
+    no-repeat right center/contain;
+}
+.raffleSubmit:active {
+  background: url("../../../static/businessSlidesBtns/btn-submit-pressed.png")
+    no-repeat right center/contain;
+}
+.raffleSubmit:disabled {
+  background: url("../../../static/businessSlidesBtns/btn-submit-hover.png")
+    no-repeat right center/contain;
+}

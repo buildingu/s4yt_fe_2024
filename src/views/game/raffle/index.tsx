@@ -1,5 +1,7 @@
 import { CoinTrackerState } from "@reducers/coinTracker";
 import { Product } from "@reducers/coinTracker";
+import { db } from "@root/firebase";
+import { ref, update, onValue } from "firebase/database";
 
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
@@ -12,7 +14,7 @@ import {
 import { isNotPlayer } from "@actions/user";
 
 import usePagination from "@hooks/usePagination";
-import { staticRaffleItems } from "@root/constants/temporaryDb/raffleItems";
+import { getRaffleItems } from "@actions/coinTracker";
 
 import Layout from "@components/partials/layout";
 import Header from "@components/partials/header";
@@ -23,35 +25,67 @@ import RaffleItemModal from "@components/modals/raffleItemModal/RaffleItemModal"
 import s from "./styles.module.css";
 import goldCoin from "@static/coin-smallgolden.png";
 import silverCoin from "@static/coin-smallsilver.png";
+import { UserReduxState } from "@root/redux/reducers/user";
+import UserCredentials from "@root/typings/UserCredentials";
+import AreYouSureModal from "@root/components/modals/areYouSure/AreYouSureModal";
 
 interface Props {
   spendCoins: (item: Product, numEntries: number) => void;
   retrieveCoins: (item: Product, numEntries: number) => void;
   initializeCoins: (data: { items: Product[]; remainingCoins: number }) => void;
   storeCoins: number;
-  storeEntries: Product[] | undefined;
+  storeEntries: Product[];
   isNotPlayer: (useNotification?: boolean, message?: string) => boolean;
+  getRaffleItems: () => Promise<any>;
+  raffleItems: Product[];
+  user?: UserCredentials;
 }
 
 const Raffle: React.FC<Props> = ({
   spendCoins,
   retrieveCoins,
-  initializeCoins,
   storeCoins,
   storeEntries,
   isNotPlayer,
+  getRaffleItems,
+  user,
 }) => {
   // Track product entries all have a default value of 0 at their respective index
-  const [totalDublunes, setTotalDublunes] = useState<number>(
+  const [totalCoins, setTotalCoins] = useState<number>(
     storeCoins ? storeCoins : 0
   );
+  const [disabledButton, setDisabledButton] = useState<boolean>(false);
+  // For firebase
+  const encodedEmail = user?.email.replace(/\./g, ",");
+  const userRef = ref(db, "users/" + encodedEmail);
+
+  useEffect(() => {
+    const checkIfFieldExists = async () => {
+      try {
+        const unsubscribe = onValue(userRef, (snapshot) => {
+          const submittedCheck = snapshot.val();
+          if (submittedCheck && submittedCheck.submittedRaffle) {
+            setDisabledButton(true);
+          } else {
+            setDisabledButton(false);
+          }
+        });
+        return () => {
+          unsubscribe();
+        };
+      } catch (error) {
+        console.error("Error checking data:", error);
+      }
+    };
+    checkIfFieldExists();
+  }, [userRef]);
+
   // For testing persistenece between pages
   useEffect(() => {
-    if (storeEntries?.length === 0) {
-      initializeCoins({ items: staticRaffleItems, remainingCoins: storeCoins });
-      setTotalDublunes(storeCoins);
+    if (storeEntries.length === 0 || !storeEntries) {
+      getRaffleItems();
     }
-  }, [storeEntries, initializeCoins, storeCoins]);
+  }, [storeEntries, getRaffleItems]);
 
   // Pagination hook
   const maxItems = 8;
@@ -63,11 +97,11 @@ const Raffle: React.FC<Props> = ({
     goToPage,
     nextPage,
     prevPage,
-  } = usePagination({ data: staticRaffleItems, maxPerPage: maxItems });
+  } = usePagination({ data: storeEntries, maxPerPage: maxItems });
 
   // Adds/Subtracts entries that correspond with product index and adjust total Dubulunes
   const handleProductEntries = (itemId: number, value: number) => {
-    const item = staticRaffleItems.find((product) => product.id === itemId);
+    const item = storeEntries.find((product) => product.id === itemId);
     if (item) {
       if (value > 0) {
         spendCoins(item, value);
@@ -75,7 +109,7 @@ const Raffle: React.FC<Props> = ({
         retrieveCoins(item, Math.abs(value));
       }
     }
-    setTotalDublunes((prev) => prev - value);
+    setTotalCoins((prev) => prev - value);
   };
   useEffect(() => {
     const result = isNotPlayer();
@@ -83,9 +117,47 @@ const Raffle: React.FC<Props> = ({
       isNotPlayer(true, "Only players can assign Dubl-U-Nes to raffle items");
     }
   }, []);
+  // temporary, hopefully won't need it
+  const handleFirebaseSubmit = async () => {
+    try {
+      const raffleItemsUpdates: {
+        [key: number]: {
+          id: number;
+          name: string;
+          entries: number;
+          rafflePartner: string;
+        };
+      } = {};
+
+      storeEntries.forEach((entry) => {
+        if (entry.entries && entry.entries > 0) {
+          const entryId = entry.id;
+          const entryData = {
+            id: entry.id,
+            name: entry.name,
+            entries: entry.entries !== undefined ? entry.entries : 0,
+            rafflePartner: entry.raffle_partner.organization_name,
+          };
+          raffleItemsUpdates[entryId] = entryData;
+        }
+      });
+
+      await update(userRef, {
+        raffleItems: raffleItemsUpdates,
+      });
+
+      await update(userRef, {
+        submittedRaffle: true,
+      });
+    } catch (error) {
+      console.error("Error updating data:", error);
+    }
+  };
 
   return (
-    <Layout>
+    <Layout
+    // addFeather="right2"
+    >
       <Header title="Raffle Page" />
       <Content
         addFeather="right2"
@@ -104,7 +176,7 @@ const Raffle: React.FC<Props> = ({
             </h2>
             {/* TODO: The total is their current doblons. */}
             <h4 className={s.dublunesCount}>
-              Your Total Dubl-u-nes: <span>{totalDublunes}</span>
+              Your Total Dubl-u-nes: <span>{totalCoins}</span>
             </h4>
             <div className={s.legend}>
               <h4>Legend</h4>
@@ -125,7 +197,7 @@ const Raffle: React.FC<Props> = ({
             {currentItems.map((item, i) => (
               <div aria-label={item.name} key={i}>
                 <div className={s.imgBox}>
-                  <img src={item.img} alt={item.name} />
+                  <img src={item.image_src} alt={item.name} />
                   <RaffleItemModal products={item} />
                   <img
                     className={s.entryNotification}
@@ -141,7 +213,7 @@ const Raffle: React.FC<Props> = ({
                 <h4 className={s.name}>{item.name}</h4>
                 <div className={s.controls}>
                   <button
-                    disabled={
+                    disabled={disabledButton || 
                       storeEntries?.find((entry) => entry.id === item.id)
                         ?.entries === 0 || isNotPlayer()
                     }
@@ -156,7 +228,7 @@ const Raffle: React.FC<Props> = ({
                         ?.entries}
                   </h4>
                   <button
-                    disabled={totalDublunes === 0 || isNotPlayer()}
+                    disabled={disabledButton || totalCoins === 0 || isNotPlayer()}
                     onClick={() => handleProductEntries(item.id, +1)}
                     aria-label="Add"
                   >
@@ -166,27 +238,38 @@ const Raffle: React.FC<Props> = ({
               </div>
             ))}
           </div>
-          <div className={s.paginationButtons}>
-            {currentPage > 1 && (
-              <button
-                className={`${s.prevButton}`}
-                aria-label="Previous page"
-                onClick={() => prevPage()}
-              />
-            )}
-            {totalPages > 1 && (
-              <span
-                className={s.paginationPages}
-              >{`Page ${currentPage} of ${totalPages}`}</span>
-            )}
-            {currentPage < totalPages && (
-              <button
-                className={s.nextButton}
-                aria-label="Next page"
-                onClick={() => nextPage()}
-              />
-            )}
-          </div>
+          {/* For one time / cooldown submission */}
+          {/* <button onClick={handleFirebaseSubmit}>Submit</button> */}
+          {currentItems.length > maxItems && (
+            <div className={s.paginationButtons}>
+              {currentPage > 1 && (
+                <button
+                  className={`${s.prevButton}`}
+                  aria-label="Previous page"
+                  onClick={() => prevPage()}
+                />
+              )}
+              {totalPages > 1 && (
+                <span
+                  className={s.paginationPages}
+                >{`Page ${currentPage} of ${totalPages}`}</span>
+              )}
+              {currentPage < totalPages && (
+                <button
+                  className={s.nextButton}
+                  aria-label="Next page"
+                  onClick={() => nextPage()}
+                />
+              )}
+            </div>
+          )}
+          <AreYouSureModal
+            label={"Are you sure?"}
+            text={`Once you submit your raffle entries, you will not be able to change them. Please make sure you've used up all your coins on the correct items. Do you want to submit your current entries?`}
+            func={handleFirebaseSubmit}
+            disabledProps={isNotPlayer() || disabledButton}
+            buttonClass={s.raffleSubmit}
+          />
         </div>
       </Content>
       <Status />
@@ -196,11 +279,14 @@ const Raffle: React.FC<Props> = ({
 
 const mapStateToProps = ({
   coinTracker,
+  user,
 }: {
   coinTracker: CoinTrackerState;
+  user: UserReduxState;
 }) => ({
   storeCoins: coinTracker.remainingCoins,
   storeEntries: coinTracker.items,
+  user: user.credentials,
 });
 const mapDispatchToProps = (dispatch: Function) => ({
   spendCoins: (item: Product, numEntries: number) =>
@@ -211,6 +297,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
     dispatch(initializeCoins({ items, remainingCoins })),
   isNotPlayer: (useNotification?: boolean, message?: string) =>
     dispatch(isNotPlayer(useNotification, message)),
+  getRaffleItems: () => dispatch(getRaffleItems()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Raffle);

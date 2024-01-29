@@ -30,29 +30,29 @@ const RaffleItemModal: React.FC<Props> = ({ products }) => {
           <div className={s.modalLeft}>
             {/* temporary button */}
             <button className={s.backBtn} onClick={() => setShow(false)} />
-            <img src={products.img} alt={products.name} />
+            <img src={products.image_src} alt={products.name} />
           </div>
           <div className={s.modalRight}>
             <h2>{products.name}</h2>
             <h3>{products.description}</h3>
             <div className={s.productExtras}>
               <p>
-                we have: <span>{products.availability}</span> items available
+                we have: <span>{products.stock}</span> items available
               </p>
               <div>
                 <p>sponsored by:</p>
                 <a
-                  href={products.resourceLink}
+                  href={products.raffle_partner.resource_link}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <img
                     className={s.sponsorLogo}
-                    src={products.partnerLogo}
-                    alt={products.partnerLogo}
+                    src={products.raffle_partner.logo_default}
+                    alt={products.raffle_partner.organization_name}
                   />
                 </a>
-                <span>{products.rafflePartner}</span>
+                <span>{products.raffle_partner.organization_name}</span>
               </div>
             </div>
           </div>
