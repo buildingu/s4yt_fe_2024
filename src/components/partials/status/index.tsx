@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 import useContinueCountdown from "@hooks/useContinueCountdown";
 
 import CurrentDoblons from "../currentDoblons";
@@ -10,8 +12,10 @@ interface Props {
 }
 
 const Status: React.FC<Props> = ({ style }) => {
+  const counterRef = useRef<HTMLTimeElement>(null);
+
   // Starts the countdown and sets the timestamps.
-  useContinueCountdown();
+  useContinueCountdown(counterRef);
 
   return (
     <footer className={s.container} style={style}>
@@ -42,6 +46,7 @@ const Status: React.FC<Props> = ({ style }) => {
           aria-label="Time Remaining"
           title="Time Remaining for this Period of the Game"
           id="counter"
+          ref={counterRef}
           dateTime="00:00:00"
         >
           00:00:00
