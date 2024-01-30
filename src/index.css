@@ -83,17 +83,40 @@ label {
   font-size: 1.5rem;
   color: var(--pbrown);
 }
-
+input:not(input[type="radio"]) {
+  padding: 0 6px;
+}
+select {
+  padding: 0 24px 0 6px;
+}
 input:not(input[type="radio"]),
 select {
-  padding: 0 6px;
   border: 1px solid #d5d5d5;
   height: 36px;
   border-radius: 6px;
   box-shadow: 6px 4px 4px rgba(8, 7, 7, 0.2);
-  outline: none;
   font-size: 15px;
+  outline: none;
   background: var(--white);
+}
+.inputContainer {
+  position: relative;
+  width: 100%;
+}
+.inputContainer img.warningIcon {
+  display: none;
+  position: absolute;
+  top: 4px;
+}
+.inputContainer.input img.warningIcon {
+  right: 6px;
+  width: 18px;
+  height: 18px;
+}
+.inputContainer.select img.warningIcon {
+  right: 20px;
+  width: 14px;
+  height: 14px;
 }
 select {
   appearance: none;
@@ -119,9 +142,18 @@ small.formError {
   background-color: var(--form-red);
 }
 input[aria-invalid="true"],
-select[aria-invalid="true"]
-/* .error  */ {
+select[aria-invalid="true"] {
   border: 1px solid var(--form-red) !important;
+}
+input[aria-invalid="true"] {
+  padding: 0 25px 0 6px !important;
+}
+select[aria-invalid="true"] {
+  padding: 0 35px 0 6px !important;
+}
+input[aria-invalid="true"] ~ img.warningIcon,
+select[aria-invalid="true"] ~ img.warningIcon {
+  display: block;
 }
 input[aria-invalid="true"] + small.formError,
 input[matching-passwords="false"] + small.formError {
@@ -135,7 +167,6 @@ button {
   background-color: inherit;
   cursor: pointer;
 }
-/* TODO: Use everywhere. */
 button.okBtn {
   position: relative;
   width: 120px;
@@ -190,7 +221,7 @@ button.updateBtn:active {
   background-color: #444;
 }
 
-/* Put this in a module? */
+/* TODO: (not important) Put this in a module? */
 .backdrop {
   position: fixed;
   top: 0;

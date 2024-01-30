@@ -12,6 +12,7 @@ import checkValidDocLink from "@utils/forms/checkValidDocLink";
 import { addNotification } from "@actions/notifications";
 
 import ChallengeModal from "@components/modals/challengeModal/ChallengeModal";
+import Input from "@components/forms/controls/Input";
 
 import s from "./styles.module.css";
 
@@ -112,11 +113,11 @@ const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
           <div>
             <label htmlFor="player_id">Player Id:</label>
             <div role="presentation" className={s.inputContainer}>
-              <input
-                aria-describedby="formError"
+              <Input
                 id="player_id"
                 name="player_id"
                 type="text"
+                errorMsg="Not a valid player ID."
                 placeholder="Same as Login ID"
                 onChange={(e) =>
                   updateField<QuestionFormData>(e, setCurrentData)
@@ -124,19 +125,16 @@ const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
                 disabled={form.processing}
                 autoComplete="off"
               />
-              <small aria-live="assertive" id="formError" className="formError">
-                Not a valid player ID.
-              </small>
             </div>
           </div>
           <div role="presentation">
             <label htmlFor="docLink">Google Doc Link:</label>
             <div role="presentation" className={s.inputContainer}>
-              <input
-                aria-describedby="formError"
+              <Input
                 id="docLink"
                 name="docLink"
                 type="text"
+                errorMsg="Not a valid Google Doc link."
                 placeholder="https://docs.google.com/document"
                 onChange={(e) =>
                   updateField<QuestionFormData>(e, setCurrentData)
@@ -144,9 +142,6 @@ const Questions: React.FC<Props> = ({ playerCheck, data, addNotification }) => {
                 disabled={form.processing}
                 autoComplete="off"
               />
-              <small aria-live="assertive" id="formError" className="formError">
-                Not a valid Google Doc link.
-              </small>
             </div>
           </div>
         </div>

@@ -2,9 +2,6 @@ import { useRef, useEffect } from "react";
 
 interface Props {
   formSuccess: boolean;
-  //   setForm: React.Dispatch<
-  //     React.SetStateAction<{ processing: boolean; [key: string]: any }>
-  //   >;
   setForm: React.Dispatch<React.SetStateAction<any>>;
 }
 

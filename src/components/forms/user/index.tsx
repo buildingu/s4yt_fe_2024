@@ -23,6 +23,7 @@ import checkValidity from "@utils/forms/checkValidity";
 import checkValidEmail from "@utils/forms/checkValidEmail";
 import checkMatchingPasswords from "@utils/forms/checkMatchingPasswords";
 
+import Input from "../controls/Input";
 import Select from "../controls/Select";
 import Spinner from "@components/loaders/spinner";
 
@@ -156,7 +157,8 @@ const UserForm: React.FC<Props> = ({
     let valid = true,
       passwordValue: string;
 
-    let relevantData: any = {};
+    let relevantData: any = {},
+      changedData: any = {};
 
     for (let i = 0; i < fields.length; i++) {
       const field = fields[i];
@@ -195,6 +197,7 @@ const UserForm: React.FC<Props> = ({
             relevantData[field.name] = userCredentialsValue;
           } else if (fieldValue && fieldValue !== userCredentialsValue) {
             relevantData[field.name] = field.value;
+            changedData[field.name] = field.value;
           }
         } else {
           if (field.value) relevantData[field.name] = field.value;
@@ -202,7 +205,7 @@ const UserForm: React.FC<Props> = ({
       }
     }
 
-    if (user.token && !Object.keys(relevantData).length) {
+    if (user.token && !Object.keys(changedData).length) {
       addNotification({
         error: true,
         content: "Nothing to update",
@@ -256,7 +259,7 @@ const UserForm: React.FC<Props> = ({
               </span>
             )}
           </label>
-          <input
+          <Input
             id="name"
             name="name"
             type="text"
@@ -278,20 +281,17 @@ const UserForm: React.FC<Props> = ({
               </span>
             )}
           </label>
-          <input
-            aria-describedby="formError"
+          <Input
             id="email"
             name="email"
             type="email"
+            errorMsg="Not a valid email address"
             onChange={(e) => updateField<UserFormData>(e, setCurrentData)}
             disabled={form.processing}
             {...(currentData.email && { defaultValue: currentData.email })}
             autoComplete="off"
             {...(!user.token && { required: true })}
           />
-          <small aria-live="assertive" id="formError" className="formError">
-            Not a valid email address
-          </small>
         </div>
 
         {/* This is for the register only. */}
@@ -307,11 +307,11 @@ const UserForm: React.FC<Props> = ({
                 *
               </span>
             </label>
-            <input
-              aria-describedby="formError"
+            <Input
               id="password"
               name="password"
               type="password"
+              errorMsg="Must be between 8 and 24 characters"
               onChange={(e) => updateField<UserFormData>(e, setCurrentData)}
               disabled={form.processing}
               autoComplete="off"
@@ -319,9 +319,6 @@ const UserForm: React.FC<Props> = ({
               maxLength={24}
               required
             />
-            <small aria-live="assertive" id="formError" className="formError">
-              Must be between 8 and 24 characters
-            </small>
           </div>
           <div role="presentation">
             <label
@@ -333,11 +330,11 @@ const UserForm: React.FC<Props> = ({
                 *
               </span>
             </label>
-            <input
-              aria-describedby="formError"
+            <Input
               id="password_confirmation"
               name="password_confirmation"
               type="password"
+              errorMsg="Passwords do not match"
               onChange={(e) => updateField<UserFormData>(e, setCurrentData)}
               disabled={form.processing}
               autoComplete="off"
@@ -345,9 +342,6 @@ const UserForm: React.FC<Props> = ({
               maxLength={24}
               required
             />
-            <small aria-live="assertive" id="formError" className="formError">
-              Passwords do not match
-            </small>
           </div>
         </span>
 
@@ -360,9 +354,10 @@ const UserForm: React.FC<Props> = ({
           <label htmlFor="instagram" style={{ opacity: "0.65" }}>
             Instagram
           </label>
-          <input
+          <Input
             id="instagram"
             name="instagram"
+            type="text"
             // onChange={(e) => updateField(e)}
             // disabled={form.processing}
             // {...(currentData.instagram && {
@@ -445,7 +440,7 @@ const UserForm: React.FC<Props> = ({
           style={{ display: currentData.education_id !== 1 ? "none" : "" }}
         >
           <label htmlFor="school">school</label>
-          <input
+          <Input
             id="school"
             name="school"
             type="text"

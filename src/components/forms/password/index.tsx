@@ -15,6 +15,8 @@ import { resetPassword } from "@actions/user";
 import { updatePassword } from "@actions/user";
 import { addNotification } from "@actions/notifications";
 
+import Input from "@components/forms/controls/Input";
+
 import s from "./styles.module.css";
 
 interface Props {
@@ -121,10 +123,10 @@ const PasswordForm: React.FC<Props> = ({
       {userToken && (
         <div role="presentation">
           <label htmlFor="old_password">Current Pass</label>
-          <input
+          <Input
             id="old_password"
             name="old_password"
-            type="old_password"
+            type="text"
             onChange={(e) => updateField<PasswordFormData>(e, setCurrentData)}
             disabled={form.processing}
             autoComplete="off"
@@ -137,11 +139,11 @@ const PasswordForm: React.FC<Props> = ({
         <label aria-label="Password" htmlFor="password">
           Pass
         </label>
-        <input
-          aria-describedby="formError"
+        <Input
           id="password"
           name="password"
           type="password"
+          errorMsg="Must be between 8 and 24 characters"
           onChange={(e) => updateField<PasswordFormData>(e, setCurrentData)}
           disabled={form.processing}
           autoComplete="off"
@@ -149,20 +151,17 @@ const PasswordForm: React.FC<Props> = ({
           maxLength={24}
           required
         />
-        <small aria-live="assertive" id="formError" className="formError">
-          Must be between 8 and 24 characters
-        </small>
       </div>
 
       <div role="presentation">
         <label aria-label="Confirm Password" htmlFor="password_confirmation">
           Confirm Pass
         </label>
-        <input
-          aria-describedby="formError"
+        <Input
           id="password_confirmation"
           name="password_confirmation"
           type="password"
+          errorMsg="Passwords do not match"
           onChange={(e) => updateField<PasswordFormData>(e, setCurrentData)}
           disabled={form.processing}
           autoComplete="off"
@@ -170,9 +169,6 @@ const PasswordForm: React.FC<Props> = ({
           maxLength={24}
           required
         />
-        <small aria-live="assertive" id="formError" className="formError">
-          Passwords do not match
-        </small>
       </div>
 
       <div>

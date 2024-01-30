@@ -35,10 +35,10 @@
 .form > span {
   display: flex;
 }
-.form > span div {
+.form > span > div {
   width: 50%;
 }
-.form > span div:first-child {
+.form > span > div:first-child {
   margin-right: 1rem;
 }
 .form > span:first-of-type div:last-child label {
@@ -84,23 +84,19 @@
   font-size: 11px;
   color: var(--black);
 }
-.form span:nth-of-type(3) div small.notFoundMsg {
+.form span:nth-of-type(3) > div small.notFoundMsg {
   left: 70px;
 }
 .form div:nth-of-type(5) small.notFoundMsg {
   left: 97px;
 }
-.form > div:nth-of-type(2) input[aria-invalid="true"] + small,
-.form span:first-of-type div:first-of-type input[aria-invalid="true"] + small {
-  left: 6.03rem;
-}
-.form span:first-of-type div:last-of-type input[aria-invalid="true"] + small,
-.form span:first-of-type div input[matching-passwords="true"] + small {
-  left: 7.6rem;
+.form div input[aria-invalid="true"] + small,
+.form {
+  left: 0;
 }
 .form > div:nth-of-type(2) input[aria-invalid="true"],
-.form span:first-of-type div input[aria-invalid="true"],
-.form span:first-of-type div input[matching-passwords="false"] {
+.form span:first-of-type > div input[aria-invalid="true"],
+.form span:first-of-type > div input[matching-passwords="false"] {
   margin-bottom: 22px;
 }
 
@@ -117,7 +113,12 @@
 }
 
 .form[id="registerForm"] > div:nth-of-type(5) select {
-  max-width: 35.8%;
+  max-width: 264.883px;
+}
+@media screen and (max-width: 644px) {
+  .form[id="registerForm"] > div:nth-of-type(5) select {
+    max-width: 254.883px;
+  }
 }
 
 .form[id="registerForm"] div a {
@@ -179,10 +180,10 @@
     gap: 1rem;
     flex-wrap: wrap;
   }
-  .form[id="registerForm"] > span div {
+  .form[id="registerForm"] > span > div {
     width: 100%;
   }
-  .form[id="registerForm"] span div:first-child {
+  .form[id="registerForm"] span > div:first-child {
     margin-right: 0;
   }
 
@@ -195,7 +196,8 @@
   }
 
   .form[id="registerForm"] div input ~ small,
-  .form[id="registerForm"] div select ~ small {
+  .form[id="registerForm"] div select ~ small,
+  .form[id="registerForm"] div small.notFoundMsg {
     left: 0 !important;
   }
 }
@@ -217,7 +219,7 @@
 }
 
 .form[id="userForm"] > div:nth-of-type(5) select {
-  max-width: 37.1%;
+  max-width: 42.1%;
 }
 
 .form[id="userForm"] > div:nth-of-type(5) :global(.spinner) {
