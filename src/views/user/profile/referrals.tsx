@@ -80,7 +80,7 @@ const Referral: React.FC<Props> = ({ user, getReferrals }) => {
                         {referral.email}
                       </td>
                       <td>
-                        <span>Points</span>3
+                        <span>Points</span>5
                       </td>
                     </tr>
                   );

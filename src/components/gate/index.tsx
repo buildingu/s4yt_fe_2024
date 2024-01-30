@@ -9,12 +9,14 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
 // import { store } from "@root/store";
-import initializeFirebase from "@utils/initializeFirebase";
 
 import { isNotPlayer } from "@actions/user";
 import { SET_CURRENT_USER, SET_NEW_LOGIN_FLAG } from "@actions/index";
 import { initializeCoins } from "@actions/coinTracker";
 
+// import socketProvider from "@services/socketProvider";
+
+import initializeFirebase from "@utils/initializeFirebase";
 import history from "@utils/History";
 import delay from "@utils/delay";
 
@@ -98,8 +100,11 @@ const Gate: React.FC<Props> = ({
   useEffect(() => {
     if (user.newLogin) {
       storeUserData(user.newLogin);
-      initializeFirebase(user.newLogin.user.email)
-      delay(1500, () => clearNewLoginFlag());
+
+      initializeFirebase(user.newLogin.user.email); // Temporary use of Firebase because some thing couldn't done in the back-end.
+      // socketProvider(user.newLogin.token); // So we can listen to real-time events.
+
+      delay(2000, () => clearNewLoginFlag());
     }
   }, [user.newLogin]);
 
