@@ -29,7 +29,7 @@ const Details: React.FC<PlayerProps> = ({ isNotPlayer }) => {
   const contentView: { [key: string]: React.ReactNode } = {
     Video: <Video data={state?.video} />,
     Question: <Question data={state?.challenge} playerCheck={isNotPlayer()} />,
-    MeetUp: <MeetUp data={state?.meetUp} playerCheck={isNotPlayer()} />,
+    MeetUp: <MeetUp data={state?.meetUp} name={state?.name} playerCheck={isNotPlayer()} />,
   };
   useEffect(() => {
     isNotPlayer(

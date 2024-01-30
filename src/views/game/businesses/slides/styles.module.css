@@ -160,3 +160,12 @@
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
+@media screen and (max-width: 450px) {
+  .formButtons {
+    margin: auto;
+  }
+  .formSubmission div {
+    flex-direction: column;
+    align-items: center;
+  }
+}

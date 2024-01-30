@@ -140,6 +140,13 @@
   .details {
     width: 100%;
   }
+  .detailsHeader {
+    flex-direction: column;
+    align-items: center;
+  }
+  .detailsHeader .businessTitle {
+    width: 90%;
+  }
   .detailsContent {
     flex-direction: column-reverse;
   }
@@ -157,7 +164,6 @@
     align-self: center;
   }
 }
-
 .videoLabel {
   width: 110px;
   height: 50px;

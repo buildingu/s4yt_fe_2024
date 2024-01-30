@@ -1,4 +1,9 @@
-import { INITIALIZE_COINS, RETRIEVE_COINS, SPEND_COINS } from "@actions/index";
+import {
+  INITIALIZE_COINS,
+  RETRIEVE_COINS,
+  SET_RAFFLE_ITEMS,
+  SPEND_COINS,
+} from "@actions/index";
 import { Api } from "@services/index";
 import { addNotification } from "./notifications";
 import errorHandler from "@services/errorHandler";
@@ -38,3 +43,23 @@ export const getCoinsGainedHistory =
       errorHandler("getCoinsGainedHistory", error);
     }
   };
+export const getRaffleItems = () => async (dispatch, getState) => {
+  try {
+    const res = await Api.get("/raffle");
+    if (res) {
+      dispatch({ type: SET_RAFFLE_ITEMS, payload: res.data.raffle_items });
+    } else {
+      dispatch(
+        addNotification({
+          error: true,
+          content:
+            "Unexpected server error occurred getting your raffle items.",
+          close: false,
+          duration: 0,
+        })
+      );
+    }
+  } catch (error) {
+    errorHandler("getRaffleItems", error);
+  }
+};

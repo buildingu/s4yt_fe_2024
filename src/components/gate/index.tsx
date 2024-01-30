@@ -9,6 +9,7 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
 // import { store } from "@root/store";
+import initializeFirebase from "@utils/initializeFirebase";
 
 import { isNotPlayer } from "@actions/user";
 import { SET_CURRENT_USER, SET_NEW_LOGIN_FLAG } from "@actions/index";
@@ -97,7 +98,7 @@ const Gate: React.FC<Props> = ({
   useEffect(() => {
     if (user.newLogin) {
       storeUserData(user.newLogin);
-
+      initializeFirebase(user.newLogin.user.email)
       delay(1500, () => clearNewLoginFlag());
     }
   }, [user.newLogin]);
