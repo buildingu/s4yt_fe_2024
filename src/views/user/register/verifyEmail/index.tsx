@@ -10,6 +10,7 @@ import { sendVerifyEmail } from "@actions/user";
 import Layout from "@components/partials/layout";
 import Header from "@components/partials/header";
 import Content from "@components/partials/content";
+import Input from "@components/forms/controls/Input";
 import ExpiresInIndicator from "@components/forms/expiresInIndicator";
 
 import s from "./styles.module.css";
@@ -89,18 +90,18 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail }) => {
           noValidate
         >
           <div role="presentation">
-            <div role="presentation">
+            <div role="presentation" className={s.labelContainer}>
               <label htmlFor="email">Email</label>
               <ExpiresInIndicator
                 formSuccess={form.success}
                 setForm={setForm}
               />
             </div>
-            <input
-              aria-describedby="formError"
+            <Input
               id="email"
               name="email"
               type="email"
+              errorMsg="Not a valid email address"
               onChange={(e) =>
                 updateField<{ email: string }>(e, setCurrentData)
               }
@@ -108,9 +109,6 @@ const VerifyEmail: React.FC<Props> = ({ sendVerifyEmail }) => {
               autoComplete="off"
               required
             />
-            <small aria-live="assertive" id="formError" className="formError">
-              Not a valid email address
-            </small>
           </div>
 
           <div role="presentation">

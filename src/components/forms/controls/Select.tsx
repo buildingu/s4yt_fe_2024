@@ -1,23 +1,30 @@
 import { useState } from "react";
+import warning from "@static/warning.svg";
 
 interface Props
   extends React.ComponentProps<"select">,
-    React.PropsWithChildren<{}> {}
+    React.PropsWithChildren<{}> {
+  id: string;
+  name: string;
+}
 
-const Select: React.FC<Props> = ({ children, ...options }) => {
+const Select: React.FC<Props> = ({ children, id, name, ...options }) => {
   const [focus, toggleFocused] = useState(false);
 
   return (
-    <select
-      id="education"
-      name="education_id"
-      data-focused={focus}
-      onClick={() => toggleFocused(!focus)}
-      onBlur={() => toggleFocused(false)}
-      {...options}
-    >
-      {children}
-    </select>
+    <div className="inputContainer select">
+      <select
+        id={id}
+        name={name}
+        data-focused={focus}
+        onClick={() => toggleFocused(!focus)}
+        onBlur={() => toggleFocused(false)}
+        {...options}
+      >
+        {children}
+      </select>
+      <img src={warning} alt="Warning" className="warningIcon" />
+    </div>
   );
 };
 

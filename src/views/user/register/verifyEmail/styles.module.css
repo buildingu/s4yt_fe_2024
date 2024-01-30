@@ -12,15 +12,15 @@
   max-width: 335px;
 }
 
-.form > div:first-child div {
+.form > div:first-child .labelContainer {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
 }
-.form > div:first-child div time {
+.form > div:first-child .labelContainer time {
   color: var(--pbrown);
 }
-.form > div:first-child div time span {
+.form > div:first-child .labelContainer time span {
   color: var(--orange);
 }
 

@@ -14,6 +14,7 @@ import checkValidDocLink from "@utils/forms/checkValidDocLink";
 import { addNotification } from "@actions/notifications";
 
 import ChallengeModal from "@components/modals/challengeModal/ChallengeModal";
+import Input from "@components/forms/controls/Input";
 
 import s from "./styles.module.css";
 import AreYouSureModal from "@root/components/modals/areYouSure/AreYouSureModal";
@@ -153,11 +154,11 @@ const Questions: React.FC<Props> = ({
           <div>
             <label htmlFor="studentID">Player Id:</label>
             <div role="presentation" className={s.inputContainer}>
-              <input
-                aria-describedby="formError"
-                id="studentID"
-                name="studentID"
+              <Input
+                id="player_id"
+                name="player_id"
                 type="text"
+                errorMsg="Not a valid player ID."
                 placeholder="Same as Login ID"
                 onChange={(e) =>
                   updateField<QuestionFormData>(e, setCurrentData)
@@ -165,19 +166,16 @@ const Questions: React.FC<Props> = ({
                 disabled={form.processing}
                 autoComplete="off"
               />
-              <small aria-live="assertive" id="formError" className="formError">
-                Not a valid player ID.
-              </small>
             </div>
           </div>
           <div role="presentation">
             <label htmlFor="submissionLink">Google Doc Link:</label>
             <div role="presentation" className={s.inputContainer}>
-              <input
-                aria-describedby="formError"
-                id="submissionLink"
-                name="submissionLink"
+              <Input
+                id="docLink"
+                name="docLink"
                 type="text"
+                errorMsg="Not a valid Google Doc link."
                 placeholder="https://docs.google.com/document"
                 onChange={(e) =>
                   updateField<QuestionFormData>(e, setCurrentData)
@@ -185,9 +183,6 @@ const Questions: React.FC<Props> = ({
                 disabled={form.processing}
                 autoComplete="off"
               />
-              <small aria-live="assertive" id="formError" className="formError">
-                Not a valid Google Doc link.
-              </small>
             </div>
           </div>
         </div>

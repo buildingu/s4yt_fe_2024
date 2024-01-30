@@ -12,6 +12,7 @@ import { loginPlayer } from "@actions/user";
 import Layout from "@components/partials/layout";
 import Header from "@components/partials/header";
 import Content from "@components/partials/content";
+import Input from "@components/forms/controls/Input";
 
 import s from "./styles.module.css";
 
@@ -77,26 +78,23 @@ const Login: React.FC<Props> = ({ loginPlayer }) => {
         >
           <div role="presentation">
             <label htmlFor="player_id">Player Id</label>
-            <input
-              aria-describedby="formError"
+            <Input
               id="player_id"
               name="player_id"
-              type="player_id"
+              type="text"
+              errorMsg="Not a valid player ID."
               onChange={(e) => updateField<LoginFormData>(e, setCurrentData)}
               disabled={form.processing}
               autoComplete="off"
               required
             />
-            <small aria-live="assertive" id="formError" className="formError">
-              Not a valid player ID.
-            </small>
           </div>
 
           <div role="presentation">
             <label htmlFor="password" aria-label="Password">
               Pass
             </label>
-            <input
+            <Input
               id="password"
               name="password"
               type="password"

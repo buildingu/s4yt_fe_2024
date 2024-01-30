@@ -68,7 +68,7 @@ const Gate: React.FC<Props> = ({
         ? "/game-closed"
         : restricted === 1 && !user.token
         ? "/login"
-        : restricted === 2 && user.token && user.credentials
+        : restricted === 2 && user.token && user.credentials && !user.newLogin
         ? "/error-409" // Already logged in.
         : disableOn?.includes(
             gameConfig.gameStart
