@@ -197,27 +197,27 @@ export const staticBusiness = [
       link: "https://www.youtube.com/embed/videoseries?si=4-KccbzaWeUVZT2y&amp;list=PLq6JOS0PfxO9gK7yz-nvspiHhU8tqeW45", // embed link to playlist or video
     },
   },
-  {
-    name: "Robotics For All", // business name
-    logo: require("@static/businessLogos/roboticsforall.png"), // business logo
-    link: "https://roboticsforall.net/about/overview", // business website link
-    description:
-      "The mission of Robotics for All is to provide high-quality robotics education to students from all backgrounds. With student volunteers teaching classes, Robotics for All aims to inspire children to pursue careers in STEM and seeks to empower students with the skills they need to succeed  in an increasingly technology-driven world.", // description of business
-    meetUp: {
-      date: "NA date", // Manual format
-      time: "NA time", // 16:00
-      method: "NA method", // google meet / zoom etc.
-    },
-    challenge: {
-      title: "NA title", // challenge title
-      content: "NA content", // actual challenge description + instructions
-      submissionCount: 0, // total number of submitted answers to challenge
-    },
-    video: {
-      title: "Robotics for All", // video title
-      link: "https://www.youtube.com/embed/videoseries?si=9DbtoPGJDGEhdcMr&amp;list=PLq6JOS0PfxO8WUKdmgEKSv_I0jJxuveov", // embed link to playlist or video
-    },
-  },
+  // {
+    // name: "Robotics For All", // business name
+    // logo: require("@static/businessLogos/roboticsforall.png"), // business logo
+    // link: "https://roboticsforall.net/about/overview", // business website link
+    // description:
+    //   "The mission of Robotics for All is to provide high-quality robotics education to students from all backgrounds. With student volunteers teaching classes, Robotics for All aims to inspire children to pursue careers in STEM and seeks to empower students with the skills they need to succeed  in an increasingly technology-driven world.", // description of business
+    // meetUp: {
+    //   date: "NA date", // Manual format
+    //   time: "NA time", // 16:00
+    //   method: "NA method", // google meet / zoom etc.
+    // },
+    // challenge: {
+    //   title: "NA title", // challenge title
+    //   content: "NA content", // actual challenge description + instructions
+    //   submissionCount: 0, // total number of submitted answers to challenge
+    // },
+    // video: {
+    //   title: "Robotics for All", // video title
+    //   link: "https://www.youtube.com/embed/videoseries?si=9DbtoPGJDGEhdcMr&amp;list=PLq6JOS0PfxO8WUKdmgEKSv_I0jJxuveov", // embed link to playlist or video
+    // },
+  // },
   {
     name: "Matrix Personal Training", // business name
     logo: require("@static/businessLogos/matrix.png"), // business logo
@@ -243,6 +243,11 @@ export const staticBusiness = [
         In order to help you to figure your marketing plan, answer the following  questions : 
         What audience would you target for growth? What marketing strategy or mix of strategies would you choose to grow your business? Explain why you think this would work best. 
         Adjusting your strategy is common in a small business. What criteria would you use to know if and when adjustments are needed? How would the criteria inform you about ways to change your strategy?
+
+        EVALUATION CRITERIA : 
+        Clarity - Defining your objective and the steps you plan to make.
+        Reasoning - Decisions you make don't have to be correct, but understanding why you made them makes evaluating the results more effective.
+        Creativity - There is a lot of white noise in marketing today. Being able to stand out is critical.
         `, // actual challenge description + instructions
       submissionCount: 0, // total number of submitted answers to challenge
     },

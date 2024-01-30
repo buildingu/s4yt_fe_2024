@@ -9,13 +9,11 @@ export default async function initializeFirebase(userEmail: string) {
   try {
     const snapshot: DataSnapshot = await get(userRef);
     if (snapshot.exists()) {
-      console.log("User already exists");
     } else {
       set(userRef, {
         submittedRaffle: false,
         completedQuiz: false,
       });
-      console.log("User created successfully");
     }
   } catch (error) {
     console.error("Error checking or creating user:", error);
