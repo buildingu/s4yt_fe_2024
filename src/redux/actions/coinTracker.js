@@ -13,11 +13,17 @@ export const initializeCoins = (data) => (dispatch) => {
 };
 
 export const retrieveCoins = (item, numEntries) => (dispatch) => {
-  dispatch({ type: RETRIEVE_COINS, payload: { item, numEntries } });
+  dispatch({
+    type: RETRIEVE_COINS,
+    payload: { ...(item && { item }), numEntries },
+  });
 };
 
 export const spendCoins = (item, numEntries) => (dispatch) => {
-  dispatch({ type: SPEND_COINS, payload: { item, numEntries } });
+  dispatch({
+    type: SPEND_COINS,
+    payload: { ...(item && { item }), numEntries },
+  });
 };
 
 export const getCoinsGainedHistory =
@@ -62,4 +68,12 @@ export const getRaffleItems = () => async (dispatch, getState) => {
   } catch (error) {
     errorHandler("getRaffleItems", error);
   }
+};
+
+// Web Sockets
+export const sliverAndGoldCoinsListener = () => (dispatch, getState) => {
+  // TODO: Not sure if this is a channel yet.
+  window.Echo.channel("raffle-update").listen("", (e) => {
+    console.log(e.message);
+  });
 };

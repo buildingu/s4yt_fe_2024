@@ -8,22 +8,25 @@ declare global {
   }
 }
 
-const socketProvider = (userToken: string) => {
-  window.Pusher = Pusher;
+const socketProvider = () => {
+  if (!window.Pusher || !window.Echo) {
+    try {
+      window.Pusher = Pusher;
 
-  window.Echo = new Echo({
-    broadcaster: "pusher",
-    key: process.env.REACT_APP_PUSHER_KEY,
-    cluster: process.env.REACT_APP_PUSHER_CLUSTER,
-    forceTLS: true,
-    authEndpoint: `${process.env.REACT_APP_API_BASE_URL}/broadcasting/auth`,
-    auth: {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-        Accept: "application/json",
-      },
-    },
-  });
+      window.Echo = new Echo({
+        broadcaster: "pusher",
+        key: process.env.REACT_APP_PUSHER_KEY,
+        cluster: process.env.REACT_APP_PUSHER_CLUSTER,
+        wsHost: process.env.REACT_APP_PUSHER_HOST,
+        wsPort: process.env.REACT_APP_PUSHER_PORT,
+        wssPort: process.env.REACT_APP_PUSHER_PORT,
+        forceTLS: true,
+        enabledTransports: ["ws", "wss"],
+      });
+    } catch (error) {
+      console.error("socketProvider error:\n", error);
+    }
+  }
 
   // A test connection socket?
 };
