@@ -10,11 +10,12 @@ import { connect } from "react-redux";
 
 // import { store } from "@root/store";
 
+import socketProvider from "@services/socketProvider";
+
 import { isNotPlayer } from "@actions/user";
 import { SET_CURRENT_USER, SET_NEW_LOGIN_FLAG } from "@actions/index";
 import { initializeCoins } from "@actions/coinTracker";
-
-// import socketProvider from "@services/socketProvider";
+// import { referralUsedListener } from "@actions/user";
 
 import initializeFirebase from "@utils/initializeFirebase";
 import history from "@utils/History";
@@ -60,6 +61,11 @@ const Gate: React.FC<Props> = ({
 }) => {
   const location = useLocation();
 
+  useEffect(() => {
+    socketProvider(); // So we can listen to real-time events.
+    return () => window.Echo && window.Echo.disconnect();
+  }, []);
+
   let redirect = "";
   useEffect(() => {
     redirect =
@@ -102,7 +108,8 @@ const Gate: React.FC<Props> = ({
       storeUserData(user.newLogin);
 
       initializeFirebase(user.newLogin.user.email); // Temporary use of Firebase because some thing couldn't done in the back-end.
-      // socketProvider(user.newLogin.token); // So we can listen to real-time events.
+
+      // referralUsedListener(); // Listen for if the referrer uses the referral to add coins to the user.
 
       delay(2000, () => clearNewLoginFlag());
     }

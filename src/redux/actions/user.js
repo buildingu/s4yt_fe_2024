@@ -5,8 +5,14 @@ import history from "@utils/History";
 import { Api } from "@services/index";
 import errorHandler from "@services/errorHandler";
 
+import { UPDATE_CURRENT_USER } from "@actions/index";
 import { addNotification } from "./notifications";
 import { updateConfiguration } from "./gameConfig";
+import { retrieveCoins } from "./coinTracker";
+
+export const updateCurrentUser = (data) => (dispatch, getState) => {
+  dispatch({ type: UPDATE_CURRENT_USER, payload: data });
+};
 
 export const registerPlayer =
   (userData, formRef, setForm) => async (dispatch, getState) => {
@@ -251,7 +257,7 @@ export const updateProfile =
     try {
       const res = await Api.post("/player/profile", userData);
 
-      if (!res.errors) {
+      if (res.success) {
         formRef.current.reset();
         dispatch(
           addNotification({
@@ -261,6 +267,24 @@ export const updateProfile =
             duration: 4000,
           })
         );
+
+        if (res.data.verify_email) {
+          dispatch(logoutPlayer());
+          dispatch(
+            addNotification({
+              error: false,
+              content:
+                "Since you updated your email address, you now have to verify your new email address.\
+                 So, please check your inbox to verify your email. In case you don't find it there, please\
+                 check your spam folder.",
+              close: false,
+              duration: 0,
+            })
+          );
+        } else {
+          // TODO: Test.
+          updateCurrentUser(userData);
+        }
       } else {
         const key = Object.keys(res.errors)[0];
 
@@ -273,22 +297,6 @@ export const updateProfile =
           })
         );
       }
-
-      if (res.success && res.data.verify_email) {
-        dispatch(logoutPlayer());
-        dispatch(
-          addNotification({
-            error: false,
-            content:
-              "Since you updated your email address, you now have to verify your new email address.\
-               So, please check your inbox to verify your email. In case you don't find it there, please\
-               check your spam folder.",
-            close: false,
-            duration: 0,
-          })
-        );
-      }
-
       return res;
     } catch (error) {
       errorHandler("updateProfile", error);
@@ -317,4 +325,12 @@ export const getReferrals = (setReferrals) => (dispatch, getState) => {
       }
     })
     .catch((error) => errorHandler("getReferrals", error));
+};
+
+// Web Sockets
+export const referralUsedListener = () => (dispatch, getState) => {
+  window.Echo.private("App.Models.User.ID").notification((data) => {
+    console.log(data.message);
+    dispatch(retrieveCoins(null, data.coins));
+  });
 };
