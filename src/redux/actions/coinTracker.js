@@ -1,6 +1,7 @@
 import {
   INITIALIZE_COINS,
   RETRIEVE_COINS,
+  SET_RAFFLE_COOLDOWN,
   SET_RAFFLE_ITEMS,
   SPEND_COINS,
 } from "@actions/index";
@@ -24,6 +25,10 @@ export const spendCoins = (item, numEntries) => (dispatch) => {
     type: SPEND_COINS,
     payload: { ...(item && { item }), numEntries },
   });
+};
+
+export const raffleCooldown = (timeOnSubmit) => (dispatch) => {
+  dispatch({ type: SET_RAFFLE_COOLDOWN, payload: timeOnSubmit });
 };
 
 export const getCoinsGainedHistory =
@@ -60,6 +65,28 @@ export const getRaffleItems = () => async (dispatch, getState) => {
           error: true,
           content:
             "Unexpected server error occurred getting your raffle items.",
+          close: false,
+          duration: 0,
+        })
+      );
+    }
+  } catch (error) {
+    errorHandler("getRaffleItems", error);
+  }
+};
+export const setRaffleItems = (raffle) => async (dispatch, getState) => {
+  try {
+    const res = await Api.post("/raffle/coins", {
+      raffle: raffle,
+    });
+    if (res.success) {
+      const date = new Date();
+      dispatch({ type: SET_RAFFLE_COOLDOWN, payload: date });
+    } else {
+      dispatch(
+        addNotification({
+          error: true,
+          content: "Unexpected server error allocating coins to raffle items.",
           close: false,
           duration: 0,
         })

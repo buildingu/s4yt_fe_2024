@@ -76,6 +76,7 @@
 .modalContainer .sponsorLogo {
   width: 150px;
   height: 150px;
+  padding: 10px;
 }
 /* .modalContainer .modalSlide {
   animation: slideUp 1s linear;

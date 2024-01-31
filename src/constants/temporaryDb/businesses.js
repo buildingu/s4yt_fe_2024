@@ -198,25 +198,25 @@ export const staticBusiness = [
     },
   },
   // {
-    // name: "Robotics For All", // business name
-    // logo: require("@static/businessLogos/roboticsforall.png"), // business logo
-    // link: "https://roboticsforall.net/about/overview", // business website link
-    // description:
-    //   "The mission of Robotics for All is to provide high-quality robotics education to students from all backgrounds. With student volunteers teaching classes, Robotics for All aims to inspire children to pursue careers in STEM and seeks to empower students with the skills they need to succeed  in an increasingly technology-driven world.", // description of business
-    // meetUp: {
-    //   date: "NA date", // Manual format
-    //   time: "NA time", // 16:00
-    //   method: "NA method", // google meet / zoom etc.
-    // },
-    // challenge: {
-    //   title: "NA title", // challenge title
-    //   content: "NA content", // actual challenge description + instructions
-    //   submissionCount: 0, // total number of submitted answers to challenge
-    // },
-    // video: {
-    //   title: "Robotics for All", // video title
-    //   link: "https://www.youtube.com/embed/videoseries?si=9DbtoPGJDGEhdcMr&amp;list=PLq6JOS0PfxO8WUKdmgEKSv_I0jJxuveov", // embed link to playlist or video
-    // },
+  // name: "Robotics For All", // business name
+  // logo: require("@static/businessLogos/roboticsforall.png"), // business logo
+  // link: "https://roboticsforall.net/about/overview", // business website link
+  // description:
+  //   "The mission of Robotics for All is to provide high-quality robotics education to students from all backgrounds. With student volunteers teaching classes, Robotics for All aims to inspire children to pursue careers in STEM and seeks to empower students with the skills they need to succeed  in an increasingly technology-driven world.", // description of business
+  // meetUp: {
+  //   date: "NA date", // Manual format
+  //   time: "NA time", // 16:00
+  //   method: "NA method", // google meet / zoom etc.
+  // },
+  // challenge: {
+  //   title: "NA title", // challenge title
+  //   content: "NA content", // actual challenge description + instructions
+  //   submissionCount: 0, // total number of submitted answers to challenge
+  // },
+  // video: {
+  //   title: "Robotics for All", // video title
+  //   link: "https://www.youtube.com/embed/videoseries?si=9DbtoPGJDGEhdcMr&amp;list=PLq6JOS0PfxO8WUKdmgEKSv_I0jJxuveov", // embed link to playlist or video
+  // },
   // },
   {
     name: "Matrix Personal Training", // business name
@@ -269,28 +269,38 @@ export const staticBusiness = [
     },
     challenge: {
       title: "Energie Academie", // challenge title
-      content: `BACKGROUND : 
-        This challenge comes from a piece of an actual EU project  that we (ENERGY ACADEMY)  are partners in and started working on in January.  
-        NESSIE: "Innovative Education for Energy Transition"
-        Please feel free to read more about the project here: https://energiakademiet.dk/nessie/
-        NESSIE aims to develop a bottom-up additional educational contribution to strengthen competencies across the workforce in the energy, installation, and construction sectors by facilitating and accelerating collaboration between pioneering energy transition islands/coastal regions. 
+      content: `BACKGROUND:
+This challenge comes from a piece of an actual EU project that we (SAMSØ ENERGY ACADEMY) are partners in and started working on in January. 
+NESSIE: "Innovative Education for Energy Transition" (New Skills & Spaces Impulse for the Education of aspirant energy – transition installers)
+Please feel free to read more about the project here: https://energiakademiet.dk/nessie/
+NESSIE aims to develop a bottom-up additional educational contribution to strengthen competencies across the workforce and capacity in the energy, installation, and construction sectors through hands-on educational experiences and cross-regional collaboration.
+ 
+Challenge Focus: Design a concept for an E-Campus(we still don't know what a E-campus will look like, so help) or outline a Short Advanced Course (SAC) that addresses the market needs and educational requirements for energy transition technicians.
+ 
+ 
+RECOMMENDED APPROACH:
+For E-Campus Concept:
+- Envision what an E-Campus dedicated to energy transition could look like. Consider how it could serve as a hub for inspiration and engagement, not just for current professionals but also for aspiring students.
+- Propose features or resources that would make the E-Campus an effective learning environment. Think about virtual labs, interactive tools, or collaboration spaces.
+- Discuss how your E-Campus could be integrated with local and regional energy initiatives to provide real-world learning experiences.
 
 
-        CHALLENGE :
-        Develop an educational module or training program, aimed at upskilling engineers, designers, technicians, and craftsmen transitioning from traditional energy to new energy initiatives.(solar/ geothermal/wind/biofuel…)
-
-
-        RECOMMENDED APPROACH :
-        - identify a sector (i.e. transportation, home heating and electricity, public services,...) and a specific skill and/or knowledge area crucial for energy transition. 
-        - design a module or program that addresses this need, tailored for the target audience you select (engineers, designers, etc.).
-        - You may incorporate innovative teaching methods and practical applications relevant to energy transition and outline how this module will contribute to enhancing cross-workforce competencies in the energy, installation, and construction sectors.
-
-
-        EVALUATION CRITERIA :
-        Relevance and importance of the chosen skill/knowledge area.
-        Potential effectiveness and innovation in teaching approach.
-        Practical applicability and potential impact on the workforce.
-        Clarity and feasibility of the module or program design.
+For SAC Outline:
+- Identify a specific skill set or knowledge area within the energy transition field that is currently in high demand.
+- Develop a curriculum outline for a Short Advanced Course that would provide intensive, targeted training in that area.
+- Include innovative instructional strategies that could enhance the learning experience, such as gamified learning, project-based assignments, or partnerships with industry for real-life case studies.
+ 
+Format for Submission:
+- That is totally up to you to decide how you will solve and deliver your solution to this challenge.
+- There is a lot of creative freedom, just make sure it explains what you want to say.
+ 
+ 
+ 
+EVALUATION CRITERIA:
+Innovation & Monkey Mind Approach: We're looking for fresh, unconventional ideas that only someone outside the energy field might dream up. Channel your inner 'monkey mind' – be bold and creative, without the constraints of industry norms.
+Relevance & Novelty: Your proposal should address the current market and educational needs in a unique way. Surprise us with your perspective on what makes an effective learning environment for energy transition skills.
+Practicality & Playfulness: While we value feasibility, we're also looking for concepts that are fun and engaging. How could your idea make learning about energy transition something to look forward to?
+Impact & Inspiration: We want to know how your idea could not only attract attention but also inspire sustained interest and excitement in the field of energy transition, especially among those who might not have considered it before.
         `, // actual challenge description + instructions
       submissionCount: 0, // total number of submitted answers to challenge
     },
