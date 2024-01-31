@@ -2,6 +2,7 @@ import UserCredentials from "@typings/UserCredentials";
 import {
   SET_TOKEN,
   SET_CURRENT_USER,
+  UPDATE_CURRENT_USER,
   SET_NEW_LOGIN_FLAG,
   LOGOUT,
 } from "@actions/index";
@@ -22,6 +23,11 @@ const user = (state = initialState, action: { type: string; payload: any }) => {
       return { ...state, newLogin: action.payload };
     case SET_CURRENT_USER:
       return { ...state, credentials: action.payload };
+    case UPDATE_CURRENT_USER:
+      return {
+        ...state,
+        credentials: { ...state.credentials, ...action.payload },
+      };
     case LOGOUT:
       return {};
     default:

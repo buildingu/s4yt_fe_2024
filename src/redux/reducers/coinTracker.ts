@@ -37,25 +37,29 @@ const coinTracker = (
     case SPEND_COINS:
       return {
         ...state,
-        items: state.items.map((item) =>
-          item.id === action.payload.item.id
-            ? { ...item, entries: item.entries + action.payload.numEntries }
-            : item
-        ),
+        ...(action.payload.item && {
+          items: state.items.map((item) =>
+            item.id === action.payload.item.id
+              ? { ...item, entries: item.entries + action.payload.numEntries }
+              : item
+          ),
+        }),
         remainingCoins: state.remainingCoins - action.payload.numEntries,
       };
     case RETRIEVE_COINS:
       return {
         ...state,
-        items: state.items.map((item) =>
-          item.id === action.payload.item.id
-            ? {
-                ...item,
-                entries:
-                  item.entries && item.entries - action.payload.numEntries,
-              }
-            : item
-        ),
+        ...(action.payload.item && {
+          items: state.items.map((item) =>
+            item.id === action.payload.item.id
+              ? {
+                  ...item,
+                  entries:
+                    item.entries && item.entries - action.payload.numEntries,
+                }
+              : item
+          ),
+        }),
         remainingCoins: state.remainingCoins + action.payload.numEntries,
       };
     case INITIALIZE_COINS:

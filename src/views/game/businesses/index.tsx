@@ -12,6 +12,7 @@ import Layout from "@components/partials/layout";
 import Header from "@components/partials/header";
 import Content from "@components/partials/content";
 import Status from "@components/partials/status";
+import Image from "@components/Image";
 
 import s from "./styles.module.css";
 
@@ -32,7 +33,7 @@ const Businesses: React.FC<Props> = ({ partners, getBusinesses }) => {
 
   return (
     <Layout>
-      <Header title="See Business" />
+      <Header title="See Businesses" />
       <Content addCoins="coins3" addFeather="left">
         <div className={s.businesses}>
           {businesses?.map((business: BusinessReduxState, i: number) => (
@@ -43,7 +44,11 @@ const Businesses: React.FC<Props> = ({ partners, getBusinesses }) => {
               state={business}
               className={s.businessContainer}
             >
-              <img className={s.logos} src={business.logo} alt="" />
+              <Image
+                className={s.logos}
+                src={business.logo}
+                alt={business.name}
+              />
             </Link>
           ))}
         </div>

@@ -1,0 +1,44 @@
+.blurLoad {
+  background: url("../../static/img-blur.jpg") center/cover;
+  height: 100%;
+  filter: blur(6px);
+}
+.blurLoad::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: pulse 2.5s infinite;
+  background-color: #fff;
+}
+
+.blurLoad img {
+  width: 100%;
+  object-position: center;
+  object-fit: cover;
+  opacity: 0;
+  transition: 0.3s ease-in-out opacity;
+}
+
+.blurLoad.loaded {
+  filter: blur(0);
+}
+.blurLoad.loaded img {
+  opacity: 1;
+}
+.blurLoad.loaded::before {
+  animation: none;
+  content: none;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0;
+  }
+}

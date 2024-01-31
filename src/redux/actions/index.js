@@ -14,6 +14,7 @@ export const REMOVE_NOTIFICATION = "notification.REMOVE_NOTIFICATION";
 export const SET_TOKEN = "user.SET_TOKEN";
 export const SET_NEW_LOGIN_FLAG = "user.SET_NEW_LOGIN_FLAG";
 export const SET_CURRENT_USER = "user.SET_CURRENT_USER";
+export const UPDATE_CURRENT_USER = "user.UPDATE_CURRENT_USER";
 export const LOGOUT = "user.LOGOUT";
 
 // configuration
