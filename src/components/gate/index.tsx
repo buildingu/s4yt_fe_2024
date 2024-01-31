@@ -16,7 +16,7 @@ import { initializeCoins } from "@actions/coinTracker";
 
 // import socketProvider from "@services/socketProvider";
 
-import initializeFirebase from "@utils/initializeFirebase";
+import initializeFirebase from "@root/services/initializeFirebase";
 import history from "@utils/History";
 import delay from "@utils/delay";
 

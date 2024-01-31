@@ -82,8 +82,8 @@ const Sponsors: React.FC<PlayerProps> = ({ isNotPlayer }) => {
           // </>
           <>
             <div className={s.sponsors}>
-              {sponsors.map((sponsor) => (
-                <div className={s.spotlight}>
+              {sponsors.map((sponsor, index) => (
+                <div key={index} className={s.spotlight}>
                   <a
                     className="fade move"
                     href={sponsor.link}
