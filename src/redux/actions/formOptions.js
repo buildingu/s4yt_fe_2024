@@ -1,5 +1,5 @@
 import { Api } from "@services/index";
-import errorHandler from "@services/errorHandler";
+import errorHandler, { showError } from "@services/errorHandler";
 
 import {
   SET_GRADES,
@@ -8,21 +8,6 @@ import {
   SET_REGIONS,
   SET_CITIES,
 } from "@actions/index";
-import { addNotification } from "./notifications";
-
-const showError = (res, dispatch) => {
-  dispatch(
-    addNotification({
-      error: true,
-      content:
-        res.errors && Object.keys(res.errors).length
-          ? Object.keys(res.errors)[0]
-          : res.message,
-      close: false,
-      duration: 0,
-    })
-  );
-};
 
 export const getEducation = () => async (dispatch, getState) => {
   try {
