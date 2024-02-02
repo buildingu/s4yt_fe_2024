@@ -10,7 +10,6 @@ import {
   SET_RAFFLE_ITEMS,
   SPEND_COINS,
 } from "@actions/index";
-import { addNotification } from "./notifications";
 import { updateCurrentUser } from "./user";
 
 export const initializeCoins = (data) => (dispatch) => {
