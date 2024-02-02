@@ -1,5 +1,5 @@
 import { Api } from "@services/index";
-import errorHandler from "@services/errorHandler";
+import errorHandler, { showError } from "@services/errorHandler";
 
 import history from "@utils/History";
 
@@ -36,16 +36,7 @@ export const registerPlayer =
           })
         );
       } else {
-        const key = Object.keys(res.errors)[0];
-
-        dispatch(
-          addNotification({
-            error: true,
-            content: res.errors[key],
-            close: false,
-            duration: 0,
-          })
-        );
+        showError(res, dispatch);
       }
       return res;
     } catch (error) {
@@ -72,14 +63,7 @@ export const sendVerifyEmail =
         );
         setForm((prev) => ({ ...prev, success: true }));
       } else {
-        dispatch(
-          addNotification({
-            error: true,
-            content: res.message,
-            close: false,
-            duration: 0,
-          })
-        );
+        showError(res, dispatch);
       }
       return res;
     } catch (error) {
@@ -170,14 +154,7 @@ export const loginPlayer =
         if (res.message.includes("validated"))
           history.push("/register/verify-email");
 
-        dispatch(
-          addNotification({
-            error: true,
-            content: res.message,
-            close: false,
-            duration: 0,
-          })
-        );
+        showError(res, dispatch);
       }
       return res;
     } catch (error) {
@@ -232,14 +209,7 @@ export const sendResetPasswordEmail =
         );
         setForm((prev) => ({ ...prev, success: true }));
       } else {
-        dispatch(
-          addNotification({
-            error: true,
-            content: res.message,
-            close: false,
-            duration: 0,
-          })
-        );
+        showError(res, dispatch);
       }
       return res;
     } catch (error) {
@@ -291,16 +261,7 @@ export const updateProfile =
           dispatch(updateCurrentUser(userData));
         }
       } else {
-        const key = Object.keys(res.errors)[0];
-
-        dispatch(
-          addNotification({
-            error: true,
-            content: res.errors[key],
-            close: false,
-            duration: 0,
-          })
-        );
+        showError(res, dispatch);
       }
       return res;
     } catch (error) {
