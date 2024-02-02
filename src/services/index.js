@@ -24,7 +24,7 @@ const sendRequest = async (method, url, params, body) => {
     headers: headers(token),
     ...(body && { body: JSON.stringify(body) }),
   });
-  if (response && response.status === 401) history.push("/error-401");
+  if (response && response.status === 401 && token) history.push("/error-401");
 
   return await response.json();
 };
