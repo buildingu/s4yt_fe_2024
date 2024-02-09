@@ -19,14 +19,8 @@ interface Props {
 }
 
 const Winners: React.FC<Props> = ({ data }) => {
-  // for future use if the event partner also have more than 2 raffle items
   const {
-    // currentPage,
     currentItems,
-    // goToPage,
-    // nextPage,
-    // prevPage,
-    // allPageNumbers,
   } = usePagination({ data: data.winners.items, maxPerPage: 2 });
   return (
     <>

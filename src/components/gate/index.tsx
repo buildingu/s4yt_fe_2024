@@ -67,29 +67,7 @@ const Gate: React.FC<Props> = ({
 
   let redirect = "";
   useEffect(() => {
-    redirect =
-      // gameConfig.restrictedAccess && user.token
-      //   ? "/profile"
-      //   : user.token &&
-      //     ((gameConfig.reviewStart && !isNotPlayer()) || gameConfig.gameEnd)
-      //   ? "/game-closed"
-      //   : restricted === 1 && !user.token
-      //   ? "/login"
-      //   : restricted === 2 && user.token && user.credentials && !user.newLogin
-      //   ? "/error-409" // Already logged in.
-      //   : disableOn?.includes(
-      //       gameConfig.gameStart
-      //         ? "gameStart"
-      //         : gameConfig.reviewStart
-      //         ? "reviewStart"
-      //         : gameConfig.winnersAnnounced
-      //         ? "winnersAnnounced"
-      //         : ""
-      //     )
-      //   ? user.token
-      //     ? "/"
-      //     : "/login"
-         "/results";
+    redirect = "/results";
 
     if (redirect)
       history.push(redirect, { state: { from: location }, replace: true });
