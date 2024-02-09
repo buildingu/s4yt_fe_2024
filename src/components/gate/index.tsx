@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
-// import { store } from "@root/store";
+import { store } from "@root/store";
 
 import socketProvider from "@services/socketProvider";
 
@@ -121,9 +121,20 @@ const Gate: React.FC<Props> = ({
     }
   }, [user.credentials]);
 
-  // useEffect(() => {
-  //   console.log("store.getState()", store.getState());
-  // }, [store.getState()]);
+  useEffect(() => {
+    console.log("store.getState()", store.getState());
+  }, [store.getState()]);
+
+  useEffect(() => {
+  if (localStorage.getItem("persist:root") && !localStorage.getItem("loaded")) 
+    {
+      localStorage.removeItem("persist:root");
+      delay(1000, () => {
+        window.location.reload();
+        localStorage.setItem("loaded", "true");
+      });
+    }
+  }, []);
 
   return (
     user.newLogin ? <OverlayLoader text="Loading user data" /> : children

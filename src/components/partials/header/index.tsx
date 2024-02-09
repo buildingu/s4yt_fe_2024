@@ -92,14 +92,14 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
                   </h1>
                   <nav>
                     <NavLink
-                      to="/results"
+                      to="/"
                       className={s.mainMap}
                       onClick={(e) => {
                         if (restrictedAccess) e.preventDefault();
                       }}
                       aria-disabled={restrictedAccess}
                     />
-                    <NavLink to="/results" className={s.busMap} />
+                    <NavLink aria-disabled onClick={(e) => e.preventDefault()} to="/business" className={s.busMap} />
                     <button
                       aria-label="Logout"
                       onClick={() => logoutPlayer()}
