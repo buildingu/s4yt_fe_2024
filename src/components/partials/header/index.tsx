@@ -99,7 +99,7 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
                       }}
                       aria-disabled={restrictedAccess}
                     />
-                    <NavLink aria-disabled onClick={(e) => e.preventDefault()} to="/business" className={s.busMap} />
+                    <NavLink aria-disabled="true" onClick={(e) => e.preventDefault()} to="/business" className={s.busMap} />
                     <button
                       aria-label="Logout"
                       onClick={() => logoutPlayer()}
