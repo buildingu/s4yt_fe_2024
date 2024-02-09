@@ -27,21 +27,21 @@ import Error500 from "@views/errors/Error500";
 
 // prettier-ignore
 export const routes = [
-  { path: "/register", view: Register, restricted: 2, title: "Register" },
-  { path: "/register/verify-email", view: VerifyEmail, restricted: 0, title: "Verify" },
-  { path: "/register/verify-email/success", view: VerifySuccess, restricted: 0, title: "Verify Success" },
+  // { path: "/register", view: Register, restricted: 2, title: "Register" },
+  // { path: "/register/verify-email", view: VerifyEmail, restricted: 0, title: "Verify" },
+  // { path: "/register/verify-email/success", view: VerifySuccess, restricted: 0, title: "Verify Success" },
 
-  { path: "/login", view: Login, restricted: 2, title: "Login" },
-  { path: "/login/forgot", view: ForgotPassword, restricted: 2, title: "Forgot Password" },
-  { path: "/password-reset", view: ResetPassword, restricted: 2, title: "Reset Password" },
+  // { path: "/login", view: Login, restricted: 2, title: "Login" },
+  // { path: "/login/forgot", view: ForgotPassword, restricted: 2, title: "Forgot Password" },
+  // { path: "/password-reset", view: ResetPassword, restricted: 2, title: "Reset Password" },
 
-  { path: "/profile", view: Profile, restricted: 1, title: "Profile" },
+  // { path: "/profile", view: Profile, restricted: 1, title: "Profile" },
 
   { path: "/", view: Home, restricted: 1, title: "Treasure Map" },
-  { path: "/sponsors", view: Sponsors, restricted: 1, title: "Sponsors", disableOn: ["reviewStart", "winnersAnnounced"] },
-  { path: "/raffle", view: Raffle, restricted: 1, title: "Raffle", disableOn: ["reviewStart", "winnersAnnounced"] },
-  { path: "/businesses", view: Businesses, restricted: 1, title: "See Businesses", disableOn: ["reviewStart", "winnersAnnounced"] },
-  { path: "/businesses/:details", view: Details, restricted: 1, title: "Business Details", disableOn: ["reviewStart", "winnersAnnounced"] },
+  // { path: "/sponsors", view: Sponsors, restricted: 1, title: "Sponsors", disableOn: ["reviewStart", "winnersAnnounced"] },
+  // { path: "/raffle", view: Raffle, restricted: 1, title: "Raffle", disableOn: ["reviewStart", "winnersAnnounced"] },
+  // { path: "/businesses", view: Businesses, restricted: 1, title: "See Businesses", disableOn: ["reviewStart", "winnersAnnounced"] },
+  // { path: "/businesses/:details", view: Details, restricted: 1, title: "Business Details", disableOn: ["reviewStart", "winnersAnnounced"] },
   { path: "/results", view: Results, restricted: 1, title: "Event Results", disableOn: ["gameStart"] },
   { path: "/game-closed", view: GameClosed, restricted: 1, title: "Game Closed" },
 

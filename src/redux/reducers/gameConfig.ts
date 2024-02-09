@@ -21,6 +21,13 @@ export interface GameConfigReduxState {
 }
 
 const initialState: GameConfigReduxState = {
+  timestamps: {
+    register_start: "2024-01-05T13:00:00-05:00",
+    game_start: "2024-02-01T13:00:00-05:00",
+    review_start: "2024-02-02T13:00:00-05:00",
+    review_end: "2024-02-10T13:00:00-05:00",
+    game_end: "2024-02-12T13:00:00-05:00"
+  },
   newPeriod: 0,
 };
 

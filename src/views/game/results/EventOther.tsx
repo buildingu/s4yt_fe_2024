@@ -20,18 +20,10 @@ const Other: React.FC<Props> = ({ data }) => {
             </div>
             <div className={s.winnerContainer}>
               {item.winners.map((winner: any, index: number) => {
-                // let nameCheck = false;
-                // if (winner.country_name.length < 15) {
-                //   nameCheck = true;
-                // }
                 return (
                   <div className={s.singleWinner} key={index}>
                     <h3>{winner.name}</h3>
                     <address>
-                      {/* {winner.region_name && `${winner.region_name}, `}
-                      {nameCheck
-                        ? winner.country_name
-                        : winner.country_code}{" "} */}
                         {winner.country},
                         {winner.region}
                     </address>

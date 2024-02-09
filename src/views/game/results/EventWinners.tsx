@@ -32,7 +32,7 @@ const Winners: React.FC<Props> = ({ data }) => {
               {`${
                 data.winners.main.prize
                   ? data.winners.main.prize + " prize awarded to:"
-                  : ""
+                  : "No winner"
               } `}
             </p>
 

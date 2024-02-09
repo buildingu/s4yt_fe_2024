@@ -13,6 +13,7 @@ export default [
     img: { src: require("@static/profile_page.png"), alt: "Profile" },
     txt: "Profile page",
     to: "/profile",
+    disableOn: ["winnersAnnounced"],
   },
   {
     img: { src: require("@static/see_businesses.png"), alt: "Businesses" },
