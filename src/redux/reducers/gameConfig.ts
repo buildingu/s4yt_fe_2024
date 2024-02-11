@@ -26,7 +26,7 @@ const initialState: GameConfigReduxState = {
     game_start: "2024-02-01T13:00:00-05:00",
     review_start: "2024-02-02T13:00:00-05:00",
     review_end: "2024-02-09T12:00:00-05:00",
-    game_end: "2024-02-12T13:00:00-05:00"
+    game_end: "2024-02-15T13:00:00-05:00"
   },
   newPeriod: 0,
 };
