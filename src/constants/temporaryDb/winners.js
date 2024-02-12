@@ -4,8 +4,8 @@ export const staticWinners = [
     logo: require("@static/businessLogos/matrix.png"), // business logo
     winners: {
       main: {
-        name: "Sofia Xu",
-        address: "United States",
+        name: "Shreya Jain",
+        address: "Ontario, Canada",
         prize: "$100",
       },
       mentions: [],
@@ -35,8 +35,8 @@ export const staticWinners = [
     logo: require("@static/businessLogos/KnowledgeFlow.png"), // business logo
     winners: {
       main: {
-        name: "Shreya Jain",
-        address: "Ontario, Canada",
+        name: "Sofia Xu",
+        address: "United States",
         prize: "$100",
       },
       mentions: [],
