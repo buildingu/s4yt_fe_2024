@@ -58,14 +58,8 @@ const Error: React.FC<Props> = ({
           ) : (
             <Link
               aria-label="Back to Main Map"
-              to={linkType === "home" ? "/" : "/login"}
+              to="/"
               className="fade move"
-              onClick={(e) => {
-                if (!userToken) {
-                  e.preventDefault();
-                  history.push("/login");
-                }
-              }}
             />
           )}
         </div>
@@ -78,14 +72,8 @@ const Error: React.FC<Props> = ({
         ) : (
           <Link
             aria-label="Back to Main Map"
-            to={linkType === "home" ? "/" : "/login"}
+            to="/"
             className={s.responsiveBack}
-            onClick={(e) => {
-              if (!userToken) {
-                e.preventDefault();
-                history.push("/login");
-              }
-            }}
           />
         )}
         {/* If any. */}
