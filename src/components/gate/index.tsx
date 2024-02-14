@@ -73,10 +73,6 @@ const Gate: React.FC<Props> = ({
         : user.token &&
           ((gameConfig.reviewStart && !isNotPlayer()) || gameConfig.gameEnd)
         ? "/game-closed"
-        // : restricted === 1 && !user.token
-        // ? "/login"
-        : restricted === 2 && user.token && user.credentials && !user.newLogin
-        ? "/error-409" // Already logged in.
         : disableOn?.includes(
             gameConfig.gameStart
               ? "gameStart"
@@ -124,17 +120,6 @@ const Gate: React.FC<Props> = ({
   // useEffect(() => {
   //   console.log("store.getState()", store.getState());
   // }, [store.getState()]);
-
-  useEffect(() => {
-  if (localStorage.getItem("persist:root") && !localStorage.getItem("loaded")) 
-    {
-      localStorage.removeItem("persist:root");
-      delay(1000, () => {
-        window.location.reload();
-        localStorage.setItem("loaded", "true");
-      });
-    }
-  }, []);
 
   return (
     user.newLogin ? <OverlayLoader text="Loading user data" /> : children
