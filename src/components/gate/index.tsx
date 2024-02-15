@@ -70,8 +70,7 @@ const Gate: React.FC<Props> = ({
     redirect =
       gameConfig.restrictedAccess && user.token
         ? "/profile"
-        : user.token &&
-          ((gameConfig.reviewStart && !isNotPlayer()) || gameConfig.gameEnd)
+        : ((gameConfig.reviewStart && !isNotPlayer()) || gameConfig.gameEnd)
         ? "/game-closed"
         : disableOn?.includes(
             gameConfig.gameStart
