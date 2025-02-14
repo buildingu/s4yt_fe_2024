@@ -1,16 +1,16 @@
-import { UserReduxState } from "@reducers/user";
-import { GameConfigReduxState } from "@reducers/gameConfig";
+import type { UserReduxState } from "@reducers/user";
+import type { GameConfigReduxState } from "@reducers/gameConfig";
+import type { Dispatch } from "redux";
 
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { logoutPlayer } from "@actions/user";
 
-import CurrentDoblons from "../currentDoblons";
+import CurrentCoins from "../currentCoins";
 import Hamburger from "./Hamburger";
 
 import s from "./styles.module.css";
-import { Dispatch } from "redux";
 
 interface Props {
   title?: string;
@@ -20,7 +20,18 @@ interface Props {
   logoutPlayer: () => void;
 }
 
-// FIXME: The styles and this code need to cleaned up.
+const hasSpace = (title: string) => {
+  const parts = title.split(" ");
+  return (
+    <>
+      {parts[0]}
+      <br />
+      {parts.slice(1).join(" ")}
+    </>
+  );
+};
+
+// FIXME: The styles and this component needs to cleaned up.
 const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
   title,
   style,
@@ -32,21 +43,9 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
   const addFullHeader =
     title &&
     (title.includes(" ") ||
-      title === "Sponsors" ||
       title === "Login" ||
       title === "Register" ||
       title === "Profile");
-
-  const hasSpace = (title: string) => {
-    const parts = title.split(" ");
-    return (
-      <>
-        {parts[0]}
-        <br />
-        {parts[1]}
-      </>
-    );
-  };
 
   return (
     <header
@@ -66,7 +65,7 @@ const Header: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
         />
         {title && (
           <>
-            <CurrentDoblons type="header" addFullHeader={addFullHeader} />
+            <CurrentCoins type="header" addFullHeader={addFullHeader} />
             <hr />
             <div className={s.right}>
               {title === "Login" ||
@@ -142,7 +141,7 @@ const mapStateToProps = ({
   gameConfig: GameConfigReduxState;
 }) => ({
   userToken: user.tokens.access,
-  restrictedAccess: gameConfig.restrictedAccess,
+  restrictedAccess: gameConfig.restrictedAccess
 });
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   logoutPlayer: () => dispatch(logoutPlayer())

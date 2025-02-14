@@ -21,10 +21,8 @@
 }
 
 html {
-  background: url("static/bg.jpg") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
+  background: url("static/bg.jpg") no-repeat center center;
+  min-height: 100vh;
   background-size: cover;
   color-scheme: light;
 
@@ -171,6 +169,14 @@ button {
   background-color: inherit;
   cursor: pointer;
 }
+
+button.backBtn {
+  width: 150px;
+  height: 120px;
+  background: url("/images/btn_back.png") no-repeat center
+    center/contain;
+}
+
 button.okBtn {
   position: relative;
   width: 120px;
@@ -184,7 +190,7 @@ button.okBtn:before {
   position: absolute;
   width: 200px;
   height: 341px;
-  background: url("./static/feather.png") no-repeat center/contain;
+  background: url("/images/feather.png") no-repeat center/contain;
   pointer-events: none;
 }
 button.okBtn:not(.flip):before {
@@ -206,6 +212,7 @@ button.okBtn:active {
 button.okBtn[disabled] {
   opacity: 0.35;
 }
+
 button.updateBtn {
   position: relative;
   font-family: "Corbel", Arial;

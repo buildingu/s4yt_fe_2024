@@ -2,39 +2,31 @@ import { useRef } from "react";
 
 import useContinueCountdown from "@hooks/useContinueCountdown";
 
-import CurrentDoblons from "../currentDoblons";
+import CurrentCoins from "../currentCoins";
 import SupportModal from "@components/modals/supportModal/SupportModal";
 
 import s from "./styles.module.css";
 
-interface Props {
-  style?: React.CSSProperties;
-}
+interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 
-const Status: React.FC<Props> = ({ style }) => {
+const Status: React.FC<Props> = ({ className, style }) => {
   const counterRef = useRef<HTMLTimeElement>(null);
 
   // Starts the countdown and sets the timestamps.
   useContinueCountdown(counterRef);
 
   return (
-    <footer className={s.container} style={style}>
+    <footer
+      className={`${s.container}${className ? " " + className : ""}`}
+      style={style}
+    >
       <div>
-        <CurrentDoblons type="footer" />
-        <button
-          aria-label="Chat"
-          aria-disabled="true"
-          className={s.chat}
-          onClick={() =>
-            alert(
-              "This is a feature that will be implemented in the future - ❤ dev team."
-            )
-          }
-        />
+        <CurrentCoins type="footer" />
+
         <SupportModal />
         <a
           aria-label="building-U Website"
-          href="http://building-u.com/wp-content/uploads/Privacy-Notice.pdf"
+          href="https://building-u.com/"
           target="_blank"
           rel="noopener noreferrer"
           className={s.checkout}
@@ -59,11 +51,6 @@ const Status: React.FC<Props> = ({ style }) => {
         target="_blank"
         rel="noopener noreferrer"
         className="privacy fade move"
-        style={{
-          position: "absolute",
-          left: 0,
-          bottom: "-21px",
-        }}
       >
         Private Policy
       </a>

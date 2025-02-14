@@ -57,15 +57,12 @@ const Hamburger: React.FC<Props> = ({ restrictedAccess, logoutPlayer }) => {
                   aria-disabled={restrictedAccess}
                 />
                 <SupportModal />
-                <button
-                  aria-label="Chat"
-                  aria-disabled="true"
-                  className={s.chat}
-                  onClick={() =>
-                    alert(
-                      "This is a feature that will be implemented in the future - ❤ dev team."
-                    )
-                  }
+                <a
+                  aria-label="building-U Website"
+                  href="https://building-u.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={s.checkout}
                 />
                 <button
                   aria-label="Logout"
@@ -80,8 +77,8 @@ const Hamburger: React.FC<Props> = ({ restrictedAccess, logoutPlayer }) => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/sponsors" onClick={() => toggleMenu(false)}>
-                    Sponsors
+                  <NavLink to="/learn" onClick={() => toggleMenu(false)}>
+                    Learn and Earn
                   </NavLink>
                 </li>
                 <li>

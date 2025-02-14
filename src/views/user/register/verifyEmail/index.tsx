@@ -141,7 +141,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   ) =>
     dispatch(
       sendVerifyEmail(email, formRef, setForm) as unknown
-    ) as Promise<void>,
+    ) as Promise<void>
 });
 
 export default connect(null, mapDispatchToProps)(VerifyEmail);

@@ -18,6 +18,7 @@ const ResetPassword: React.FC = () => {
         setBreakCenter(false);
       }
     };
+    handleResize();
 
     window.addEventListener("resize", handleResize);
     return () => {

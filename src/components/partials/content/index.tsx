@@ -1,15 +1,14 @@
 import s from "./styles.module.css";
 
-import coins1 from "@static/coins_variant1.png";
-import coins2 from "@static/coins_variant2.png";
-import coins3 from "@static/coins_variant3.png";
-import feather from "@static/feather.png";
+import coins1 from "/images/coins_variant1.png";
+import coins2 from "/images/coins_variant2.png";
+import coins3 from "/images/coins_variant3.png";
+import feather from "/images/feather.png";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
   addCoins?: "coins1" | "coins2" | "coins3";
   addFeather?: "left" | "right1" | "right2";
-  style?: React.CSSProperties;
 }
 
 const Content: React.FC<Props> = ({
@@ -18,15 +17,16 @@ const Content: React.FC<Props> = ({
   addFeather,
   className,
   style,
-  ...options
+  ...props
 }) => {
   return (
     <div
       className={`${s.container}${className ? " " + className : ""}`}
       style={style}
-      {...options}
+      {...props}
     >
-      {addFeather && (
+      {/* window.innerWidth is to prevent how mobile overflows. */}
+      {addFeather && window.innerWidth > 900 && (
         <img
           src={feather}
           alt="Feather"
@@ -39,7 +39,7 @@ const Content: React.FC<Props> = ({
           }`}
         />
       )}
-      {addCoins && (
+      {addCoins && window.innerWidth > 900 && (
         <img
           src={
             addCoins === "coins1"
@@ -48,7 +48,7 @@ const Content: React.FC<Props> = ({
               ? coins2
               : coins3
           }
-          alt="Doblons"
+          alt="Dubl-u-nes Stack"
           className={
             addCoins === "coins1"
               ? s.coins1

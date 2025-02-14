@@ -92,7 +92,7 @@ To maintain good development practices and consistency across files/folders, we 
     |   |   ├── content/
     |   |   |   ├── Input.tsx
     |   |   |   └── ...
-    |   |   ├── currentDoblons/
+    |   |   ├── currentCoins/
     |   |   |   ├── index.tsx
     |   |   |   └── styles.module.css
     |   |   ├── header/

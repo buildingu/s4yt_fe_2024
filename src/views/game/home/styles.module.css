@@ -10,6 +10,11 @@
 .notViewed {
   padding: 1.5rem 2rem 0 2rem;
 }
+@media screen and (max-width: 582px) {
+  .notViewed {
+    padding: 1rem 0 0;
+  }
+}
 
 .notViewed ul li::marker {
   content: "X";
@@ -23,12 +28,13 @@
 .notViewed ul li {
   padding-left: 1rem;
 }
-.notViewed ul li:first-of-type {
-  margin-bottom: 7.5rem;
+.notViewed ul li:not(li:last-of-type) {
+  margin-bottom: 2.5rem;
 }
 
 .notViewed ul li p {
-  font-size: 42px;
+  /* font-size: 42px; */
+  font-size: 40px;
 }
 
 .notViewed div {

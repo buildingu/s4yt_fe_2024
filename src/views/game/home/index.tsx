@@ -40,13 +40,19 @@ const Home: React.FC<Props> = ({ addNotification }) => {
             <div className={s.notViewed}>
               <ul>
                 <li>
-                  <p>Visit each island to answer the questions</p>
+                  <p>
+                    Visit the lean and earn page to get more info about the
+                    challenges and win more dubl-u-nes as you go!
+                  </p>
                 </li>
                 <li>
                   <p>
-                    Click on raffle page, to use your free registration
-                    dubl-u-nes
+                    Visit the business island to see the challenges (available
+                    from day 3 to 4 / hours 49 to 120 of the $4yt event)
                   </p>
+                </li>
+                <li>
+                  <p>Click on raffle page, to use your dubl-u-nes</p>
                 </li>
               </ul>
 
@@ -60,7 +66,7 @@ const Home: React.FC<Props> = ({ addNotification }) => {
                     localStorage.setItem("block-instructions", "true");
                     addNotification({
                       error: false,
-                      content: "Instructions are now blocked. ✔",
+                      content: "Instructions are now blocked ✔",
                       close: false,
                       duration: 4000
                     });

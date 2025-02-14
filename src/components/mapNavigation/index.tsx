@@ -1,4 +1,4 @@
-import { GameConfigReduxState } from "@reducers/gameConfig";
+import type { GameConfigReduxState } from "@reducers/gameConfig";
 
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -9,7 +9,7 @@ interface Props {
   img: { src: any; alt: string };
   txt: string;
   to: string;
-  disableOn?: string[];
+  disableOn?: readonly string[];
   gameConfig: GameConfigReduxState;
 }
 

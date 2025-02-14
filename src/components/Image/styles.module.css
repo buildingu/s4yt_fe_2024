@@ -21,6 +21,7 @@
 }
 
 .blurLoad.loaded {
+  background: none;
   filter: blur(0);
 }
 .blurLoad.loaded img {

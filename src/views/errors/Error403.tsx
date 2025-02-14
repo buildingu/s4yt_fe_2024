@@ -8,7 +8,7 @@ import delay from "@utils/delay";
 
 import Error from ".";
 
-const Error500: React.FC<{ logoutPlayer: () => void }> = ({ logoutPlayer }) => {
+const Error403: React.FC<{ logoutPlayer: () => void }> = ({ logoutPlayer }) => {
   useEffect(() => {
     delay(1200, () => logoutPlayer());
   }, []);
@@ -16,7 +16,7 @@ const Error500: React.FC<{ logoutPlayer: () => void }> = ({ logoutPlayer }) => {
   return (
     <Error
       status={401}
-      text="Unauthorized; User Authorization is missing or required."
+      text="Forbidden; User authorization has expired or not valid."
       linkType="login"
     />
   );
@@ -26,4 +26,4 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   logoutPlayer: () => dispatch(logoutPlayer())
 });
 
-export default connect(null, mapDispatchToProps)(Error500);
+export default connect(null, mapDispatchToProps)(Error403);

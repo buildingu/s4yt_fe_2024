@@ -4,11 +4,13 @@ import {
   INITIALIZE_COINS,
   SET_RAFFLE_ITEMS,
   SET_RAFFLE_COOLDOWN,
-  CLEAR_RAFFLE_ITEMS,
   RAFFLE_ACTIVE_STATE,
+  CLEAR_RAFFLE_ITEMS,
+  SET_LEARN_AND_EARN_CHESTS,
+  CLEAR_LEARN_AND_EARN_CHESTS
 } from "@actions/index";
 
-export interface Product {
+export interface RaffleItem {
   id: number;
   name: string;
   description: string;
@@ -16,23 +18,44 @@ export interface Product {
   stock: number;
   raffle_partner: {
     organization_name: string;
-    logo_default: string;
+    logo_url: string;
     resource_link: string;
+    education_category: string;
   };
+
   entries?: number;
   coins?: number;
   silver?: boolean;
 }
 
+export type QuizChestGrouping = {
+  question: string;
+  answers: {
+    choice: {
+      a: string;
+      b: string;
+      c: string;
+    };
+    correct: string;
+    explanation: string;
+  };
+}[];
+export type QuizChests = {
+  chest_id: string;
+  group: QuizChestGrouping;
+}[];
+
 export interface CoinTrackerState {
   lastSubmit?: string;
-  remainingCoins: number;
-  items: Product[];
+  userCoins: number;
+  raffleItems: RaffleItem[];
+  quizChests: QuizChests;
 }
 
 const initialState: CoinTrackerState = {
-  remainingCoins: 0,
-  items: [],
+  userCoins: 0,
+  raffleItems: [],
+  quizChests: []
 };
 
 const coinTracker = (
@@ -44,64 +67,61 @@ const coinTracker = (
       return {
         ...state,
         ...(action.payload.item && {
-          items: state.items.map((item) =>
-            item.id === action.payload.item.id
-              ? { ...item, coins: item.coins + action.payload.numEntries }
-              : item
+          raffleItems: state.raffleItems.map((item) => item.id === action.payload.item.id
+            ? { ...item, coins: item.coins + action.payload.numEntries }
+            : item
           ),
         }),
-        remainingCoins: state.remainingCoins - action.payload.numEntries,
+        userCoins: state.userCoins - action.payload.numEntries
       };
     case RETRIEVE_COINS:
       return {
         ...state,
         ...(action.payload.item && {
-          items: state.items.map((item) =>
+          raffleItems: state.raffleItems.map((item) =>
             item.id === action.payload.item.id
               ? {
                   ...item,
-                  coins: item.coins && item.coins - action.payload.numEntries,
+                  coins: item.coins && item.coins - action.payload.numEntries
                 }
               : item
-          ),
+          )
         }),
-        remainingCoins: state.remainingCoins + action.payload.numEntries,
+        userCoins: state.userCoins + action.payload.numEntries
       };
     case INITIALIZE_COINS:
-      return {
-        ...state,
-        remainingCoins: action.payload.remainingCoins,
-      };
+      return { ...state, userCoins: action.payload };
+    // <======================================/ Raffle \======================================>
     case SET_RAFFLE_ITEMS:
       return {
         ...state,
-        items: action.payload.map((product: any) => ({
+        raffleItems: action.payload.map((product: any) => ({
           ...product,
           entries: 0,
-          coins: product.coins ? product.coins : 0,
-        })),
+          coins: product.coins ? product.coins : 0
+        }))
       };
+    // Cooldown to prevent spam.
     case SET_RAFFLE_COOLDOWN:
-      return {
-        ...state,
-        lastSubmit: action.payload,
-      };
+      return { ...state, lastSubmit: action.payload };
+    // Gold and sliver coins.
     case RAFFLE_ACTIVE_STATE:
       return {
         ...state,
-        items: state.items.map((item) => {
+        raffleItems: state.raffleItems.map((item) => {
           const match = action.payload.find(
-            (message: { id: number; silver: boolean }) =>
-              message.id === item.id
+            (message: { id: number; silver: boolean }) => message.id === item.id
           );
           return match ? { ...item, silver: match.silver } : item;
-        }),
+        })
       };
     case CLEAR_RAFFLE_ITEMS:
-      return {
-        ...state,
-        items: [],
-      };
+      return { ...state, raffleItems: [] };
+    // <==================================/ Learn and Earn \==================================>
+    case SET_LEARN_AND_EARN_CHESTS:
+      return { ...state, quizChests: action.payload };
+    case CLEAR_LEARN_AND_EARN_CHESTS:
+      return { ...state, quizChests: [] };
     default:
       return state;
   }

@@ -3,12 +3,21 @@ import errorHandler, { showError } from "@services/errorHandler";
 
 import history from "@utils/History";
 
-import { UPDATE_CURRENT_USER, SET_TOKENS, SET_CURRENT_USER, LOGOUT, CLEAR_CURRENT_CONFIG } from "@actions/index";
+import {
+  INITIALIZE_SESSION,
+  UPDATE_CURRENT_USER,
+  LOGOUT,
+  // gameConfig
+  CLEAR_CURRENT_CONFIG,
+  // coinTracker
+  INITIALIZE_COINS,
+  CLEAR_RAFFLE_ITEMS,
+  CLEAR_LEARN_AND_EARN_CHESTS
+} from "@actions/index";
 import { addNotification } from "./notifications";
 import { updateConfiguration } from "./gameConfig";
-// import { initializeCoins } from "./coinTracker";
 
-import { socket } from "@services/SocketProvider";
+import { socket } from "@services/socket";
 
 export const updateCurrentUser = (data) => (dispatch, _) => {
   dispatch({ type: UPDATE_CURRENT_USER, payload: data });
@@ -130,8 +139,8 @@ export const loginPlayer =
           history.push("/");
         }
 
-        dispatch({ type: SET_TOKENS, payload: tokens });
-        dispatch({ type: SET_CURRENT_USER, payload: data.user });
+        dispatch({ type: INITIALIZE_SESSION, payload: { user: data.user, tokens } });
+        dispatch({ type: INITIALIZE_COINS, payload: data.coins });
 
         dispatch(
           addNotification({
@@ -151,8 +160,11 @@ export const loginPlayer =
     }
   };
 export const logoutPlayer = () => (dispatch, _) => {
+  // TODO: Put all of this in a user action that clears stuff.
   dispatch({ type: LOGOUT });
   dispatch({ type: CLEAR_CURRENT_CONFIG });
+  dispatch({ type: CLEAR_RAFFLE_ITEMS });
+  dispatch({ type: CLEAR_LEARN_AND_EARN_CHESTS });
   socket.disconnect();
   alert("User session timed out.");
 };
@@ -275,25 +287,4 @@ export const getReferrals = (setReferrals) => async (dispatch, _) => {
   } catch (error) {
     errorHandler("getReferrals", error);
   }
-};
-
-// Web Sockets TODO:
-export const referralUsedListener = (user_id) => (dispatch, getState) => {
-  // window.Echo.private(
-  //   `App.Models.User.${user_id}`
-  // ).notification((e) => {
-  //   if (e.coins && user_id === e.referrer_id) {
-  //     dispatch(initializeCoins({ remainingCoins: e.coins }));
-  //   } else {
-  //     dispatch(
-  //       addNotification({
-  //         error: true,
-  //         content:
-  //           "Unexpected server error occurred when adding your newly earn dubl-u-nes locally from your referrer. If you don't not see a change in your dubl-u-nes, please logout and log in again.",
-  //         close: false,
-  //         duration: 0,
-  //       })
-  //     );
-  //   }
-  // });
 };

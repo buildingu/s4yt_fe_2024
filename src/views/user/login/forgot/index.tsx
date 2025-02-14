@@ -61,6 +61,7 @@ const ForgotPassword: React.FC<Props> = ({ sendResetPasswordEmail }) => {
         setBreakCenter(false);
       }
     };
+    handleResize();
 
     window.addEventListener("resize", handleResize);
     return () => {

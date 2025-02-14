@@ -291,11 +291,9 @@
     display: grid;
     grid-template-rows: auto 1fr;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    inset: 0;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     background-color: var(--sBeige);
     z-index: 10;
     overflow-y: scroll;
@@ -415,7 +413,7 @@
       center/contain;
   }
 
-  .container.full nav div .chat {
+  /* .container.full nav div .chat {
     background: url("../../../static/btn_chat_normal.png") no-repeat center
       center/contain;
   }
@@ -425,6 +423,18 @@
   }
   .container.full nav div .chat:active {
     background: url("../../../static/btn_chat_pressed.png") no-repeat center
+      center/contain;
+  } */
+  .container nav div .checkout {
+    background: url("../../../static/btn_checkout_normal.png") no-repeat center
+      center/contain;
+  }
+  .container nav div .checkout:hover {
+    background: url("../../../static/btn_checkout_hover.png") no-repeat center
+      center/contain;
+  }
+  .container nav div .checkout:active {
+    background: url("../../../static/btn_checkout_pressed.png") no-repeat center
       center/contain;
   }
 
