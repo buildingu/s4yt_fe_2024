@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { isNotPlayer } from "@actions/user";
 
 import s from "./styles.module.css";
-import coins4 from "/images/coins_variant4.png";
+import coins4 from "/images/coins_variant4.webp";
 
 interface Props {
   type: "footer" | "header";

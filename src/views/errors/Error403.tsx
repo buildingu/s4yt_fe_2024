@@ -15,7 +15,7 @@ const Error403: React.FC<{ logoutPlayer: () => void }> = ({ logoutPlayer }) => {
 
   return (
     <Error
-      status={401}
+      status={403}
       text="Forbidden; User authorization has expired or not valid."
       linkType="login"
     />

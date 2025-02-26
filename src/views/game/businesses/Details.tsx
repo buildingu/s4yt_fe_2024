@@ -1,4 +1,6 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import type { Business } from "@reducers/businesses";
+
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -12,39 +14,34 @@ import Status from "@components/partials/status";
 import { isNotPlayer } from "@actions/user";
 
 import Video from "./slides/Video";
-import Question from "./slides/Question";
+import Challenge from "./slides/Challenge";
 import MeetUp from "./slides/MeetUp";
 
 import s from "./styles.module.css";
 
-interface PlayerProps {
+interface Props {
   isNotPlayer: (useNotification?: boolean, message?: string) => boolean;
 }
 
-const Details: React.FC<PlayerProps> = ({ isNotPlayer }) => {
-  // passed through Link component
-  const { state } = useLocation();
-  const [selectedOption, setSelectedOption] = useState<string>("Video");
+const SELECTED_SLIDE = (business: Business, isNotPlayer: boolean): { [key: string]: React.ReactNode } => ({
+  video: <Video video_title={business.video_title} video_url={business.video_url} />,
+  challenge: <Challenge name={business.name} challenge_question={business.challenge_question} isNotPlayer={isNotPlayer} />,
+  meetUp: <MeetUp name={business.name} isNotPlayer={isNotPlayer} />
+});
 
-  const contentView: { [key: string]: React.ReactNode } = {
-    Video: <Video data={state?.video} />,
-    Question: <Question data={state?.challenge} playerCheck={isNotPlayer()} />,
-    MeetUp: <MeetUp data={state?.meetUp} name={state?.name} playerCheck={isNotPlayer()} />,
-  };
+const Details: React.FC<Props> = ({ isNotPlayer }) => {
+  const { state: business } = useLocation(), // Was set in the business Link.
+    [selected, setSelected] = useState<string>("video");
+
   useEffect(() => {
-    isNotPlayer(
-      true,
-      "Only players have access to certain features on this page"
-    );
+    isNotPlayer(true, "Only players have access to certain features on this page");
   }, []);
 
-  const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSelectedOption(event.target.value);
-  };
+  const handleNewSlide = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => setSelected(e.currentTarget.value);
 
   return (
     <Layout>
-      <Header title={"see business"} />
+      <Header title="see business" />
       <Content
         addCoins="coins2"
         addFeather="right1"
@@ -54,61 +51,77 @@ const Details: React.FC<PlayerProps> = ({ isNotPlayer }) => {
           alignItems: "center",
           flexDirection: "column",
           paddingTop: "3.5rem",
-          paddingBottom: "3rem",
+          paddingBottom: "3rem"
         }}
       >
-        <div className={s.details}>
-          <div className={s.detailsHeader}>
-            <img src={state?.logo} alt={state?.name + "'s logo"} />
-            <div className={s.businessTitle}>
-              <h2>{state?.name}</h2>
-              <p>{state?.description}</p>
-            </div>
-          </div>
-          <div className={s.detailsContent}>
-            <div className={s.detailsOptions}>
-              <div>
-                <input
-                  type="radio"
-                  id="videoRadio"
-                  name="radioGroup"
-                  value="Video"
-                  onChange={handleRadioChange}
-                  checked={selectedOption === "Video"}
-                />
-                <label htmlFor="videoRadio" className={s.videoLabel}></label>
-                <input
-                  type="radio"
-                  id="questionRadio"
-                  name="radioGroup"
-                  value="Question"
-                  onChange={handleRadioChange}
-                  checked={selectedOption === "Question"}
-                />
-                <label
-                  htmlFor="questionRadio"
-                  className={s.questionLabel}
-                ></label>
-                <input
-                  type="radio"
-                  id="meetupRadio"
-                  name="radioGroup"
-                  value="MeetUp"
-                  onChange={handleRadioChange}
-                  checked={selectedOption === "MeetUp"}
-                />
-                <label htmlFor="meetupRadio" className={s.meetupLabel}></label>
-              </div>
-              <button
-                aria-label="Previous Page"
-                className={`${s.backBtn} fade move`}
-                onClick={() => history.push(-1)}
-              ></button>
-            </div>
-            <div className={s.detailsContentView}>
-              {selectedOption ? contentView[selectedOption] : null}
-            </div>
-          </div>
+        <div aria-live="polite" className={s.details}>
+          <>
+            {business ? (
+              <>
+                <header className={s.detailsHeader}>
+                  <img src={business.logo} alt={business.name + "'s logo"} />
+                  <div>
+                    <h2>{business.name}</h2>
+                    <p>{business.description}</p>
+                  </div>
+                </header>
+
+                <div className={s.detailsContent}>
+                  <div className={s.detailsOptions}>
+                    <div role="radiogroup">
+                      <label
+                        aria-label="Video"
+                        data-checked={selected === "video"}
+                        className={s.video}
+                      >
+                        <input
+                          type="radio"
+                          value="video"
+                          onClick={handleNewSlide}
+                          aria-checked={selected === "video"}
+                        />
+                      </label>
+                      <label
+                        aria-label="Challenge"
+                        data-checked={selected === "challenge"}
+                        className={s.challenge}
+                      >
+                        <input
+                          type="radio"
+                          value="challenge"
+                          onClick={handleNewSlide}
+                          aria-checked={selected === "challenge"}
+                        />
+                      </label>
+                      <label
+                        aria-label="Q&A Wrap-Up"
+                        className={s.wrapUp}
+                        data-checked={selected === "meetUp"}
+                      >
+                        <input
+                          type="radio"
+                          value="meetUp"
+                          onClick={handleNewSlide}
+                          aria-checked={selected === "meetUp"}
+                        />
+                      </label>
+                    </div>
+                    <button
+                      aria-label="Previous Page"
+                      className="backBtn fade move"
+                      onClick={() => history.push(-1)}
+                    />
+                  </div>
+
+                  <div className={s.detailsContentView}>
+                    {selected && SELECTED_SLIDE(business, isNotPlayer())[selected]}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <p>Unexpectedly couldn't find this business.</p>
+            )}
+          </>
         </div>
       </Content>
       <Status />
@@ -116,9 +129,9 @@ const Details: React.FC<PlayerProps> = ({ isNotPlayer }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: Function) => ({
+const mapDispatchToProps = (dispatch: any) => ({
   isNotPlayer: (useNotification?: boolean, message?: string) =>
-    dispatch(isNotPlayer(useNotification, message)),
+    dispatch(isNotPlayer(useNotification, message))
 });
 
 export default connect(null, mapDispatchToProps)(Details);

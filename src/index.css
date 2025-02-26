@@ -173,7 +173,7 @@ button {
 button.backBtn {
   width: 150px;
   height: 120px;
-  background: url("/images/btn_back.png") no-repeat center
+  background: url("/images/btn_back.webp") no-repeat center
     center/contain;
 }
 
@@ -190,7 +190,7 @@ button.okBtn:before {
   position: absolute;
   width: 200px;
   height: 341px;
-  background: url("/images/feather.png") no-repeat center/contain;
+  background: url("/images/feather.webp") no-repeat center/contain;
   pointer-events: none;
 }
 button.okBtn:not(.flip):before {
@@ -232,33 +232,30 @@ button.updateBtn:active {
   background-color: #444;
 }
 
-/* TODO: (not important) Put this in a module? */
-.backdrop {
+.modalBackdrop {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
   transform: blur(2px);
   z-index: 10;
 }
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
+.modalBackdrop .modal {
+  position: relative;
   padding: 1.5rem;
   border: 1px solid var(--cBorder);
   background-color: var(--sBeige);
-  animation: slideUpModal 0.9s ease-in-out forwards;
+  animation: slideUpModal 0.86s ease-in-out forwards;
   z-index: 10;
   width: 90%;
   max-width: 800px;
 }
-.modal .exitBtn {
+.modalBackdrop .modal .exitBtn {
   position: absolute;
-  top: -8px;
-  right: -8px;
   width: 2rem;
   height: 2rem;
   border: 1px solid #363636;
@@ -267,16 +264,32 @@ button.updateBtn:active {
   color: var(--black);
   transition: 0.2s ease background-color;
 }
-.modal .exitBtn::before {
+.modalBackdrop .modal .exitBtn::before {
   content: "\2715";
   font-size: 1rem;
   color: var(--black);
 }
-.modal .exitBtn:hover {
+.modalBackdrop .modal .exitBtn:hover {
   background-color: #ff5b5b;
 }
-.modal .exitBtn:active {
-  top: -6px;
+.modalBackdrop .modal .content {
+  height: calc(100vh - 1rem);
+  overflow: auto;
+}
+@media screen and (min-height: 460px) {
+  .modalBackdrop .modal .exitBtn {
+    top: -8px;
+    right: -8px;
+  }
+  .modalBackdrop .modal .exitBtn:active {
+    top: -6px;
+  }
+}
+@media screen and (max-height: 459px) {
+  .modalBackdrop .modal .exitBtn {
+    top: -1px;
+    right: -1px;
+  }
 }
 
 /* Use for clickable elements that doesn't have hover and active states. */
@@ -294,12 +307,12 @@ button.updateBtn:active {
 
 @keyframes slideUpModal {
   100% {
-    transform: translate(-50%, -50%);
+    transform: translateY(0);
   }
   80% {
-    transform: translate(-50%, -55%);
+    transform: translateY(-32px);
   }
   0% {
-    transform: translate(-50%, 120%);
+    transform: translateY(80vh);
   }
 }

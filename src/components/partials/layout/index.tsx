@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import { routes } from "@root/routes";
@@ -19,7 +19,7 @@ const Layout: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
   const location = useLocation(),
     titlePrefix = "$4YT @building-u.com";
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const currentRoute = routes.find(
       (route) =>
         route.path === location.pathname ||

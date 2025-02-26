@@ -10,7 +10,7 @@ import Header from "@components/partials/header";
 import Content from "@components/partials/content";
 
 import s from "./styles.module.css";
-import errorLogo from "@static/error-logo.png";
+import errorLogo from "/images/error-logo.webp";
 
 interface Props extends React.PropsWithChildren<{}> {
   status: number;

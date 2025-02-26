@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import s from "./styles.module.css";
 
 interface Props {
-  disabledButton: boolean;
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  disabledButton: boolean;
   cooldownTime?: string;
 }
 
 const CooldownIndicator: React.FC<Props> = ({
   setDisabled,
-  cooldownTime,
   disabledButton,
+  cooldownTime
 }) => {
   const [timeRemaining, setTimeRemaining] = useState<number | null>(0);
   const submittedTime = new Date(cooldownTime!).getTime();
@@ -36,7 +36,7 @@ const CooldownIndicator: React.FC<Props> = ({
     }, 1000);
 
     return () => clearInterval(timerInterval);
-  }, [cooldownTime, setDisabled, disabledButton, submittedOffset]);
+  }, []);
 
   return (
     <time className={s.cooldownContainer}>

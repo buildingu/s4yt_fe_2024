@@ -1,25 +1,25 @@
-.backBtn {
-  width: 150px;
-  height: 120px;
-  background: url("../../../static/btn_back.png") no-repeat center
-    center/contain;
+.businesses {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem 1rem;
+  padding-block: 2rem;
 }
-
-.businessContainer {
+.businesses .businessContainer {
   position: relative;
   width: 200px;
   height: 200px;
   cursor: pointer;
   transition: 0.2s ease opacity;
 }
-.businessContainer:hover,
-.businessContainer:active {
+.businesses .businessContainer:hover,
+.businesses .businessContainer:active {
   opacity: 0.65;
 }
-.businessContainer:active {
+.businesses .businessContainer:active {
   top: 2px;
 }
-.businessContainer[aria-disabled="true"] {
+.businesses .businessContainer[aria-disabled="true"] {
   opacity: 0.65;
   filter: grayscale(35%);
   cursor: not-allowed;
@@ -29,8 +29,7 @@
     transform: scale(0.9);
   }
 }
-
-.businessContainer img {
+.businesses .businessContainer img {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -39,14 +38,7 @@
   height: 100%;
 }
 
-.businesses {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1.5rem 1rem;
-  padding-block: 2rem;
-}
-
+/* <======================================/ Details page \======================================> */
 .details {
   width: 85%;
   display: flex;
@@ -54,13 +46,17 @@
   flex-wrap: wrap;
 }
 
-.detailsHeader {
+.details .detailsHeader {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
-
-.businessTitle {
+.details .detailsHeader img {
+  height: 150px;
+  width: 150px;
+  margin-bottom: 2rem;
+}
+.details .detailsHeader > div {
   text-align: left;
   color: var(--pbrown);
   width: 70%;
@@ -69,152 +65,125 @@
   justify-content: center;
   align-items: flex-start;
 }
-.businessTitle h2 {
+.details .detailsHeader > div h2 {
   font-size: 3rem;
   font-family: "BebasNeue", Arial;
 }
-.businessTitle p {
+.details .detailsHeader > div p {
   font-size: 18px;
   font-family: "Corbal", Arial;
   margin-bottom: 40px;
 }
-.detailsHeader img {
-  height: 150px;
-  width: 150px;
-  margin-bottom: 2rem;
-}
 
-.detailsContent {
+.details .detailsContent {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
 }
-.detailsContentView {
-  display: flex;
-  justify-content: center;
-  width: 70%;
-  background-color: var(--pbrown-fade);
-}
-.detailsOptions {
+
+.details .detailsContent .detailsOptions {
   display: flex;
   flex-direction: column;
-  min-width: 150px;
-}
-.detailsOptions div {
-  display: flex;
-  flex-direction: column;
-  min-width: 150px;
-}
-.detailsOptions div label {
   width: 150px;
+}
+.details .detailsContent .detailsOptions div[role="radiogroup"] {
+  display: flex;
+  flex-direction: column;
+}
+
+.details .detailsContent .detailsOptions div[role="radiogroup"] label {
+  position: relative;
+  width: 100%;
+  height: 50px;
   margin-bottom: 1rem;
+  background: url("/images/seeBusinesses/banner-btn-beige.webp") no-repeat center center/contain;
+  cursor: pointer;
 }
-.detailsOptions div input[type="radio"] {
+.details .detailsContent .detailsOptions div[role="radiogroup"] label::after {
+  content: attr(aria-label);
   position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+  top: 45%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  font-family: "Night Zone", Arial;
+  color: var(--white);
+  white-space: nowrap;
 }
-.detailsOptions div label:has(> input[type="radio"]:checked) {
-  color: white;
+.details .detailsContent .detailsOptions div[role="radiogroup"] label.video::after {
+  left: 50%;
+  font-size: 27px;
+}
+.details .detailsContent .detailsOptions div[role="radiogroup"] label.challenge::after {
+  top: 47%;
+  font-size: 20px;
+}
+.details .detailsContent .detailsOptions div[role="radiogroup"] label.wrapUp::after {
+  font-size: 15px;
+}
+.details .detailsContent .detailsOptions div[role="radiogroup"] label:hover {
+  background: url("/images/seeBusinesses/banner-btn-hover.webp") no-repeat center center/contain;
+}
+.details .detailsContent .detailsOptions div[role="radiogroup"] label[data-checked="true"] {
+  background: url("/images/seeBusinesses/banner-btn-brown.webp") no-repeat center center/contain;
+}
+.details .detailsContent .detailsOptions div[role="radiogroup"] input[type="radio"] {
+  all: unset;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.details .detailsContent .detailsOptions div[role="radiogroup"] label input:focus-visible {
+  outline: 5px auto -webkit-focus-ring-color;
+  outline: 5px auto rgba(0, 150, 255, 1);
+}
+
+.details .detailsContent .detailsContentView {
+  display: flex;
+  width: 70%;
+  max-width: 498.6px;
+  background-color: var(--pbrown-fade);
 }
 
 @media screen and (max-width: 800px) {
   .details {
-    width: 100%;
+    width: 95%;
   }
 }
-@media screen and (max-width: 600px) {
-  .businessTitle {
-    margin-left: 10px;
-    margin-top: 0;
-  }
-  .details {
-    width: 100%;
-  }
-  .detailsHeader {
+@media screen and (max-width: 662px) {
+  .details .detailsHeader {
     flex-direction: column;
     align-items: center;
   }
-  .detailsHeader .businessTitle {
-    width: 90%;
-  }
-  .detailsContent {
-    flex-direction: column-reverse;
-  }
-  .detailsContentView {
+  .details .detailsHeader > div {
     width: 100%;
   }
-  .detailsOptions {
-    position: relative;
+
+  .details .detailsContent {
+    flex-direction: column-reverse;
+  }
+
+  .details .detailsContent .detailsOptions {
     width: 100%;
     flex-direction: row-reverse;
     justify-content: center;
     margin-top: 30px;
   }
-  .detailsOptions a {
+  .details .detailsContent .detailsOptions div[role="radiogroup"] {
+    width: 150px;
+    margin-left: 1.25rem;
+  }
+  .details .detailsContent .detailsOptions button:global(.backBtn) {
     align-self: center;
   }
+
+  .details .detailsContent .detailsContentView {
+    width: 100%;
+    margin-inline: auto;
+  }
 }
-.videoLabel {
-  width: 110px;
-  height: 50px;
-  background: url("../../../static/businessSlidesBtns/btn-video-normal-notsel.png")
-    no-repeat center center/contain;
-  cursor: pointer;
-}
-.videoLabel:hover {
-  background: url("../../../static/businessSlidesBtns/btn-video-hover.png")
-    no-repeat center center/contain;
-}
-.videoLabel:active {
-  background: url("../../../static/businessSlidesBtns/btn-video-pressed.png")
-    no-repeat center center/contain;
-}
-input[type="radio"]:checked + .videoLabel {
-  background: url("../../../static/businessSlidesBtns/btn-video-normal-sel.png")
-    no-repeat center center/contain;
-}
-.questionLabel {
-  width: 110px;
-  height: 50px;
-  background: url("../../../static/businessSlidesBtns/btn-question-normal-notsel.png")
-    no-repeat center center/contain;
-  cursor: pointer;
-}
-.questionLabel:hover {
-  background: url("../../../static/businessSlidesBtns/btn-question-hover.png")
-    no-repeat center center/contain;
-}
-.questionLabel:active {
-  background: url("../../../static/businessSlidesBtns/btn-question-pressed.png")
-    no-repeat center center/contain;
-}
-input[type="radio"]:checked + .questionLabel {
-  background: url("../../../static/businessSlidesBtns/btn-question-normal-sel.png")
-    no-repeat center center/contain;
-}
-.meetupLabel {
-  width: 110px;
-  height: 50px;
-  background: url("../../../static/businessSlidesBtns/btn-meetup-normal-notsel.png")
-    no-repeat center center/contain;
-  cursor: pointer;
-}
-.meetupLabel:hover {
-  background: url("../../../static/businessSlidesBtns/btn-meetup-hover.png")
-    no-repeat center center/contain;
-}
-.meetupLabel:active {
-  background: url("../../../static/businessSlidesBtns/btn-meetup-pressed.png")
-    no-repeat center center/contain;
-}
-input[type="radio"]:checked + .meetupLabel {
-  background: url("../../../static/businessSlidesBtns/btn-meetup-normal-sel.png")
-    no-repeat center center/contain;
+@media screen and (max-width: 600px) {
+  .details {
+    width: 100%;
+  }
 }

@@ -1,0 +1,21 @@
+.trigger {
+  height: fit-content;
+  width: fit-content;
+  font-family: "BebasNeue", Arial;
+  text-decoration: underline;
+  color: var(--pbrown);
+}
+
+.container {
+  text-align: left;
+  color: var(--pbrown);
+}
+.container h3 {
+  font-size: var(--heading-28);
+  margin-bottom: 0.5rem;
+}
+.container p {
+  font-family: "Corbal", Arial;
+  font-size: 18px;
+  line-height: 132%;
+}

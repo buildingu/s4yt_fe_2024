@@ -30,7 +30,7 @@ export const SET_LEARN_AND_EARN_CHESTS = "coinTracker.SET_LEARN_AND_EARN_CHESTS"
 export const CLEAR_LEARN_AND_EARN_CHESTS = "coinTracker.CLEAR_LEARN_AND_EARN_CHESTS";
 
 // businesses/event partners
-export const SET_BUSINESSES = "setBusinesses.SET_BUSINESSES";
+export const SET_BUSINESSES = "businesses.SET_BUSINESSES";
 
 // raffle winners
 export const GET_RAFFLE_WINNERS = "getRaffleWinners.GET_RAFFLE_WINNERS"

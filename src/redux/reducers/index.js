@@ -4,7 +4,7 @@ import notifications from "./notifications";
 import formOptions from "./formOptions";
 import gameConfig from "./gameConfig";
 import coinTracker from "./coinTracker";
-import getBusinesses from "./getBusinesses";
+import businesses from "./businesses";
 import getRaffleWinners from "./getRaffleWinners";
 
 export default combineReducers({
@@ -13,6 +13,6 @@ export default combineReducers({
   notifications,
   gameConfig,
   coinTracker,
-  getBusinesses,
+  businesses,
   getRaffleWinners
 });

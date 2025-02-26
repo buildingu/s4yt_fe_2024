@@ -46,7 +46,7 @@ const usePagination = ({maxPerPage, data}: Props): Results => {
     goToPage,
     nextPage,
     prevPage,
-    allPageNumbers,
+    allPageNumbers
   };
 };
 

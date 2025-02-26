@@ -23,7 +23,9 @@ const MapNavigation: React.FC<Props> = ({
   const disabled =
     !to ||
     disableOn?.includes(
-      gameConfig.gameStart
+      gameConfig.preGame
+        ? "preGame"
+        : gameConfig.gameStart
         ? "gameStart"
         : gameConfig.reviewStart
         ? "reviewStart"

@@ -1,17 +1,14 @@
 import { useState } from "react";
 
 import s from "./styles.module.css";
-import ModalTemplate from "../ModelTemplate";
+import ModalTemplate from "../ModalTemplate";
 
-interface Props {
-  label: string;
+interface Props extends React.ComponentProps<"button"> {
   text: string;
-  disabledProps: boolean;
-  buttonClass: string;
   func: any;
 }
 
-const AreYouSureModal: React.FC<Props> = ({ label, text, func, buttonClass, disabledProps }) => {
+const AreYouSureModal: React.FC<Props> = ({ text, func, ...props }) => {
   const [show, setShow] = useState(false);
 
   const handleFunction = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -23,20 +20,17 @@ const AreYouSureModal: React.FC<Props> = ({ label, text, func, buttonClass, disa
   return (
     <>
       <button
-        aria-label={label}
         aria-expanded={show}
         aria-controls="modal"
         onClick={() => setShow(true)}
-        className={buttonClass}
-        disabled={disabledProps}
+        {...props}
       />
-      <ModalTemplate show={show} setShow={setShow} label="Are you Sure?">
+      <ModalTemplate show={show} setShow={setShow} height={250} label="Are you Sure?">
         <div className={s.container}>
           <p>{text}</p>
-          {/* Side by side. */}
           <div>
-            <button onClick={handleFunction}>Yes</button>
-            <button onClick={() => setShow(false)}>No</button>
+            <button className="fade move" onClick={handleFunction}>Yes</button>
+            <button className="fade move" onClick={() => setShow(false)}>No</button>
           </div>
         </div>
       </ModalTemplate>

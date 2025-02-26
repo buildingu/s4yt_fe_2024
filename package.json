@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "author": "David Bishop",
-  "contributors": ["David Bishop"],
+  "contributors": ["David Bishop", "Koki Vasileski"],
   "description": "This is the special event/'game' front-end for Building-u, which is called Dollars for Your Thoughts ($4YT).",
   "repository": {
     "type": "git",
@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "nanoid": "^5.0.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18",
+    "react-dom": "^18",
     "react-redux": "^8.1.2",
     "react-router-dom": "^6.15.0",
     "redux": "4.2.1",

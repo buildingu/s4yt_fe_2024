@@ -9,7 +9,7 @@ import { getCoinsGainedHistory } from "@actions/coinTracker";
 import Spinner from "@components/loaders/spinner";
 
 import s from "./styles.module.css";
-import coins from "/images/coins_variant1.png";
+import coins from "/images/coins_variant1.webp";
 
 interface CoinsGainedDTO {
   source: string;

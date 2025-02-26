@@ -1,8 +1,8 @@
 const routeDisableOn: Readonly<Record<string, ReadonlyArray<string>>> = {
-  "/learn": ["reviewStart", "winnersAnnounced"],
+  "/learn": ["gameStart", "reviewStart", "winnersAnnounced"],
   "/raffle": ["reviewStart", "winnersAnnounced"],
-  "/businesses": ["reviewStart", "winnersAnnounced"],
-  "/results": ["gameStart"]
+  "/businesses": ["preGame", "reviewStart", "winnersAnnounced"],
+  "/results": ["preGame", "gameStart", "reviewStart"]
 };
 
 export default routeDisableOn;

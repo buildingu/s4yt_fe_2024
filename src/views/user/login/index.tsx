@@ -1,6 +1,7 @@
+import type { Dispatch } from "redux";
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
 import updateField from "@utils/forms/updateField";
