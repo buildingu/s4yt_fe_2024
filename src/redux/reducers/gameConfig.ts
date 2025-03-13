@@ -6,22 +6,24 @@ import {
 
 export interface GameConfigReduxState {
   timestamps?: {
-    register_start: string; // Game wouldn't be started when before game start so just restricted to profile (Don't need I think).
-    game_start: string; // When they're able to interact with the game pages.
-    review_start: string; // Only player roles will not be able to interact with anything.
-    review_end: string; // Award and raffle items are chosen.
+    // (profile is always open (expect for review_start))
+    pre_game: string; // This is when the students 'learn', so they only do the learn and earn question and the raffle.
+    game_start: string; // They can now move to the business challenge questions. So, they're able to interact with all pages except the learn and earn and the event results of course.
+    review_start: string; // Everything is closed until review_end.
+    review_end: string; // Award and raffle items are chosen and can only go to event results.
     game_end: string; // Entire app end.
   };
   newPeriod: number;
-  restrictedAccess?: boolean; // When there is no timestamps or there is problems with the user's profile.
-  gameStart?: boolean; // When there is timestamps.
+  restrictedAccess?: boolean; // When there is no timestamps, so pre_game haven't started yet, they're restricted to their profile only.
+  preGame?: boolean;
+  gameStart?: boolean;
   reviewStart?: boolean; // When gameStart ends.
   winnersAnnounced?: boolean; // When it's reviewStart ends.
   gameEnd?: boolean; // When all timestamps are exceeded.
 }
 
 const initialState: GameConfigReduxState = {
-  newPeriod: 0,
+  newPeriod: 0
 };
 
 const gameConfig = (

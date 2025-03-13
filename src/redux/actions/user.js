@@ -112,7 +112,6 @@ export const loginPlayer =
           dispatch(
             addNotification({
               error: true,
-              // TODO: Msg.
               content: "There was a issue obtaining the necessary recourses from the server. Please try again.",
               close: false,
               duration: 0
@@ -171,7 +170,7 @@ export const logoutPlayer = () => (dispatch, _) => {
 
 export const isNotPlayer =
   (useNotification, message) => (dispatch, getState) => {
-    if (!getState().user.credentials?.roles.includes("Player")) {
+    if (getState().user.credentials?.role !== "Player") {
       useNotification &&
         dispatch(
           addNotification({
@@ -229,7 +228,7 @@ export const updatePassword = (userData) => () => {
 export const updateProfile =
   (userData, formRef, setForm) => async (dispatch, _) => {
     try {
-      const { data, meta } = await Api.post("/auth/player/profile", userData);
+      const { data, meta } = await Api.patch("/auth/player/profile", userData);
 
       if (meta?.ok) {
         formRef.current.reset();

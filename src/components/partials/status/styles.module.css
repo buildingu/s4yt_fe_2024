@@ -63,8 +63,7 @@
 }
 
 .container div .questions {
-  background: url("../../../static/btn_question_normal.png") no-repeat center
-    center/contain;
+  background: url("/images/btn_question_normal.webp") no-repeat center center/contain;
 }
 
 .container div .checkout {

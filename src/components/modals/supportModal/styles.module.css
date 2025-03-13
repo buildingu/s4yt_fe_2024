@@ -1,28 +1,27 @@
-.questions {
-  background: url("../../../static/btn_question_normal.png") no-repeat center
-    center/contain;
+.trigger {
+  background: url("/images/btn_question_normal.webp") no-repeat center center/contain;
 }
 
-.modalContainer {
+.container {
   display: flex;
   flex-direction: column;
   color: var(--pbrown);
   text-align: center;
 }
-.modalContainer div {
+.container div {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.modalContainer h2 {
+.container h2 {
   font-size: var(--heading-38);
   margin-bottom: 32px;
 }
-.modalContainer p {
+.container div p {
   font-size: 21px;
   max-width: 80%;
 }
-.modalContainer p a:first-child {
+.container p a:first-child {
   display: block;
   width: fit-content;
   margin-inline: auto;
@@ -30,15 +29,12 @@
   font-size: 21px;
   font-weight: 700;
   text-decoration: underline;
-  opacity: 0.85;
+  color: #895734d7;
   cursor: pointer;
 }
-.modalContainer p:first-child a {
+.container div p:first-child a {
   margin-block: 6px 24px;
 }
-.modalContainer p:last-child a {
+.container div p:last-child a {
   margin-block: 6px 0;
-}
-.modalContainer p a:hover {
-  opacity: 0.5;
 }

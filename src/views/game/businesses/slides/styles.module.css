@@ -1,173 +1,155 @@
 .optionsView {
   min-height: 350px;
   width: 100%;
-}
-
-.optionsViewVideo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.optionsView form {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   padding: 1.5rem;
 }
 
-.optionsView form .challengeLabel {
-  margin-bottom: 20px;
-}
-
-.optionsView form p {
+.optionsView > div p {
   font-family: "Corbal", Arial;
-  font-size: 17px;
+  font-size: 18px;
   color: var(--pbrown);
-}
-.optionsView form p span {
-  font-weight: 700;
+  text-align: left;
 }
 
-.optionsView form .formSubmission {
+.optionsView form {
+  margin-top: 20px;
+}
+
+.optionsView form button {
+  position: relative;
+  border: none;
+  width: 110px;
+  height: 36px;
+  background: url("/images/seeBusinesses/banner-btn-brown.webp") no-repeat center center / 100% 100%;
+  font-size: 17px;
+  cursor: pointer;
+}
+.optionsView form button::after {
+  content: attr(aria-label);
+  position: absolute;
+  top: 45%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  font-family: "Night Zone", Arial;
+  color: var(--white);
+  white-space: nowrap;
+}
+.optionsView form button:hover {
+  background: url("/images/seeBusinesses/banner-btn-hover.webp") no-repeat center center / 100% 100%;
+}
+.optionsView form button:active {
+  background: url("/images/seeBusinesses/banner-btn-beige.webp") no-repeat center center / 100% 100%;
+}
+.optionsView form button:disabled {
+  background: url("/images/seeBusinesses/banner-btn-beige.webp") no-repeat center center / 100% 100%;
+  cursor: not-allowed;
+}
+
+.optionsView.video {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.optionsView.challenge {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.optionsView.challenge > div {
+  display: grid;
+  height: 100%;
+}
+.optionsView.challenge > div button.viewChallenge {
+  justify-self: center;
+  font-size: var(--heading-28);
+  margin-bottom: 1rem;
+}
+
+.optionsView.challenge > div p[data-submitted="true"] {
+  font-weight: 600;
+}
+.optionsView.challenge > div p[data-submitted="true"] span {
+  color: var(--status-green);
+}
+
+.optionsView.challenge form {
   display: flex;
   flex-direction: column;
   margin-top: 20px;
 }
-.optionsView form .formSubmission > div {
-  display: flex;
-  justify-content: space-between;
+.optionsView.challenge form label {
+  text-align: left;
 }
-
-.optionsView form .formSubmission div .inputContainer {
-  width: 60%;
+.optionsView.challenge form div :global(.inputContainer) {
   margin-bottom: 20px;
 }
-.optionsView form .formSubmission div .inputContainer input {
+.optionsView.challenge form div :global(.inputContainer) input {
   width: 100%;
 }
-
-.optionsView form .formSubmission div small {
+.optionsView.challenge form button.instructions {
+  width: 150px;
+  font-size: 16px;
+}
+.optionsView.challenge form div small {
   width: fit-content;
   margin-top: 6px;
 }
 
-.formButtons {
+.optionsView.challenge .formBtns {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap-reverse;
+  gap: 0.5rem;
 }
 
-.meetUp {
-  height: 100%;
-  color: var(--pbrown);
-  padding: 20px;
+.optionsView.meetUp {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-top: 12px;
 }
-.meetUp h2 {
+.optionsView.meetUp > div h3 {
   font-family: "Corbel", Arial;
-  font-size: 2rem;
+  font-size: 36px;
+  color: var(--pbrown);
+  text-align: left;
 }
-.meetUp p {
+.optionsView.meetUp > div p {
   font-family: "Corbel", Arial;
-  font-size: 2rem;
+  font-size: 26px;
 }
-.meetOptions input:disabled + label {
-  cursor: not-allowed;
+.optionsView.meetUp > div p:nth-child(2) {
+  margin-bottom: 1rem;
 }
-.meetOptions {
+
+.optionsView.meetUp form {
+  display: flex;
+  flex-direction: column;
+}
+.optionsView.meetUp form div[role="radiogroup"] {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 20px;
 }
-.meetOptions input {
+.optionsView.meetUp form div[role="radiogroup"] div {
+  text-align: left;
+}
+.optionsView.meetUp form div[role="radiogroup"] div label,
+.optionsView.meetUp form div[role="radiogroup"] div input  {
+  cursor: pointer;
+}
+.optionsView.meetUp form div[role="radiogroup"] div input {
   margin-right: 10px;
 }
-.meetOptions label {
-  cursor: pointer;
+.optionsView.meetUp form div[role="radiogroup"] div input:disabled,
+.optionsView.meetUp form div[role="radiogroup"] div input:disabled + label {
+  cursor: not-allowed;
 }
-
-.meetSubmit {
+.optionsView.meetUp form button {
   align-self: flex-end;
-}
-
-.questionSubmit,
-.meetSubmit {
-  border: none;
-  width: 150px;
-  height: 50px;
-  background: url("../../../../static/businessSlidesBtns/btn-submit-normal.png")
-    no-repeat right center/contain;
-  cursor: pointer;
-}
-.questionSubmit:hover,
-.meetSubmit:hover {
-  background: url("../../../../static/businessSlidesBtns/btn-submit-hover.png")
-    no-repeat right center/contain;
-}
-.questionSubmit:active,
-.meetSubmit:active {
-  background: url("../../../../static/businessSlidesBtns/btn-submit-pressed.png")
-    no-repeat right center/contain;
-}
-.meetSubmit:disabled,
-.questionSubmit:disabled {
-  background: url("../../../../static/businessSlidesBtns/btn-submit-hover.png")
-    no-repeat right center/contain;
-}
-.questionAttach {
-  width: 150px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-}
-.questionAttach i {
-  font-size: 50px;
-  color: var(--pbrown);
-}
-.questionAttach:hover i {
-  opacity: 50%;
-}
-.questionSave {
-  border: none;
-  width: 150px;
-  height: 50px;
-  background: url("../../../../static/businessSlidesBtns/btn-save-normal.png")
-    no-repeat right center/contain;
-  cursor: pointer;
-}
-.questionSave:hover {
-  background: url("../../../../static/businessSlidesBtns/btn-save-hover.png")
-    no-repeat right center/contain;
-}
-.questionSave:active {
-  background: url("../../../../static/businessSlidesBtns/btn-save-pressed.png")
-    no-repeat right center/contain;
-}
-.questionSave:disabled {
-  background: url("../../../../static/businessSlidesBtns/btn-save-hover.png")
-    no-repeat right center/contain;
-}
-.srOnly {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  border: 0;
-  padding: 0;
-  white-space: nowrap;
-  clip-path: inset(100%);
-  clip: rect(0 0 0 0);
-  overflow: hidden;
-}
-@media screen and (max-width: 450px) {
-  .formButtons {
-    margin: auto;
-  }
-  .formSubmission div {
-    flex-direction: column;
-    align-items: center;
-  }
 }

@@ -1,9 +1,9 @@
 import s from "./styles.module.css";
 
-import coins1 from "/images/coins_variant1.png";
-import coins2 from "/images/coins_variant2.png";
-import coins3 from "/images/coins_variant3.png";
-import feather from "/images/feather.png";
+import coins1 from "/images/coins_variant1.webp";
+import coins2 from "/images/coins_variant2.webp";
+import coins3 from "/images/coins_variant3.webp";
+import feather from "/images/feather.webp";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;

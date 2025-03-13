@@ -40,7 +40,6 @@ p.loading {
   transform: translate(-50%, -50%);
   font-size: var(--heading-38);
   color: var(--pbrown);
-  text-align: center;
 }
 
 .questions .openedChest .coinPopup .coin p,
@@ -110,7 +109,7 @@ p.loading {
   width: 100%;
   max-width: 250px;
   height: 160px;
-  background: url("images/learnAndEarn/btn-iwantospend.png") no-repeat center center/contain;
+  background: url("/images/learnAndEarn/btn-iwantospend.png") no-repeat center center/contain;
 }
 
 /* <======================================/ Questions \======================================> */
@@ -135,8 +134,6 @@ p.loading {
 }
 
 .questions .openedChest .content {
-  --_green: #009846;
-
   @media screen and (min-width: 538px) {
     transform: translateY(-50px);
   }
@@ -164,7 +161,7 @@ p.loading {
 .questions .openedChest .content h2.correct {
   font-family: "BebasNeue", Arial;
   font-size: 54px;
-  background-color: var(--_green);
+  background-color: var(--status-green);
   padding: 5px 1.75rem 2px;
   margin: 0 auto;
   border: 3px solid var(--white);
@@ -217,7 +214,7 @@ p.loading {
   left: 50%;
   transform: translate(-50%, -50%);
   width: calc(100% - 9.85rem);
-  background-color: var(--_green);
+  background-color: var(--status-green);
   padding: 6px 8px 8px;
   border-radius: 12px;
 }

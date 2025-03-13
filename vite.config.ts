@@ -3,10 +3,20 @@ import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  // root: "/public",
-  // mode
   server: {
-    port: 3000
+    port: 3000,
+    proxy: {
+      "/api": {
+        target: "https://localhost:4000",
+        changeOrigin: true,
+        secure: true
+      },
+      "/socket.io/": {
+        target: "https://localhost:4000",
+        changeOrigin: true,
+        ws: true
+      }
+    }
   },
   css: {
     modules: {
@@ -18,7 +28,5 @@ export default defineConfig({
     }
   },
   plugins: [react(), tsconfigPaths()],
-  build: {
-    outDir: "build"
-  }
+  build: { outDir: "build" }
 });

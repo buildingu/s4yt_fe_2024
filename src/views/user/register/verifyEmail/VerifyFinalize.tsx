@@ -29,9 +29,8 @@ interface Props {
 
 type ResultState = { data: any; meta: Partial<Response> } | null;
 
-function isUuid(token: string) {
-  // TODO: Wait and see what the token will be first.
-  return true;
+function isHex(token: string) {
+  return /^[a-f0-9]{40}$/i.test(token);
 }
 
 const VerifyFinalize: React.FC<Props> = ({ verifyEmail, addNotification }) => {
@@ -48,7 +47,7 @@ const VerifyFinalize: React.FC<Props> = ({ verifyEmail, addNotification }) => {
         close: false,
         duration: 0
       });
-    } else if (!isUuid(token)) {
+    } else if (!isHex(token)) {
       addNotification({
         error: true,
         content: "Your token is malformed. Use the link from the verification email to try again.",

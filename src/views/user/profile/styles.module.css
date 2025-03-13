@@ -85,11 +85,10 @@
   margin-top: 2px;
   border-radius: 6px 6px 0 0;
 }
-.coinsStatus div .statuses div:nth-child(2) {
-  top: -1px;
+.coinsStatus div .statuses div:not(:first-child) {
+  border-top: none;
 }
-.coinsStatus div .statuses div:nth-child(3) {
-  top: -2px;
+.coinsStatus div .statuses div:last-child {
   border-radius: 0 0 6px 6px;
 }
 .coinsStatus div .statuses div h4 {

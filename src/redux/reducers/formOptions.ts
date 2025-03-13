@@ -1,4 +1,4 @@
-import { SET_COUNTRIES, SET_REGIONS, SET_CITIES } from "@actions/index";
+import { SET_COUNTRIES, SET_REGIONS } from "@actions/index";
 
 export interface FormOptionsState {
   countries: {
@@ -8,13 +8,11 @@ export interface FormOptionsState {
     continent: string;
   }[];
   regions: { name: string; abbr: string }[];
-  cities: { name: string; region_name: string; country_name: string }[];
 }
 
 const initialState: FormOptionsState = {
   countries: [],
-  regions: [],
-  cities: []
+  regions: []
 };
 
 const formOptions = (
@@ -26,8 +24,6 @@ const formOptions = (
       return { ...state, countries: action.payload };
     case SET_REGIONS:
       return { ...state, regions: action.payload };
-    case SET_CITIES:
-      return { ...state, cities: action.payload };
     default:
       return state;
   }

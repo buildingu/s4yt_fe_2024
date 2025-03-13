@@ -8,9 +8,9 @@ import { useSearchParams, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { registerPlayer, updateProfile } from "@actions/user";
-import { getCountries, getRegions, getCities } from "@actions/formOptions";
+import { getCountries, getRegions } from "@actions/formOptions";
 import { addNotification } from "@actions/notifications";
-import { SET_REGIONS, SET_CITIES } from "@actions/index";
+import { SET_REGIONS } from "@actions/index";
 
 import updateField from "@utils/forms/updateField";
 import checkValidity from "@utils/forms/checkValidity";
@@ -28,8 +28,6 @@ interface Props {
   getCountries: () => Promise<void>;
   getRegions: (countryName: number) => Promise<void>;
   resetRegions: (setCurrentData: React.Dispatch<React.SetStateAction<UserFormData>>) => void;
-  getCities: (regionName: number) => Promise<void>;
-  resetCities: (setCurrentData: React.Dispatch<React.SetStateAction<UserFormData>>) => void;
   user: UserReduxState;
   registerPlayer: (
     userData: UserFormData,
@@ -69,8 +67,6 @@ const UserForm: React.FC<Props> = ({
   getCountries,
   getRegions,
   resetRegions,
-  getCities,
-  resetCities,
   user,
   registerPlayer,
   updateProfile,
@@ -102,16 +98,8 @@ const UserForm: React.FC<Props> = ({
     if (currentData.country) {
       getRegions(currentData.country);
       if (currentData.region) resetRegions(setCurrentData);
-      if (currentData.city) resetCities(setCurrentData);
     }
   }, [currentData.country]);
-
-  useEffect(() => {
-    if (currentData.region) {
-      getCities(currentData.region);
-      if (currentData.city) resetCities(setCurrentData);
-    }
-  }, [currentData.region]);
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -419,52 +407,17 @@ const UserForm: React.FC<Props> = ({
           </div>
         </span>
 
-        <div
-          role="presentation"
-          {...(user.tokens.access &&
-            typeof formOptions.regions === "string" && {
-              className: s.notFoundMsg
-            })}
-        >
+        <div role="presentation">
           <label htmlFor="city">City</label>
-          <Select
-            aria-live="polite"
-            aria-busy={formOptions.cities.length === 0}
+          <Input
             id="city"
             name="city"
+            type="text"
             onChange={(e) => updateField<UserFormData>(e, setCurrentData)}
-            disabled={
-              !currentData.region ||
-              formOptions.cities.length === 0 ||
-              typeof formOptions.regions === "string" ||
-              typeof formOptions.cities === "string" ||
-              form.processing
-            }
+            disabled={!currentData.region || form.processing}
             {...(currentData.city && { value: currentData.city })}
-          >
-            <option value="">- Select -</option>
-            {formOptions.cities &&
-              typeof formOptions.cities !== "string" &&
-              formOptions.cities.map((city, index) => {
-                return (
-                  <option key={index} value={city.name}>
-                    {city.name}
-                  </option>
-                );
-              })}
-          </Select>
-          {formOptions.cities.length === 0 &&
-            currentData.region &&
-            currentData.region !== user.credentials?.region && (
-              <Spinner />
-            )}
-          {typeof formOptions.regions === "string" ? (
-            <small className={s.notFoundMsg}>{formOptions.regions}</small>
-          ) : (
-            typeof formOptions.cities === "string" && (
-              <small className={s.notFoundMsg}>{formOptions.cities}</small>
-            )
-          )}
+            autoComplete="off"
+          />
         </div>
 
         <div>
@@ -508,8 +461,6 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   getCountries: () => dispatch(getCountries() as unknown) as Promise<void>,
   getRegions: (countryName: number) =>
     dispatch(getRegions(countryName) as unknown) as Promise<void>,
-  getCities: (regionName: number) =>
-    dispatch(getCities(regionName) as unknown) as Promise<void>,
   registerPlayer: (
     userData: UserFormData,
     formRef: React.RefObject<HTMLFormElement>,
@@ -536,11 +487,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   resetRegions: (setCurrentData: React.Dispatch<React.SetStateAction<UserFormData>>) => {
     setCurrentData((prev) => ({ ...prev, region: null }));
     dispatch({ type: SET_REGIONS, payload: [] });
-  },
-  resetCities: (setCurrentData: React.Dispatch<React.SetStateAction<UserFormData>>) => {
-    setCurrentData((prev) => ({ ...prev, city: null }));
-    dispatch({ type: SET_CITIES, payload: [] });
-  },
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserForm);

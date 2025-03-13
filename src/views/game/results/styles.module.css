@@ -140,12 +140,12 @@
   display: block;
 }
 .prevButton {
-  background: url("../../../static/eventResults/btn_back.png") no-repeat center center/contain;
+  background: url("/images/btn_back.webp") no-repeat center center/contain;
   height: 80px;
   width: 120px;
 }
 .nextButton {
-  background: url("../../../static/eventResults/btn_next.png") no-repeat center center/contain;
+  background: url("/images/eventResults/btn_next.webp") no-repeat center center/contain;
   height: 80px;
   width: 120px;
 }

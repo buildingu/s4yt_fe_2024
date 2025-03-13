@@ -1,0 +1,23 @@
+.container ul {
+  list-style: none;
+  padding-left: 40px;
+  margin-block: 20px;
+}
+.container ul li {
+  position: relative;
+  font-size: var(--heading-28);
+  color: var(--pbrown);
+  text-align: left;
+}
+.container ul li:not(:last-child) {
+  margin-bottom: 2rem;
+}
+.container ul li::before {
+  content: "•";
+  display: inline-block;
+  position: absolute;
+  left: -32px;
+  font-size: 76px;
+  color: #cba26b;
+  line-height: 48%;
+}

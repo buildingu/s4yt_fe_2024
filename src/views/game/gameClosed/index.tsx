@@ -1,4 +1,4 @@
-import { GameConfigReduxState } from "@reducers/gameConfig";
+import type { GameConfigReduxState } from "@reducers/gameConfig";
 
 import { useRef } from "react";
 import { Link } from "react-router-dom";
@@ -14,7 +14,7 @@ import Header from "@components/partials/header";
 import Content from "@components/partials/content";
 
 import s from "./styles.module.css";
-import errorLogo from "@static/error-logo.png";
+import errorLogo from "/images/error-logo.webp";
 
 interface Props {
   reviewStart?: boolean;
@@ -25,7 +25,7 @@ interface Props {
 const GameClosed: React.FC<Props> = ({
   reviewStart,
   gameEnd,
-  logoutPlayer,
+  logoutPlayer
 }) => {
   const counterRef = useRef<HTMLTimeElement>(null);
 
@@ -42,7 +42,7 @@ const GameClosed: React.FC<Props> = ({
           alignItems: "center",
           gap: "1.5rem 1.5rem",
           flexWrap: "wrap",
-          paddingBottom: "3rem",
+          paddingBottom: "3rem"
         }}
       >
         <div className={s.left}>
@@ -93,16 +93,14 @@ const GameClosed: React.FC<Props> = ({
   );
 };
 
-const mapStateToProps = ({
-  gameConfig,
-}: {
+const mapStateToProps = ({ gameConfig }: {
   gameConfig: GameConfigReduxState;
 }) => ({
   reviewStart: gameConfig.reviewStart,
-  gameEnd: gameConfig.gameEnd,
+  gameEnd: gameConfig.gameEnd
 });
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  logoutPlayer: () => dispatch(logoutPlayer()),
+  logoutPlayer: () => dispatch(logoutPlayer())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameClosed);

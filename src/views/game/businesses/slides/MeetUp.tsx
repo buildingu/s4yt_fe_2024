@@ -1,114 +1,105 @@
-import { useEffect, useState } from "react";
+import type { UserReduxState } from "@root/redux/reducers/user";
+import type UserCredentials from "@typings/UserCredentials";
+
+import { useRef, useState } from "react";
 import { connect } from "react-redux";
-// import { db } from "@root/firebase";
-// import { ref, update, onValue } from "firebase/database";
+
+import { submitScheduleMeeting } from "@actions/businesses";
+
+import AreYouSureModal from "@components/modals/areYouSure";
 
 import s from "./styles.module.css";
-import { UserReduxState } from "@root/redux/reducers/user";
-import UserCredentials from "@typings/UserCredentials";
-import AreYouSureModal from "@components/modals/areYouSure/AreYouSureModal";
 
 interface Props {
-  playerCheck: any;
-  data: {
-    date: string;
-    time: string;
-    method: string;
-  };
-  name: string;
   user?: UserCredentials;
+  submitScheduleMeeting: (
+    meet: boolean,
+    formRef: React.RefObject<HTMLFormElement>,
+    setForm: React.Dispatch<React.SetStateAction<{ processing: boolean }>>
+  ) => Promise<void>;
+  isNotPlayer: boolean;
 }
 
-const MeetUp: React.FC<Props> = ({ playerCheck, data, user, name }) => {
-  const [meetChoice, setMeetChoice] = useState<string>("");
-  const [disabledButton, setDisabledButton] = useState<boolean>(false);
+const MeetUp: React.FC<Props> = ({
+  user,
+  submitScheduleMeeting,
+  isNotPlayer
+}) => {
+  const formRef = useRef<HTMLFormElement>(null),
+    [form, setForm] = useState({ processing: false }),
+    [choice, setChoice] = useState(false);
 
-  const encodedEmail = user?.email.replace(/\./g, ",");
-  // const userRef = ref(db, "users/" + user?.id + "/meetings/");
-
-  // useEffect(() => {
-  //   const checkIfFieldExists = async () => {
-  //     try {
-  //       const unsubscribe = onValue(userRef, (snapshot) => {
-  //         const meeting = snapshot.val();
-  //         if (meeting && meeting[name]) {
-  //           setDisabledButton(true);
-  //         } else {
-  //           setDisabledButton(false);
-  //         }
-  //       });
-  //       return () => {
-  //         unsubscribe();
-  //       };
-  //     } catch (error) {
-  //       console.error("Error checking data:", error);
-  //     }
-  //   };
-    // checkIfFieldExists();
-  // }, [userRef]);
-
-  // const handleFirebaseSubmit = async () => {
-  //   try {
-  //     await update(userRef, {
-  //       [name]: {
-  //         meetChoice,
-  //         date: `${data.date}, ${data.time}`,
-  //       },
-  //     });
-  //   } catch (error) {
-  //     console.error("Error updating data:", error);
-  //   }
-  // };
+  const submit = async () => {
+    if ((user?.attend_meeting && !choice) || !user?.attend_meeting) {
+      setForm({ processing: true });
+      submitScheduleMeeting(choice, formRef, setForm);
+    }
+  };
 
   return (
-    <div className={s.optionsView}>
-      <div className={s.meetUp}>
-        <h2>I'm setting up a meeting on:</h2>
-        <p>
-          {data?.date} at {data?.time} EST
-        </p>
-        <div className={s.meetOptions}>
+    <div className={`${s.optionsView} ${s.meetUp}`}>
+      <div id="meetupTxt">
+        <h3>You're Invited!</h3>
+        <p>Event results meeting and casual Q&A with challenge partners.</p>
+        <p>May 26 at 2PM EST</p>
+      </div>
+
+      <form
+        aria-describedby="meetupTxt"
+        ref={formRef}
+        onSubmit={(e) => e.preventDefault()}
+        autoComplete="off"
+        noValidate
+      >
+        <div role="radiogroup">
           <div>
             <input
               type="radio"
-              id="confirmRadio"
-              name="meetupGroup"
-              value="No"
-              disabled={playerCheck || disabledButton}
-              onClick={() =>
-                setMeetChoice("I'd love to, but I can't make that time")
-              }
+              id="yesMeet"
+              name="yesMeet"
+              value="Yes"
+              checked={choice}
+              disabled={form.processing}
+              onClick={() => setChoice(true)}
             />
-            <label htmlFor="confirmRadio">
-              I'd love to, but I can't make that time
+            <label htmlFor="yesMeet">I'm in! Please add me to the Google Meet</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="noMeet"
+              name="noMeet"
+              value="No"
+              checked={!choice}
+              disabled={form.processing}
+              onClick={() => setChoice(false)}
+            />
+            <label htmlFor="noMeet">
+              Thanks but I can't attend
             </label>
           </div>
-          <div>
-            <input
-              type="radio"
-              id="rejectRadio"
-              name="meetupGroup"
-              value="Yes"
-              disabled={playerCheck || disabledButton}
-              onClick={() => setMeetChoice("I'm in")}
-            />
-            <label htmlFor="rejectRadio">I'm in</label>
-          </div>
         </div>
+
         <AreYouSureModal
-          label={"Are you sure?"}
-          text={`Once you submit your choice, you will not be able to change it later. Your current meeting choice for ${name} is: ${meetChoice}. Is this correct?`}
-          // func={handleFirebaseSubmit}
-          disabledProps={playerCheck || disabledButton || meetChoice === ""}
-          buttonClass={s.meetSubmit}
+          aria-label="Submit"
+          text="This meeting is not specific to this business. Once you submit your choice, you will be invited to a meeting with all available businesses."
+          func={submit}
+          disabled={isNotPlayer || form.processing}
         />
-      </div>
+      </form>
     </div>
   );
 };
 
 const mapStateToProps = ({ user }: { user: UserReduxState }) => ({
-  user: user.credentials,
+  user: user.credentials
+});
+const mapDispatchToProps = (dispatch: any) => ({
+  submitScheduleMeeting: (
+    meet: boolean,
+    formRef: React.RefObject<HTMLFormElement>,
+    setForm: React.Dispatch<React.SetStateAction<{ processing: boolean }>>
+  ) => dispatch(submitScheduleMeeting(meet, formRef, setForm))
 });
 
-export default connect(mapStateToProps, null)(MeetUp);
+export default connect(mapStateToProps, mapDispatchToProps)(MeetUp);
