@@ -1,28 +1,35 @@
 import { Api } from "@services/index";
-import errorHandler from "@services/errorHandler";
+import errorHandler, { showError } from "@services/errorHandler";
 
-import { SET_BUSINESSES } from "@actions/index";
+import { SET_BUSINESSES, UPDATE_BUSINESS_CHALLENGE } from "@actions/index";
 import { addNotification } from "./notifications";
+import { updateCurrentUser } from "./user";
 
 import { socket } from "@services/socket";
 
-// TODO:
+/**
+ * @param {string} challenge_id 
+ * @param {{ answers_count?: number; answer_submitted?: boolean }} update
+ */
+export const updateBusinessesChallenge = (challenge_id, update) => (dispatch, _) => {
+  dispatch({
+    type: UPDATE_BUSINESS_CHALLENGE,
+    payload: { challenge_id, update }
+  });
+};
+
 export const getBusinesses = () => async (dispatch) => {
   try {
-    // TODO: Url
-    const { data, meta } = await Api.get("/business/businesses");
+    const { data, meta } = await Api.get("/business/info");
 
     if (meta.ok) {
-      dispatch({ type: SET_BUSINESSES, payload: data.businesses });
+      dispatch({ type: SET_BUSINESSES, payload: data });
     } else {
-      dispatch(
-        addNotification({
-          error: true,
-          content:
-            "Unexpected server error occurred retrieving event businesses.",
-          close: false,
-          duration: 0
-        })
+      showError(
+        data,
+        meta.status,
+        dispatch,
+        "Unexpected server error occurred retrieving event businesses. If you still see businesses, it's showing you the businesses from the previous request, so things may be out of date."
       );
     }
   } catch (error) {
@@ -30,11 +37,9 @@ export const getBusinesses = () => async (dispatch) => {
   }
 };
 
-// TODO: sends link.
-export const submitChallengeAnswer = (business_name, link, formRef, setForm) => async (dispatch) => {
+export const submitChallengeAnswer = (challenge_id, submission_link, formRef, setForm) => async (dispatch) => {
   try {
-    // TODO: Url
-    const { meta } = await Api.post("/business/answer", { business_name, link });
+    const { meta } = await Api.post("/game/challenges", { challenge_id, submission_link });
 
     if (meta.ok) {
       formRef.current.reset();
@@ -46,12 +51,13 @@ export const submitChallengeAnswer = (business_name, link, formRef, setForm) => 
           duration: 4000
         })
       );
+      dispatch(updateBusinessesChallenge(challenge_id, { answer_submitted: true }));
     } else {
       dispatch(
         addNotification({
           error: true,
           content:
-            "A server error occurred and we couldn't submit you answer. Please try again later.",
+            "A server error occurred and we couldn't submit you answer. Please try again later",
           close: false,
           duration: 0
         })
@@ -64,30 +70,27 @@ export const submitChallengeAnswer = (business_name, link, formRef, setForm) => 
   }
 };
 
-// TODO:
-export const submitScheduleMeeting = (meet, formRef, setForm) => async (dispatch) => {
+export const submitScheduleMeeting = (attend_meeting, formRef, setForm) => async (dispatch) => {
   try {
-    // TODO: Url
-    const { data, meta } = await Api.post("/business/schedule-meeting", { meet });
+    const { data, meta } = await Api.patch("/game/meetup", { attend_meeting });
 
     if (meta.ok) {
       formRef.current.reset();
       dispatch(
         addNotification({
           error: false,
-          content: meet ? "We'll see you there ✔" : "Okay, maybe another time.",
+          content: attend_meeting ? "We'll see you there ✔" : "Okay, maybe another time",
           close: false,
           duration: 4000
         })
       );
-      // TODO: It sends back attend_meeting?
       dispatch(updateCurrentUser({ attend_meeting: data.attend_meeting }));
     } else {
       dispatch(
         addNotification({
           error: true,
           content:
-            "A server error occurred and we couldn't schedule your meeting. Please try again later.",
+            "A server error occurred and we couldn't schedule your meeting. Please try again later",
           close: false,
           duration: 0
         })
@@ -100,11 +103,13 @@ export const submitScheduleMeeting = (meet, formRef, setForm) => async (dispatch
   }
 };
 
-// TODO:
 export const businessChallengeAnswerSubmittedListener = () => (dispatch) => {
   const listener = (data) => {
-    // TODO: Data structured.
-    // if (data.total)
+    dispatch(
+      updateBusinessesChallenge(data.challenge_id, {
+        answers_count: data.answers_count
+      })
+    );
   };
   socket.on("business_challenge_submitted", listener);
 

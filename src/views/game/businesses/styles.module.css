@@ -1,3 +1,9 @@
+p.failed {
+  font-size: var(--heading-28);
+  color: var(--form-red);
+  align-self: center;
+}
+
 .businesses {
   display: flex;
   justify-content: center;
