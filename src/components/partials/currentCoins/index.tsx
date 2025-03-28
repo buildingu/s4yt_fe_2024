@@ -1,4 +1,4 @@
-import { CoinTrackerState } from "@reducers/coinTracker";
+import { GameReduxState } from "@reducers/game";
 
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
@@ -46,12 +46,8 @@ const CurrentCoins = ({
   );
 };
 
-const mapStateToProps = ({
-  coinTracker,
-}: {
-  coinTracker: CoinTrackerState;
-}) => ({
-  coins: coinTracker.userCoins
+const mapStateToProps = ({ game }: { game: GameReduxState }) => ({
+  coins: game.userCoins
 });
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   isNotPlayer: (useNotification?: boolean, message?: string) =>

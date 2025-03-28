@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import ResourceLoader from "@services/ResourceLoader";
+import SocketBackgroundListeners from "@services/SocketBackgroundListeners";
 
 import routeDisableOn from "./disableOn";
 import Redirects from "./Redirects";
@@ -59,7 +60,14 @@ export const routes = [
 const RoutesProvider = () => {
   return (
     <Routes>
-      <Route element={<ResourceLoader />}>
+      <Route
+        element={
+          <>
+            <ResourceLoader />
+            <SocketBackgroundListeners />
+          </>
+        }
+      >
         {routes.map((route) => (
           <Route
             key={route.path}

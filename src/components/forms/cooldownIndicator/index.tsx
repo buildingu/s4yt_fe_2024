@@ -1,55 +1,47 @@
-import { useEffect, useState } from "react";
-
-import s from "./styles.module.css";
+import { useEffect, useRef } from "react";
 
 interface Props {
-  setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  disabledButton: boolean;
-  cooldownTime?: string;
+  elapsed: boolean;
+  setElapsed: React.Dispatch<React.SetStateAction<boolean>>;
+  cooldownTime?: number;
 }
 
 const CooldownIndicator: React.FC<Props> = ({
-  setDisabled,
-  disabledButton,
-  cooldownTime
+  elapsed,
+  setElapsed,
+  cooldownTime = 0
 }) => {
-  const [timeRemaining, setTimeRemaining] = useState<number | null>(0);
-  const submittedTime = new Date(cooldownTime!).getTime();
-  const submittedOffset = submittedTime + 30 * 60 * 1000;
+  const countdownRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    const timerInterval = setInterval(() => {
-      const currentTime = new Date().getTime();
-      const remainingTimeInSeconds = Math.max(
-        0,
-        Math.floor((submittedOffset - currentTime) / 1000)
-      );
+    if (!elapsed) {
+      const timerInterval = setInterval(() => {
+        const timeRemaining = cooldownTime - Date.now(),
+          minutes = Math.floor(timeRemaining / 60000),
+          seconds = Math.floor((timeRemaining % 60000) / 1000);
+        
+        countdownRef.current!.innerHTML = `${String(minutes).padStart(
+          2,
+          "0"
+        )}:${String(seconds).padStart(2, "0")}`;
 
-      if (remainingTimeInSeconds <= 0) {
-        clearInterval(timerInterval);
-        setDisabled(false);
-      }
-      if (!disabledButton && remainingTimeInSeconds > 0) {
-        setDisabled(true);
-      }
-      setTimeRemaining(remainingTimeInSeconds);
-    }, 1000);
+        if (timeRemaining <= 0) {
+          clearInterval(timerInterval)
+          setElapsed(true);
+        }
+      }, 1000);
 
-    return () => clearInterval(timerInterval);
-  }, []);
+      return () => clearInterval(timerInterval);
+    }
+  }, [elapsed]);
 
   return (
-    <time className={s.cooldownContainer}>
-      {timeRemaining !== null && timeRemaining >= 0 && disabledButton ? (
-        <p>
-          Cooldown:{" "}
-          <span>
-            {String(Math.floor(timeRemaining / 60)).padStart(2, "0")}:
-            {String(timeRemaining % 60).padStart(2, "0")}
-          </span>
-        </p>
-      ) : null}
-    </time>
+    !elapsed && (
+      <time>
+        Cooldown:{" "}
+        <span ref={countdownRef}>00:00</span>
+      </time>
+    )
   );
 };
 

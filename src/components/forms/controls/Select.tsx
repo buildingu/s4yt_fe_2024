@@ -1,9 +1,7 @@
 import { useState } from "react";
 import warning from "@static/warning.svg";
 
-interface Props
-  extends React.ComponentProps<"select">,
-    React.PropsWithChildren<{}> {
+interface Props extends React.ComponentProps<"select"> {
   id: string;
   name: string;
 }

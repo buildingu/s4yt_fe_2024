@@ -13,7 +13,7 @@ import s from "./styles.module.css";
 interface Props {
   user?: UserCredentials;
   submitScheduleMeeting: (
-    meet: boolean,
+    attend_meeting: boolean,
     formRef: React.RefObject<HTMLFormElement>,
     setForm: React.Dispatch<React.SetStateAction<{ processing: boolean }>>
   ) => Promise<void>;
@@ -29,8 +29,8 @@ const MeetUp: React.FC<Props> = ({
     [form, setForm] = useState({ processing: false }),
     [choice, setChoice] = useState(false);
 
-  const submit = async () => {
-    if ((user?.attend_meeting && !choice) || !user?.attend_meeting) {
+  const handleSubmit = async () => {
+    if ((user?.attend_meeting && !choice) || (!user?.attend_meeting && choice)) {
       setForm({ processing: true });
       submitScheduleMeeting(choice, formRef, setForm);
     }
@@ -83,7 +83,7 @@ const MeetUp: React.FC<Props> = ({
         <AreYouSureModal
           aria-label="Submit"
           text="This meeting is not specific to this business. Once you submit your choice, you will be invited to a meeting with all available businesses."
-          func={submit}
+          func={handleSubmit}
           disabled={isNotPlayer || form.processing}
         />
       </form>
@@ -96,10 +96,10 @@ const mapStateToProps = ({ user }: { user: UserReduxState }) => ({
 });
 const mapDispatchToProps = (dispatch: any) => ({
   submitScheduleMeeting: (
-    meet: boolean,
+    attend_meeting: boolean,
     formRef: React.RefObject<HTMLFormElement>,
     setForm: React.Dispatch<React.SetStateAction<{ processing: boolean }>>
-  ) => dispatch(submitScheduleMeeting(meet, formRef, setForm))
+  ) => dispatch(submitScheduleMeeting(attend_meeting, formRef, setForm))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MeetUp);

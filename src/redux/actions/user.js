@@ -7,12 +7,13 @@ import {
   INITIALIZE_SESSION,
   UPDATE_CURRENT_USER,
   LOGOUT,
+  // game
+  INITIALIZE_COINS,
+  CLEAR_GAME,
   // gameConfig
   CLEAR_CURRENT_CONFIG,
-  // coinTracker
-  INITIALIZE_COINS,
-  CLEAR_RAFFLE_ITEMS,
-  CLEAR_LEARN_AND_EARN_CHESTS
+  // businesses
+  CLEAR_BUSINESSES
 } from "@actions/index";
 import { addNotification } from "./notifications";
 import { updateConfiguration } from "./gameConfig";
@@ -158,12 +159,12 @@ export const loginPlayer =
       setForm((prev) => ({ ...prev, processing: false }));
     }
   };
+
 export const logoutPlayer = () => (dispatch, _) => {
-  // TODO: Put all of this in a user action that clears stuff.
   dispatch({ type: LOGOUT });
+  dispatch({ type: CLEAR_GAME });
   dispatch({ type: CLEAR_CURRENT_CONFIG });
-  dispatch({ type: CLEAR_RAFFLE_ITEMS });
-  dispatch({ type: CLEAR_LEARN_AND_EARN_CHESTS });
+  dispatch({ type: CLEAR_BUSINESSES });
   socket.disconnect();
   alert("User session timed out.");
 };

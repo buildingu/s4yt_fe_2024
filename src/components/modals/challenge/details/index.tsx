@@ -2,8 +2,8 @@ import type { Business } from "@reducers/businesses";
 
 import { useState } from "react";
 
-import s from "./styles.module.css";
 import ModalTemplate from "../../ModalTemplate";
+import s from "./styles.module.css";
 
 interface Props extends React.ComponentProps<"button"> {
   challenge_question: Business["challenge_question"];

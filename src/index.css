@@ -252,11 +252,14 @@ button.updateBtn:active {
   background-color: var(--sBeige);
   animation: slideUpModal 0.86s ease-in-out forwards;
   z-index: 10;
-  width: 90%;
+  width: 96%;
   max-width: 800px;
+  height: 100%;
 }
 .modalBackdrop .modal .exitBtn {
   position: absolute;
+  top: -8px;
+  right: -8px;
   width: 2rem;
   height: 2rem;
   border: 1px solid #363636;
@@ -274,24 +277,12 @@ button.updateBtn:active {
 .modalBackdrop .modal .exitBtn:hover {
   background-color: #ff5b5b;
 }
+.modalBackdrop .modal .exitBtn:active {
+  top: -6px;
+}
 .modalBackdrop .modal .content {
-  height: calc(100vh - 1rem);
+  height: inherit;
   overflow: auto;
-}
-@media screen and (min-height: 460px) {
-  .modalBackdrop .modal .exitBtn {
-    top: -8px;
-    right: -8px;
-  }
-  .modalBackdrop .modal .exitBtn:active {
-    top: -6px;
-  }
-}
-@media screen and (max-height: 459px) {
-  .modalBackdrop .modal .exitBtn {
-    top: 16px;
-    right: -1px;
-  }
 }
 
 /* Use for clickable elements that doesn't have hover and active states. */

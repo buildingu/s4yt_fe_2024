@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import s from "./styles.module.css";
 import ModalTemplate from "../../ModalTemplate";
+import s from "./styles.module.css";
 
 interface Props extends React.ComponentProps<"button"> {}
 

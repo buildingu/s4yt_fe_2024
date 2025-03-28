@@ -1,9 +1,12 @@
-import { GameConfigReduxState } from "@reducers/gameConfig";
+import type { ThunkDispatch } from "redux-thunk";
+import type { AnyAction } from "redux";
+import type { GameConfigReduxState } from "@reducers/gameConfig";
 
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { UPDATE_CONFIGURATION, UPDATE_NEW_PERIOD, ADD_NOTIFICATION, LOGOUT } from "@actions/index";
+import { UPDATE_CONFIGURATION, UPDATE_NEW_PERIOD, ADD_NOTIFICATION } from "@actions/index";
+import { logoutPlayer } from "@actions/user";
 
 import delay from "@utils/delay";
 
@@ -20,7 +23,7 @@ const useContinueCountdown = (
       (state: { gameConfig: GameConfigReduxState }) =>
         state.gameConfig.reviewStart
     ),
-    dispatch = useDispatch();
+    dispatch: ThunkDispatch<any, any, AnyAction> = useDispatch();
 
   const getSecondsInBetweenByTime = (from: number, till: number) => {
     return Math.max(0, Math.floor((till - from) / 1000));
@@ -44,8 +47,6 @@ const useContinueCountdown = (
       gameEndTimestamp = new Date(timestamps.game_end).getTime();
 
     let countdownSeconds: number | undefined;
-
-    // console.log("Ran!")
 
     /* 
        This just sets the countdown and period booleans for the game. Some is not here, like the when the game haven't started 
@@ -162,7 +163,7 @@ const useContinueCountdown = (
               duration: 0,
             },
           });
-          delay(2500, () => dispatch({ type: LOGOUT }));
+          delay(2500, () => dispatch(logoutPlayer()));
         }
         clearInterval(countdownInterval);
       }
@@ -170,7 +171,6 @@ const useContinueCountdown = (
 
     return () => clearInterval(countdownInterval);
   }, []);
-  // }, [counterRef.current]);
 };
 
 export default useContinueCountdown;

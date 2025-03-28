@@ -1,0 +1,170 @@
+.container a {
+  text-decoration: none;
+}
+
+.container .content {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1.5rem;
+  padding: 0.5rem 1.5rem 0 1.5rem;
+  border: 1px solid var(--cBorder);
+  border-bottom: none;
+  margin-bottom: 32px;
+  color: var(--pbrown);
+}
+
+.container .content h2 {
+  font-size: 48px;
+}
+
+.container .content > div:first-child {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.container .content > div:first-child img {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+  margin-top: 48px;
+}
+
+.container .content > div:last-child {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 64px;
+}
+
+.container .content > div:last-child > p {
+  font-family: "Corbal", Arial;
+  font-size: 18px;
+  text-align: left;
+  max-height: 168px;
+  overflow: auto;
+}
+
+.container .content > div:last-child .extras {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container .content > div:last-child .extras p.stock {
+  margin-right: 3.75rem;
+  font-size: 24px;
+  line-height: 100%;
+}
+.container .content > div:last-child .extras p.stock span {
+  display: block;
+  font-size: 64px;
+  line-height: 100%;
+}
+
+.container .content > div:last-child .extras .donated p {
+  font-size: 21px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.container .content > div:last-child .extras .donated img {
+  width: 124px;
+  height: 124px;
+  object-fit: contain;
+}
+
+.container a.resource {
+  --_cPrograms: #fdef41;
+  --_cContests: #94c426;
+  --_cOpportunities: #48cdff;
+}
+.container a.resource > div:first-child {
+  padding: 4px 0 2px;
+  border-bottom: 3px solid #797979;
+}
+.container a.resource[data-resource-category="programs"] > div:first-child {
+  background-color: var(--_cPrograms);
+}
+.container a.resource[data-resource-category="contests"] > div:first-child {
+  background-color: var(--_cContests);
+}
+.container a.resource[data-resource-category="opportunities"] > div:first-child {
+  background-color: var(--_cOpportunities);
+}
+.container a.resource > div:first-child p {
+  color: var(--black);
+}
+
+.container a.resource > div:last-child {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 2rem 0.5rem 3.5rem;
+  border: 1px solid var(--cBorder);
+  background-color: var(--pbrown-fade);
+  transition: 0.2s ease-in-out background-color;
+}
+.container a.resource > div:last-child img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+.container a.resource > div:last-child p {
+  font-size: var(--heading-38);
+  color: var(--pbrown);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.container a.resource:hover > div:last-child p {
+  color: var(--black);
+  transition: 0.2s ease-in-out color;
+}
+.container a.resource[data-resource-category="programs"]:hover > div:last-child {
+  background-color: var(--_cPrograms);
+}
+.container a.resource[data-resource-category="contests"]:hover > div:last-child {
+  background-color: var(--_cContests);
+}
+.container a.resource[data-resource-category="opportunities"]:hover > div:last-child {
+  background-color: var(--_cOpportunities);
+}
+
+@media screen and (max-width: 648px) {
+  .container .content {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    padding-top: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .container .content > div:first-child {
+    align-items: center;
+  }
+  .container .content > div:first-child img {
+    margin-top: 1rem;
+  }
+
+  .container .content > div:last-child {
+    margin-top: 0;
+  }
+  .container .content > div:last-child > p {
+    margin-bottom: 2rem;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .container .content > div:first-child img {
+    width: 245px;
+    height: 245px;
+  }
+}
+
+@media screen and (max-width: 365px) {
+  .container .content > div:last-child .extras p.stock {
+    margin-right: 2.5rem;
+  }
+}

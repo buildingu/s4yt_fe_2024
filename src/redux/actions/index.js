@@ -13,24 +13,26 @@ export const SET_NEW_LOGIN_FLAG = "user.SET_NEW_LOGIN_FLAG";
 export const UPDATE_CURRENT_USER = "user.UPDATE_CURRENT_USER";
 export const LOGOUT = "user.LOGOUT";
 
+// game
+export const INITIALIZE_COINS = "game.INITIALIZE_COINS";
+export const UPDATE_USER_COINS = "game.UPDATE_USER_COINS";
+export const CLEAR_GAME = "game.CLEAR_GAME";
+export const SET_RAFFLE_ITEMS = "game.SET_RAFFLE_ITEMS";
+export const UPDATE_RAFFLE_ITEM = "game.UPDATE_RAFFLE_ITEM";
+export const UPDATE_RAFFLE_STAKE = "game.UPDATE_RAFFLE_STAKE";
+export const SET_RAFFLE_TIMESTAMP = "game.SET_RAFFLE_TIMESTAMP";
+export const REFRESH_RAFFLE = "game.REFRESH_RAFFLE";
+export const SET_LEARN_AND_EARN_CHESTS = "game.SET_LEARN_AND_EARN_CHESTS";
+
 // gameConfig
 export const UPDATE_CONFIGURATION = "gameConfig.UPDATE_CONFIGURATION";
 export const UPDATE_NEW_PERIOD = "gameConfig.UPDATE_NEW_PERIOD";
 export const CLEAR_CURRENT_CONFIG = "gameConfig.CLEAR_CURRENT_CONFIG";
 
-// coinTracker TODO: Rename this to game and gameConfig to period? timestamps? gamePeriod? timer? or leave gameConfig.
-export const SPEND_COINS = "coinTracker.SPEND_COINS";
-export const RETRIEVE_COINS = "coinTracker.RETRIEVE_COINS";
-export const INITIALIZE_COINS = "coinTracker.INITIALIZE_COINS";
-export const SET_RAFFLE_ITEMS = "coinTracker.SET_RAFFLE_ITEMS";
-export const SET_RAFFLE_COOLDOWN = "coinTracker.SET_RAFFLE_COOLDOWN";
-export const RAFFLE_ACTIVE_STATE = "coinTracker.RAFFLE_ACTIVE_STATE";
-export const CLEAR_RAFFLE_ITEMS = "coinTracker.CLEAR_RAFFLE_ITEMS";
-export const SET_LEARN_AND_EARN_CHESTS = "coinTracker.SET_LEARN_AND_EARN_CHESTS";
-export const CLEAR_LEARN_AND_EARN_CHESTS = "coinTracker.CLEAR_LEARN_AND_EARN_CHESTS";
-
-// businesses/event partners
+// businesses
 export const SET_BUSINESSES = "businesses.SET_BUSINESSES";
+export const UPDATE_BUSINESS_CHALLENGE = "businesses.UPDATE_BUSINESS_CHALLENGE";
+export const CLEAR_BUSINESSES = "businesses.CLEAR_BUSINESSES";
 
 // raffle winners
 export const GET_RAFFLE_WINNERS = "getRaffleWinners.GET_RAFFLE_WINNERS"

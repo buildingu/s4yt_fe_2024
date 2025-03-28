@@ -3,41 +3,57 @@ import errorHandler, { showError } from "@services/errorHandler";
 
 import {
   INITIALIZE_COINS,
-  SPEND_COINS,
-  RETRIEVE_COINS,
+  UPDATE_USER_COINS,
+  // Raffle
   SET_RAFFLE_ITEMS,
-  SET_RAFFLE_COOLDOWN,
-  RAFFLE_ACTIVE_STATE,
+  UPDATE_RAFFLE_ITEM,
+  UPDATE_RAFFLE_STAKE,
+  SET_RAFFLE_TIMESTAMP,
+  REFRESH_RAFFLE,
+  // Learn and Earn
   SET_LEARN_AND_EARN_CHESTS
 } from "@actions/index";
 import { updateCurrentUser } from "./user";
 import { socket } from "@services/socket";
 
-// TODO: Everything else but getCoinsGainedHistory need changes.
-
-export const retrieveCoins = (item, numEntries) => (dispatch) => {
-  dispatch({
-    type: RETRIEVE_COINS,
-    payload: { ...(item && { item }), numEntries }
-  });
+/**
+ * @param {"inc" | "dec"} type 
+ * @param {number} coins  
+ */
+export const updateUserCoins = (type, coins) => (dispatch) => {
+  dispatch({ type: UPDATE_USER_COINS, payload: { type, coins } });
 };
 
-export const spendCoins = (item, numEntries) => (dispatch) => {
-  dispatch({
-    type: SPEND_COINS,
-    payload: { ...(item && { item }), numEntries },
-  });
+/**
+ * @param {{ remainingCoins: number; raffleItem?: { [item_id: string]: boolean } }} staked
+ */
+export const updateRaffleStake = (staked) => (dispatch) => {
+  dispatch({ type: UPDATE_RAFFLE_STAKE, payload: staked });
 };
 
-// TODO:
-export const getRaffleItems = () => async (dispatch, getState) => {
+/**
+ * @param {string} item_id 
+ * @param {{ coins?: number; silver?: boolean }} update
+ */
+export const updateRaffleItem = (item_id, update) => (dispatch) => {
+  dispatch({ type: UPDATE_RAFFLE_ITEM, payload: { item_id, update } });
+};
+
+export const getRaffleItems = () => async (dispatch, _) => {
   try {
-    const res = await Api.get("/game/raffle");
-    if (res) {
-      dispatch({ type: SET_RAFFLE_ITEMS, payload: res.data.raffle_items });
+    dispatch({ type: REFRESH_RAFFLE });
+    const { data, meta } = await Api.get("/game/raffle/items");
+
+    if (meta.ok) {
+      dispatch({ type: SET_RAFFLE_ITEMS, payload: data });
+      dispatch({
+        type: SET_RAFFLE_TIMESTAMP,
+        payload: { getRaffleItems: Date.now() + 3 * 60 * 60 * 1000 } // 3 hours.
+      });
     } else {
       showError(
-        res,
+        data,
+        meta.status,
         dispatch,
         "Unexpected server error occurred getting the available raffle items"
       );
@@ -46,24 +62,35 @@ export const getRaffleItems = () => async (dispatch, getState) => {
     errorHandler("getRaffleItems", error);
   }
 };
-export const setRaffleItems = (raffle) => async (dispatch, getState) => {
+
+export const sendRaffleStakedItems = (stakedItems, raffleItems) => async (dispatch, _) => {
   try {
-    // TODO: Send { item_id, coins }
-    const res = await Api.post("/game/raffle/coins", {
-      raffle: raffle,
-    });
-    if (res.success) {
-      const date = new Date();
-      dispatch({ type: SET_RAFFLE_COOLDOWN, payload: date });
+    const stakedItemsIds = Object.keys(stakedItems),
+      staked_items = [];
+
+    for (const { item_id, coins } of raffleItems) {
+      if (stakedItemsIds.includes(item_id)) {
+        staked_items.push({ item_id, coins });
+      }
+    }
+
+    const { data, meta } = await Api.post("/game/raffle/items", { staked_items });
+    if (meta.ok) {
+      dispatch({
+        type: SET_RAFFLE_TIMESTAMP,
+        payload: { submission: Date.now() + 30 * 60 * 1000 } // 30 minutes.
+      });
+      dispatch(updateUserCoins("dec", amount));
     } else {
       showError(
-        res,
+        data,
+        meta.status,
         dispatch,
         "Unexpected server error allocating coins to raffle items"
       );
     }
   } catch (error) {
-    errorHandler("getRaffleItems", error);
+    errorHandler("sendRaffleStakedItems", error);
   }
 };
 
@@ -78,7 +105,7 @@ export const checkTotalCoins = () => async (dispatch, _) => {
       if (retries !== 0) {
         retries -= 1;
         if (import.meta.env.DEV)
-          console.log(`Failed to check coin total: ${retries} retries left...`);
+          console.warn(`Failed to check coin total: ${retries} retries left...`);
 
         await getTotal();
       } else {
@@ -134,12 +161,13 @@ export const getLearnAndEarnChests = () => async (dispatch, _) => {
   }
 };
 
-export const sendLearnAndEarnCoins = (chestId, amount) => async (dispatch, _) => {
+export const sendLearnAndEarnCoins = (chest_id, amount) => async (dispatch, _) => {
   try {
-    const { data, meta } = await Api.post("/game/player/coins/chest", { chestId, amount });
+    const { data, meta } = await Api.post("/game/player/coins/chest", { chest_id, amount });
 
     if (meta.ok) {
       dispatch(updateCurrentUser({ chests_submitted: data.chests_submitted }));
+      dispatch(updateUserCoins("inc", amount));
     } else {
       showError(
         data,
@@ -154,6 +182,7 @@ export const sendLearnAndEarnCoins = (chestId, amount) => async (dispatch, _) =>
 };
 
 // <======================================/ Web Sockets \======================================>
+
 /**
  * Listens for any new coin changes. This should be triggered on every coins update for a 
  * user on the back-end.
@@ -165,17 +194,14 @@ export const coinChangesListener = () => (_) => {
 };
 
 /**
- * For the raffle. Listens for gold and sliver coin changes on raffle items to indicate that 
- * this item has other users coins in on that item.
+ * For the raffle. Listens for gold and silver coin changes on raffle items to indicate that 
+ * this item has other users coins staked on that item.
  */
-// TODO:
 export const sliverAndGoldCoinsListener = () => (dispatch, _) => {
-  socket.on("raffle_gold_sliver", (data) => {
-    // { id: string; silver: boolean }
-    dispatch({ type: RAFFLE_ACTIVE_STATE, payload: data });
-  });
-  
-  // window.Echo.channel("raffle-update").listen("RaffleUpdate", (e) => {
-  //   dispatch({ type: RAFFLE_ACTIVE_STATE, payload: e.message });
-  // });
+  const listener = (data) => {
+    dispatch(updateRaffleItem(data.item_id, { silver: data.silver }));
+  };
+  socket.on("raffle_gold_sliver", listener);
+
+  return listener;
 };
