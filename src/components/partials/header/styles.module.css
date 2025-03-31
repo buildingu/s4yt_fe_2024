@@ -169,7 +169,7 @@
   .container.full .right nav .mainMap {
     width: fit-content;
     height: 76px;
-    background: url("../../../static/btn_mainmap_normal.png") no-repeat center
+    background: url("/images/btn_mainmap_normal.webp") no-repeat center
       center/contain;
   }
   .container.full .right nav .mainMap::after {
@@ -183,11 +183,11 @@
     color: #895734;
   }
   .container.full .right nav .mainMap:hover {
-    background: url("../../../static/btn_mainmap_hover.png") no-repeat center
+    background: url("/images/btn_mainmap_hover.webp") no-repeat center
       center/contain;
   }
   .container.full .right nav .mainMap:active {
-    background: url("../../../static/btn_mainmap_pressed.png") no-repeat center
+    background: url("/images/btn_mainmap_pressed.webp") no-repeat center
       center/contain;
   }
 
@@ -195,7 +195,7 @@
     width: 76px;
     height: 76px;
     border: 0;
-    background: url("../../../static/btn_busi_normal.png") no-repeat center
+    background: url("/images/btn_busi_normal.webp") no-repeat center
       center/contain;
   }
   .container.full .right nav .busMap::after {
@@ -209,23 +209,23 @@
     color: #895734;
   }
   .container.full .right nav .busMap:hover {
-    background: url("../../../static/btn_busi_hover.png") no-repeat center
+    background: url("/images/btn_busi_hover.webp") no-repeat center
       center/contain;
   }
   .container.full .right nav .busMap:active {
-    background: url("../../../static/btn_busi_pressed.png") no-repeat center
+    background: url("/images/btn_busi_pressed.webp") no-repeat center
       center/contain;
   }
 
   .container.full .right nav button {
     width: 64px;
     height: 64px;
-    background: url("../../../static/btn_logout_normal.png") no-repeat center
+    background: url("/images/btn_logout_normal.webp") no-repeat center
       center/contain;
     cursor: pointer;
   }
   .container.full .right nav button:hover {
-    background: url("../../../static/btn_logout_hover.png") no-repeat center
+    background: url("/images/btn_logout_hover.webp") no-repeat center
       center/contain;
   }
   .container.full .right nav button:active {
@@ -236,15 +236,15 @@
   .container.full div .checkout {
     width: 82px;
     height: 82px;
-    background: url("../../../static/btn_checkout_normal.png") no-repeat center
+    background: url("/images/btn_checkout_normal.webp") no-repeat center
       center/contain;
   }
   .container.full div .checkout:hover {
-    background: url("../../../static/btn_checkout_hover.png") no-repeat center
+    background: url("/images/btn_checkout_hover.webp") no-repeat center
       center/contain;
   }
   .container.full div .checkout:active {
-    background: url("../../../static/btn_checkout_pressed.png") no-repeat center
+    background: url("/images/btn_checkout_pressed.webp") no-repeat center
       center/contain;
   }
 }
@@ -310,15 +310,15 @@
     display: block;
     width: 82px;
     height: 82px;
-    background: url("../../../static/btn_checkout_normal.png") no-repeat center
+    background: url("/images/btn_checkout_normal.webp") no-repeat center
       center/contain;
   }
   .checkoutPersist:hover {
-    background: url("../../../static/btn_checkout_hover.png") no-repeat center
+    background: url("/images/btn_checkout_hover.webp") no-repeat center
       center/contain;
   }
   .checkoutPersist:active {
-    background: url("../../../static/btn_checkout_pressed.png") no-repeat center
+    background: url("/images/btn_checkout_pressed.webp") no-repeat center
       center/contain;
   }
 
@@ -329,7 +329,7 @@
   }
 
   .container.full .right .menu > div:first-of-type .secLogo {
-    background: url("../../../static/LOGO.png") no-repeat;
+    background: url("/images/LOGO.webp") no-repeat;
     width: 200px;
     height: 100px;
   }
@@ -392,7 +392,7 @@
     bottom: 12px;
     text-decoration: none;
     width: fit-content;
-    background: url("../../../static/btn_mainmap_normal.png") no-repeat center
+    background: url("/images/btn_mainmap_normal.webp") no-repeat center
       center/contain;
   }
   .container.full nav div .mainMap::after {
@@ -405,45 +405,45 @@
     color: #895734;
   }
   .container.full nav div .mainMap:hover {
-    background: url("../../../static/btn_mainmap_hover.png") no-repeat center
+    background: url("/images/btn_mainmap_hover.webp") no-repeat center
       center/contain;
   }
   .container.full nav div .mainMap:active {
-    background: url("../../../static/btn_mainmap_pressed.png") no-repeat center
+    background: url("/images/btn_mainmap_pressed.webp") no-repeat center
       center/contain;
   }
 
   /* .container.full nav div .chat {
-    background: url("../../../static/btn_chat_normal.png") no-repeat center
+    background: url("/images/btn_chat_normal.png") no-repeat center
       center/contain;
   }
   .container.full nav div .chat:hover {
-    background: url("../../../static/btn_chat_hover.png") no-repeat center
+    background: url("/images/btn_chat_hover.png") no-repeat center
       center/contain;
   }
   .container.full nav div .chat:active {
-    background: url("../../../static/btn_chat_pressed.png") no-repeat center
+    background: url("/images/btn_chat_pressed.png") no-repeat center
       center/contain;
   } */
   .container nav div .checkout {
-    background: url("../../../static/btn_checkout_normal.png") no-repeat center
+    background: url("/images/btn_checkout_normal.webp") no-repeat center
       center/contain;
   }
   .container nav div .checkout:hover {
-    background: url("../../../static/btn_checkout_hover.png") no-repeat center
+    background: url("/images/btn_checkout_hover.webp") no-repeat center
       center/contain;
   }
   .container nav div .checkout:active {
-    background: url("../../../static/btn_checkout_pressed.png") no-repeat center
+    background: url("/images/btn_checkout_pressed.webp") no-repeat center
       center/contain;
   }
 
   .container.full nav div .logout {
-    background: url("../../../static/btn_logout_normal.png") no-repeat center
+    background: url("/images/btn_logout_normal.webp") no-repeat center
       center/contain;
   }
   .container.full nav div .logout:hover {
-    background: url("../../../static/btn_logout_hover.png") no-repeat center
+    background: url("/images/btn_logout_hover.webp") no-repeat center
       center/contain;
   }
   .container.full nav div .logout:active {

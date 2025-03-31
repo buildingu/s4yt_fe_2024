@@ -1,10 +1,10 @@
 import type { Dispatch } from "redux";
-import type { QuizChestGrouping } from "@reducers/coinTracker";
+import type { QuizChestGrouping } from "@reducers/game";
 
 import { useState, useLayoutEffect, useEffect } from "react";
 import { connect } from "react-redux";
 
-import { sendLearnAndEarnCoins } from "@actions/coinTracker";
+import { sendLearnAndEarnCoins } from "@actions/game";
 
 import s from "./styles.module.css";
 
@@ -16,9 +16,8 @@ interface Props {
       quiz: QuizChestGrouping;
     } | null>
   >;
-  sendLearnAndEarnCoins: (chestId: string, finalScore: number) => Promise<void>;
+  sendLearnAndEarnCoins: (chest_id: string, amount: number) => Promise<void>;
 }
-
 
 const Questions: React.FC<Props> = ({
   selectedChest,
@@ -255,8 +254,8 @@ const Questions: React.FC<Props> = ({
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  sendLearnAndEarnCoins: (chestId: string, finalScore: number) =>
-    dispatch(sendLearnAndEarnCoins(chestId, finalScore) as unknown) as Promise<any>
+  sendLearnAndEarnCoins: (chest_id: string, amount: number) =>
+    dispatch(sendLearnAndEarnCoins(chest_id, amount) as unknown) as Promise<any>
 });
 
 export default connect(null, mapDispatchToProps)(Questions);

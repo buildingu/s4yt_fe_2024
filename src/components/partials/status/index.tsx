@@ -52,7 +52,7 @@ const Status: React.FC<Props> = ({ className, style }) => {
         rel="noopener noreferrer"
         className="privacy fade move"
       >
-        Private Policy
+        Privacy Policy
       </a>
     </footer>
   );

@@ -79,7 +79,7 @@ To maintain good development practices and consistency across files/folders, we 
     |   |   ├── spinner/
     |   |   |   └── ...
     |   ├── modals/
-    |   |   ├── ModelTemplate.tsx
+    |   |   ├── ModalTemplate.tsx
     |   |   ├── areYouSure/
     |   |   |   └── ...
     |   |   ├── challengeModal/

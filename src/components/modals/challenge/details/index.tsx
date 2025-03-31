@@ -2,8 +2,8 @@ import type { Business } from "@reducers/businesses";
 
 import { useState } from "react";
 
-import s from "./styles.module.css";
 import ModalTemplate from "../../ModalTemplate";
+import s from "./styles.module.css";
 
 interface Props extends React.ComponentProps<"button"> {
   challenge_question: Business["challenge_question"];
@@ -26,8 +26,8 @@ const ChallengeDetailsModal: React.FC<Props> = ({ challenge_question, className,
       <ModalTemplate
         show={show}
         setShow={setShow}
+        aria-label="Your Business Challenge"
         height={448}
-        label="Your Business Challenge"
       >
         <div className={s.container}>
           <h3>{challenge_question.title}</h3>

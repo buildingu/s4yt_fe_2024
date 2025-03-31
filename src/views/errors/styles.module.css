@@ -30,8 +30,7 @@
   left: 36px;
   width: 360px;
   height: 230px;
-  background: url("../../static/btn-takemeback.png") no-repeat center
-    center/contain;
+  background: url("/images/btn-takemeback.webp") no-repeat center center/contain;
   cursor: pointer;
 }
 

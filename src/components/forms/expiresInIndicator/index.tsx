@@ -9,32 +9,32 @@ const ExpiresInIndicator: React.FC<Props> = ({ formSuccess, setForm }) => {
   const timeRef = useRef<HTMLTimeElement>(null);
 
   useEffect(() => {
-    const expiredTimer = () => {
-      let time = 600; // 10 minutes in seconds
+    if (!formSuccess) return;
 
-      setForm((prev: any) => ({ ...prev, processing: true }));
-      const timerInterval = setInterval(() => {
-        const minutes = Math.floor(time / 60),
-          seconds = time % 60,
-          formattedTime = `Expires in: <span>${String(minutes).padStart(
-            2,
-            "0"
-          )}:${String(seconds).padStart(2, "0")}<span>`;
+    let time = 600; // 10 minutes in seconds
+    setForm((prev: any) => ({ ...prev, processing: true }));
 
-        if (time <= 0) {
-          clearInterval(timerInterval);
-          timeRef.current!.innerHTML = "Expired";
+    const timerInterval = setInterval(() => {
+      const minutes = Math.floor(time / 60),
+        seconds = time % 60,
+        formattedTime = `Expires in: <span>${String(minutes).padStart(
+          2,
+          "0"
+        )}:${String(seconds).padStart(2, "0")}<span>`;
 
-          setForm((prev: any) => ({ ...prev, processing: false }));
-        } else {
-          timeRef.current!.innerHTML = formattedTime;
-        }
+      if (time <= 0) {
+        clearInterval(timerInterval);
+        timeRef.current!.innerHTML = "Expired";
 
-        time -= 1;
-      }, 1000);
-    };
+        setForm((prev: any) => ({ ...prev, processing: false }));
+      } else {
+        timeRef.current!.innerHTML = formattedTime;
+      }
 
-    if (formSuccess) expiredTimer();
+      time -= 1;
+    }, 1000);
+
+    return () => clearInterval(timerInterval);
   }, [formSuccess]);
 
   return (

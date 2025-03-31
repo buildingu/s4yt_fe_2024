@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import s from "./styles.module.css";
 import ModalTemplate from "../ModalTemplate";
+import s from "./styles.module.css";
 
 interface Props extends React.ComponentProps<"button"> {
   text: string;
@@ -25,7 +25,12 @@ const AreYouSureModal: React.FC<Props> = ({ text, func, ...props }) => {
         onClick={() => setShow(true)}
         {...props}
       />
-      <ModalTemplate show={show} setShow={setShow} height={250} label="Are you Sure?">
+      <ModalTemplate
+        show={show}
+        setShow={setShow}
+        height={250}
+        aria-label="Are you Sure?"
+      >
         <div className={s.container}>
           <p>{text}</p>
           <div>

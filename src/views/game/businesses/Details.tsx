@@ -25,7 +25,7 @@ interface Props {
 
 const SELECTED_SLIDE = (business: Business, isNotPlayer: boolean): { [key: string]: React.ReactNode } => ({
   video: <Video video_title={business.video_title} video_url={business.video_url} />,
-  challenge: <Challenge name={business.name} challenge_question={business.challenge_question} isNotPlayer={isNotPlayer} />,
+  challenge: <Challenge challenge_question={business.challenge_question} isNotPlayer={isNotPlayer} />,
   meetUp: <MeetUp isNotPlayer={isNotPlayer} />
 });
 
@@ -50,6 +50,7 @@ const Details: React.FC<Props> = ({ isNotPlayer }) => {
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
+          minHeight: "446px",
           paddingTop: "3.5rem",
           paddingBottom: "3rem"
         }}
@@ -119,7 +120,7 @@ const Details: React.FC<Props> = ({ isNotPlayer }) => {
                 </div>
               </>
             ) : (
-              <p>Unexpectedly couldn't find this business.</p>
+              <p className={s.failed}>Unexpectedly couldn't find this business.</p>
             )}
           </>
         </div>

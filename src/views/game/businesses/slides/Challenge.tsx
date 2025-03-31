@@ -1,4 +1,3 @@
-import type { UserReduxState } from "@reducers/user";
 import type { Business } from "@root/redux/reducers/businesses";
 
 import { useRef, useState } from "react";
@@ -18,26 +17,24 @@ import s from "./styles.module.css";
 
 interface Props {
   submitChallengeAnswer: (
-    business_name: string,
-    link: string,
+    challenge_id: string,
+    submission_link: string,
     formRef: React.RefObject<HTMLFormElement>,
     setForm: React.Dispatch<React.SetStateAction<{ processing: boolean }>>
   ) => Promise<void>;
-  name: string;
   challenge_question: Business["challenge_question"];
   isNotPlayer: boolean;
 }
 
 const Challenge: React.FC<Props> = ({
   submitChallengeAnswer,
-  name,
   challenge_question,
   isNotPlayer
 }) => {
   const formRef = useRef<HTMLFormElement>(null),
     [form, setForm] = useState({ processing: false });
 
-  const submit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const field = (formRef.current!.elements[0] as HTMLInputElement);
@@ -45,7 +42,12 @@ const Challenge: React.FC<Props> = ({
 
     if (field.validity.valid) {
       setForm({ processing: true });
-      await submitChallengeAnswer(name, field.value, formRef, setForm);
+      await submitChallengeAnswer(
+        challenge_question.challenge_id,
+        field.value,
+        formRef,
+        setForm
+      );
     }
   };
 
@@ -58,10 +60,10 @@ const Challenge: React.FC<Props> = ({
         />
 
         <p id="questionPara" data-submitted={challenge_question.answer_submitted}>
-        {challenge_question.answer_submitted ? (
+          {challenge_question.answer_submitted ? (
             <>
               <span>You already submitted your answer for this business</span>,
-              but you can submit again if you need to override it.
+              but you can submit again if you want to override it.
             </>
           ) : (
             "Submit your challenge answer below for a chance to win an award."
@@ -100,7 +102,7 @@ const Challenge: React.FC<Props> = ({
           <AreYouSureModal
             aria-label="Submit"
             text="You're about to submit your answer, are you sure?"
-            func={submit}
+            func={handleSubmit}
             type="submit"
             disabled={isNotPlayer || form.processing}
             className={s.submit}
@@ -113,11 +115,11 @@ const Challenge: React.FC<Props> = ({
 
 const mapDispatchToProps = (dispatch: any) => ({
   submitChallengeAnswer: (
-    business_name: string,
-    link: string,
+    challenge_id: string,
+    submission_link: string,
     formRef: React.RefObject<HTMLFormElement>,
     setForm: React.Dispatch<React.SetStateAction<{ processing: boolean }>>
-  ) => dispatch(submitChallengeAnswer(business_name, link, formRef, setForm))
+  ) => dispatch(submitChallengeAnswer(challenge_id, submission_link, formRef, setForm))
 });
 
 export default connect(null, mapDispatchToProps)(Challenge);

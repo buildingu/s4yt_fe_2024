@@ -1,12 +1,12 @@
 import type { UserReduxState } from "@reducers/user";
-import type { CoinTrackerState, QuizChestGrouping } from "@reducers/coinTracker";
+import type { GameReduxState, QuizChestGrouping } from "@reducers/game";
 import type UserCredentials from "@typings/UserCredentials";
 
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { getLearnAndEarnChests } from "@actions/coinTracker";
+import { getLearnAndEarnChests } from "@actions/game";
 import { isNotPlayer } from "@actions/user";
 
 import Layout from "@components/partials/layout";
@@ -19,7 +19,7 @@ import Questions from "./Questions";
 import s from "./styles.module.css";
 
 interface PlayerProps {
-  chests: CoinTrackerState["quizChests"];
+  chests: GameReduxState["quizChests"];
   chestsSubmitted: UserCredentials["chests_submitted"];
   getLearnAndEarnChests: () => Promise<void>;
   isNotPlayer: (useNotification?: boolean, message?: string) => boolean;
@@ -121,14 +121,14 @@ const LearnAndEarn: React.FC<PlayerProps> = ({
   );
 };
 
-const mapStateToProps = ({ coinTracker, user }: { coinTracker: CoinTrackerState; user: UserReduxState }) => ({
-  chests: coinTracker.quizChests,
+const mapStateToProps = ({ game, user }: { game: GameReduxState; user: UserReduxState }) => ({
+  chests: game.quizChests,
   chestsSubmitted: user.credentials?.chests_submitted || {}
 });
-const mapDispatchToProps = (dispatch: Function) => ({
+const mapDispatchToProps = (dispatch: any) => ({
   isNotPlayer: (useNotification?: boolean, message?: string) =>
     dispatch(isNotPlayer(useNotification, message)),
-  getLearnAndEarnChests: () => dispatch(getLearnAndEarnChests() as unknown) as Promise<any>
+  getLearnAndEarnChests: () => dispatch(getLearnAndEarnChests())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LearnAndEarn);

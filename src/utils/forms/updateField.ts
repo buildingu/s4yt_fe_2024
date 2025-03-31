@@ -3,7 +3,7 @@ export default <T extends Record<string, any>>(
   setCurrentData?: React.Dispatch<React.SetStateAction<T>>
 ) => {
   const target = e.target;
-  const name = target.getAttribute("name");
+  const name = target.getAttribute("name")!;
 
   target.removeAttribute("aria-invalid");
   target.removeAttribute("matching-passwords");
@@ -11,9 +11,6 @@ export default <T extends Record<string, any>>(
   if (setCurrentData)
     setCurrentData((prev) => ({
       ...prev,
-      [name!]:
-        name! !== "player_id" && name!.split("_")[1] === "id"
-          ? parseInt(target.value)
-          : target.value,
+      [name]: target.value
     }));
 };

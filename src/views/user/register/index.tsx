@@ -25,7 +25,7 @@ const Register: React.FC = () => {
           bottom: "-24px",
         }}
       >
-        Private Policy
+        Privacy Policy
       </a>
     </Layout>
   );
