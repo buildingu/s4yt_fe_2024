@@ -67,15 +67,15 @@
 }
 
 .container div .checkout {
-  background: url("../../../static/btn_checkout_normal.png") no-repeat center
+  background: url("/images/btn_checkout_normal.webp") no-repeat center
     center/contain;
 }
 .container div .checkout:hover {
-  background: url("../../../static/btn_checkout_hover.png") no-repeat center
+  background: url("/images/btn_checkout_hover.webp") no-repeat center
     center/contain;
 }
 .container div .checkout:active {
-  background: url("../../../static/btn_checkout_pressed.png") no-repeat center
+  background: url("/images/btn_checkout_pressed.webp") no-repeat center
     center/contain;
 }
 

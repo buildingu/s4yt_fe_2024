@@ -1,3 +1,9 @@
+p.failed {
+  font-size: var(--heading-28);
+  color: var(--form-red);
+  align-self: center;
+}
+
 .businesses {
   display: flex;
   justify-content: center;
@@ -111,7 +117,7 @@
   width: 100%;
   height: 50px;
   margin-bottom: 1rem;
-  background: url("/images/seeBusinesses/banner-btn-beige.webp") no-repeat center center/contain;
+  background: url("/images/banner-btn-beige.webp") no-repeat center center/contain;
   cursor: pointer;
 }
 .details .detailsContent .detailsOptions div[role="radiogroup"] label::after {
@@ -136,10 +142,10 @@
   font-size: 15px;
 }
 .details .detailsContent .detailsOptions div[role="radiogroup"] label:hover {
-  background: url("/images/seeBusinesses/banner-btn-hover.webp") no-repeat center center/contain;
+  background: url("/images/banner-btn-hover.webp") no-repeat center center/contain;
 }
 .details .detailsContent .detailsOptions div[role="radiogroup"] label[data-checked="true"] {
-  background: url("/images/seeBusinesses/banner-btn-brown.webp") no-repeat center center/contain;
+  background: url("/images/banner-btn-brown.webp") no-repeat center center/contain;
 }
 .details .detailsContent .detailsOptions div[role="radiogroup"] input[type="radio"] {
   all: unset;

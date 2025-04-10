@@ -1,10 +1,10 @@
 import type { Dispatch } from "redux";
-import type { QuizChestGrouping } from "@reducers/coinTracker";
+import type { QuizChestGrouping } from "@reducers/game";
 
 import { useState, useLayoutEffect, useEffect } from "react";
 import { connect } from "react-redux";
 
-import { sendLearnAndEarnCoins } from "@actions/coinTracker";
+import { sendLearnAndEarnCoins } from "@actions/game";
 
 import s from "./styles.module.css";
 
@@ -16,9 +16,8 @@ interface Props {
       quiz: QuizChestGrouping;
     } | null>
   >;
-  sendLearnAndEarnCoins: (chestId: string, finalScore: number) => Promise<void>;
+  sendLearnAndEarnCoins: (chest_id: string, amount: number) => Promise<void>;
 }
-
 
 const Questions: React.FC<Props> = ({
   selectedChest,
@@ -39,12 +38,12 @@ const Questions: React.FC<Props> = ({
 
   const onAnswerSelected = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    choice: "a" | "b" | "c",
-    answer: Omit<QuizChestGrouping[number]["answers"], "choice">
+    choices: "a" | "b" | "c",
+    answer: Omit<QuizChestGrouping[number]["answers"], "choices">
   ) => {
     const target = e.currentTarget;
 
-    if (choice === answer.correct) {
+    if (choices === answer.correct) {
       setStage((prev) => ({ ...prev, process: true }));
     } else {
       setEarned((prev) => ({ ...prev, iteration: prev.iteration - 1 }));
@@ -98,18 +97,21 @@ const Questions: React.FC<Props> = ({
    */
   useEffect(() => {
     if (stage.iteration > 1) {
-      setEarned((prev) => ({
-        ...prev,
-        iteration: 3,
-        final: prev.final + prev.iteration
-      }));
+      setEarned((prev) => {
+        const update = {
+          ...prev,
+          iteration: 3,
+          final: prev.final + prev.iteration
+        };
+        if (stage.iteration === 4) {
+          setEarned((pre) => ({ ...pre, processing: true }));
+          sendLearnAndEarnCoins(selectedChest.id, update.final).finally(() =>
+            setSelectedChest(null)
+          );
+        }
 
-      if (stage.iteration === 4) {
-        setEarned((prev) => ({ ...prev, processing: true }));
-        sendLearnAndEarnCoins(selectedChest.id, earned.final).finally(() =>
-          setSelectedChest(null)
-        );
-      }
+        return update;
+      });
     }
   }, [stage.iteration]);
 
@@ -184,8 +186,8 @@ const Questions: React.FC<Props> = ({
                 
                 <div role="radiogroup">
                   {chest.opened &&
-                    Object.entries(currentSet.answers.choice).map(([letter, answer]) => {
-                      const { choice: _, ...selected } = currentSet.answers;
+                    Object.entries(currentSet.answers.choices).map(([letter, answer]) => {
+                      const { choices: _, ...selected } = currentSet.answers;
 
                       return (
                         <button
@@ -255,8 +257,8 @@ const Questions: React.FC<Props> = ({
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  sendLearnAndEarnCoins: (chestId: string, finalScore: number) =>
-    dispatch(sendLearnAndEarnCoins(chestId, finalScore) as unknown) as Promise<any>
+  sendLearnAndEarnCoins: (chest_id: string, amount: number) =>
+    dispatch(sendLearnAndEarnCoins(chest_id, amount) as unknown) as Promise<any>
 });
 
 export default connect(null, mapDispatchToProps)(Questions);

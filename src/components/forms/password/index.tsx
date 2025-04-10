@@ -55,7 +55,7 @@ const PasswordForm: React.FC<Props> = ({
       password_confirmation: ""
     });
 
-  const submit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!userToken && !currentData.token)
@@ -114,7 +114,7 @@ const PasswordForm: React.FC<Props> = ({
     <form
       id={userToken ? "updatePasswordForm" : "resetPasswordForm"}
       className={s.form}
-      onSubmit={(e) => submit(e)}
+      onSubmit={(e) => handleSubmit(e)}
       ref={formRef}
       autoComplete="off"
       noValidate

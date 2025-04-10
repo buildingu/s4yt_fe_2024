@@ -6,7 +6,7 @@ import {
 
 export interface GameConfigReduxState {
   timestamps?: {
-    // (profile is always open (expect for review_start))
+    // (profile is always open (except for review_start))
     pre_game: string; // This is when the students 'learn', so they only do the learn and earn question and the raffle.
     game_start: string; // They can now move to the business challenge questions. So, they're able to interact with all pages except the learn and earn and the event results of course.
     review_start: string; // Everything is closed until review_end.

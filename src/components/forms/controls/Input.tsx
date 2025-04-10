@@ -1,5 +1,3 @@
-import warning from "@static/warning.svg";
-
 interface Props extends React.ComponentProps<"input"> {
   id: string;
   name: string;
@@ -22,7 +20,7 @@ const Input: React.FC<Props> = ({ id, name, type, errorMsg, ...options }) => {
           {errorMsg}
         </small>
       )}
-      <img src={warning} alt="Warning" className="warningIcon" />
+      <img src="/images/warning.svg" alt="Warning" className="warningIcon" />
     </div>
   );
 };

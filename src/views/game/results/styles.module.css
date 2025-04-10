@@ -1,187 +1,213 @@
-.resultsContainer {
-  min-height: 680px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-.bannerImage {
-  width: 100%;
-}
-.eventSelection {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-.otherContainer {
+.container ul {
+  list-style: none;
   padding: 0;
   margin: 0;
-  max-height: 500px;
-  min-height: 400px;
-  width: 90%;
-  overflow: auto;
-  scroll-behavior: auto;
+  color: var(--pbrown);
+  text-align: left;
+}
+
+.container .banner {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+}
+.container .banner img {
+  width: 100%;
+}
+@media screen and (min-width: 741px) {
+  .container .banner img {
+    min-width: 838px;
+  }
+}
+@media screen and (max-width: 740px) {
+  .container .banner img {
+    margin-inline: calc(-70px - 70px);
+    width: calc(100% + 70px + 70px)
+  }
+}
+@media screen and (max-width: 560px) {
+  .container .banner img {
+    margin-inline: calc(-50px - 50px);
+    width: calc(100% + 50px + 50px)
+  }
+}
+@media screen and (max-width: 460px) {
+  .container .banner img {
+    margin-inline: calc(-42px - 42px);
+    width: calc(100% + 42px + 42px)
+  }
+}
+
+.container .carousel {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 498px;
+}
+
+.container .carousel > div[role="group"]:first-child {
+  align-self: center;
+  margin-bottom: 14px;
+}
+
+.container .carousel > div[role="group"]:first-child .partnerWinners {
+  display: flex;
+}
+.container .carousel > div[role="group"]:first-child .partnerWinners[data-type="main"] {
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.container .carousel > div[role="group"]:first-child .partnerWinners[data-type="other"] {
+  justify-content: space-evenly;
+  gap: 1.75rem 1.25rem;
   flex-wrap: wrap;
 }
-.otherContainer li {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: calc(100% / 2 - 40px);
-  max-height: 180px;
-  margin: 10px;
-  color: var(--pbrown);
-  min-width: 350px;
-}
-.otherContainer li:last-child {
-  margin-right: auto;
-}
-.otherContainer .winnerContainer {
-  margin-left: 15px;
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  overflow: auto;
-  max-height: 180px;
-  overflow: auto;
-}
-.winnerContainer h3 {
-  font-size: 28px;
-}
-.winnerContainer address {
-  font-family: "Corbal", arial;
-  font-weight: bold;
-  font-size: 16px;
-  opacity: 0.9;
-}
-.winnerContainer div {
-  min-width: 150px;
-}
-.otherContainer img {
-  width: 120px;
-}
-.otherImageContainer {
+/* .container .carousel > div[role="group"]:first-child .partnerWinners[data-type="other"] .item :global(.blur) {
   position: relative;
+  z-index: 1;
 }
-.otherImageContainer .partnerLogo {
-  width: 30px;
-  height: 30px;
+.container .carousel > div[role="group"]:first-child .partnerWinners[data-type="other"] .item :global(.blur)::after {
+  content: "";
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% + 1rem);
+  height: calc(100% + 1rem);
   border-radius: 50%;
-  bottom: 0;
-  right: 0px;
-  object-fit: contain;
-  transition: all 0.2s linear;
+  background-color: var(--white);
+  z-index: -1;
+} */
+
+.container .carousel > div[role="group"]:first-child .partnerWinners ul {
+  overflow: auto;
 }
-.otherImageContainer .partnerLogo:hover {
-  transform: scale(2);
+.container .carousel > div[role="group"]:first-child .partnerWinners ul li.winner h3 {
+  word-break: break-word;
+  letter-spacing: 2%;
 }
-.resultDisplayTop {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  color: var(--pbrown);
-}
-.resultDisplayTop h3 {
-  font-size: 28px;
-  margin-top: 20px;
-}
-.resultDisplayTop li p {
-  font-family: "Corbal", arial;
-  font-weight: bold;
-  font-size: 24px;
+.container .carousel > div[role="group"]:first-child .partnerWinners ul li.winner p {
+  font-family: "Corbal", Arial;
+  font-weight: 700;
+  font-style: italic;
   opacity: 0.9;
 }
-.resultDisplayTop img {
-  width: 250px;
-  height: 250px;
-}
-.resultDisplayTop ul {
-  list-style: none;
-  text-align: left;
-}
-.resultDisplayBottom {
+
+.container .carousel > div[role="group"]:first-child .partnerWinners .item {
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 80%;
-  color: var(--pbrown);
+  gap: 0.5rem;
+}
+.container .carousel > div[role="group"]:first-child .partnerWinners .item :global(.blur) {
+  flex-shrink: 0;
+  width: 105px;
+  height: 105px;
+  background-color: var(--white);
+}
+.container .carousel > div[role="group"]:first-child .partnerWinners .item ul {
+  max-height: 133px;
+}
+.container .carousel > div[role="group"]:first-child .partnerWinners .item ul li.winner:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+.container .carousel > div[role="group"]:first-child .partnerWinners .item ul li.winner h3 {
   font-size: 20px;
 }
-.resultDisplayBottom .partnerRaffleItems {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width: calc(100% / 2);
-  text-align: left;
+.container .carousel > div[role="group"]:first-child .partnerWinners .item ul li.winner p {
+  font-size: 12px;
+}
 
+.container .carousel > div[role="group"]:first-child .partnerWinners[data-type="main"] section {
+  display: flex;
 }
-.resultDisplayBottom .partnerRaffleItems img {
-  width: 100px;
-  height: 100px;
-  margin-right: 20px;
+
+.container .carousel > div[role="group"]:first-child .partnerWinners[data-type="main"] section.challenge {
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
 }
-.logoPagination {
-  margin: 3px;
-  border: 3px solid transparent;
-  width: 60px;
-  height: 60px;
+.container .carousel > div[role="group"]:first-child .partnerWinners[data-type="main"] section.challenge :global(.blur) {
+  flex-shrink: 0;
+  width: 215px;
+  height: 215px;
 }
-.logoSelected {
-  border: 3px solid red;
+.container .carousel > div[role="group"]:first-child .partnerWinners[data-type="main"] section.challenge > p {
+  color: var(--pbrown);
 }
-.logoPagination img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+
+.container .carousel > div[role="group"]:first-child .partnerWinners[data-type="main"] section.challenge ul {
+  max-height: 251px;
 }
-.prevButton {
-  background: url("/images/btn_back.webp") no-repeat center center/contain;
-  height: 80px;
-  width: 120px;
+.container .carousel > div[role="group"]:first-child .partnerWinners[data-type="main"] section.challenge ul li.winner:not(:last-child) {
+  margin-bottom: 1rem;
 }
-.nextButton {
-  background: url("/images/eventResults/btn_next.webp") no-repeat center center/contain;
-  height: 80px;
-  width: 120px;
+.container .carousel > div[role="group"]:first-child .partnerWinners[data-type="main"] section.challenge ul li.winner h3,
+.container .carousel > div[role="group"]:first-child .partnerWinners[data-type="main"] section.challenge > p {
+  font-size: var(--heading-28);
 }
-@media screen and (max-width: 900px) {
-  .otherContainer {
-    flex-direction: column;
-    align-items: center;
-    max-height: none;
-  }
-  .otherContainer li {
-    margin-bottom: 50px;
-  }
-  .otherContainer li:last-child {
-    margin-right: 0;
-  }
+.container .carousel > div[role="group"]:first-child .partnerWinners[data-type="main"] section.challenge ul li.winner h3 span {
+  color: var(--status-green);
 }
-@media screen and (max-width: 500px) {
-  .resultDisplayTop {
-    flex-direction: column;
-    margin: 50px 0;
-  }
-  .otherContainer {
-    flex-direction: column;
-    max-height: none;
-    width: 100%;
-  }
-  .otherContainer li {
-    max-height: none;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 50px;
-    width: 100%;
-    min-width: 200px;
-  }
-  .otherContainer .otherImageContainer {
-    display: flex;
+.container .carousel > div[role="group"]:first-child .partnerWinners[data-type="main"] section.challenge ul li.winner p {
+  font-size: 1rem;
+}
+
+.container .carousel > div[role="group"]:first-child .partnerWinners[data-type="main"] section.raffle {
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.container .carousel :global(#indicators) {
+  margin-inline: -0.5rem;
+  overflow: auto;
+}
+.container .carousel :global(#indicators) > button {
+  flex-shrink: 0;
+}
+.container .carousel :global(#indicators) > div {
+  flex-shrink: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 80px;
+  padding-inline: 0.5rem;
+  margin-inline: 0.5rem;
+  overflow-x: auto;
+}
+.container .carousel :global(#indicators) > div button {
+  flex-shrink: 0;
+  width: 54px;
+  height: 54px;
+  outline: 3px solid transparent;
+  transition: 0.38s ease-in-out outline-color;
+}
+.container .carousel :global(#indicators) > div button[aria-pressed="true"] {
+  outline-color: var(--form-red);
+}
+
+@media screen and (max-width: 867px) {
+  .container .carousel :global(#indicators) {
     justify-content: center;
+  }
+  .container .carousel :global(#indicators) > div {
+    width: initial;
+  }
+  .container .carousel :global(#indicators) > button {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 535px) {
+  .container .carousel > div[role="group"]:first-child .partnerWinners[data-type="main"] {
+    gap: 2.25rem;
+  }
+
+  .container .carousel > div[role="group"]:first-child .partnerWinners[data-type="main"] section.challenge {
+    flex-wrap: wrap;
+  }
+  .container .carousel > div[role="group"]:first-child .partnerWinners[data-type="main"] section.challenge ul {
+    overflow: initial;
+    max-height: none;
   }
 }

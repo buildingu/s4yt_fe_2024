@@ -1,12 +1,10 @@
-import type { BusinessReduxState, Business } from "@reducers/businesses";
+import type { BusinessReduxState } from "@reducers/businesses";
 
-import { useLayoutEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { getBusinesses, businessChallengeAnswerSubmittedListener } from "@actions/businesses";
-
-import { socket } from "@services/socket";
+import { getBusinesses } from "@actions/businesses";
 
 import history from "@utils/History";
 
@@ -20,60 +18,61 @@ import s from "./styles.module.css";
 import Spinner from "@root/components/loaders/spinner";
 
 interface Props {
-  businesses: Business[];
+  businesses: BusinessReduxState["businesses"];
+  getBusinessesTimestamp: BusinessReduxState["getBusinessesTimestamp"];
   getBusinesses: () => Promise<void>;
-  businessChallengeAnswerSubmittedListener: () => (data: any) => void;
 }
 
 const Businesses: React.FC<Props> = ({
   businesses,
-  getBusinesses,
-  businessChallengeAnswerSubmittedListener,
+  getBusinessesTimestamp,
+  getBusinesses
 }) => {
+  const [loading, setLoading] = useState(false);
+
   useLayoutEffect(() => {
-    let listener: ReturnType<typeof businessChallengeAnswerSubmittedListener> | undefined;
-
-    getBusinesses().then(() => {
-      if (!socket.hasListeners("business_challenge_submitted")) {
-        listener = businessChallengeAnswerSubmittedListener();
-      }
-    });
-
-    return () => {
-      if (listener) socket.removeListener("business_challenge_submitted", listener);
-    };
+    if (
+      !businesses.length ||
+      (getBusinessesTimestamp && Date.now() >= getBusinessesTimestamp)
+    ) {
+      setLoading(true);
+      getBusinesses().finally(() => setLoading(false));
+    }
   }, []);
 
   return (
     <Layout>
       <Header title="See Businesses" />
-      <Content addCoins="coins3" addFeather="left" 
+      <Content
+        addCoins="coins3"
+        addFeather="left"
         style={{ display: "grid", minHeight: "446px" }}
       >
         <div aria-live="polite" className={s.businesses}>
-          {businesses.length ? (
-            businesses?.map((business, i) => (
-              <Link
-                key={i}
-                aria-label={`${business.name}'s details`}
-                to={`/businesses/${business.name}`}
-                state={business}
-                className={s.businessContainer}
-              >
-                {business.challenge_question.answers_count > 0 && (
-                  <div
-                    aria-label="Answers Submitted"
-                    className={s.answersCount}
-                  >
-                    {business.challenge_question.answers_count}
-                  </div>
-                )}
-                <Image
-                  src={business.logo}
-                  alt={business.name}
-                />
-              </Link>
-            ))
+          {!loading ? (
+            businesses.length ? (
+              businesses?.map((business, i) => (
+                <Link
+                  key={i}
+                  aria-label={`${business.name}'s details`}
+                  to={`/businesses/${business.name}`}
+                  state={business}
+                  className={s.businessContainer}
+                >
+                  {business.challenge_question.answers_count > 0 && (
+                    <div
+                      aria-label="Answers Submitted"
+                      className={s.answersCount}
+                    >
+                      {business.challenge_question.answers_count}
+                    </div>
+                  )}
+                  <Image src={business.logo} alt={business.name} />
+                </Link>
+              ))
+            ) : (
+              <p className={s.failed}>Unexpectedly failed to retrieve business data.</p>
+            )
           ) : (
             <Spinner
               size="100px"
@@ -98,11 +97,11 @@ const Businesses: React.FC<Props> = ({
 };
 
 const mapStateToProps = ({ businesses }: { businesses: BusinessReduxState }) => ({
-  businesses: businesses.businesses
+  businesses: businesses.businesses,
+  getBusinessesTimestamp: businesses.getBusinessesTimestamp
 });
 const mapDispatchToProps = (dispatch: any) => ({
-  getBusinesses: () => dispatch(getBusinesses()),
-  businessChallengeAnswerSubmittedListener: () => dispatch(businessChallengeAnswerSubmittedListener())
+  getBusinesses: () => dispatch(getBusinesses())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Businesses);

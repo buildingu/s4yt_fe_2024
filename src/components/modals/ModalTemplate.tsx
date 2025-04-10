@@ -1,21 +1,23 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
 
-interface Props extends React.PropsWithChildren<{}> {
+interface Props extends React.ComponentProps<"div"> {
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  "aria-label": string;
   height: React.CSSProperties["height"];
+  width?: React.CSSProperties["width"];
   style?: React.CSSProperties;
-  label?: string;
-  noExitBtn?: true;
+  noExitBtn?: boolean;
 }
 
-const ModalTemplate: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
+const ModalTemplate: React.FC<React.PropsWithChildren<Props>> = ({
   children,
   show,
   setShow,
   height,
-  label,
+  width,
+  style,
   noExitBtn,
   ...props
 }) => {
@@ -47,11 +49,11 @@ const ModalTemplate: React.FC<Props> & React.HTMLAttributes<HTMLDivElement> = ({
           <div
             role="dialog"
             tabIndex={1}
-            aria-label={label ? label : "Popup"}
             className="modal"
             id="modal"
             onClick={(e) => e.stopPropagation()}
-            style={{ maxHeight: height }}
+            style={{ maxHeight: height, maxWidth: width, ...(style && style) }}
+            {...(!props["aria-label"] && { "aria-label": "Popup" })}
             {...props}
           >
             {!noExitBtn && (

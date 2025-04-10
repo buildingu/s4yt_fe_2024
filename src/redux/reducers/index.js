@@ -2,17 +2,17 @@ import { combineReducers } from "redux";
 import user from "./user";
 import notifications from "./notifications";
 import formOptions from "./formOptions";
+import game from "./game";
 import gameConfig from "./gameConfig";
-import coinTracker from "./coinTracker";
 import businesses from "./businesses";
-import getRaffleWinners from "./getRaffleWinners";
+import winners from "./winners";
 
 export default combineReducers({
   user,
   formOptions,
   notifications,
+  game,
   gameConfig,
-  coinTracker,
   businesses,
-  getRaffleWinners
+  winners
 });

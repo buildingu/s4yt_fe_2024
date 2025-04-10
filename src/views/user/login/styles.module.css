@@ -62,8 +62,7 @@ a.resend {
   width: 100%;
   max-width: 241px;
   height: 155px;
-  background: url("../../../static/btn_donthaveaccount.png") no-repeat center
-    center/contain;
+  background: url("/images/btn_donthaveaccount.webp") no-repeat center center/contain;
 }
 
 a.privacy {

@@ -1,91 +1,118 @@
-import { useEffect } from "react";
+import type { ChallengeWinner, PartnerMain, RaffleWinner, WinnersReduxState } from "@reducers/winners";
+
+import { useLayoutEffect } from "react";
 import { connect } from "react-redux";
-import { getRaffleWinners } from "@actions/getRaffleWinners";
-import { RaffleItem } from "@reducers/getRaffleWinners";
 
-import { staticWinners } from "@constants/temporaryDb/winners";
-
-import usePagination from "@hooks/usePagination";
+import { getWinners } from "@actions/winners";
 
 import Layout from "@components/partials/layout";
 import Header from "@components/partials/header";
 import Content from "@components/partials/content";
 import Status from "@components/partials/status";
-import Winners from "./EventWinners";
-import Other from "./EventOther";
+import Spinner from "@components/loaders/spinner";
+import Carousel from "@components/carousel";
+import Image from "@components/Image";
 
 import s from "./styles.module.css";
-import Banner from "@static/eventResults/img_thankyou.png";
 
 interface Props {
-  otherWinners: RaffleItem[];
-  getRaffleWinners: () => Promise<any>;
+  partners: WinnersReduxState["partners"];
+  getWinners: () => Promise<void>;
 }
 
-const Results: React.FC<Props> = ({ otherWinners, getRaffleWinners }) => {
- 
-  const totalPartners = staticWinners.length;
-  const {
-    currentPage,
-    currentItems,
-    goToPage,
-    nextPage,
-    prevPage,
-    allPageNumbers,
-  } = usePagination({ data: staticWinners, maxPerPage: 1 });
-  
-  useEffect(() => {
-    if (otherWinners.length === 0) {
-      getRaffleWinners();
-    } 
-  }, [getRaffleWinners, otherWinners]);
+const Results: React.FC<Props> = ({ partners, getWinners }) => {
+  useLayoutEffect(() => {
+    if (!(partners.main.length && partners.other.length)) getWinners();
+  }, []);
+
   return (
     <Layout>
       <Header title="Event Results" />
-      <Content addCoins="coins3" addFeather="left">
-        <div className={s.resultsContainer}>
-          <img
-            className={s.bannerImage}
-            src={Banner}
-            alt="Thank you for participating"
-          />
-
-          {currentPage < totalPartners ? (
-            <Winners data={currentItems[0]} />
-          ) : (
-            <Other data={currentItems} />
-          )}
-
-          <div className={s.eventSelection}>
-            <button
-              className={`${s.prevButton} fade move`}
-              aria-label="Previous page"
-              onClick={() => prevPage()}
-            />
-            <div>
-              {allPageNumbers().map((page, index) => (
-                <button
-                  className={
-                    currentPage === page
-                      ? `${s.logoPagination} ${s.logoSelected}`
-                      : s.logoPagination
-                  }
-                  key={page}
-                  onClick={() => goToPage(page)}
-                >
-                  <img
-                    src={staticWinners[index]?.logo as any}
-                    alt={`Logo of ${staticWinners[index]?.name}`}
-                  />
-                </button>
-              ))}
-            </div>
-            <button
-              className={`${s.nextButton} fade move`}
-              aria-label="Next page"
-              onClick={() => nextPage()}
+      <Content
+        addCoins="coins3"
+        addFeather="left"
+        style={{ paddingBlock: "1.25rem 1rem" }}
+      >
+        <div className={s.container}>
+          <div className={s.banner}>
+            <img
+              src="/images/eventResults/img_thankyou.webp"
+              alt="Thank you for Supporting $4YT 2025"
             />
           </div>
+
+          <Carousel
+            aria-label="Event Winners"
+            items={[...partners.main, null]}
+            numPerSlide={1}
+            className={s.carousel}
+            {...(partners.main.length + (partners.other.length ? 1 : 0) && {
+              indicator: <Indicators partners={partners.main} />,
+            })}
+          >
+            {({ entry, i }) =>
+              partners.main.length && partners.other.length ? (
+                <div
+                  key={i}
+                  className={s.partnerWinners}
+                  data-type={entry === null ? "other" : "main"}
+                >
+                  {entry === null ? (
+                    partners.other.map((item, i) => (
+                      <RaffleItem
+                        image_src={item.image_src}
+                        winners={item.winners.raffle}
+                        index={i}
+                      />
+                    ))
+                  ) : (
+                    <>
+                      <section
+                        aria-label={`${entry.name}'s Challenge Winners`}
+                        className={s.challenge}
+                      >
+                        <Image src={entry.logo} alt={entry.name} />
+                        {entry.winners.challenge?.length > 0 && (
+                          <ul>
+                            {entry.winners.challenge.map((winner, i) => (
+                              <Winner key={i} winner={winner} />
+                            ))}
+                          </ul>
+                        )}
+                        {!entry.winners.challenge?.length && !entry.winners.raffle?.length && ( 
+                          <p>No Winners</p>
+                        )}
+                      </section>
+
+                      {entry.winners.raffle?.length > 0 && (
+                        <section
+                          aria-label={`${entry.name}'s Raffle Winners`}
+                          className={s.raffle}
+                        >
+                          {entry.winners.raffle.map((item, i) => (
+                            <RaffleItem
+                              image_src={item.image_src}
+                              winners={item.users}
+                              index={i}
+                            />
+                          ))}
+                        </section>
+                      )}
+                    </>
+                  )}
+                </div>
+              ) : (
+                <Spinner
+                  size="82px"
+                  style={{
+                    border: "solid 9px #9c9c9c",
+                    borderTop: "solid 9px #242424",
+                    marginInline: "auto"
+                  }}
+                />
+              )
+            }
+          </Carousel>
         </div>
       </Content>
       <Status />
@@ -93,15 +120,69 @@ const Results: React.FC<Props> = ({ otherWinners, getRaffleWinners }) => {
   );
 };
 
-const mapStateToProps = ({
-  getRaffleWinners,
-}: {
-  getRaffleWinners: RaffleItem[];
-}) => ({
-  otherWinners: getRaffleWinners,
+const Winner: React.FC<{ winner: RaffleWinner | ChallengeWinner }> = ({ winner }) => {
+  return (
+    <li className={s.winner}>
+      <h3>
+        {"award" in winner && <span className={s.prize}>${winner.award}: </span>}
+        {winner.name}
+      </h3>
+      <p>
+        {winner.region && `${winner.region}, `}
+        {winner.country}
+      </p>
+    </li>
+  )
+};
+
+const RaffleItem: React.FC<{
+  image_src: string;
+  winners: RaffleWinner[];
+  index: number;
+}> = ({ image_src, winners, index }) => {
+  return (
+    <div className={s.item}>
+      <Image src={image_src!} alt={`Raffle Item ${index + 1}`} />
+      <ul>
+        {winners.map((winner, i) => (
+          <Winner key={i} winner={winner} />
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+const Indicators: React.FC<{
+  partners: PartnerMain[];
+  currentSlide?: number;
+  goToSlide?: (index: number) => void;
+}> = ({ partners, currentSlide, goToSlide }) => {
+  return (
+    <div>
+      {[...partners, null].map((business, i) => {
+        const slide = i + 1;
+        return (
+          <button
+            key={i}
+            aria-pressed={currentSlide === slide}
+            onClick={() => goToSlide!(slide)}
+          >
+            <Image
+              src={business?.logo || "/images/eventResults/others.webp"}
+              alt={business?.name || "Other"}
+            />
+          </button>
+        );
+      })}
+    </div>
+  );
+};
+
+const mapStateToProps = ({ winners }: { winners: WinnersReduxState }) => ({
+  partners: winners.partners
 });
-const mapDispatchToProps = (dispatch: Function) => ({
-  getRaffleWinners: () => dispatch(getRaffleWinners()),
+const mapDispatchToProps = (dispatch: any) => ({
+  getWinners: () => dispatch(getWinners())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);

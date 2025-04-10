@@ -8,7 +8,7 @@ import delay from "@utils/delay";
 
 import Error from ".";
 
-const Error500: React.FC<{ logoutPlayer: () => void }> = ({ logoutPlayer }) => {
+const Error401: React.FC<{ logoutPlayer: () => void }> = ({ logoutPlayer }) => {
   useEffect(() => {
     delay(1200, () => logoutPlayer());
   }, []);
@@ -26,4 +26,4 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   logoutPlayer: () => dispatch(logoutPlayer())
 });
 
-export default connect(null, mapDispatchToProps)(Error500);
+export default connect(null, mapDispatchToProps)(Error401);

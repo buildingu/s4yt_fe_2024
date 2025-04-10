@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
-// import { store } from "@root/store";
+import { store } from "@root/store";
 
 import { isNotPlayer } from "@actions/user";
 
@@ -49,7 +49,9 @@ const Redirects: React.FC<Props> = ({
       redirect("/error-409");
     } else if (
       disableOn?.includes(
-        gameConfig.gameStart
+        gameConfig.preGame
+          ? "preGame"
+          : gameConfig.gameStart
           ? "gameStart"
           : gameConfig.reviewStart
           ? "reviewStart"
@@ -62,9 +64,11 @@ const Redirects: React.FC<Props> = ({
     }
   }, [user.tokens.access, user.credentials, gameConfig.newPeriod, disableOn]);
 
-  // useEffect(() => {
-  //   console.log("store.getState()", store.getState());
-  // }, [store.getState()]);
+  if (import.meta.env.DEV) {
+    useEffect(() => {
+      console.log("store.getState()", store.getState());
+    }, [store.getState()]);
+  }
 
   return children;
 };

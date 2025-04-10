@@ -94,7 +94,6 @@ const Result: React.FC<{ result: NonNullable<ResultState> }> = ({ result }) => {
         }}
       />
       <Content
-        // FIXME: coins1 pushes the notifications on smaller screens. 
         addCoins="coins1"
         className={s.finalize}
         style={{ maxWidth: "600px", paddingTop: "3rem", marginInline: "auto" }}

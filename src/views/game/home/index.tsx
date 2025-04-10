@@ -41,7 +41,7 @@ const Home: React.FC<Props> = ({ addNotification }) => {
               <ul>
                 <li>
                   <p>
-                    Visit the lean and earn page to get more info about the
+                    Visit the learn and earn page to get more info about the
                     challenges and win more dubl-u-nes as you go!
                   </p>
                 </li>

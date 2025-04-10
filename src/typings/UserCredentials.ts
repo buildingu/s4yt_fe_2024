@@ -1,7 +1,7 @@
 export default interface UserCredentials {
   attend_meeting: boolean;
   chests_submitted: { [chest_id: string]: boolean };
-  city: number | null;
+  city: string | null;
   country: number;
   education: number;
   email: string;

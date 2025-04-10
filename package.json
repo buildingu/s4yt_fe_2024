@@ -1,6 +1,6 @@
 {
-  "name": "s4yt_fe_2024",
-  "version": "2.0.0",
+  "name": "s4yt_fe_2025",
+  "version": "3.0.0",
   "private": true,
   "author": "David Bishop",
   "contributors": ["David Bishop", "Koki Vasileski"],
@@ -16,42 +16,31 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "clean": "rm -rf node_modules"
   },
   "dependencies": {
     "nanoid": "^5.0.4",
     "react": "^18",
     "react-dom": "^18",
-    "react-redux": "^8.1.2",
-    "react-router-dom": "^6.15.0",
-    "redux": "4.2.1",
+    "react-redux": "~8.1.0",
+    "react-router-dom": "6.29.0",
+    "redux": "~4.2.0",
     "redux-persist": "6.0.0",
     "redux-thunk": "2.4.2",
-    "socket.io-client": "^4.8.1"
+    "socket.io-client": "^4.8.0"
   },
   "devDependencies": {
-    "@types/node": "^20.8.6",
-    "@types/react": "^18.2.28",
-    "@types/react-dom": "^18.2.13",
-    "@vitejs/plugin-react": "^4.3.3",
+    "@types/node": "^20.14.0",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "@vitejs/plugin-react": "~4.3.0",
     "cross-env": "^7.0.3",
     "cssnano": "^7.0.6",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^10.1.3",
     "typescript": "4.9.5",
-    "vite": "^5.4.10",
-    "vite-tsconfig-paths": "^5.0.1"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "vite": "~6.2.0",
+    "vite-tsconfig-paths": "^5.0.0"
   }
 }

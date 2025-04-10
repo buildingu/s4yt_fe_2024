@@ -9,7 +9,6 @@ export default (func, error, navigate = true) => {
 };
 
 /**
- * 
  * @param {string} [customMessage] Only used for critical errors (500).
  */
 export const showError = (data, status, dispatch, customMessage) => {

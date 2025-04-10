@@ -1,29 +1,47 @@
-/* TODO: Make getting fonts better. */
 @font-face {
   font-family: "Night Zone";
-  src: url("static/fonts/NightZone/night-zone.ttf") format("truetype");
+  src:
+    url("/fonts/NightZone/night-zone.woff2") format("woff2"),
+    url("/fonts/NightZone/night-zone.woff") format("woff"),
+    url("/fonts/NightZone/night-zone.eot") format("embedded-opentype"),
+    url("/fonts/NightZone/night-zone.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/NightZone/night-zone.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "BebasNeue";
-  src: url("static/fonts/BebasNeue/bebasneue-regular.ttf");
+  src:
+    url("/fonts/BebasNeue/bebasneue-regular.ttf") format("truetype"),
+    url("/fonts/BebasNeue/bebasneue-regular.eot") format("embedded-opentype"),
+    url("/fonts/BebasNeue/bebasneue-regular.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/BebasNeue/bebasneue-regular.woff2") format("woff2"),
+    url("/fonts/BebasNeue/bebasneue-regular.woff") format("woff");
 }
 
 @font-face {
   font-family: "Corbel";
-  src: url("static/fonts/Corbel/corbel.ttf");
+  src:
+    url("/fonts/Corbel/corbel.woff2") format("woff2"),
+    url("/fonts/Corbel/corbel.woff") format("woff"),
+    url("/fonts/Corbel/corbel.eot") format("embedded-opentype"),
+    url("/fonts/Corbel/corbel.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/Corbel/corbel.ttf") format("truetype");
   font-weight: 400;
 }
 @font-face {
   font-family: "Corbel";
-  src: url("static/fonts/Corbel/corbel-bold.ttf");
+  src:
+    url("/fonts/Corbel/corbel-bold.woff2") format("woff2"),
+    url("/fonts/Corbel/corbel-bold.woff") format("woff"),
+    url("/fonts/Corbel/corbel-bold.eot") format("embedded-opentype"),
+    url("/fonts/Corbel/corbel-bold.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/Corbel/corbel-bold.ttf") format("truetype");
   font-weight: 700;
 }
 
 html {
-  background: url("static/bg.jpg") no-repeat center center;
+  background: url("/images/bg.jpg") no-repeat center center/cover;
   min-height: 100vh;
-  background-size: cover;
   color-scheme: light;
 
   --pbrown: #895734;
@@ -124,11 +142,11 @@ select {
 }
 select {
   appearance: none;
-  background: var(--white) url("./static/caret-down.svg") no-repeat
+  background: var(--white) url("/images/caret-down.svg") no-repeat
     calc(100% - 6px);
 }
 select[data-focused="true"]:not(select:disabled) {
-  background: var(--white) url("./static/caret-up.svg") no-repeat
+  background: var(--white) url("/images/caret-up.svg") no-repeat
     calc(100% - 6px);
 }
 input:disabled,
@@ -182,7 +200,7 @@ button.okBtn {
   position: relative;
   width: 120px;
   height: 120px;
-  background: url("./static/ok-btn-normal.png") no-repeat center/contain;
+  background: url("/images/ok-btn-normal.webp") no-repeat center/contain;
   border-radius: 60px 60px;
   cursor: pointer;
 }
@@ -205,10 +223,10 @@ button.okBtn.flip:before {
   transform: rotate(260deg) scaleY(-1);
 }
 button.okBtn:hover {
-  background: url("./static/ok-btn-hover.png") no-repeat center/contain;
+  background: url("/images/ok-btn-hover.webp") no-repeat center/contain;
 }
 button.okBtn:active {
-  background: url("./static/ok-btn-press.png") no-repeat center/contain;
+  background: url("/images/ok-btn-press.webp") no-repeat center/contain;
 }
 button.okBtn[disabled] {
   opacity: 0.35;
@@ -252,11 +270,14 @@ button.updateBtn:active {
   background-color: var(--sBeige);
   animation: slideUpModal 0.86s ease-in-out forwards;
   z-index: 10;
-  width: 90%;
+  width: 96%;
   max-width: 800px;
+  height: 100%;
 }
 .modalBackdrop .modal .exitBtn {
   position: absolute;
+  top: -8px;
+  right: -8px;
   width: 2rem;
   height: 2rem;
   border: 1px solid #363636;
@@ -274,24 +295,12 @@ button.updateBtn:active {
 .modalBackdrop .modal .exitBtn:hover {
   background-color: #ff5b5b;
 }
+.modalBackdrop .modal .exitBtn:active {
+  top: -6px;
+}
 .modalBackdrop .modal .content {
-  height: calc(100vh - 1rem);
+  height: inherit;
   overflow: auto;
-}
-@media screen and (min-height: 460px) {
-  .modalBackdrop .modal .exitBtn {
-    top: -8px;
-    right: -8px;
-  }
-  .modalBackdrop .modal .exitBtn:active {
-    top: -6px;
-  }
-}
-@media screen and (max-height: 459px) {
-  .modalBackdrop .modal .exitBtn {
-    top: 16px;
-    right: -1px;
-  }
 }
 
 /* Use for clickable elements that doesn't have hover and active states. */

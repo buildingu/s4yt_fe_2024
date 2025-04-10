@@ -8,7 +8,7 @@ export const socket = io(import.meta.env.DEV ? "http://localhost:4000" : undefin
 });
 
 export let timeout: NodeJS.Timeout | undefined;
-export const EstablishConnection = () => new Promise<void>((resolve, reject) => {
+export const EstablishConnection = (userEmail: string) => new Promise<void>((resolve, reject) => {
   let retries = 9;
   const attemptConnection = () => {
     retries--;
@@ -30,11 +30,20 @@ export const EstablishConnection = () => new Promise<void>((resolve, reject) => 
   if (socket.connected) return resolve(); // Resolves early if already connected somehow.
   socket
     .on("connect", () => {
-      console.info("Connection established with socket.");
+      if (import.meta.env.DEV)
+        console.log("Connection established with socket, waiting for registration...");
+
+      socket.emit("register", userEmail, (res: string) => {
+        if (res === "success") {
+          console.log("Successfully registered with socket server.");
+          resolve();
+        } else {
+          reject(new Error("Failed to register with a server resource, some things may not work properly."));
+        }
+      });
 
       socket.off("connect");
       socket.off("connect_error");
-      resolve();
     })
     .on("connect_error", (error) => {
       console.warn(`Socket instance connection error:\n`, error.message);

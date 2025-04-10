@@ -1,4 +1,4 @@
-import { SET_BUSINESSES } from "@actions/index";
+import { SET_BUSINESSES, UPDATE_BUSINESS_CHALLENGE, CLEAR_BUSINESSES } from "@actions/index";
 
 export interface Business {
   name: string;
@@ -6,6 +6,7 @@ export interface Business {
   link: string;
   description: string;
   challenge_question: {
+    challenge_id: string;
     title: string;
     description: string;
     answers_count: number;
@@ -17,6 +18,7 @@ export interface Business {
 
 export interface BusinessReduxState {
   businesses: Business[];
+  getBusinessesTimestamp?: number; // Timestamp is in milliseconds.
 }
 
 const initialState: BusinessReduxState = {
@@ -31,8 +33,26 @@ const businesses = (
     case SET_BUSINESSES:
       return {
         ...state,
-        businesses: action.payload
+        businesses: action.payload,
+        getBusinessesTimestamp: Date.now() + 3 * 60 * 60 * 1000
       };
+    case UPDATE_BUSINESS_CHALLENGE:
+      return {
+        ...state,
+        businesses: state.businesses.map((business) =>
+          business.challenge_question.challenge_id === action.payload.challenge_id
+            ? {
+                ...business,
+                challenge_question: {
+                  ...business.challenge_question,
+                  ...action.payload.update
+                }
+              }
+            : business
+        ),
+      };
+    case CLEAR_BUSINESSES:
+      return initialState;
     default:
       return state;
   }

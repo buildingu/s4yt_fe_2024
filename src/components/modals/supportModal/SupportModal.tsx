@@ -4,8 +4,8 @@ import UserCredentials from "@typings/UserCredentials";
 import { useState } from "react";
 import { connect } from "react-redux";
 
-import s from "./styles.module.css";
 import ModalTemplate from "../ModalTemplate";
+import s from "./styles.module.css";
 
 interface Props {
   user?: UserCredentials;
@@ -24,8 +24,8 @@ const SupportModal: React.FC<Props> = ({ user }) => {
       <ModalTemplate
         show={show}
         setShow={setShow}
+        aria-label="Contact Support"
         height={294}
-        label="Contact Support"
       >
         <div className={s.container}>
           <h2>Support</h2>

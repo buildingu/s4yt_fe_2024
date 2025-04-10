@@ -1,10 +1,10 @@
-import type { CoinTrackerState } from "@reducers/coinTracker";
+import type { GameReduxState } from "@reducers/game";
 import type { Dispatch } from "redux";
 
 import { useState, useLayoutEffect } from "react";
 import { connect } from "react-redux";
 
-import { getCoinsGainedHistory } from "@actions/coinTracker";
+import { getCoinsGainedHistory } from "@actions/game";
 
 import Spinner from "@components/loaders/spinner";
 
@@ -69,8 +69,8 @@ const Coins: React.FC<Props> = ({ userCoins, getCoinsGainedHistory }) => {
   );
 };
 
-const mapStateToProps = ({ coinTracker }: { coinTracker: CoinTrackerState }) => ({
-  userCoins: coinTracker.userCoins
+const mapStateToProps = ({ game }: { game: GameReduxState }) => ({
+  userCoins: game.userCoins
 });
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   getCoinsGainedHistory: (
