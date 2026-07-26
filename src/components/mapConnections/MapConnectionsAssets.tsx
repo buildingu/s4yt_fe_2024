@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import type { GameConfigReduxState } from "@reducers/gameConfig";
 
 import DL_01 from "../../assets/images/NewMap/dl_01.png";
-import DL_02 from "../../assets/images/NewMap/DL_02.png";
-import DL_03 from "../../assets/images/NewMap/DL_03.png";
-import DL_04 from "../../assets/images/NewMap/DL_04.png";
-import DL_05 from "../../assets/images/NewMap/DL_05.png";
-import DL_06 from "../../assets/images/NewMap/DL_06.png";
+import DL_02 from "../../assets/images/NewMap/dl_02.png";
+import DL_03 from "../../assets/images/NewMap/dl_03.png";
+import DL_04 from "../../assets/images/NewMap/dl_04.png";
+import DL_05 from "../../assets/images/NewMap/dl_05.png";
+import DL_06 from "../../assets/images/NewMap/dl_06.png";
 
 import s from "./styles.module.css";
 

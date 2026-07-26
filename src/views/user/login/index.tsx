@@ -66,7 +66,7 @@ const Login: React.FC<Props> = ({ loginPlayer }) => {
     <Layout style={{ position: "relative", maxWidth: "600px" }}>
       <Header title="Login" />
       <Content addCoins="coins1">
-        <Link className={`${s.resend} fade move`} to="/register/verify-email">
+        <Link className={s.resend} to="/register/verify-email">
           Resend Verification Email?
         </Link>
 

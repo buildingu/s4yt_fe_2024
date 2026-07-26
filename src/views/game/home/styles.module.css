@@ -112,6 +112,7 @@
 .notViewed div.scrollMarkers {
   justify-content: center;
   gap: 0.4rem;
+  margin-top: 3rem;
 }
 
 .marker {
@@ -168,4 +169,37 @@
   color: #b5392e;
   font-size: 44px;
   font-weight: 900;
+}
+
+.invitationBtn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 2.5rem;
+  background: #e8c18e;
+  color: #5a3010;
+  border: 2px solid #5a3010;
+  border-radius: 50px;
+  font-family: "BebasNeue", Arial;
+  font-size: 28px;
+  text-decoration: none;
+  min-width: 200px;
+  text-align: center;
+}
+
+.invitationBtn:hover {
+  opacity: 0.8;
+}
+
+.slideHeader {
+  margin-bottom: 0.25rem !important;
+}
+
+.firstUl {
+  margin-bottom: -1 !important;
+}
+
+.slideSubHeader {
+  margin-top: 3rem !important;
+  margin-bottom: 0.25rem !important;
+  transform: none;
 }
