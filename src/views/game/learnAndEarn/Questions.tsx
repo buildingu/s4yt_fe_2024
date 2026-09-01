@@ -197,7 +197,7 @@ const handleSelectAnswer = () => {
                       })
                   }
 
-                  {/* Bubble preview — shows when a letter is clicked */}
+                  {/* Bubble preview: shows when a letter is clicked */}
                   {previewAnswer && (
                     <div
                       className={s.bubblePreview}

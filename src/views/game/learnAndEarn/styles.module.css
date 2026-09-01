@@ -322,11 +322,11 @@ p.loading {
 .questions .openedChest .content h2.questionTxt {
   display: flex;
   text-align: left;
-  margin-inline: 1rem; /* less side margin so it's more left */
+  margin-inline: 1rem; 
 }
 .questions .openedChest .content h2.questionTxt div:first-child {
   font-family: "BebasNeue", Arial;
-  font-size: 72px; /* bigger than before */
+  font-size: 72px; 
 }
 .questions .openedChest .content h2.questionTxt div:last-child {
   font-family: "Corbel", Arial;
@@ -406,7 +406,6 @@ p.loading {
 }
 
 /* Letter buttons */
-/* Smaller A B C bubbles */
 .letterBtn {
   display: flex;
   flex-direction: column;

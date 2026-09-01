@@ -1,6 +1,6 @@
 .container {
   text-align: left;
-  padding: 1rem;
+  padding: 1.5rem;
   color: var(--pbrown);
 }
 
@@ -18,13 +18,78 @@
 
 .container .date {
   font-size: 22px;
-  margin: 1rem 0;
+  margin: 0.5rem 0 1.5rem;
 }
 
-.container .backBtn {
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.radioGroup div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.radioGroup label {
   font-family: "BebasNeue", Arial;
-  font-size: 24px;
+  font-size: 18px;
+  color: var(--pbrown);
+}
+
+.backBtn {
+  font-family: "BebasNeue", Arial;
+  font-size: 22px;
   color: var(--pbrown);
   text-decoration: underline;
   margin-top: 1rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.submitBtn {
+  font-family: "BebasNeue", Arial;
+  font-size: 22px;
+  background: var(--pbrown);
+  color: var(--white);
+  padding: 0.5rem 1.5rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+  display: block;
+  transition: 0.2s ease opacity;
+}
+
+.submitBtn:hover {
+  opacity: 0.8;
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.thankYouBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 200px;
+}
+
+.thankYouMsg {
+  font-family: "BebasNeue", Arial;
+  font-size: 24px;
+  color: var(--pbrown);
+  line-height: 1.6;
+  text-align: center;
+  padding: 2rem 3rem;
+  border: 2px solid var(--pbrown);
+  border-radius: 8px;
+  background: var(--sBeige-fade);
 }

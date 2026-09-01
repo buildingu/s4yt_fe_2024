@@ -45,7 +45,7 @@ const instructionSlides: React.ReactNode[] = [
   <>
     <p>Pre-Game (Learn &amp; Earn)</p>
     <ul>
-      <li>Opens at 11:59 PM EST on Thursday, September 3rd, 2026.</li>
+      <li>Opens at 1:00 AM EST on Friday, September 4th, 2026.</li>
       <li>Visit the Learn &amp; Earn page to earn Dubl-U-nes before the challenges open.</li>
       <li>These questions can help you in the Main Challenges, and your answers can be referenced throughout the game.</li>
       <li>Once the Main Challenges open, you can still revisit and answer questions, but no more earning Dubl-U-nes!</li>
