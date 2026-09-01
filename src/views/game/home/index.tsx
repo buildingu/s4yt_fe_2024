@@ -12,6 +12,8 @@ import MapNavigation from "@components/mapNavigation";
 import MapConnections from "@components/mapConnections/MapConnectionsAssets";
 import s from "./styles.module.css";
 import backMap from "src/assets/images/NewMap/back-map.png";
+import { Link } from "react-router-dom";
+import InvitationModal from "@components/modals/invitation";
 
 interface Props {
   addNotification: (notification: { error: boolean; content: string; close?: boolean; duration?: number }) => void;
@@ -28,11 +30,11 @@ const instructionSlides: React.ReactNode[] = [
   </>,
   // Slide 2: Welcome to the Game
   <>
-    <p>Welcome to the Game!</p>
-    <ul>
+    <p className={s.slideHeader}>Welcome to the Game!</p>
+    <ul className={s.firstUl}>
       <li>Head to the profile page to see your 3 Dubl-U-nes for registering.</li>
     </ul>
-    <p>What are Dubl-U-nes?</p>
+    <p className={s.slideSubHeader}>What are Dubl-U-nes?</p>
     <ul>
       <li>Our virtual currency to use in our raffle and the Pre-Game!</li>
       <li>Refer friends to get more Dubl-U-nes!</li>
@@ -43,7 +45,7 @@ const instructionSlides: React.ReactNode[] = [
   <>
     <p>Pre-Game (Learn &amp; Earn)</p>
     <ul>
-      <li>Opens at 1 AM EDT on April 3rd, 2026, until midnight EDT on April 4th, 2026.</li>
+      <li>Opens at 1:00 AM EST on Friday, September 4th, 2026.</li>
       <li>Visit the Learn &amp; Earn page to earn Dubl-U-nes before the challenges open.</li>
       <li>These questions can help you in the Main Challenges, and your answers can be referenced throughout the game.</li>
       <li>Once the Main Challenges open, you can still revisit and answer questions, but no more earning Dubl-U-nes!</li>
@@ -51,32 +53,27 @@ const instructionSlides: React.ReactNode[] = [
   </>,
   // Slide 4: Main Game (Business Island) + Raffle Time
   <>
-    <p>Main Game (Business Island)</p>
-    <ul>
-      <li>Opens at midnight EDT on April 4th, 2026, until midnight EDT on April 7th, 2026.</li>
+    <p className={s.slideHeader}>Main Game (Business Island)</p>
+    <ul className={s.firstUl}>
+      <li>Opens at 12:00 PM NOON on Saturday, September 5th, 2026. Closes Tuesday, September 8th at 12:00 PM NOON.</li>
       <li>Apply what you learned in the Pre-Game and take a stab at a business challenge (submitted anonymously) for the chance to win money!</li>
     </ul>
-    <p>Raffle Time</p>
+    <p className={s.slideSubHeader}>Raffle Time</p>
     <ul>
       <li>Go to the Raffle Page to use your Dubl-U-nes for prize entries.</li>
       <li>The more entries you have, the more chances to win!</li>
     </ul>
   </>,
-  // Slide 5: Wrap-Up
-  <div className={s.wrapUpSlide}>
-    <p className={s.wrapUpTitle}>Wrap-Up</p>
-    <p className={s.wrapUpHighlight}>April 11th at 2 PM ET</p>
-    <p>Regardless of participation, join the event wrap-up to meet challenge partners, celebrate, and hear about the challenge results and raffle draw!</p>
-    <p className={s.wrapUpWelcome}>All are welcome!</p>
-  </div>,
-];
+  // Slide 5: rendered inline
+  null,
+];  // <-- closing bracket of the array
 
 const Home: React.FC<Props> = ({ addNotification }) => {
   const blockBtnRef = useRef<HTMLButtonElement>(null);
-  const [viewed, setViewed] = useState(!!localStorage.getItem("block-instructions"));
+  const [viewed, setViewed] = useState(!!sessionStorage.getItem("block-instructions"));
   const [step, setStep] = useState(0);
   const [visitedSlides, setVisitedSlides] = useState<Set<number>>(new Set([0]));
-
+  const [showInvitation, setShowInvitation] = useState(false);
   // Zoom and movement 
   const [scale, setScale] = useState(1);
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -97,7 +94,20 @@ const Home: React.FC<Props> = ({ addNotification }) => {
       >
         {!viewed ? (
           <div className={s.notViewed}>
-            {instructionSlides[step]}
+            {step === 4 ? (
+              <div className={s.wrapUpSlide}>
+                <p className={s.wrapUpTitle}>Wrap-Up</p>
+                <p className={s.wrapUpHighlight}>September 12th at 2 PM ET</p>
+                <p>Regardless of participation, join the event wrap-up to meet challenge partners, celebrate, and hear about the challenge results and raffle draw!</p>
+                <p className={s.wrapUpWelcome}>All are welcome!</p>
+                <button
+                  className={s.invitationBtn}
+                  onClick={() => setShowInvitation(true)}
+                >
+                  Get my Invitation
+                </button>
+              </div>
+            ) : instructionSlides[step]}
 
             {/* Scroll markers */}
             <div className={s.scrollMarkers}>
@@ -121,7 +131,7 @@ const Home: React.FC<Props> = ({ addNotification }) => {
                 className={`${s.blockBtn} fade move`}
                 ref={blockBtnRef}
                 onClick={() => {
-                  localStorage.setItem("block-instructions", "true");
+                  sessionStorage.setItem("block-instructions", "true");
                   addNotification({ error: false, content: "Instructions are now blocked ✔", duration: 4000 });
                   if (blockBtnRef.current) blockBtnRef.current.disabled = true;
                 }}
@@ -131,7 +141,10 @@ const Home: React.FC<Props> = ({ addNotification }) => {
               <button
                 className="okBtn flip"
                 disabled={!allSlidesViewed}
-                onClick={() => setViewed(true)}
+                onClick={() => {
+                  sessionStorage.setItem("block-instructions", "true");
+                  setViewed(true);
+                }}
               />
             </div>
           </div>
@@ -185,6 +198,11 @@ const Home: React.FC<Props> = ({ addNotification }) => {
       </Content>
 
       {viewed && <Status />}
+      <InvitationModal
+        show={showInvitation}
+        setShow={setShowInvitation}
+      />
+
     </Layout>
   );
 };

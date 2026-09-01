@@ -151,4 +151,20 @@
 }
 .optionsView.meetUp form button {
   align-self: flex-end;
+  color: transparent;
+}
+
+.thankYouBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+.thankYouMsg {
+  font-family: "BebasNeue", Arial;
+  font-size: 28px;
+  color: var(--pbrown);
+  line-height: 1.6;
+  text-align: center;
 }

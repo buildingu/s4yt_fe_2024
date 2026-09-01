@@ -163,6 +163,7 @@ export const loginPlayer =
   };
 
 export const logoutPlayer = () => (dispatch, _) => {
+  sessionStorage.removeItem("block-instructions");
   dispatch({ type: LOGOUT });
   dispatch({ type: CLEAR_GAME });
   dispatch({ type: CLEAR_CURRENT_CONFIG });

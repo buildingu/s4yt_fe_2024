@@ -66,7 +66,14 @@ const RaffleItemModal: React.FC<Props> = ({ children, className, item, ...props 
 
             <div>
               {!mobileBreakpoint && <h2>{item.name}</h2>}
-              <p>{item.description}</p>
+
+              <div className={s.descriptionHover}>
+                <p className={s.descriptionPreview}>{item.description}</p>
+
+                <div className={s.descriptionExpanded}>
+                  <p>{item.description}</p>
+                </div>
+              </div>
 
               <div className={s.extras}>
                 <p className={s.stock}>

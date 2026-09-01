@@ -39,12 +39,105 @@
   margin-top: 64px;
 }
 
-.container .content > div:last-child > p {
-  font-family: "Corbal", Arial;
-  font-size: 18px;
+.container .content > div:last-child .descriptionHover {
+  position: relative;
+  width: 100%;
+  height: 168px;
   text-align: left;
-  max-height: 168px;
-  overflow: auto;
+  margin-bottom: 1rem;
+}
+
+
+/* Normal two-line description */
+.container .content > div:last-child .descriptionPreview {
+  font-family: "Corbel", Arial;
+  font-size: 18px;
+  line-height: 1.25;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  margin: 0;
+}
+
+
+/* Expanded description is hidden initially */
+.container .content > div:last-child .descriptionExpanded {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 0.75rem;
+  background-color: var(--pbrown-fade);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition:
+    opacity 0.2s ease-in-out,
+    visibility 0.2s ease-in-out;
+
+  z-index: 5;
+}
+
+
+/* Full description */
+.container .content > div:last-child .descriptionExpanded > p {
+  font-family: "Corbel", Arial;
+  font-size: 18px;
+  line-height: 1.25;
+
+  margin: 0;
+
+  max-height: 105px;
+  overflow-y: auto;
+}
+
+
+/* Show full description when hovering */
+.container .content > div:last-child .descriptionHover:hover .descriptionExpanded,
+.container .content > div:last-child .descriptionHover:focus-within .descriptionExpanded {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* Go back / add item button */
+.container .content > div:last-child .addItemButton {
+  align-self: center;
+
+  border: none;
+  background: url("/images/banner-btn-brown.webp")
+    no-repeat center center / 100% 100%;
+
+  width: 290px;
+  height: 48px;
+
+  font-family: "Night Zone", Arial;
+  font-size: 15px;
+  color: var(--white);
+
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+
+.container .content > div:last-child .addItemButton:hover {
+  background-image: url("/images/banner-btn-hover.webp");
+  transform: scale(1.03);
+}
+
+
+.container .content > div:last-child .addItemButton:active {
+  background-image: url("/images/banner-btn-beige.webp");
+  transform: scale(0.98);
 }
 
 .container .content > div:last-child .extras {
