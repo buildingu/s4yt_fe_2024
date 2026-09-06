@@ -172,7 +172,7 @@ const Raffle: React.FC<Props> = ({
             aria-label="Submit"
             text="Once you submit your raffle entries, you will not be able to change them for 30 minutes. Do you want to submit your current entries?"
             func={handleSubmit}
-            disabled={isNotPlayer() || !cooldownElapsed || !raffleItems.length || !coins}
+            disabled={isNotPlayer() || !cooldownElapsed || !raffleItems.length || (!staked.remainingCoins && !coins)}
             className={s.submit}
           />
         </div>
