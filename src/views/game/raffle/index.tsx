@@ -52,6 +52,10 @@ const Raffle: React.FC<Props> = ({
 }) => {
   const dispatch = useDispatch();
 
+  // Check if there are any changes made to stakes on raffle items
+  const stakeChanged = staked.raffleItem
+    && Object.values(staked.raffleItem).reduce((total, delta) => total + Math.abs(delta), 0) > 0;
+
   const [loading, setLoading] = useState(false),
     [cooldownElapsed, setCooldownElapsed] = useState(true);
 
@@ -172,7 +176,7 @@ const Raffle: React.FC<Props> = ({
             aria-label="Submit"
             text="Once you submit your raffle entries, you will not be able to change them for 30 minutes. Do you want to submit your current entries?"
             func={handleSubmit}
-            disabled={isNotPlayer() || !cooldownElapsed || !raffleItems.length}
+            disabled={isNotPlayer() || !cooldownElapsed || !raffleItems.length || !stakeChanged}
             className={s.submit}
           />
         </div>
